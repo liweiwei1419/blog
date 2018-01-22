@@ -1,1 +1,19 @@
-baseurl: /jekyll_demo
+title:             Clean Blog
+email:             liweiwei1419@gmail.com
+description:       李威威的博客
+author:            liweiwei
+baseurl:           "/jekyll_demo"
+url:               "http://liweiwei1419.github.io/jekyll_demo"
+
+# Social Profiles
+#twitter_username:  SBootstrap
+github_username:   liweiwei1419
+#facebook_username: StartBootstrap
+
+# Build settings
+markdown:          kramdown
+paginate:          5
+paginate_path:     "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
