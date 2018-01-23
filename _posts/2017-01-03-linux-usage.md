@@ -4,6 +4,7 @@ title:  "Linx 命令行学习备忘"    ## 文章的标题
 date:   2017-01-03         ## 发布时间
 author: "李威威"                 ## 作者
 categories: linux                  ## 文章所属的目录
+tag: linux
 background: '/img/posts/06.jpg'
 ---
 

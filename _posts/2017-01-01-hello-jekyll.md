@@ -5,6 +5,7 @@ subtitle: ""
 date:   2017-01-01          ## 发布时间
 author: "李威威"                 ## 作者
 categories: jekyll                  ## 文章所属的目录
+tag: jekyll
 background: '/img/posts/06.jpg'
 ---
 
