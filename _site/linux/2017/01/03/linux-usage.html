@@ -113,13 +113,25 @@
         <a class="btn btn-primary float-left" href="/blog/mac/2017/01/02/mac-usage.html" data-toggle="tooltip" data-placement="top" title="Mac 平台上的一些使用技巧备忘">&larr; Previous<span class="d-none d-md-inline"> Post</span></a>
         
         
-        <a class="btn btn-primary float-right" href="/blog/2018/01/22/man-must-explore.html" data-toggle="tooltip" data-placement="top" title="Man must explore, and this is exploration at its greatest">Next<span class="d-none d-md-inline"> Post</span> &rarr;</a>
-        
 
       </div>
 
     </div>
   </div>
+  <div id="gitmentContainer"></div>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+  var gitment = new Gitment({
+      owner: 'liweiwei1419',
+      repo: 'https://github.com/liweiwei1419/blog',
+      oauth: {
+          client_id: '8dd92db49ecdbf7048a7',
+          client_secret: 'e2ed413dd892496111f0ae3ebfe0cb4f5c77f20e',
+      },
+  });
+  gitment.render('gitmentContainer');
+  </script>
 </div>
 
 
