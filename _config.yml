@@ -2,7 +2,7 @@ title:             Clean Blog
 email:             liweiwei1419@gmail.com
 description:       李威威的博客
 author:            liweiwei
-baseurl:           "/jekyll_demo"
+baseurl:           "/blog"
 url:               "http://liweiwei1419.github.io/jekyll_demo"
 
 # Social Profiles
@@ -11,7 +11,13 @@ github_username:   liweiwei1419
 #facebook_username: StartBootstrap
 
 # Build settings
-markdown:          kramdown
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+
 paginate:          5
 paginate_path:     "/posts/page:num/"
 plugins:

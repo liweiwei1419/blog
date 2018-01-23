@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "Failure is not an option"
-subtitle: "Many say exploration is part of our destiny, but it’s actually our duty to future generations."
-date:   2017-10-28 23:45:13 -0400
-background: '/img/posts/03.jpg'
+title:  "Man must explore, and this is exploration at its greatest"
+subtitle: "Problems look mighty small from 150 miles up"
+date:   2018-01-22 09:00:13 -0400
+background: '/img/posts/06.jpg'
 ---
-
+春天的故事。
 <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</p>
 
 <p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
