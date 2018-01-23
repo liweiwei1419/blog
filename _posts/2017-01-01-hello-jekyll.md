@@ -36,3 +36,7 @@ background: '/img/posts/06.jpg'
 
 7、在Github pages中渲染LaTex公式  
 网址：[http://leohope.com/%E8%A7%A3%E9%97%AE%E9%A2%98/2017/09/08/page-with-latex/](http://leohope.com/%E8%A7%A3%E9%97%AE%E9%A2%98/2017/09/08/page-with-latex/)
+
+8、Gitment：使用 GitHub Issues 搭建评论系统  
+网址1：[Gitment 的作者的博客文章](https://imsun.net/posts/gitment-introduction/)
+网址2：[https://jacobpan3g.github.io/cn/2017/07/17/gitment-in-jekyll/](https://jacobpan3g.github.io/cn/2017/07/17/gitment-in-jekyll/)
