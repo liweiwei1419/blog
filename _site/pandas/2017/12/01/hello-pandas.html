@@ -8,10 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <title>
-    李威威的博客
+    Pandas 学习笔记（1）-Hello World - 李威威的博客
+    
   </title>
 
-  <meta name="description" content="快乐生活每一天">
+  <meta name="description" content="Pandas 学习笔记（1）-Hello World">
 
   <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
@@ -21,7 +22,7 @@
   <link rel="stylesheet" href="/blog/assets/vendor/font-awesome/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="/blog/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/blog/tags/jekyll/">
+  <link rel="canonical" href="http://localhost:4000/blog/pandas/2017/12/01/hello-pandas.html">
   <link rel="alternate" type="application/rss+xml" title="李威威的博客" href="/blog/feed.xml">
 
   <script type="text/x-mathjax-config">
@@ -74,15 +75,20 @@
 
     <!-- Page Header -->
 
-<header class="masthead">
+<header class="masthead" style="background-image: url('/blog/img/posts/06.jpg')">
 
   <div class="overlay"></div>
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="page-heading">
-          <h1></h1>
+        <div class="post-heading">
+          <h1>Pandas 学习笔记（1）-Hello World</h1>
           
+          <h2 class="subheading"></h2>
+          
+          <span class="meta">Posted by
+            <a href="#">Start Bootstrap</a>
+            on December 01, 2017</span>
         </div>
       </div>
     </div>
@@ -93,36 +99,42 @@
   <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
 
-      <div class="posts-list">
-  
-  <article class="post-preview">
-    <a href="/blog/jekyll/2017/01/01/hello-jekyll.html">
-      <h2 class="post-title">我的 Jekyll 博客开张了！</h2>
+      <h1 id="pandas-学习笔记1-hello-world">Pandas 学习笔记（1）-Hello World</h1>
 
-      
-      <h3 class="post-subtitle">
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 增加列</span>
+<span class="n">df_obj2</span><span class="p">[</span><span class="s">'G'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_obj2</span><span class="p">[</span><span class="s">'D'</span><span class="p">]</span> <span class="o">+</span> <span class="mi">4</span>
+</code></pre></div></div>
+
+
+      <hr>
+
+      <div class="clearfix">
+
         
-      </h3>
-      
-    </a>
+        <a class="btn btn-primary float-left" href="/blog/linux/2017/01/03/linux-usage.html" data-toggle="tooltip" data-placement="top" title="Linx 命令行学习备忘">&larr; Previous<span class="d-none d-md-inline"> Post</span></a>
+        
+        
 
-    <p class="post-meta">
-      <!-- Posted on January 1, 2017 -->
-      Posted on 2017-01-01
-    </p>
-
-    <div class="post-entry">
-      我的 Jekyll 博客开张了！ 从 Hexo 到 Jekyll 的原因 现在换成 Jekyll 的主要原因是，Hexo 的模板很多我并不是很满意，而 Jekyll 可以更灵活一些。总而言之，就是能让我有更多想写东西的冲动。 一些 Jekyll 的参考资料...
-      <a href="/blog/jekyll/2017/01/01/hello-jekyll.html" class="post-read-more">[Read&nbsp;More]</a>
-    </div>
-
-   </article>
-  
-</div>
-
+      </div>
 
     </div>
   </div>
+  <!-- gitment begin -->
+  <div id="gitmentContainer"></div>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+  var gitment = new Gitment({
+      owner: 'liweiwei1419',
+      repo: 'blog',
+      oauth: {
+          client_id: '8dd92db49ecdbf7048a7',
+          client_secret: 'e2ed413dd892496111f0ae3ebfe0cb4f5c77f20e',
+      },
+  });
+  gitment.render('gitmentContainer');
+  </script>
+  <!-- gitment end -->
 </div>
 
 
