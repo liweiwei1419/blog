@@ -1,27 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog/" rel="alternate" type="text/html" /><updated>2018-01-23T11:32:15+08:00</updated><id>http://localhost:4000/blog/</id><title type="html">Clean Blog</title><subtitle>李威威的博客</subtitle><author><name>liweiwei</name></author><entry><title type="html">我第 1 篇使用 Jekyll 编写的文章</title><link href="http://localhost:4000/blog/linux/2018/01/23/hello-world.html" rel="alternate" type="text/html" title="我第 1 篇使用 Jekyll 编写的文章" /><published>2018-01-23T00:00:00+08:00</published><updated>2018-01-23T00:00:00+08:00</updated><id>http://localhost:4000/blog/linux/2018/01/23/hello-world</id><content type="html" xml:base="http://localhost:4000/blog/linux/2018/01/23/hello-world.html">&lt;h1 id=&quot;学习笔记&quot;&gt;学习笔记&lt;/h1&gt;
-&lt;p&gt;cd - 回到上一次的目录&lt;br /&gt;
-cd 不加参数，就可以直接回到主目录&lt;br /&gt;
-file 查看文件的类型&lt;br /&gt;
-mv 更改名字&lt;br /&gt;
-less&lt;br /&gt;
-man 查看手册&lt;br /&gt;
-通配符，最重要的通配符，* 。删除 a 打头的所有文件。 rm a*&lt;br /&gt;
-echo a*&lt;br /&gt;
-echo &lt;em&gt;.html&lt;br /&gt;
-echo a&lt;/em&gt;html&lt;br /&gt;
-rm * 慎重使用&lt;br /&gt;
-重定向 &amp;gt;&lt;br /&gt;
-cat file2 &amp;gt;file（注意：此时是覆盖，如果需要追加的话，使用 »）&lt;br /&gt;
-cat file2 »file&lt;br /&gt;
-cat 这个命令本身就是连接，所以我们可以这么做。&lt;br /&gt;
-cat file1 file2 &amp;gt;file&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;a^2 + b^2 = c^2&lt;/script&gt;
-
-&lt;h2 id=&quot;linux-学习&quot;&gt;Linux 学习&lt;/h2&gt;
-
-&lt;h2 id=&quot;mac-知识积累&quot;&gt;Mac 知识积累&lt;/h2&gt;
-&lt;p&gt;Mac 的平台上使用 Control + a 就可以回到一行的开头。&lt;/p&gt;</content><author><name>李威威</name></author><summary type="html">学习笔记 cd - 回到上一次的目录 cd 不加参数，就可以直接回到主目录 file 查看文件的类型 mv 更改名字 less man 查看手册 通配符，最重要的通配符，* 。删除 a 打头的所有文件。 rm a* echo a* echo .html echo ahtml rm * 慎重使用 重定向 &amp;gt; cat file2 &amp;gt;file（注意：此时是覆盖，如果需要追加的话，使用 »） cat file2 »file cat 这个命令本身就是连接，所以我们可以这么做。 cat file1 file2 &amp;gt;file</summary></entry><entry><title type="html">Man must explore, and this is exploration at its greatest</title><link href="http://localhost:4000/blog/2018/01/22/man-must-explore.html" rel="alternate" type="text/html" title="Man must explore, and this is exploration at its greatest" /><published>2018-01-22T21:00:13+08:00</published><updated>2018-01-22T21:00:13+08:00</updated><id>http://localhost:4000/blog/2018/01/22/man-must-explore</id><content type="html" xml:base="http://localhost:4000/blog/2018/01/22/man-must-explore.html">&lt;p&gt;春天的故事。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog/" rel="alternate" type="text/html" /><updated>2018-01-23T12:19:38+08:00</updated><id>http://localhost:4000/blog/</id><title type="html">李威威的博客</title><subtitle>快乐生活每一天</subtitle><author><name>liweiwei</name></author><entry><title type="html">Man must explore, and this is exploration at its greatest</title><link href="http://localhost:4000/blog/2018/01/22/man-must-explore.html" rel="alternate" type="text/html" title="Man must explore, and this is exploration at its greatest" /><published>2018-01-22T21:00:13+08:00</published><updated>2018-01-22T21:00:13+08:00</updated><id>http://localhost:4000/blog/2018/01/22/man-must-explore</id><content type="html" xml:base="http://localhost:4000/blog/2018/01/22/man-must-explore.html">&lt;p&gt;春天的故事。&lt;/p&gt;
 &lt;p&gt;Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.&lt;/p&gt;
 
 &lt;p&gt;Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.&lt;/p&gt;
@@ -53,4 +30,42 @@ cat file1 file2 &amp;gt;file&lt;/p&gt;
 
 &lt;p&gt;As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.&lt;/p&gt;
 
-&lt;p&gt;Placeholder text by &lt;a href=&quot;http://spaceipsum.com/&quot;&gt;Space Ipsum&lt;/a&gt;. Photographs by &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;.&lt;/p&gt;</content><author><name>liweiwei</name></author><summary type="html">春天的故事。 Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</summary></entry></feed>
+&lt;p&gt;Placeholder text by &lt;a href=&quot;http://spaceipsum.com/&quot;&gt;Space Ipsum&lt;/a&gt;. Photographs by &lt;a href=&quot;https://unsplash.com/&quot;&gt;Unsplash&lt;/a&gt;.&lt;/p&gt;</content><author><name>liweiwei</name></author><summary type="html">春天的故事。 Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</summary></entry><entry><title type="html">Linx 命令行学习备忘</title><link href="http://localhost:4000/blog/linux/2017/01/03/linux-usage.html" rel="alternate" type="text/html" title="Linx 命令行学习备忘" /><published>2017-01-03T00:00:00+08:00</published><updated>2017-01-03T00:00:00+08:00</updated><id>http://localhost:4000/blog/linux/2017/01/03/linux-usage</id><content type="html" xml:base="http://localhost:4000/blog/linux/2017/01/03/linux-usage.html">&lt;h1 id=&quot;linx-命令行学习备忘&quot;&gt;Linx 命令行学习备忘&lt;/h1&gt;
+&lt;ul&gt;
+  &lt;li&gt;cd - 回到上一次的目录，cd 不加参数，就可以直接回到主目录 。&lt;/li&gt;
+  &lt;li&gt;file：查看文件的类型，Linux 文件的类型不是由后缀名决定的。&lt;/li&gt;
+  &lt;li&gt;mv：移动文件，更改文件的名字。&lt;/li&gt;
+  &lt;li&gt;less&lt;/li&gt;
+  &lt;li&gt;man： 查看手册&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>李威威</name></author><summary type="html">Linx 命令行学习备忘 cd - 回到上一次的目录，cd 不加参数，就可以直接回到主目录 。 file：查看文件的类型，Linux 文件的类型不是由后缀名决定的。 mv：移动文件，更改文件的名字。 less man： 查看手册</summary></entry><entry><title type="html">Mac 平台上的一些使用技巧备忘</title><link href="http://localhost:4000/blog/mac/2017/01/02/mac-usage.html" rel="alternate" type="text/html" title="Mac 平台上的一些使用技巧备忘" /><published>2017-01-02T00:00:00+08:00</published><updated>2017-01-02T00:00:00+08:00</updated><id>http://localhost:4000/blog/mac/2017/01/02/mac-usage</id><content type="html" xml:base="http://localhost:4000/blog/mac/2017/01/02/mac-usage.html">&lt;h1 id=&quot;mac-平台上的一些使用技巧备忘&quot;&gt;Mac 平台上的一些使用技巧备忘&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mac 的平台上使用 Control + a 就可以回到一行的开头。&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>李威威</name></author><summary type="html">Mac 平台上的一些使用技巧备忘</summary></entry><entry><title type="html">我的 Jekyll 博客开张了！</title><link href="http://localhost:4000/blog/jekyll/2017/01/01/hello-jekyll.html" rel="alternate" type="text/html" title="我的 Jekyll 博客开张了！" /><published>2017-01-01T00:00:00+08:00</published><updated>2017-01-01T00:00:00+08:00</updated><id>http://localhost:4000/blog/jekyll/2017/01/01/hello-jekyll</id><content type="html" xml:base="http://localhost:4000/blog/jekyll/2017/01/01/hello-jekyll.html">&lt;h1 id=&quot;我的-jekyll-博客开张了&quot;&gt;我的 Jekyll 博客开张了！&lt;/h1&gt;
+
+&lt;h2 id=&quot;从-hexo-到-jekyll-的原因&quot;&gt;从 Hexo 到 Jekyll 的原因&lt;/h2&gt;
+&lt;p&gt;现在换成 Jekyll 的主要原因是，Hexo 的模板很多我并不是很满意，而 Jekyll 可以更灵活一些。总而言之，就是能让我有更多想写东西的冲动。&lt;/p&gt;
+
+&lt;h2 id=&quot;一些-jekyll-的参考资料&quot;&gt;一些 Jekyll 的参考资料&lt;/h2&gt;
+
+&lt;p&gt;1、官方网站&lt;br /&gt;
+网址：&lt;a href=&quot;http://jekyllcn.com/&quot;&gt;http://jekyllcn.com/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;2、阮一峰老师的文章《搭建一个免费的，无限流量的Blog—-github Pages和Jekyll入门》&lt;br /&gt;
+网址：&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&quot;&gt;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;3、段朝骞|Mac安装jekyll&lt;br /&gt;
+网址：&lt;a href=&quot;http://www.duanzhaoqian.com/mac/2016/08/04/github_pages_jekyll.html&quot;&gt;http://www.duanzhaoqian.com/mac/2016/08/04/github_pages_jekyll.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;4、从零开始折腾Jekyll——使用Jekyll模板&lt;br /&gt;
+网址：&lt;a href=&quot;http://bluebiu.com/blog/learn-to-use-jekyll.html#fn:note_2&quot;&gt;http://bluebiu.com/blog/learn-to-use-jekyll.html#fn:note_2&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;5、Jekyll&amp;amp;Github Pages博客模板挑选和配置 • cenalulu’s Tech Blog&lt;br /&gt;
+网址：&lt;a href=&quot;http://cenalulu.github.io/jekyll/choose-a-template-for-your-blog/&quot;&gt;http://cenalulu.github.io/jekyll/choose-a-template-for-your-blog/&lt;/a&gt;&lt;br /&gt;
+说明：启动本地服务的命令：&lt;code class=&quot;highlighter-rouge&quot;&gt;bundle exec jekyll serve&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;6、使用 Markdown 和 Jekyll&lt;br /&gt;
+网址：&lt;a href=&quot;http://bowenpay.github.io/manage/2015/01/05/welcome-to-jekyll.html&quot;&gt;http://bowenpay.github.io/manage/2015/01/05/welcome-to-jekyll.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;7、在Github pages中渲染LaTex公式&lt;br /&gt;
+网址：&lt;a href=&quot;http://leohope.com/%E8%A7%A3%E9%97%AE%E9%A2%98/2017/09/08/page-with-latex/&quot;&gt;http://leohope.com/%E8%A7%A3%E9%97%AE%E9%A2%98/2017/09/08/page-with-latex/&lt;/a&gt;&lt;/p&gt;</content><author><name>李威威</name></author><summary type="html">我的 Jekyll 博客开张了！</summary></entry></feed>
