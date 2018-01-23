@@ -3,7 +3,7 @@ email:             liweiwei1419@gmail.com
 description:       李威威的博客
 author:            liweiwei
 baseurl:           "/blog"
-url:               "http://liweiwei1419.github.io/jekyll_demo"
+url:               "http://liweiwei1419.github.io/blog"
 
 # Social Profiles
 #twitter_username:  SBootstrap
