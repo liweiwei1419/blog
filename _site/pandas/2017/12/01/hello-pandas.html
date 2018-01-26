@@ -101,9 +101,80 @@
 
       <h1 id="pandas-学习笔记1-hello-world">Pandas 学习笔记（1）-Hello World</h1>
 
+<ul>
+  <li>Series 上 <code class="highlighter-rouge">[]</code> 这个操作符是对索引操作，里面可以填 index 的名称，也可以填序号（这里要注意，写两行代码比较一下就清楚了，注意是否包含后面的那个索引）。</li>
+  <li>DataFrame 直接上 <code class="highlighter-rouge">[]</code> 这个操作符，就是对列操作。</li>
+</ul>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 增加列</span>
 <span class="n">df_obj2</span><span class="p">[</span><span class="s">'G'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_obj2</span><span class="p">[</span><span class="s">'D'</span><span class="p">]</span> <span class="o">+</span> <span class="mi">4</span>
+
+<span class="c"># 删除列</span>
+<span class="k">del</span><span class="p">(</span><span class="n">df_obj2</span><span class="p">[</span><span class="s">'G'</span><span class="p">]</span> <span class="p">)</span>
 </code></pre></div></div>
+
+<h2 id="series-和-dataframe-的索引">Series 和 DataFrame 的索引</h2>
+
+<ul>
+  <li>索引对象是不可变对象</li>
+</ul>
+
+<h3 id="series-的索引">Series 的索引</h3>
+
+<ul>
+  <li>直接设置 Series 的索引对象</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ser_obj</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">,</span> <span class="s">'d'</span><span class="p">,</span> <span class="s">'e'</span><span class="p">])</span>
+<span class="c"># 使用 ser_obj.head() 查看</span>
+</code></pre></div></div>
+
+<ul>
+  <li>索引的切片使用 <code class="highlighter-rouge">:</code>。</li>
+  <li>不连续的索引，要使用二维数据来索引。
+例如：
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ser_obj</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]</span>
+<span class="n">ser_obj</span><span class="p">[[</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'e'</span><span class="p">]]</span>
+</code></pre></div>    </div>
+  </li>
+  <li>掌握使用遮罩进行索引的技巧，<code class="highlighter-rouge">[]</code> 里面是一个布尔数组：
+例如：
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ser_obj</span><span class="p">[</span><span class="n">ser_obj</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="dataframe-的索引">DataFrame 的索引</h3>
+
+<ul>
+  <li>默认添加的索引是 0，1，2，3
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_obj</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'a'</span><span class="p">,</span> <span class="s">'b'</span><span class="p">,</span> <span class="s">'c'</span><span class="p">,</span> <span class="s">'d'</span><span class="p">])</span>
+</code></pre></div>    </div>
+    <p>上面的 df_obj[‘a’] 返回的是 Series 类型。</p>
+  </li>
+  <li>loc 是按标签索引，<strong>包含索引末尾位置</strong>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_obj</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s">'b'</span><span class="p">]</span>
+</code></pre></div>    </div>
+  </li>
+  <li>可以根据索引和值排序，注意轴的方向。
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_obj</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df_obj</span><span class="o">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>判断数据是否为 NaN
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_data</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+</code></pre></div>    </div>
+  </li>
+  <li>丢弃 NaN 的数据
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_data</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>填充 NaN 的数据
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_data</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="o">-</span><span class="mf">100.</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
 
 
       <hr>
