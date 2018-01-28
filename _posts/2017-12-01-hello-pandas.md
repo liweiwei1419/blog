@@ -77,3 +77,7 @@ df_data.dropna(axis=0)
 ```python
 df_data.fillna(-100.)
 ```
+## Pandas 的统计部分
+
++ 可以查看很多个维度的数据
+df_obj.describe()

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog/" rel="alternate" type="text/html" /><updated>2018-01-23T16:31:39+08:00</updated><id>http://localhost:4000/blog/</id><title type="html">李威威的博客</title><subtitle>快乐生活每一天</subtitle><author><name>liweiwei</name></author><entry><title type="html">Pandas 学习笔记（1）-Hello World</title><link href="http://localhost:4000/blog/pandas/2017/12/01/hello-pandas.html" rel="alternate" type="text/html" title="Pandas 学习笔记（1）-Hello World" /><published>2017-12-01T00:00:00+08:00</published><updated>2017-12-01T00:00:00+08:00</updated><id>http://localhost:4000/blog/pandas/2017/12/01/hello-pandas</id><content type="html" xml:base="http://localhost:4000/blog/pandas/2017/12/01/hello-pandas.html">&lt;h1 id=&quot;pandas-学习笔记1-hello-world&quot;&gt;Pandas 学习笔记（1）-Hello World&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/blog/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/blog/" rel="alternate" type="text/html" /><updated>2018-01-26T20:24:12+08:00</updated><id>http://localhost:4000/blog/</id><title type="html">李威威的博客</title><subtitle>快乐生活每一天</subtitle><author><name>liweiwei</name></author><entry><title type="html">Pandas 学习笔记（1）-Hello World</title><link href="http://localhost:4000/blog/pandas/2017/12/01/hello-pandas.html" rel="alternate" type="text/html" title="Pandas 学习笔记（1）-Hello World" /><published>2017-12-01T00:00:00+08:00</published><updated>2017-12-01T00:00:00+08:00</updated><id>http://localhost:4000/blog/pandas/2017/12/01/hello-pandas</id><content type="html" xml:base="http://localhost:4000/blog/pandas/2017/12/01/hello-pandas.html">&lt;h1 id=&quot;pandas-学习笔记1-hello-world&quot;&gt;Pandas 学习笔记（1）-Hello World&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Series 上 &lt;code class=&quot;highlighter-rouge&quot;&gt;[]&lt;/code&gt; 这个操作符是对索引操作，里面可以填 index 的名称，也可以填序号（这里要注意，写两行代码比较一下就清楚了，注意是否包含后面的那个索引）。&lt;/li&gt;
@@ -72,8 +72,77 @@
   &lt;li&gt;填充 NaN 的数据
     &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df_data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fillna&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;100.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;h2 id=&quot;pandas-的统计部分&quot;&gt;Pandas 的统计部分&lt;/h2&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>李威威</name></author><category term="pandas" /><summary type="html">Pandas 学习笔记（1）-Hello World</summary></entry><entry><title type="html">Linx 命令行学习备忘</title><link href="http://localhost:4000/blog/linux/2017/01/03/linux-usage.html" rel="alternate" type="text/html" title="Linx 命令行学习备忘" /><published>2017-01-03T00:00:00+08:00</published><updated>2017-01-03T00:00:00+08:00</updated><id>http://localhost:4000/blog/linux/2017/01/03/linux-usage</id><content type="html" xml:base="http://localhost:4000/blog/linux/2017/01/03/linux-usage.html">&lt;h1 id=&quot;linx-命令行学习备忘&quot;&gt;Linx 命令行学习备忘&lt;/h1&gt;
+  &lt;li&gt;可以查看很多个维度的数据
+df_obj.describe()&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>李威威</name></author><category term="pandas" /><summary type="html">Pandas 学习笔记（1）-Hello World</summary></entry><entry><title type="html">Atom 使用技巧备忘</title><link href="http://localhost:4000/blog/atom/2017/01/04/atom-usage.html" rel="alternate" type="text/html" title="Atom 使用技巧备忘" /><published>2017-01-04T00:00:00+08:00</published><updated>2017-01-04T00:00:00+08:00</updated><id>http://localhost:4000/blog/atom/2017/01/04/atom-usage</id><content type="html" xml:base="http://localhost:4000/blog/atom/2017/01/04/atom-usage.html">&lt;h1 id=&quot;atom-使用技巧备忘&quot;&gt;Atom 使用技巧备忘&lt;/h1&gt;
+
+&lt;h2 id=&quot;常用的快捷键&quot;&gt;常用的快捷键&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;column&lt;/th&gt;
+      &lt;th&gt;column&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;运行代码&lt;/td&gt;
+      &lt;td&gt;Control + R&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;跳转到下一行&lt;/td&gt;
+      &lt;td&gt;Control + N（Command + N 的效果是新建一个文件，这里的 N 表示 next）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;删除当前行&lt;/td&gt;
+      &lt;td&gt;Control + Shift + K（注意：这里是 Control）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;复制当前行&lt;/td&gt;
+      &lt;td&gt;Command + Shift + D（注意：这里是 Command）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;在 buffer 中查找&lt;/td&gt;
+      &lt;td&gt;Command + F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;在整个工程中查找&lt;/td&gt;
+      &lt;td&gt;Command + Shift + F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Markdown 实时预览&lt;/td&gt;
+      &lt;td&gt;Control + Shift + M （注意：这里是 Control 不是 Command）&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;在 buffer 中查找&lt;/td&gt;
+      &lt;td&gt;Command + F&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;进入文件跳转面板&lt;/td&gt;
+      &lt;td&gt;Command + T&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;进入变量、函数跳转面板&lt;/td&gt;
+      &lt;td&gt;Command + R&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;调出切换编码选项&lt;/td&gt;
+      &lt;td&gt;Control + Shift + U&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;插件&quot;&gt;插件&lt;/h2&gt;
+&lt;h3 id=&quot;tokamak-terminal使用-control---就可以唤出控制台&quot;&gt;tokamak-terminal：使用 Control + ` 就可以唤出控制台。&lt;/h3&gt;
+&lt;p&gt;参考资料：Atom 编辑器 入门 快捷键 插件安利 https://www.jianshu.com/p/aa8f8a252ed9
+说明：这篇文章里面介绍了很多终端的插件。&lt;/p&gt;
+
+&lt;h2 id=&quot;参考资料&quot;&gt;参考资料：&lt;/h2&gt;
+&lt;p&gt;ATOM编辑器快捷键大全
+https://www.jianshu.com/p/b8392151c0cd&lt;/p&gt;</content><author><name>李威威</name></author><category term="atom" /><summary type="html">Atom 使用技巧备忘</summary></entry><entry><title type="html">Linx 命令行学习备忘</title><link href="http://localhost:4000/blog/linux/2017/01/03/linux-usage.html" rel="alternate" type="text/html" title="Linx 命令行学习备忘" /><published>2017-01-03T00:00:00+08:00</published><updated>2017-01-03T00:00:00+08:00</updated><id>http://localhost:4000/blog/linux/2017/01/03/linux-usage</id><content type="html" xml:base="http://localhost:4000/blog/linux/2017/01/03/linux-usage.html">&lt;h1 id=&quot;linx-命令行学习备忘&quot;&gt;Linx 命令行学习备忘&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;cd - 回到上一次的目录，cd 不加参数，就可以直接回到主目录 。&lt;/li&gt;
   &lt;li&gt;file：查看文件的类型，Linux 文件的类型不是由后缀名决定的。&lt;/li&gt;
