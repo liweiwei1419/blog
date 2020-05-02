@@ -443,31 +443,9 @@
     
     
     <entry>
-      <title>categories</title>
-      <link href="/leetcode-algo/categories/index.html"/>
-      <url>/leetcode-algo/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>contact</title>
       <link href="/leetcode-algo/contact/index.html"/>
       <url>/leetcode-algo/contact/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>about</title>
-      <link href="/leetcode-algo/about/index.html"/>
-      <url>/leetcode-algo/about/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -490,6 +468,28 @@
       <title>tags</title>
       <link href="/leetcode-algo/tags/index.html"/>
       <url>/leetcode-algo/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>categories</title>
+      <link href="/leetcode-algo/categories/index.html"/>
+      <url>/leetcode-algo/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>about</title>
+      <link href="/leetcode-algo/about/index.html"/>
+      <url>/leetcode-algo/about/index.html</url>
       
         <content type="html"><![CDATA[]]></content>
       
