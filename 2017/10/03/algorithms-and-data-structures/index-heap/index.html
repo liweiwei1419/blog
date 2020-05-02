@@ -1,0 +1,1673 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="「优先队列」专题 3：索引堆, 算法与数据结构入门教程">
+    <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>「优先队列」专题 3：索引堆 | 算法与数据结构入门教程</title>
+    <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/my.css">
+
+    <script src="/leetcode-algo/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/leetcode-algo/atom.xml" title="算法与数据结构入门教程" type="application/atom+xml">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/leetcode-algo/" class="waves-effect waves-light">
+                    
+                    <img src="/leetcode-algo/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">算法与数据结构入门教程</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/leetcode-algo/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">算法与数据结构入门教程</div>
+        <div class="logo-desc">
+            
+            Java、Python3 语言实现，「专题」教程持续更新中...
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/18.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">「优先队列」专题 3：索引堆</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/leetcode-algo/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    .toc-fixed .toc-link::before{
+        position: fixed!important;/*当toc的位置改为fixed时，.toc-link::before也要改为fixed*/
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/leetcode-algo/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
+                                <span class="chip bg-color">优先队列</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-10%EF%BC%9A%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/" class="post-category">
+                                专题 10：优先队列
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2017-10-03
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="「队列」专题-3：索引堆"><a href="#「队列」专题-3：索引堆" class="headerlink" title="「队列」专题 3：索引堆"></a>「队列」专题 3：索引堆</h2><p>索引堆是一个相对于普通堆更加高级的数据结构。</p>
+<h3 id="为什么要引入索引堆这个数据结构？"><a href="#为什么要引入索引堆这个数据结构？" class="headerlink" title="为什么要引入索引堆这个数据结构？"></a>为什么要引入索引堆这个数据结构？</h3><p>在一些场景下，堆这个数据结构不高效，或者说功能不够用：</p>
+<p>1、如果元素是非常复杂的结构（例如是长字符串），交换这件事情会产生大量的性能消耗；</p>
+<p>我们之前在堆中的操作有大量地交换操作，这种直接交换内存的操作，在元素占用内存比较小的时候，并没有多少性能的消耗，但是当须交换位置的元素占用内存很大的时候，此时交换两个元素的内存就不可以被忽视，于是，我们就想通过给堆中的每个元素映射一个标识，也就是我们这一节提到的索引。通过索引的操作来实现元素的操作。</p>
+<p>通过索引可以找到我们真正存放在数组中的元素，而索引所代表数据构成一个最大堆。</p>
+<p>举一个可能不是很恰当的生活中的例子，我们要给一组学生按照身高进行排序，我们不用把他们全部喊出来让他们从矮到高排好，我们只要让他们报上自己的身高，在纸上做他们身高的比较就可以了。</p>
+<p>2、元素位置发生改变以后，很难再次索引到它，例如：我们想要将原来索引是 $6$ 的元素的优先级提升或者下降一下，但是我们不知道原来索引是 $6$ 的元素到底是谁了。</p>
+<p>想一想为什么没有索引就不能支持 <code>change</code>，因为索引不到原来的数据，因此我就不知道要 <code>change</code> 哪个数据，除非遍历一遍整个数组元素。</p>
+<p>在实际应用中，我们除了有 <code>insert</code> 和 <code>extract</code> 这两个操作以外，我们数组中的元素很可能是动态变化的，在变化的过程中，如何保持最大堆的性质，这就是我们要讨论的问题。在以后章节的学习中，我们将会看到 <code>change</code> 操作的实际应用。</p>
+<blockquote>
+<p>我们不交换数据，而给每个数据一个索引，索引代表的数据是堆有序的。即：我们比较的是数据，交换的是索引。</p>
+</blockquote>
+<h3 id="最大索引堆"><a href="#最大索引堆" class="headerlink" title="最大索引堆"></a>最大索引堆</h3><p>索引堆的思想类似于在医院看病使用的“叫号排队”机制，想想我们去医院挂号排队的时候：我们不用真的站在那里排成一队，每个人领一个号坐在大厅里，轮到你了，你才进去看病。</p>
+<p>最大索引堆的内部维护了一个索引数组，这个索引数组所代表的数据构成了一个最大堆；由于索引和堆中数据存在一一对应的关系，我们通过索引可以很快地定位到数据，而索引的操作又是十分方便的。</p>
+<p>下面以最大索引堆为例，阐述相关的技巧和思想：</p>
+<p>最大索引堆中的 <code>data</code> 数组是由用户定义的，用户的 <code>insert</code>、<code>extract</code>、和 <code>change</code> 操作只会插入、取出和修改 <code>data</code> 数组中的元素，由程序员来维护内部的索引数组，索引数组堆有序。</p>
+<p>1、比较的时候使用 <code>data</code> 数组进行比较，交换的时候交换的是 <code>indexes</code> 数组的元素；</p>
+<p>2、<strong>比较的是 <code>data</code> 的数据，交换的是 <code>indexes</code> 的位置</strong>。</p>
+<p>下面，我们看一个例子，我们浪费一个元素的位置。下面这张表是数组原始的样子：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th align="left">0</th>
+<th align="left">1</th>
+<th align="left">2</th>
+<th align="left">3</th>
+<th align="left">4</th>
+<th align="left">5</th>
+<th align="left">6</th>
+<th align="left">7</th>
+<th align="left">8</th>
+<th align="left">9</th>
+<th align="left">10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>indexes</code></td>
+<td align="left">（空着）</td>
+<td align="left">1</td>
+<td align="left">2</td>
+<td align="left">3</td>
+<td align="left">4</td>
+<td align="left">5</td>
+<td align="left">6</td>
+<td align="left">7</td>
+<td align="left">8</td>
+<td align="left">9</td>
+<td align="left">10</td>
+</tr>
+<tr>
+<td><code>data</code></td>
+<td align="left">（空着）</td>
+<td align="left">15</td>
+<td align="left">17</td>
+<td align="left">19</td>
+<td align="left">13</td>
+<td align="left">22</td>
+<td align="left">16</td>
+<td align="left">28</td>
+<td align="left">30</td>
+<td align="left">41</td>
+<td align="left">62</td>
+</tr>
+</tbody></table>
+<p><code>heapify</code> 以后，<code>data</code> 元素不动，<strong>将 <code>indexes</code> 替换成它们代表的元素的值以后，就是一个最大堆</strong>：</p>
+<table>
+<thead>
+<tr>
+<th align="left">0</th>
+<th align="left">1</th>
+<th align="left">2</th>
+<th align="left">3</th>
+<th align="left">4</th>
+<th align="left">5</th>
+<th align="left">6</th>
+<th align="left">7</th>
+<th align="left">8</th>
+<th align="left">9</th>
+<th align="left">10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>indexes</code></td>
+<td align="left">10</td>
+<td align="left">9</td>
+<td align="left">5</td>
+<td align="left">7</td>
+<td align="left">8</td>
+<td align="left">6</td>
+<td align="left">2</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left"><code>data</code></td>
+<td align="left">15</td>
+<td align="left">17</td>
+<td align="left">19</td>
+<td align="left">13</td>
+<td align="left">22</td>
+<td align="left">16</td>
+<td align="left">28</td>
+<td align="left">30</td>
+<td align="left">41</td>
+<td align="left">62</td>
+</tr>
+</tbody></table>
+<p>说明：<code>indexes[1] = 10</code> ，表示 <code>data[10]</code> 在最大堆中的位置是 <code>1</code> ，抽象成一般情况就是：<code>indexes[x] = i</code> ，表示 <code>data[i]</code> 在最大堆中的位置是 <code>x</code> 。紧扣<strong>索引数组是堆有序</strong>这一点就不难理解了。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/414598-3b1da05ed2133045.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="索引堆-1"></p>
+<p>我们可以通过对之前最大堆的数据结构的改造，修改成一个最大索引堆。首先修改构造函数，引入索引数组。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">IndexMaxHeap</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> capacity<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token punctuation">[</span>None <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>capacity <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token comment" spellcheck="true"># 初值设置为 0 ，表示该位置还没有放置元素</span>
+        self<span class="token punctuation">.</span>indexes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>capacity <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>capacity <span class="token operator">=</span> capacity<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其次修改  <code>insert</code> 方法：这里的 <code>insert</code> 虽然指定了索引，但是一定是在 <code>data</code> 数组的最后添加数据。我们插入一个元素的时候，同时要指定这个元素的索引 <code>i</code> ，这里要注意：传入的 <code>i</code> 对用户而言是从 $0$ 开始的，因此在底层发生操作之前，得先加 $1$。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 此时 insert 要给一个索引位置</span>
+<span class="token keyword">def</span> <span class="token function">insert</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> i<span class="token punctuation">,</span> item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">></span> self<span class="token punctuation">.</span>capacity<span class="token punctuation">:</span>
+        <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'堆的容量不够了'</span><span class="token punctuation">)</span>
+        i <span class="token operator">+=</span> <span class="token number">1</span>
+        self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> item
+        <span class="token comment" spellcheck="true"># 这一步很关键，在内部索引数组的最后设置索引数组的索引</span>
+        self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>self<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> i
+        self<span class="token punctuation">.</span>count <span class="token operator">+=</span> <span class="token number">1</span>
+        self<span class="token punctuation">.</span>__shift_up<span class="token punctuation">(</span>self<span class="token punctuation">.</span>count<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>shift_up</code> 方法也要修改：这里就是我们上面说的那一点：<strong>比较的是 <code>data</code> 的数据，交换的是 <code>indexes</code> 的位置</strong>。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">__shift_up</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 比较的时候，上面套一层 indexes，交换的是 indexes</span>
+    <span class="token keyword">while</span> k <span class="token operator">></span> <span class="token number">1</span> <span class="token operator">and</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k <span class="token operator">//</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k <span class="token operator">//</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k <span class="token operator">//</span> <span class="token number">2</span><span class="token punctuation">]</span>
+        k <span class="token operator">//=</span> <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后修改 <code>extract_max</code> 方法：</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">extract_max</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>count <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'堆里没有可以取出的元素'</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 里面套一层 indexes</span>
+        ret <span class="token operator">=</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+        <span class="token comment" spellcheck="true"># 交换的是索引</span>
+        self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>self<span class="token punctuation">.</span>count<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>self<span class="token punctuation">.</span>count<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>count <span class="token operator">-=</span> <span class="token number">1</span>
+        self<span class="token punctuation">.</span>__shift_down<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">__shift_down</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">while</span> <span class="token number">2</span> <span class="token operator">*</span> k <span class="token operator">&lt;=</span> self<span class="token punctuation">.</span>count<span class="token punctuation">:</span>
+        j <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> k
+        <span class="token comment" spellcheck="true"># 比较的是 data ，交换的是 indexes</span>
+        <span class="token keyword">if</span> j <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;=</span> self<span class="token punctuation">.</span>count <span class="token operator">and</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">></span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            j <span class="token operator">=</span> j <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">>=</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token keyword">break</span>
+                self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span>
+                k <span class="token operator">=</span> j<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后实现 <code>change</code> 方法：为了维持堆的性质，我们应当尝试向上挪一下 <code>shift up</code>，向下挪一下 <code>shift down</code>。关键在于找到用户认为的那个数据，在索引数组中是第几位，针对这个位置进行下沉和上移，即找到一个 <code>j</code> 满足：<code>indexes[j] = i</code>，<code>j</code> 表示 <code>data[i]</code> 在堆中的位置，之后 <code>shift up(j)</code>，然后 <code>shift down(j)</code>。还是紧扣那一点：比较的是 <code>data</code> ，交换的是  <code>indexes</code>。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">change</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> i<span class="token punctuation">,</span> new_item<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 把用户视角改成内部索引</span>
+    i <span class="token operator">+=</span> <span class="token number">1</span>
+    self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> new_item
+
+    <span class="token comment" spellcheck="true"># 重点：下面这一步是找原来数组中索引是 i 的元素</span>
+    <span class="token comment" spellcheck="true"># 在索引数组中的索引是几，这是一个唯一值，找到即返回</span>
+    <span class="token comment" spellcheck="true"># 优化：可以引入反向查找技术优化</span>
+    <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> i<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>__shift_down<span class="token punctuation">(</span>j<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>__shift_up<span class="token punctuation">(</span>j<span class="token punctuation">)</span>
+            <span class="token keyword">return</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>说明： <code>change</code> 这个函数是可以进行优化的，通过引入反向查找数组来进行优化。反向查找的作用，就是帮助我们寻找原来索引的位置，在最大堆中是几。这个操作也叫“反向查找”，是一个基础且常见的技巧。</p>
+<h2 id="索引堆的优化：反向查找"><a href="#索引堆的优化：反向查找" class="headerlink" title="索引堆的优化：反向查找"></a>索引堆的优化：反向查找</h2><p>我们引入了反向查找表。这一节的内容和思想很重要，要多看。<code>reverse[i]</code> 表示索引 <code>i</code> 在 <code>indexes</code>（堆）中的位置。引入 <code>reveres</code> 数组的意义是，可以在执行 <code>change</code> 这个方法的时候，可以通过 $O(1)$ 时间复杂度查询到用户认为索引是 <code>i</code> 的元素，在索引数组组成的堆中的索引是几。</p>
+<p>注意：为 <code>reverse</code> 数组赋初始值，$0$ 有特殊的含义：<code>reverse[i] = 0</code> 表示 <code>data[i]</code> 未赋值。</p>
+<p>我们在捋一遍：引入反向查找是为了“找到 <code>indexes</code> 数组中原来索引是 <code>i</code> 的元素的位置”，即 <code>reverse[i] = j</code> 表示 <code>data[i]</code> 在索引堆中的位置是 <code>j</code>。</p>
+<p>通过引入反向查找数组，实现反向查找 <code>indexes</code> 数组中，原来为第 <code>i</code> 号的那个元素排在了 <code>indexes</code> 数组的第几位，通过对 <code>reverse</code> 数组的维护，使得 <code>change</code> 操作时间复杂度降到了 $O(1)$。</p>
+<p><code>reverse[i]</code> 表示原来第 <code>i</code> 个数在 <code>indexes</code> 数组中的位置。</p>
+<p>根据 <code>reverse</code> 数组反向查找的意义，我们很容易得到：如果 <code>indexes[i] = j</code>，那么 <code>reveres[j] = i</code>，可以看出来，“反向查找”有点“反函数”的意思。</p>
+<p>把  <code>indexes[i] = j</code> 代入  <code>reveres[j] = i</code> ，得 <code>reveres[index[i]] = i</code>；</p>
+<p>把  <code>reveres[j] = i</code> 代入  <code>indexes[i] = j</code> ，得 <code>indexes[reveres[j]] = j</code>。</p>
+<p>这也就是“反函数的反函数是自己”。利用上述两个性质可以实现反向查找。</p>
+<p>注意： <code>reveres</code> 数组的概念其实并不难理解，大家只要把 <code>reveres</code> 这个数组自己填一下就会非常清楚了。</p>
+<table>
+<thead>
+<tr>
+<th align="left">0</th>
+<th align="left">1</th>
+<th align="left">2</th>
+<th align="left">3</th>
+<th align="left">4</th>
+<th align="left">5</th>
+<th align="left">6</th>
+<th align="left">7</th>
+<th align="left">8</th>
+<th align="left">9</th>
+<th align="left">10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>data</code></td>
+<td align="left">15</td>
+<td align="left">17</td>
+<td align="left">19</td>
+<td align="left">13</td>
+<td align="left">22</td>
+<td align="left">16</td>
+<td align="left">28</td>
+<td align="left">30</td>
+<td align="left">41</td>
+<td align="left">62</td>
+</tr>
+<tr>
+<td align="left"><code>indexes</code></td>
+<td align="left">10</td>
+<td align="left">9</td>
+<td align="left">5</td>
+<td align="left">7</td>
+<td align="left">8</td>
+<td align="left">6</td>
+<td align="left">2</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left"><code>reverse</code></td>
+<td align="left">10</td>
+<td align="left">7</td>
+<td align="left">9</td>
+<td align="left">8</td>
+<td align="left">3</td>
+<td align="left">6</td>
+<td align="left">4</td>
+<td align="left">5</td>
+<td align="left">2</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<p>说明：<code>indexes[1] = 10</code>，表示使用者认为的第 $10$ 号数据，在 <code>indexes</code> 数组中的索引是 $1$，故 <code>reverse[10] = 1</code>；</p>
+<p><code>indexes[2] = 9</code>，表示使用者认为的第 $9$ 号数据，在 <code>indexes</code> 数组中的索引是 $2$，故 <code>reverse[9] = 2</code>；</p>
+<p><code>indexes[3] = 5</code>，表示使用者认为的第 $5$ 号数据，在 <code>indexes</code> 数组中的索引是 $2$，故 <code>reverse[5] = 3</code>；</p>
+<p>因此，<code>reverse</code> 数组的作用就是：<strong>通过使用者认为的索引编号，快速找到它在 <code>indexes</code> 数组形成的堆中的位置</strong>。</p>
+<p>维护<code>reverse</code> 数组要注意的事项：在 <code>indexes</code> 数组交换位置的时候，<code>reverse</code> 数组也要同步交换。</p>
+<p>下面我们来分析一下 <code>indexes</code> 数组如果交换了位置，<code>reverse</code> 数组要如何交换。</p>
+<p>假如要交换 <code>indexes</code> 数组 <code>3</code> 和 <code>4</code> 的位置，由于此时 <code>indexes[3] = 7</code> ，<code>indexes[4] = 5</code> ，为了保证 <code>reverse</code> 数组的正确性，（我们暂时不去看表），就应该使得 <code>reverse[7] = 3</code>，<code>reverse[5] = 4</code>。</p>
+<p>此时再去看表， <code>reverse[7] = 4</code>，<code>reverse[5] = 3</code>。怎么交换的，就很清楚了。<code>reverse</code> 数组是 <code>indexes</code> 数组映射以后的两个值交换。</p>
+<h3 id="索引堆的应用"><a href="#索引堆的应用" class="headerlink" title="索引堆的应用"></a>索引堆的应用</h3><p>实现<strong>多路归并排序</strong></p>
+<p>这部分的知识我是在参考资料1（《算法》（第4版）P204）中看到的。在这里做一个笔记。索引堆只存了 3 个元素，<strong>索引堆不仅仅把我们要的那个数据拿出来了，并且还给出了这个数据在使用者眼里的索引的位置</strong>。</p>
+<p>图论中使用索引堆找到最小生成树</p>
+<h3 id="本文源代码"><a href="#本文源代码" class="headerlink" title="本文源代码"></a>本文源代码</h3><p>Python：<a href="https://github.com/liweiwei1419/Algorithms-Learning-Python/tree/master/heap" target="_blank" rel="noopener">代码文件夹</a>，Java：<a href="https://github.com/liweiwei1419/Algorithms-Learning-Java/tree/master/06-Heap/src" target="_blank" rel="noopener">代码文件夹</a>。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>1、图书《算法》(第4版)， Algorithms Fourth Edition，作者：[美] Robert Sedgewick，[美] Kevin Wayne 著，谢路云 译，<a href="https://algs4.cs.princeton.edu/home/" target="_blank" rel="noopener">图书配套网站</a></p>
+<p>2、<a href="https://coding.imooc.com/class/71.html" target="_blank" rel="noopener">慕课网 liuyubobobo 老师《算法与数据结构》课程</a>以及对应的 <a href="https://github.com/liuyubobobo/Play-with-Algorithms" target="_blank" rel="noopener">GitHub 代码仓库</a></p>
+<p>3、<a href="http://coding.imooc.com/class/138.html" target="_blank" rel="noopener">慕课网 liuyubobobo 老师《看得见的算法》课程</a>以及对应的 <a href="https://github.com/liuyubobobo/Play-with-Algorithm-Visualization" target="_blank" rel="noopener">GitHub 代码仓库</a>。</p>
+<p>4、【多说两句】关于索引堆中的索引和数据</p>
+<p><a href="https://coding.imooc.com/learn/questiondetail/4945.html。" target="_blank" rel="noopener">https://coding.imooc.com/learn/questiondetail/4945.html。</a></p>
+<p>（本节完）</p>
+<hr>
+<blockquote>
+<p>索引堆是一个比较有意思的数据结构。索引技术其实还是满常见的，听起来比较高大上，其实就是做了一个对应关系。</p>
+</blockquote>
+<h2 id="堆排序和-Heapify"><a href="#堆排序和-Heapify" class="headerlink" title="堆排序和 Heapify"></a>堆排序和 Heapify</h2><h3 id="什么是基础堆排序"><a href="#什么是基础堆排序" class="headerlink" title="什么是基础堆排序"></a>什么是基础堆排序</h3><p>我们的排序工作就描述如下：把待排序数组<strong>按顺序</strong>放入一个堆（入队），全部放入以后，然后再从堆中出队，每次出队的元素就是当前数组中最大的元素，于是我们可以倒着赋值回去，直到堆中没有元素（此时原始数组也被赋值“满”了）时，就能得到一个升序的数组。</p>
+<p>Java 代码：</p>
+<p>全部放入优先队列，再一个一个取出，倒着放即可：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HeapSort</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">// 我们之前实现的 MaxHeap 这个数据结构，把它作为成员变量，利用它来完成排序</span>
+    <span class="token keyword">private</span> MaxHeap maxHeap<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">HeapSort</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>maxHeap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MaxHeap</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">HeapSort</span><span class="token punctuation">(</span><span class="token keyword">int</span> capacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>maxHeap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MaxHeap</span><span class="token punctuation">(</span>capacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 把数组中的元素先全部挨个 insert 到最大堆中</span>
+    <span class="token comment" spellcheck="true">// 然后在依次取出，因为每次取出的都是剩下的元素中的最大者</span>
+    <span class="token comment" spellcheck="true">// 因此应该倒着覆盖到原待排序数组</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> nums<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Integer item <span class="token operator">:</span> temp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            maxHeap<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>maxHeap<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            nums<span class="token punctuation">[</span>maxHeap<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> maxHeap<span class="token punctuation">.</span><span class="token function">extractMax</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        HeapSort heapSort <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HeapSort</span><span class="token punctuation">(</span>nums<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        heapSort<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="最大堆的第-3-个重要操作：heapify"><a href="#最大堆的第-3-个重要操作：heapify" class="headerlink" title="最大堆的第 3 个重要操作：heapify"></a>最大堆的第 3 个重要操作：heapify</h3><h4 id="什么是-heapify"><a href="#什么是-heapify" class="headerlink" title="什么是 heapify"></a>什么是 heapify</h4><p>在上一步“堆排序”中，我们注意到，有这样一个操作“把待排序数组<strong>按顺序</strong>放入一个堆（入队）”，这一步得一个接着一个按照顺序放入堆中，那么我们有没有一个神一样的操作，直接把一个数组丢给一个“堆”（此时还不能称为“堆”，只能说是把一个数组丢给一个堆的构造方法），让这个数组自行调整成一个最大堆，那么这个操作就叫 heapify。</p>
+<p>因此 heapify 就是尝试将一整个数组构建成一个堆的更好的方式，因为此时无需借助额外的空间就完成了最大堆的构建，并且我们只需对数组中一半的元素执行 shift down 就可以了。</p>
+<p>首先，我们直接把一个数组传到 MaxHeap 的<strong>构造方法</strong>里，<strong>通过从 length / 2 索引到索引 1 ，逐个执行 shift down 操作就使得了此时的数组成为了最大堆</strong>。</p>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token function">MaxHeap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> length <span class="token operator">=</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>length <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        data<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    count <span class="token operator">=</span> length<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// heapify：通过从 length / 2 索引到索引 1 ，逐个执行 shift down 操作就使得了此时的数组成为了最大堆</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> length <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">shiftDown</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>注意：heapify 的操作只有 shift down。</p>
+<p>那么为什么没有 shift up 呢？我是这样认为的：shift up 是认为”上面”的元素可能不对，所以要将当前考虑的元素尝试上移。shift down 是认为”下面”的元素可能不对，所以要将当前考虑的元素直至根节点逐个尝试下移。</p>
+<p>heapify 后挨个取出来，倒着放回待排序数组就可以了。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HeapSort2</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> MaxHeap maxHeap<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">HeapSort2</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>maxHeap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MaxHeap</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>maxHeap<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            nums<span class="token punctuation">[</span>maxHeap<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> maxHeap<span class="token punctuation">.</span><span class="token function">extractMax</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        HeapSort2 heapSort2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HeapSort2</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        heapSort2<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="原地堆排序"><a href="#原地堆排序" class="headerlink" title="原地堆排序"></a>原地堆排序</h3><h4 id="原地堆排序的基本思路"><a href="#原地堆排序的基本思路" class="headerlink" title="原地堆排序的基本思路"></a>原地堆排序的基本思路</h4><p>注意：在这一小节中，我们要转换一下脑筋，我们要使用原地堆排序，就是不想借助额外的空间，那么拿到的数组一定 0 号位置是有数值的，所以，我们要实现的算法必须基于 0 号位置存放元素来实现。</p>
+<p>我们在上一节也可以看到，我们将一个数组通过 heapify 即 shift down 的方式逐渐地整理成一个最大堆。</p>
+<p><strong>其实，原地堆排序这个想法是非常直观的，从 shift down 的操作我们就可以得到启发，堆中最大的那个元素在数组的 0 号索引位置，我们把它与此时数组中的最后一个元素交换，那么数组中最大的元素就放在了数组的末尾，此时再对数组的第一个元素执行 shift down，那么 shift down 操作都执行完以后，数组的第 1 个元素就存放了当前数组中的第 2 大的元素。</strong></p>
+<p>可能以上这样说，并不是很严谨，但我想思路已经说得很清楚了。</p>
+<p><img src="https://liweiwei1419.gitee.io/images/algorithms/%E5%8E%9F%E5%9C%B0%E5%A0%86%E6%8E%92%E5%BA%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg" alt=""></p>
+<h4 id="代码实现的注意事项"><a href="#代码实现的注意事项" class="headerlink" title="代码实现的注意事项"></a>代码实现的注意事项</h4><ul>
+<li><p>此时最大堆中数组的索引从 $0$ 开始计算。与之前索引从 $1$ 开始的最大堆实现比较，性质就发生了变化，但并不会不好找，我们可以自己在纸上画一个完全二叉树就可以很清晰地发现规律：${\rm parent}(i)=\cfrac{i-1}{2}$，${\rm left \quad child}(i) = 2 \times i +1$，${\rm right \quad child}(i) = 2 \times i +2$，最后一个非叶子结点的索引是：$\cfrac{count-1}{2}$；</p>
+</li>
+<li><p>原地堆排序，因为索引从 0 号开始，相应的一些性质在索引上都发生变化了，为此，需要重新实现一下，但并不需要重新实现 MaxHeap 里所有的方法；</p>
+</li>
+<li><p>注意到我们只有 shift down 的操作，对于 shift down 的实现，一些细节就要很小心，shift down 是在一个区间内进行的，这个区间的端点，应该成为我们新设计的 shift down 方法的实现。</p>
+</li>
+</ul>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HeapSort3</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 原地堆排序的目标就是，不再借助 MaxHeap 这个数据结构进行排序，减少了空间复杂度
+     * 注意：此时我们的数组索引从 0 开始定义(自己在纸上画一下图，就能清晰地明白算法实现的含义)
+     *
+     * @param arr 待排序数组
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> length <span class="token operator">=</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 首先 heapify：将一个无序的数组组成了一个最大堆，第 1 个元素就是最大值</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">shiftDown</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> length<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">swap</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">shiftDown</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 注意 shiftDown 不能复用我们上面写的，而设计成</span>
+    <span class="token comment" spellcheck="true">// 对 0 开始，end 为止，即将 arr 中 [0,end] 部分的数组元素视为"最大堆"</span>
+    <span class="token comment" spellcheck="true">// 对索引为 i 的元素进行 shift down 的操作</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">shiftDown</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">,</span> <span class="token keyword">int</span> end<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 如果有右孩子的节点，并且右孩子节点比左孩子节点的值要大</span>
+        <span class="token comment" spellcheck="true">// 此时可以忽略左孩子节点的存在，拿右孩子节点的数值和自己比较</span>
+        <span class="token comment" spellcheck="true">// 只要它有左孩子，就不是叶子节点，就可能 shift down，注意：这里是小于号</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> i <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>k <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> end <span class="token operator">&amp;&amp;</span> arr<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">&lt;</span> arr<span class="token punctuation">[</span>k <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                k <span class="token operator">=</span> k <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> arr<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">swap</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> i<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                i <span class="token operator">=</span> k<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 留意</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">,</span> <span class="token keyword">int</span> index1<span class="token punctuation">,</span> <span class="token keyword">int</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index1 <span class="token operator">==</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> temp <span class="token operator">=</span> arr<span class="token punctuation">[</span>index1<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        arr<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        arr<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        HeapSort3 heapSort3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HeapSort3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        heapSort3<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="索引堆"><a href="#索引堆" class="headerlink" title="索引堆"></a>索引堆</h3><h4 id="为什么要引入索引堆这个数据结构？-1"><a href="#为什么要引入索引堆这个数据结构？-1" class="headerlink" title="为什么要引入索引堆这个数据结构？"></a>为什么要引入索引堆这个数据结构？</h4><p>在堆的一些操作过程中，不论是 insert 还是 extractMax 方法，都涉及了一些元素的交换操作，<strong>交换数组中的元素的位置，在一些场景下性能消耗很大</strong>。因此，我们可以在堆的内部实现一个索引数组，通过索引可以找到我们真正存放在数组中的元素，而索引所代表数据构成一个最大堆。这就是我们要引入索引堆的原因。</p>
+<p>我们举一个可能不是很贴切的生活中的例子，我们要给一组学生按照身高进行排序，我们不用把他们全部喊出来让他们从矮到高排好，我们只要让他们报上自己的身高，在纸上做他们身高的比较就可以了。</p>
+<p>我还想到一点：现在我们都进入了移动支付时代，我们购买物品不需要把真真实实的钱给商家，这种操作就很像我们引入索引堆的操作，我们通过1、自己账户上的钱减少2、商家用户账上的钱增多，这种方式实现了转账，给我们的生活带来了巨大的方便。一手交钱一首交货的时代已经不存在了，我们只会看到快递小哥把货送到你家，而不会有快递小哥把你的钱寄给卖家。相信很多人像我一样，出门带的现金已经很少很少了，甚至有些时候，我们出门根本可以不带钱。</p>
+<ul>
+<li>实现要点：</li>
+</ul>
+<p>1、引入一个 indexes 数组；</p>
+<p>2、比较的时候，使用 indexs 所对应的 data 来进行比较，交换的是 index 的位置，我们内部的实现仍然从 1 号索引开始存放数据，但这一点对外部用户来说是不可知的；</p>
+<p><strong>对于我们索引堆的使用者来说，他们只需要知道，这是一个数据结构，可以往里面存入数据，而每一次那出来的数据，都是当前已经存放在这个数据结构中最大的那个元素。</strong></p>
+<p>3、我们完全可以直接使用我们之前实现的 MaxHeap 来实现最大堆。</p>
+<ul>
+<li>索引堆要支持的操作： 在实现的时候，<strong>要注意 insert(i,item) 的实现，不是任意位置的 i都可以 insert 的，一般有两种情况：1、insert 到使用者所认为的优先队列的尾部；2、insert 到刚刚出队的那个元素的位置，因为那个位置的数据“已经没有了”，这一点要好好体会</strong>。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>shiftUp(int k)</th>
+<th>将位于 indexes 数组中的索引为 k 的元素逐个上移。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>shiftDown(int k)</td>
+<td>将位于 indexes 数组中的索引为 k 的元素逐个下。</td>
+</tr>
+<tr>
+<td>insert(i,item)</td>
+<td><strong>特别注意：这里的 i 是由使用者保证的，是业务相关的，不能完全从程序和语法的角度来判断  i 的合理性。</strong></td>
+</tr>
+<tr>
+<td>extractMax()</td>
+<td>将此时二叉堆中的最大的那个数据返回。</td>
+</tr>
+<tr>
+<td>extractMaxIndex()</td>
+<td>将此时二叉堆中的最大的那个数据对应的索引返回。</td>
+</tr>
+<tr>
+<td>getItem(int i)</td>
+<td>获得索引为 i 的数据，通常这个数据是刚刚出队的索引，是由 extractMaxIndex() 方法来的。</td>
+</tr>
+<tr>
+<td>change(int i,int item)</td>
+<td>修改索引为 i 的数据的“优先级”。</td>
+</tr>
+</tbody></table>
+<p>【多说两句】关于索引堆中的索引和数据</p>
+<p><a href="https://coding.imooc.com/learn/questiondetail/4945.html" target="_blank" rel="noopener">https://coding.imooc.com/learn/questiondetail/4945.html</a></p>
+<h3 id="索引堆的优化"><a href="#索引堆的优化" class="headerlink" title="索引堆的优化"></a>索引堆的优化</h3><h4 id="索引堆的优化方法"><a href="#索引堆的优化方法" class="headerlink" title="索引堆的优化方法"></a>索引堆的优化方法</h4><p>我们想找一找在使用者认为的优先队列中指定索引的数据，在我们的 indexes 数组中，排在第几位，我们使用了遍历，这种做法效率是不高的。</p>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> count<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 找到了 j</span>
+        <span class="token function">shiftDown</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">shiftUp</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>我们可以通过引入一个反向查找数组，实现反向查找 indexes 数组中，值为 i 的那个元素排在了 indexes 的第几位，通过对 reverse 数组的维护，就使得我们对反向查找这件事情的时间复杂度降到了 $O(1)$。</p>
+<ul>
+<li><code>reverse[i]</code> 表示索引 i 在 indexes（堆）中的位置。引入 reveres 数组的意义是，可以在执行 change 这个方法的时候，使用 <code>O(1)</code> 这个时间复杂度，直接找到。</li>
+<li>reverse 数组的性质：</li>
+</ul>
+<p>性质1：如果 <code>indexes[i] = j</code>，那么 <code>reveres[j] = i</code>；</p>
+<p>性质2：<code>indexes[reveres[i]] = i</code>，<code>reveres[index[i]] = i</code>。</p>
+<ul>
+<li>reveres 数组的概念其实并不难理解，大家只要把 reveres 这个数组自己填一下就会非常清楚了。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">0</th>
+<th align="left">1</th>
+<th align="left">2</th>
+<th align="left">3</th>
+<th align="left">4</th>
+<th align="left">5</th>
+<th align="left">6</th>
+<th align="left">7</th>
+<th align="left">8</th>
+<th align="left">9</th>
+<th align="left">10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">data</td>
+<td align="left">15</td>
+<td align="left">17</td>
+<td align="left">19</td>
+<td align="left">13</td>
+<td align="left">22</td>
+<td align="left">16</td>
+<td align="left">28</td>
+<td align="left">30</td>
+<td align="left">41</td>
+<td align="left">62</td>
+</tr>
+<tr>
+<td align="left">indexes</td>
+<td align="left">10</td>
+<td align="left">9</td>
+<td align="left">5</td>
+<td align="left">7</td>
+<td align="left">8</td>
+<td align="left">6</td>
+<td align="left">2</td>
+<td align="left">4</td>
+<td align="left">3</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">reverse</td>
+<td align="left">10</td>
+<td align="left">7</td>
+<td align="left">9</td>
+<td align="left">8</td>
+<td align="left">3</td>
+<td align="left">6</td>
+<td align="left">4</td>
+<td align="left">5</td>
+<td align="left">2</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<p>怎么看这张表：</p>
+<p>indexes[1] = 10，表示使用者认为的第 10 号数据，排在了优先队列的第 1 位，即 10 这个数字在 indexes 数组中的索引是 1，故 revers[10] = 1；</p>
+<p>indexes[2] = 9，表示使用者认为的第 9 号数据，排在了优先队列的第 9 位，即 9 这个数字在 indexes 数组中的索引是 2，故 revers[9] = 2；</p>
+<p>indexes[5] = 8，表示使用者认为的第 8 号数据，排在了优先队列的第 5 位，即 8 这个数字在 indexes 数组中的索引是 5，故 revers[8] = 5；</p>
+<p>所以，revers 数组的作用就是：<strong>通过使用者认为的索引数据，它在 indexes 数组形成的堆中的位置</strong>。</p>
+<ul>
+<li>reverse 数组在 indexes 数组交换位置的时候，应该如何维护</li>
+</ul>
+<p>下面我们来分析一下 indexes 数组如果交换了位置，reverse 数组要如何交换位置。</p>
+<p>假如要交换 indexes 数组 3 和 4 的位置，那么此时 indexes[3] = 7 ，indexes[4] = 5 ，为了保证 reverse 数组的正确性，（我们暂时不去看表），就应该使得 reverse[7] = 3，reverse[5] = 4。</p>
+<p>此时再去看表， reverse[7] = 4，reverse[5] = 3。怎么交换的，就很清楚了。reverse 数组是 indexes 数组映射以后的两个值交换。</p>
+<h3 id="索引堆的应用-1"><a href="#索引堆的应用-1" class="headerlink" title="索引堆的应用"></a>索引堆的应用</h3><ul>
+<li>实现<strong>多路归并排序</strong></li>
+</ul>
+<p>这部分的知识我是在参考资料1（《算法》（第4版）P204）中看到的。在这里做一个笔记。索引堆只存了 3 个元素，<strong>索引堆不仅仅把我们要的那个数据拿出来了，并且还给出了这个数据在使用者眼里的索引的位置</strong>。</p>
+<ul>
+<li>图论中使用索引堆找到最小生成树</li>
+</ul>
+<h2 id="参考资料-1"><a href="#参考资料-1" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>图书《算法》(第4版)， Algorithms Fourth Edition，作者：[美] Robert Sedgewick，[美] Kevin Wayne 著，谢路云 译，<a href="https://algs4.cs.princeton.edu/home/" target="_blank" rel="noopener">图书配套网站</a></li>
+<li><a href="https://coding.imooc.com/class/71.html" target="_blank" rel="noopener">慕课网 liuyubobobo 老师《算法与数据结构》课程</a>以及对应的 <a href="https://github.com/liuyubobobo/Play-with-Algorithms" target="_blank" rel="noopener">GitHub 代码仓库</a></li>
+<li><a href="http://coding.imooc.com/class/138.html" target="_blank" rel="noopener">慕课网 liuyubobobo 老师《看得见的算法》课程</a>以及对应的 <a href="https://github.com/liuyubobobo/Play-with-Algorithm-Visualization" target="_blank" rel="noopener">GitHub 代码仓库</a></li>
+</ol>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" rel="external nofollow noreferrer">liwei</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/2017/10/03/algorithms-and-data-structures/index-heap/">https://liweiwei1419.gitee.io/leetcode-algo/2017/10/03/algorithms-and-data-structures/index-heap/</a>
+                    <!-- GitHub 用配置
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2017/10/03/algorithms-and-data-structures/index-heap/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2017/10/03/algorithms-and-data-structures/index-heap/</a>
+                    -->
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liwei</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/leetcode-algo/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
+                                    <span class="chip bg-color">优先队列</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/leetcode-algo/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/leetcode-algo/medias/reward/alipayimg.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/leetcode-algo/medias/reward/wechatpayimg.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/leetcode-algo/2017/10/03/leetcode-solution/0103-binary-tree-zigzag-level-order-traversal/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/15.jpg" class="responsive-img" alt="「力扣」第 103 题：二叉树的锯齿形层次遍历">
+                        
+                        <span class="card-title">「力扣」第 103 题：二叉树的锯齿形层次遍历</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「力扣」第 103 题：二叉树的锯齿形层次遍历传送门：103. 二叉树的锯齿形层次遍历。
+
+给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。
+例如：给定二叉树 [3,9
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2017-10-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-9%EF%BC%9A%E9%98%9F%E5%88%97/" class="post-category">
+                                    专题 9：队列
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">队列</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/leetcode-algo/2017/10/02/leetcode-solution/0102-binary-tree-level-order-traversal/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/12.jpg" class="responsive-img" alt="「力扣」第 102 题：二叉树的层次遍历">
+                        
+                        <span class="card-title">「力扣」第 102 题：二叉树的层次遍历</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「力扣」第 102 题：二叉树的层次遍历传送门：102. 二叉树的层次遍历。
+
+给定一个二叉树，返回其按层次遍历的节点值。 （即逐层地，从左到右访问所有节点）。
+例如:给定二叉树: [3,9,20,null,null,15,7],
+3
+/ 
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-10-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-9%EF%BC%9A%E9%98%9F%E5%88%97/" class="post-category">
+                                    专题 9：队列
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">队列</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/leetcode-algo/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/liweiwei1419" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiwei1419@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=121088825" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 121088825" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/leetcode-algo/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/leetcode-algo/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/leetcode-algo/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/leetcode-algo/libs/materialize/materialize.min.js"></script>
+    <script src="/leetcode-algo/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/leetcode-algo/libs/aos/aos.js"></script>
+    <script src="/leetcode-algo/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/leetcode-algo/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/leetcode-algo/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/leetcode-algo/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/leetcode-algo/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/leetcode-algo/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

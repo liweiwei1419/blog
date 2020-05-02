@@ -1,0 +1,1308 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="「二分查找」专题二：在循环体内部排除元素, 算法与数据结构入门教程">
+    <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>「二分查找」专题二：在循环体内部排除元素 | 算法与数据结构入门教程</title>
+    <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/my.css">
+
+    <script src="/leetcode-algo/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/leetcode-algo/atom.xml" title="算法与数据结构入门教程" type="application/atom+xml">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/leetcode-algo/" class="waves-effect waves-light">
+                    
+                    <img src="/leetcode-algo/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">算法与数据结构入门教程</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/leetcode-algo/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">算法与数据结构入门教程</div>
+        <div class="logo-desc">
+            
+            Java、Python3 语言实现，「专题」教程持续更新中...
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">「二分查找」专题二：在循环体内部排除元素</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/leetcode-algo/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    .toc-fixed .toc-link::before{
+        position: fixed!important;/*当toc的位置改为fixed时，.toc-link::before也要改为fixed*/
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/leetcode-algo/tags/%E6%95%B0%E7%BB%84/">
+                                <span class="chip bg-color">数组</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-category">
+                                专题 2：二分查找
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2017-05-16
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="「二分查找」专题二：在循环体内部排除元素"><a href="#「二分查找」专题二：在循环体内部排除元素" class="headerlink" title="「二分查找」专题二：在循环体内部排除元素"></a>「二分查找」专题二：在循环体内部排除元素</h2><h3 id="从哪些元素一定不是目标元素考虑"><a href="#从哪些元素一定不是目标元素考虑" class="headerlink" title="从哪些元素一定不是目标元素考虑"></a>从哪些元素一定不是目标元素考虑</h3><p>做对这一类问题的思路是「排除法」。在本题解最开始其实已经介绍了，我们的思路是做排除法：具体是根据看到的 <code>mid</code> 位置的元素，排除掉不可能存在目标元素的区间，进而确定下一轮在可能存在目标元素的子区间。</p>
+<p>具体做法是：</p>
+<p>1、先把循环可以继续的条件写成 <code>while (left &lt; right)</code>。</p>
+<p>在循环的过程中 <code>left</code> 不断右移，<code>right</code> 不断左移。从形式上看，退出循环的时候一定有 <code>left == right</code> 成立。此时要注意：<strong><code>left</code> （<code>right</code>） 这个位置的值可能程序还没有读取到，因此“有可能”需要再对 <code>left</code>（<code>right</code>） 这个位置的值是否是目标元素的值做一次判断</strong>。</p>
+<p>2、写 <code>if</code> 和 <code>else</code> 语句的时候，思考当 <code>nums[mid]</code> 满足什么性质的时候，<code>mid</code> 不是解，进而接着判断 <code>mid</code> 的左边有没有可能是解，<code>mid</code> 的右边有没有可能是解。</p>
+<p>说明：（1）做题的经验告诉我，“思考什么时候不是解”比较好想。生活中其实也是这样，我往往说不大清楚我想要什么，但是我很确定我不想要什么。</p>
+<p>（2）此时 <code>mid</code> 作为待查找数组就分为两个区间，一个部分可能存在目标元素，一个部分一定不存在目标元素，<code>mid</code> 作为这两个区间的分界点。</p>
+<p><strong>根据 <code>mid</code> 被分到左边区间还是右边区间，代码写出来只有以下 2 种（重难点）</strong>：</p>
+<p><strong>边界收缩行为 1</strong>： <code>mid</code> 被分到左边。即区间被分成 <code>[left, mid]</code> 与 <code>[mid + 1, right]</code>，这里用“闭区间”表示区间端点可以取到，下同；</p>
+<p>代码写出来是这样的：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [mid + 1, right]，因此把左边界设置到 mid + 1 位置</span>
+    left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 上面对了以后，不加思考，剩下的区间一定是 [left, mid]，因此左边界向右收缩到 mid 位置</span>
+    right <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>说明：这里的 <code>check(mid)</code> 函数通常是一个表达式（例如上面的“参考代码 1”），在一些情况下有可能逻辑比较复杂，建议专门抽取成一个私有方法，以突显主干逻辑。</p>
+<p><strong>边界收缩行为 2</strong>： <code>mid</code> 被分到右边。即区间被分成 <code>[left, mid - 1]</code> 与 <code>[mid, right]</code>；</p>
+<p>同上，代码写出来是这样的（由于注释是对称的，这里省略，留给读者填充）：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    left <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3、<strong>根据「边界收缩行为」修改取中间数的行为（重难点）</strong>。</p>
+<p>先说一下中间数的取法。一般是这样的：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>left <span class="token operator">+</span> right<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这种写法在绝大多数情况下没问题，但是在 <code>left</code> 和 <code>right</code> 特别大的场景中，<code>left + right</code> 会发生整形溢出，得到一个负数，<code>mid</code> 的值随之也是负数。改进的写法是：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这两种写法事实上没有本质的区别，在 <code>left</code> 和 <code>right</code> 都表示数组索引的时候，几乎不会越界，因为绝大多数情况下不会开那么长的数组。</p>
+<p>这里有一个细节，<code>/</code> 是整除，它的行为是“向下取整”，造成了 <strong><code>int mid = (left + right) / 2</code> 这种写法 <code>mid</code> 永远取不到带搜索区间里最右边的位置</strong>（读者可以举一个只有 <code>2</code> 个元素的子数组，理解这句话）。</p>
+<p>面对上面的“<strong>边界收缩行为 2</strong>”（<code>mid</code> 被分到右边），在待搜索区间收缩到只剩下 2 个元素的时候，<strong>就有可能</strong>（请读者在练习的过程中体会这里我的描述为什么是“有可能”而不是“一定”）造成死循环。如下图：</p>
+<p><img src="https://pic.leetcode-cn.com/eda3857e94d6ead3ed2d2f473fdaf8eaa1252a481e3220511d3a89e4d2f112ac-LeetCode%20%E7%AC%AC%2035%20%E9%A2%98%EF%BC%9A%E2%80%9C%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE%E2%80%9D.png" alt="LeetCode 第 35 题：“搜索插入位置”.png"></p>
+<p>注意：</p>
+<blockquote>
+<p>当待搜索区间<strong>只剩下</strong> $2$ 个元素的时候，才有可能会进入死循环。如果读者不太明白，可以暂时先不去理解这一点，直到编码过程中，出现死循环的时候，再去调试就很清楚了。</p>
+</blockquote>
+<p>有了上面的分析，我们把上面「边界收缩行为」对应的中间数取法补上：</p>
+<p><strong>边界收缩行为 1</strong>： <code>mid</code> 被分到左边。即区间被分成 <code>[left, mid]</code> 与 <code>[mid + 1, right]</code>，此时取中间数的时候下取整。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [mid + 1, right]</span>
+    left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    right <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>边界收缩行为 2</strong>： <code>mid</code> 被分到右边。即区间被分成 <code>[left, mid - 1]</code> 与 <code>[mid, right]</code>，此时取中间数的时候<strong>上取整</strong>。</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [left, mid - 1]</span>
+    right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    left <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里我可能没有说得很清楚。如果读者不太明白，也没有关系，读者在练习的过程中，如果遇到死循环，可以在 <code>while</code> 循环里把 <code>left</code>、<code>right</code>、<code>mid</code> 变量的值打印出来看，就看得很清楚了。</p>
+<p><strong>遇到几次死循环，调试正确以后</strong>，就能很清楚地记住：</p>
+<blockquote>
+<p><strong>在 <code>if</code> <code>else</code> 语句里面只要出现 <code>left = mid</code> 的时候，把去中间数行为改成上取整即可。</strong></p>
+</blockquote>
+<p>这里有一个比较细节的地方：在 Java 中，有一种特殊的语法，叫无符号右移 <code>&gt;&gt;&gt;</code>。我在使用 Java 语言答题的时候，取中间数都写成 <code>int mid = (left + right) &gt;&gt;&gt; 1</code> 和  <code>int mid = (left + right + 1) &gt;&gt;&gt; 1</code> ，这是因为无符号右移 <code>&gt;&gt;&gt;</code> 在对操作数右移以后，不论这个数是正数还是负数，高位一律补 <code>0</code>。使用无符号右移的好处是：<strong>即使在 <code>left + right</code> 整形溢出以后，得到的结果依然正确</strong>。这一点是从 JDK 的源码中借鉴来的（<code>Arrays.binarySearch()</code> 方法）。</p>
+<p>在 Python 中虽然没有无符号右移，但是也可以使用 <code>&gt;&gt;</code>，因为 Python 在 <code>left + right</code> 整型越界的时候，直接转为长整型，因此不会得到负数。</p>
+<p>但是，<strong>一般编程语言的编译器都会将 <code>/ 2</code>，以及除以 $2$ 的方幂的操作，在内部修改为 <code>&gt;&gt;</code>，因此我们编码的时候没有必要写成右移，还有可能遇到运算优先级顺序的问题，就直接写成 <code>/</code> 是没有问题的</strong>。</p>
+<p>其它语言我就不清楚了，读者根据自己使用语言的情况选择合适的语法即可。主要内容就是这些，下面做一个总结总结。</p>
+<h3 id="使用“排除法”写对二分查找问题的一般步骤"><a href="#使用“排除法”写对二分查找问题的一般步骤" class="headerlink" title="使用“排除法”写对二分查找问题的一般步骤"></a>使用“排除法”写对二分查找问题的一般步骤</h3><p>（可以右键“在新标签页中打开图片”可以查看大图）</p>
+<p><img src="https://pic.leetcode-cn.com/e120bac189db2fc912dce550d9c46746a312f362ee3d6d40e799aad8db69ae6f-image.png" alt="image.png"></p>
+<p>1、确定搜索区间初始化时候的左右边界，有时需要关注一下边界值。在初始化时，有时把搜索区间设置大一点没有关系，但是如果恰好把边界值排除在外，再怎么搜索都得不到结果。</p>
+<p>例如本题，如果一开始把 <code>len</code> 这个位置排除在外进行二分搜索，代码是怎么都通不过评测系统的。</p>
+<p>2、无条件写上 <code>while (left &lt; right)</code> ，表示退出循环的条件是 <code>left == right</code>，对于返回左右边界就不用思考了，因此此时它们的值相等；</p>
+<p>3、先写下取整的中间数取法，然后<strong>从如何把 <code>mid</code> 排除掉的角度思考 <code>if</code> 和 <code>else</code> 语句应该怎样写</strong>。</p>
+<p>（这里建议写两个注释。）</p>
+<p>注意：</p>
+<ul>
+<li>一般而言，我都会<strong>把「什么时候不是目标元素」作为注释写在代码中</strong>，提醒自己要判断正确，这一步判断非常关键，直接影响到后面的代码逻辑；</li>
+<li>然后接着思考 <code>mid</code> 不是解的情况下，<code>mid</code> 的左右两边是否存在解，把下一轮搜索的区间范围作为注释写进代码里，进而在确定下一轮搜索区间边界的收缩行为时，这样不容易出错；</li>
+<li>在 <code>if</code> 有把握写对的情况下，<code>else</code> 就是 <code>if</code> 的反面，可以不用思考，直接写出来；</li>
+<li>这种思考方式，就正正好把待搜索区间从逻辑上分成两个区间，一个区间不可能存在目标元素，进而在另一个区间里继续搜索，更符合“二分”的语义。</li>
+</ul>
+<p>4、根据 <code>if</code> <code>else</code> 里面写的情况，看看是否需要修改中间数下取整的行为。</p>
+<p>上面已经说了，只有看到 <code>left = mid</code> 的时候，才需要调整成为上取整，记住这一点即可，我因为刚开始不理解这种写法，遇到很多次死循环，现在已经牢记在心了。</p>
+<p>5、退出循环的时候，一定有 <code>left == right</code> 成立。有些时候可以直接返回 <code>left</code> （或者 <code>right</code>，由于它们相等，后面都省略括弧）或者与 <code>left</code> 相关的数值，有些时候还须要再做一次判断，判断 <code>left</code> 与 <code>right</code> 是否是我们需要查找的元素，这一步叫“后处理”。</p>
+<h3 id="与其它二分查找模板的比较"><a href="#与其它二分查找模板的比较" class="headerlink" title="与其它二分查找模板的比较"></a>与其它二分查找模板的比较</h3><p>它们的区别主要在于 <code>while</code> ，这是几个模板之间最主要的差别。</p>
+<p>1、 <code>while (left &lt;= right)</code> 事实上是把待搜索区间“三分”，<code>if</code> <code>else</code> 有三个分支，它直接面对目标元素，在目标元素在待搜索数组中有只有 1 个的时候，可能提前结束查找。但是如果目标元素没有在待搜索数组中存在，则不能节约搜索次数；</p>
+<p>2、<code>while (left &lt; right)</code> 是本题解推荐使用的思考方法，没有写成模板是因为不建议记模板，建议的方法是多做题，掌握“排除法”，更学术的说法是使用“减治法”编写二分查找算法的方法。</p>
+<p>优点是：更符合二分语义，不用去思考返回 <code>left</code> 还是 <code>right</code>，在退出循环的时候，有的时候，根据语境不正确的数都排除掉，最后剩下的那个数就一定是目标值，不需要再做一次判断。</p>
+<p>缺点是：理解当分支逻辑出现 <code>left = mid</code> 的时候，要修改取中间数的行为，使其上取整。</p>
+<p>3、<code>while (left + 1 &lt; right)</code> 这种写法其实很多人都在用，如果你理解了本题解介绍的方法，理解它就很容易了。使用它在退出循环的时候，有 <code>left + 1 = right</code> 成立，即 <code>left</code> 和 <code>right</code>夹成的区间里一定有 2 个元素，此时需要分别判断 <code>left</code> 和 <code>right</code> 位置的元素是不是目标元素，有时需要注意判断的先后顺序。</p>
+<p>优点：不用去理解和处理第 2 点说的那种上取整的行为，因为不会出现死循环。<br>缺点：一定需要后处理，在后处理这个问题上增加了思考的负担。另外 <code>while (left + 1 &lt; right)</code> 这种写法我个人认为不那么自然。</p>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>「力扣」上的二分查找问题主要有这三类题型。</p>
+<h4 id="一、在数组中查找符合条件的元素的索引"><a href="#一、在数组中查找符合条件的元素的索引" class="headerlink" title="一、在数组中查找符合条件的元素的索引"></a>一、在数组中查找符合条件的元素的索引</h4><p>一般而言这个数组是有序的，也可能是半有序的，但不大可能是无序的。</p>
+<table>
+<thead>
+<tr>
+<th>题目</th>
+<th>提示与题解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://leetcode-cn.com/problems/binary-search/" target="_blank" rel="noopener">704. 二分查找</a></td>
+<td>二分查找的模板问题，使用本题解介绍的方法就要注意，需要“后处理”。</td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/" target="_blank" rel="noopener">34. 在排序数组中查找元素的第一个和最后一个位置</a></td>
+<td>查找边界问题，<a href="https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/solution/si-lu-hen-jian-dan-xi-jie-fei-mo-gui-de-er-fen-cha/" target="_blank" rel="noopener">题解（有视频讲解）</a>。</td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/" target="_blank" rel="noopener">33. 搜索旋转排序数组</a></td>
+<td><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/solution/er-fen-fa-python-dai-ma-java-dai-ma-by-liweiwei141/" target="_blank" rel="noopener">题解</a></td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/" target="_blank" rel="noopener">81. 搜索旋转排序数组 II</a></td>
+<td><a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/solution/er-fen-cha-zhao-by-liweiwei1419/" target="_blank" rel="noopener">题解</a></td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/" target="_blank" rel="noopener">153. 寻找旋转排序数组中的最小值</a></td>
+<td><a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/solution/er-fen-fa-fen-zhi-fa-python-dai-ma-java-dai-ma-by-/" target="_blank" rel="noopener">题解</a></td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/" target="_blank" rel="noopener">154. 寻找旋转排序数组中的最小值 II</a></td>
+<td><a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/solution/er-fen-fa-fen-zhi-fa-python-dai-ma-by-liweiwei1419/" target="_blank" rel="noopener">题解</a></td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">300. 最长上升子序列</a></td>
+<td>二分查找的思路需要理解，代码很像第 35 题，<a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/dong-tai-gui-hua-er-fen-cha-zhao-tan-xin-suan-fa-p/" target="_blank" rel="noopener">题解</a>。</td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/h-index-ii/" target="_blank" rel="noopener">275. H指数 II</a></td>
+<td><a href="https://leetcode-cn.com/problems/h-index-ii/solution/jian-er-zhi-zhi-er-fen-cha-zhao-by-liweiwei1419-2/" target="_blank" rel="noopener">题解</a></td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/find-in-mountain-array/" target="_blank" rel="noopener">1095. 山脉数组中查找目标值</a></td>
+<td><a href="https://leetcode-cn.com/problems/find-in-mountain-array/solution/shi-yong-chao-hao-yong-de-er-fen-fa-mo-ban-python-/" target="_blank" rel="noopener">题解</a></td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">4. 寻找两个有序数组的中位数</a></td>
+<td>二分搜索中最难的问题之一，建议先弄清楚解题思路，<a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/he-bing-yi-hou-zhao-gui-bing-guo-cheng-zhong-zhao-/" target="_blank" rel="noopener">题解</a>。</td>
+</tr>
+</tbody></table>
+<h4 id="二、在一个有上下界的区间里搜索一个整数"><a href="#二、在一个有上下界的区间里搜索一个整数" class="headerlink" title="二、在一个有上下界的区间里搜索一个整数"></a>二、在一个有上下界的区间里搜索一个整数</h4><table>
+<thead>
+<tr>
+<th>题目</th>
+<th>提示与题解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://leetcode-cn.com/problems/sqrtx/" target="_blank" rel="noopener">69. 平方根</a></td>
+<td>在一个整数范围里查找一个整数，也是二分查找法的应用场景，<a href="https://leetcode-cn.com/problems/sqrtx/solution/er-fen-cha-zhao-niu-dun-fa-python-dai-ma-by-liweiw/" target="_blank" rel="noopener">题解</a>。</td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/find-the-duplicate-number/" target="_blank" rel="noopener">287. 寻找重复数</a></td>
+<td><a href="https://leetcode-cn.com/problems/find-the-duplicate-number/solution/er-fen-fa-si-lu-ji-dai-ma-python-by-liweiwei1419/" target="_blank" rel="noopener">题解</a>。在一个整数范围里查找一个整数。</td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/guess-number-higher-or-lower/" target="_blank" rel="noopener">374. 猜数字大小</a></td>
+<td><a href="https://leetcode-cn.com/problems/guess-number-higher-or-lower/solution/shi-fen-hao-yong-de-er-fen-cha-zhao-fa-mo-ban-pyth/" target="_blank" rel="noopener">题解</a></td>
+</tr>
+</tbody></table>
+<h4 id="三、判别条件是一个函数"><a href="#三、判别条件是一个函数" class="headerlink" title="三、判别条件是一个函数"></a>三、判别条件是一个函数</h4><table>
+<thead>
+<tr>
+<th>题目</th>
+<th>提示与题解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://leetcode-cn.com/problems/first-bad-version/" target="_blank" rel="noopener">278. 第一个错误的版本</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/split-array-largest-sum/" target="_blank" rel="noopener">410. 分割数组的最大值</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/find-k-closest-elements/" target="_blank" rel="noopener">658. 找到 K 个最接近的元素</a></td>
+<td><a href="https://leetcode-cn.com/problems/find-k-closest-elements/solution/pai-chu-fa-shuang-zhi-zhen-er-fen-fa-python-dai-ma/" target="_blank" rel="noopener">题解</a></td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/koko-eating-bananas/" target="_blank" rel="noopener">875. 爱吃香蕉的珂珂</a></td>
+<td><a href="https://leetcode-cn.com/problems/koko-eating-bananas/solution/er-fen-cha-zhao-ding-wei-su-du-by-liweiwei1419/" target="_blank" rel="noopener">题解</a></td>
+</tr>
+<tr>
+<td><a href="https://leetcode-cn.com/problems/sum-of-mutated-array-closest-to-target/" target="_blank" rel="noopener">1300. 转变数组后最接近目标值的数组和</a></td>
+<td><a href="https://leetcode-cn.com/problems/sum-of-mutated-array-closest-to-target/solution/er-fen-cha-zhao-by-liweiwei1419-2/" target="_blank" rel="noopener">题解</a></td>
+</tr>
+</tbody></table>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" rel="external nofollow noreferrer">liwei</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/2017/05/16/leetcode-solution/array2/">https://liweiwei1419.gitee.io/leetcode-algo/2017/05/16/leetcode-solution/array2/</a>
+                    <!-- GitHub 用配置
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2017/05/16/leetcode-solution/array2/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2017/05/16/leetcode-solution/array2/</a>
+                    -->
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liwei</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/leetcode-algo/tags/%E6%95%B0%E7%BB%84/">
+                                    <span class="chip bg-color">数组</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/leetcode-algo/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/leetcode-algo/medias/reward/alipayimg.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/leetcode-algo/medias/reward/wechatpayimg.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/leetcode-algo/2017/05/17/leetcode-algo/0004-median-of-two-sorted-arrays/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/19.jpg" class="responsive-img" alt="「力扣」第 4 题：寻找两个有序数组的中位数（困难）">
+                        
+                        <span class="card-title">「力扣」第 4 题：寻找两个有序数组的中位数（困难）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「力扣」第 4 题：寻找两个有序数组的中位数（困难）来源：力扣（LeetCode）
+
+链接
+题解链接
+
+
+给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。
+请你找出这两个有序数组的中位数，并且要求算法的时间复杂度为 $O
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2017-05-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-category">
+                                    专题 2：二分查找
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                        <span class="chip bg-color">二分查找</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">减治算法</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/leetcode-algo/2017/05/15/leetcode-solution/array1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/12.jpg" class="responsive-img" alt="「二分查找」专题一：在循环体内部查找元素">
+                        
+                        <span class="card-title">「二分查找」专题一：在循环体内部查找元素</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「二分查找」专题一：在循环体内部查找元素「力扣」第 704 题是二分查找的模板问题。
+「力扣」第 704 题：二分查找传送门：704. 二分查找。
+
+给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-category">
+                                    专题 2：二分查找
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                        <span class="chip bg-color">二分查找</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E6%80%9D%E6%83%B3/">
+                        <span class="chip bg-color">减治思想</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E6%95%B0%E7%BB%84/">
+                        <span class="chip bg-color">数组</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/leetcode-algo/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/liweiwei1419" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiwei1419@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=121088825" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 121088825" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/leetcode-algo/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/leetcode-algo/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/leetcode-algo/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/leetcode-algo/libs/materialize/materialize.min.js"></script>
+    <script src="/leetcode-algo/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/leetcode-algo/libs/aos/aos.js"></script>
+    <script src="/leetcode-algo/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/leetcode-algo/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/leetcode-algo/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/leetcode-algo/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/leetcode-algo/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/leetcode-algo/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
