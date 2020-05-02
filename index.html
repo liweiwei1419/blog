@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="zh-CN">
 
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hexo">
-    <meta name="description" content="">
+    <meta name="keywords" content="算法与数据结构入门教程">
+    <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hexo</title>
+    <title>算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
@@ -29,7 +29,9 @@
 
     <script src="/leetcode-algo/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/leetcode-algo/css/prism-xonokai.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/leetcode-algo/atom.xml" title="算法与数据结构入门教程" type="application/atom+xml">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -41,7 +43,7 @@
                     
                     <img src="/leetcode-algo/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">Hexo</span>
+                    <span class="logo-span">算法与数据结构入门教程</span>
                 </a>
             </div>
             
@@ -55,7 +57,7 @@
       
       <i class="fas fa-home" style="zoom: 0.6;"></i>
       
-      <span>Index</span>
+      <span>首页</span>
     </a>
     
   </li>
@@ -66,7 +68,7 @@
       
       <i class="fas fa-tags" style="zoom: 0.6;"></i>
       
-      <span>Tags</span>
+      <span>标签</span>
     </a>
     
   </li>
@@ -77,7 +79,7 @@
       
       <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
       
-      <span>Categories</span>
+      <span>分类</span>
     </a>
     
   </li>
@@ -88,7 +90,7 @@
       
       <i class="fas fa-archive" style="zoom: 0.6;"></i>
       
-      <span>Archives</span>
+      <span>归档</span>
     </a>
     
   </li>
@@ -99,7 +101,7 @@
       
       <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
       
-      <span>About</span>
+      <span>关于</span>
     </a>
     
   </li>
@@ -110,7 +112,7 @@
       
       <i class="fas fa-comments" style="zoom: 0.6;"></i>
       
-      <span>Contact</span>
+      <span>留言板</span>
     </a>
     
   </li>
@@ -121,14 +123,14 @@
       
       <i class="fas fa-address-book" style="zoom: 0.6;"></i>
       
-      <span>Friends</span>
+      <span>友情链接</span>
     </a>
     
   </li>
   
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="Search" style="zoom: 0.85;"></i>
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
     </a>
   </li>
 </ul>
@@ -140,10 +142,10 @@
         
         <img src="/leetcode-algo/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">Hexo</div>
+        <div class="logo-name">算法与数据结构入门教程</div>
         <div class="logo-desc">
             
-            Never really desperate, only the lost of the soul.
+            Java、Python3 语言实现，「专题」教程持续更新中...
             
         </div>
     </div>
@@ -158,7 +160,7 @@
 			
 			    <i class="fa-fw fas fa-home"></i>
 			
-			Index
+			首页
 		</a>
           
         </li>
@@ -169,7 +171,7 @@
 			
 			    <i class="fa-fw fas fa-tags"></i>
 			
-			Tags
+			标签
 		</a>
           
         </li>
@@ -180,7 +182,7 @@
 			
 			    <i class="fa-fw fas fa-bookmark"></i>
 			
-			Categories
+			分类
 		</a>
           
         </li>
@@ -191,7 +193,7 @@
 			
 			    <i class="fa-fw fas fa-archive"></i>
 			
-			Archives
+			归档
 		</a>
           
         </li>
@@ -202,7 +204,7 @@
 			
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
-			About
+			关于
 		</a>
           
         </li>
@@ -213,7 +215,7 @@
 			
 			    <i class="fa-fw fas fa-comments"></i>
 			
-			Contact
+			留言板
 		</a>
           
         </li>
@@ -224,7 +226,7 @@
 			
 			    <i class="fa-fw fas fa-address-book"></i>
 			
-			Friends
+			友情链接
 		</a>
           
         </li>
@@ -358,24 +360,13 @@
         <div class="brand">
             <div class="title center-align">
                 
-                    subtitle
+                力扣算法图解
                 
             </div>
 
             <div class="description center-align">
                 
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: ['从来没有真正的绝境, 只有心灵的迷途','Never really desperate, only the lost of the soul'],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
+                    Java、Python3 语言实现，「专题」教程持续更新中...
                 
             </div>
         </div>
@@ -392,23 +383,23 @@
 
             <div class="cover-btns">
                 <a href="#indexCard" class="waves-effect waves-light btn">
-                    <i class="fa fa-angle-double-down"></i>Start
+                    <i class="fa fa-angle-double-down"></i>开始阅读
                 </a>
 
                 
-                    <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light btn" target="_blank">
+                    <a href="https://github.com/liweiwei1419" class="waves-effect waves-light btn" target="_blank">
                         <i class="fab fa-github-alt"></i>Github
                     </a>
                 
             </div>
             <div class="cover-social-link">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/liweiwei1419" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:liweiwei1419@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -418,7 +409,7 @@
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=121088825" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 121088825" data-position="top" data-delay="50">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -514,12 +505,12 @@
                         <div class="dream">
     
     <div class="title center-align">
-        <i class="far fa-lightbulb"></i>&nbsp;&nbsp;我的梦想
+        <i class="far fa-lightbulb"></i>&nbsp;&nbsp;学习算法的目的
     </div>
     
     <div class="row">
         <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1 center-align text">
-            不是每个人都应该像我这样去建造一座水晶大教堂，但是每个人都应该拥有自己的梦想，设计自己的梦想，追求自己的梦想，实现自己的梦想。梦想是生命的灵魂，是心灵的灯塔，是引导人走向成功的信仰。有了崇高的梦想，只要矢志不渝地追求，梦想就会成为现实，奋斗就会变成壮举，生命就会创造奇迹。——罗伯·舒乐
+            锻炼解决问题的能力，方便他人。
         </div>
     </div>
 </div>
@@ -534,6 +525,45 @@
                     <div id="recommend-sections" class="recommend">
                         
 
+
+
+
+
+<div class="title"><i class="far fa-thumbs-up"></i>&nbsp;&nbsp;推荐文章</div>
+
+<div class="row">
+
+    
+    
+    <div class="col s12" >
+        <div class="post-card" style="background-image: url('/leetcode-algo/medias/featureimages/10.jpg')">
+            <div class="post-body">
+                <div class="post-categories">
+                    
+                        
+                            <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%89/" class="category">算法与数据结构（专题 2：二分查找）</a>
+                        
+                    
+                </div>
+                <a href="/leetcode-algo/2020/04/29/leetcode-solution-new/search-insert-position/">
+                    <h3 class="post-title">特别好用的二分查找法模板（第 2 版）</h3>
+                </a>
+                <p class="post-description">特别好用的二分查找法模板（第 2 版）
+特点：
+1、讲思想，讲原理，不只是单纯讲模板；
+2、把细节的地方理解清楚，就不难了，二分法可以轻松掌握。
+
+一、点击视频快速理解
+</p>
+                <a href="/leetcode-algo/2020/04/29/leetcode-solution-new/search-insert-position/" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FF5E3A 0%, #FF2A68 100%)" target="_blank">
+                    <i class="icon far fa-eye fa-fw"></i>阅读更多
+                </a>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
 
 
                     </div>
@@ -552,35 +582,560 @@
             
             <div class="article col s12 m6 l4" data-aos="zoom-in">
                 <div class="card">
-                    <a href="/leetcode-algo/2020/05/02/hello-world/">
+                    <a href="/leetcode-algo/2020/04/29/leetcode-solution-new/search-insert-position/">
                         <div class="card-image">
                             
                             
-                            <img src="/leetcode-algo/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                            <img src="/leetcode-algo/medias/featureimages/10.jpg" class="responsive-img" alt="特别好用的二分查找法模板（第 2 版）">
                             
-                            <span class="card-title">Hello World</span>
+                            <span class="card-title">特别好用的二分查找法模板（第 2 版）</span>
                         </div>
                     </a>
 
                     <div class="card-content article-content">
                         <div class="summary block-with-text">
                             
-                                Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                                特别好用的二分查找法模板（第 2 版）
+特点：
+1、讲思想，讲原理，不只是单纯讲模板；
+2、把细节的地方理解清楚，就不难了，二分法可以轻松掌握。
+
+一、点击视频快速理解
+「力扣」第 1095 题：山脉数组中查找目标值 题解；
+
+「力扣」第 
                             
                         </div>
                         <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
                             </span>
                             <span class="publish-author">
                                 
-                                <i class="fas fa-user fa-fw"></i>
-                                John Doe
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 2：二分查找）
+                                </a>
+                                
                                 
                             </span>
                         </div>
                     </div>
 
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                            <span class="chip bg-color">二分查找</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E6%80%9D%E6%83%B3/">
+                            <span class="chip bg-color">减治思想</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/leetcode-algo/2020/03/01/algorithms-and-data-structures/introduction/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/leetcode-algo/medias/featureimages/8.jpg" class="responsive-img" alt="「力扣」的「圈子」回答：刷题刷到绝望该怎么办？">
+                            
+                            <span class="card-title">「力扣」的「圈子」回答：刷题刷到绝望该怎么办？</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                「力扣」的「圈子」回答：刷题刷到绝望该怎么办？
+原始链接
+
+不是大佬。我个人觉得刷题和智商没有太大的关系，刷题这件事情本身也是需要「方法」的。
+我们针对算法面试准备的算法题，不是智力题，我们觉得刷题有困难，有很大一部分是心理上的因素。其实这
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-01
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/leetcode-algo/categories/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" class="post-category">
+                                    学习心得
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/leetcode-algo/2017/05/14/leetcode-algo/bucket-sort/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/leetcode-algo/medias/featureimages/19.jpg" class="responsive-img" alt="「排序算法」专题 14：桶排序（了解）">
+                            
+                            <span class="card-title">「排序算法」专题 14：桶排序（了解）</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                本文介绍了三路快排。
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-14
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                            <span class="chip bg-color">排序算法</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
+                            <span class="chip bg-color">分治</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                            <span class="chip bg-color">递归</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/partition/">
+                            <span class="chip bg-color">partition</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/leetcode-algo/2017/05/13/leetcode-algo/radix-sort/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/leetcode-algo/medias/featureimages/10.jpg" class="responsive-img" alt="「排序算法」专题 13：基数排序（了解）">
+                            
+                            <span class="card-title">「排序算法」专题 13：基数排序（了解）</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                「排序算法」专题 13：基数排序（了解）
+基本思路：也称为基于关键字的排序，例如针对数值排序，个位、十位、百位就是关键字。针对日期数据的排序：年、月、日、时、分、秒就是关键字。
+
+「基数排序」用到了「计数排序」。
+
+
+Java 代码：
+pu
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-13
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                            <span class="chip bg-color">排序算法</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
+                            <span class="chip bg-color">分治</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                            <span class="chip bg-color">递归</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/partition/">
+                            <span class="chip bg-color">partition</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/leetcode-algo/2017/05/12/leetcode-algo/counting-sort/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/leetcode-algo/medias/featureimages/16.jpg" class="responsive-img" alt="「排序算法」专题 12：计数排序">
+                            
+                            <span class="card-title">「排序算法」专题 12：计数排序</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                「排序算法」专题 12：计数排序3 种「非比较」的排序算法（了解，如果是面向笔试，不要花时间去研究）特别说明：这部分算法不建议花太多去仔细研究它们的细节。如果是面向面试，了解思想即可，用到了再学。
+直接放弃我个人觉得完全可以。
+学习资料是《
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-12
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                            <span class="chip bg-color">排序算法</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/leetcode-algo/2017/05/11/leetcode-algo/shell-sort/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/leetcode-algo/medias/featureimages/4.jpg" class="responsive-img" alt="「排序算法」专题 11：希尔排序（不建议多花时间了解）">
+                            
+                            <span class="card-title">「排序算法」专题 11：希尔排序（不建议多花时间了解）</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                「排序算法」专题 11：希尔排序（不建议多花时间了解）希尔排序的参考资料是《算法 4》。
+
+思想来源：插入排序的优化。在插入排序里，如果靠后的数字较小，它来到前面就得交换多次。「希尔排序」改进了这种做法。带间隔地使用插入排序，直到最后「间隔
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-11
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                            <span class="chip bg-color">排序算法</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/leetcode-algo/2017/05/10/leetcode-algo/bubble-sort/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/leetcode-algo/medias/featureimages/18.jpg" class="responsive-img" alt="「排序算法」专题 10：冒泡排序（了解）">
+                            
+                            <span class="card-title">「排序算法」专题 10：冒泡排序（了解）</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                「排序算法」专题 10：冒泡排序（了解）冒泡排序（了解）前面的选择排序可以作为排序算法的入门算法，插入排序让我们看到了如何改进算法，充分利用每一轮循环的比较来加快排序的速度。冒泡排序的思想如同它的名字一样，每一轮都将一个元素「冒泡」到数组的
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-10
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                            <span class="chip bg-color">排序算法</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/leetcode-algo/2017/05/09/leetcode-algo/heap-sort/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/leetcode-algo/medias/featureimages/21.jpg" class="responsive-img" alt="「排序算法」专题 9：堆排序（第 3 节）">
+                            
+                            <span class="card-title">「排序算法」专题 9：堆排序（第 3 节）</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                「排序算法」专题 9：堆排序（第 3 节）说明：堆很重要，堆排序根据个人情况掌握。这一节内容可以在学习完堆以后掌握。
+堆讲的最好的资料就是《算法 4》，堆的内容比较多，我在这里就不多展开了，建议大家直接看书获得相关知识。
+
+堆排序是选择排序
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-09
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                            <span class="chip bg-color">排序算法</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/">
+                            <span class="chip bg-color">优先队列</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/leetcode-algo/2017/05/08/algorithms-and-data-structures/quick-sort-3/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/leetcode-algo/medias/featureimages/0.jpg" class="responsive-img" alt="「排序算法」专题 8：快速排序（第 3 节）">
+                            
+                            <span class="card-title">「排序算法」专题 8：快速排序（第 3 节）</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                「排序算法」专题 8：快速排序（第 3 节）Java 代码：
+import java.util.Random;
+
+public class Solution {
+
+    // 快速排序 3：三指针快速排序
+
+    /**
+     * 
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-08
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                            <span class="chip bg-color">排序算法</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
+                            <span class="chip bg-color">分治</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                            <span class="chip bg-color">递归</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/partition/">
+                            <span class="chip bg-color">partition</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/leetcode-algo/2017/05/07/algorithms-and-data-structures/quick-sort-2/">
+                        <div class="card-image">
+                            
+                            
+                            <img src="/leetcode-algo/medias/featureimages/0.jpg" class="responsive-img" alt="「排序算法」专题 7：快速排序（第 2 节）">
+                            
+                            <span class="card-title">「排序算法」专题 7：快速排序（第 2 节）</span>
+                        </div>
+                    </a>
+
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                「排序算法」专题 7：快速排序（第 2 节）Java 代码：
+import java.util.Random;
+
+public class Solution {
+
+    // 快速排序 2：双指针（指针对撞）快速排序
+
+    /**
+ 
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-07
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                            <span class="chip bg-color">排序算法</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
+                            <span class="chip bg-color">分治</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                            <span class="chip bg-color">递归</span>
+                        </a>
+                        
+                        <a href="/leetcode-algo/tags/partition/">
+                            <span class="chip bg-color">partition</span>
+                        </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -591,63 +1146,39 @@
 </main>
 
 
-
-
-    <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/leetcode-algo/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
+<div class="container paging">
     <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
+        <div class="col s6 m4 l4">
+            
+            <a class="left btn-floating btn-large disabled">
+                <i class="fas fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">1 / 2</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a href="/leetcode-algo/page/2/"
+               class="right btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fas fa-angle-right"></i>
+            </a>
+            
+        </div>
     </div>
 </div>
 
-<script src="/leetcode-algo/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
 
+
+
+    <footer class="page-footer bg-color">
     
     <div class="container row center-align" style="margin-bottom: 0px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             <span id="year">2019</span>
-            <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">John Doe</a>
+            <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
             <br>
@@ -674,13 +1205,13 @@
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/liweiwei1419" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:liweiwei1419@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -690,7 +1221,7 @@
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=121088825" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 121088825" data-position="top" data-delay="50">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -715,8 +1246,8 @@
 <div id="searchModal" class="modal">
     <div class="modal-content">
         <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;Search</span>
-            <input type="search" id="searchInput" name="s" placeholder="Please enter a search keyword"
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
                    class="search-input">
         </div>
         <div id="searchResult"></div>

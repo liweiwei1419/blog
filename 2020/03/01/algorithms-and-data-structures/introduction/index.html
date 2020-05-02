@@ -1,0 +1,1158 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="「力扣」的「圈子」回答：刷题刷到绝望该怎么办？, 算法与数据结构入门教程">
+    <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>「力扣」的「圈子」回答：刷题刷到绝望该怎么办？ | 算法与数据结构入门教程</title>
+    <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/my.css">
+
+    <script src="/leetcode-algo/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/leetcode-algo/atom.xml" title="算法与数据结构入门教程" type="application/atom+xml">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/leetcode-algo/" class="waves-effect waves-light">
+                    
+                    <img src="/leetcode-algo/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">算法与数据结构入门教程</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/leetcode-algo/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">算法与数据结构入门教程</div>
+        <div class="logo-desc">
+            
+            Java、Python3 语言实现，「专题」教程持续更新中...
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/8.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">「力扣」的「圈子」回答：刷题刷到绝望该怎么办？</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/leetcode-algo/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    .toc-fixed .toc-link::before{
+        position: fixed!important;/*当toc的位置改为fixed时，.toc-link::before也要改为fixed*/
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/leetcode-algo/categories/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" class="post-category">
+                                学习心得
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-03-01
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="「力扣」的「圈子」回答：刷题刷到绝望该怎么办？"><a href="#「力扣」的「圈子」回答：刷题刷到绝望该怎么办？" class="headerlink" title="「力扣」的「圈子」回答：刷题刷到绝望该怎么办？"></a>「力扣」的「圈子」回答：刷题刷到绝望该怎么办？</h2><ul>
+<li><a href="https://leetcode-cn.com/circle/discuss/xFI0Il/" target="_blank" rel="noopener">原始链接</a></li>
+</ul>
+<p>不是大佬。我个人觉得刷题和智商没有太大的关系，刷题这件事情本身也是需要「方法」的。</p>
+<p>我们针对算法面试准备的算法题，不是智力题，我们觉得刷题有困难，有很大一部分是心理上的因素。其实这一类算法问题非常像我们初高中的数学问题，知识点很多，都有相对固定的思考方向和常考的知识点，答案和思路也是相对固定的。</p>
+<p>刷题这件事情我觉得<strong>一开始以培养兴趣</strong>为主，<strong>从易到难做，同类问题一起做（按标签）做</strong>，是我看到的绝大多数朋友刷题的方式。</p>
+<p>「力扣」的<a href="https://leetcode-cn.com/explore/" target="_blank" rel="noopener">「探索」</a>模块就是适合入门的地方。你可以从「数组」「二分查找」「字符串」「链表」这些模块开始做起，这些模块需要的基础知识较少，并且「探索」板块本身就是一个小的教程。通过知识讲解和练习是可以掌握这一类问题的通用的做法的。</p>
+<ul>
+<li>刷题建议</li>
+</ul>
+<p>做题的时候<strong>需要先仔细读题</strong>，把题目中的文字描述细节和示例看一下，然后再<strong>看看输入数据的范围</strong>，确保自己明确了题意以后想思路，然后再编码。</p>
+<p>编码遇到问题，测试通不过是非常正常的事情。这个时候首先思考是不是本身思路上就存在问题，可以根据不能通过的测试用例，检查自己的思路在哪一方面没有考虑周到。如果是思路正确，那就是在编码实现的时候遇到的问题，这其实是比较考验耐心的。调试程序本身就是一种需要训练的能力，一个简单而有效的方法就是在程序的关键的地方，做一些 <code>System.out.println(i);</code> 之类的打印输出，观察数据是否按照我们所设定的流程执行下去。这件事情看起来枯燥，但是是作为程序员的基本技能，只能靠自己训练获得。</p>
+<p>如果一道问题自己没有思路，完全可以直接看别人的思路。如果别人的思路看不懂，没有关系，看不懂就跳过。看不懂在一些情况下不是问题，不同的朋友表达的方式和语言不一样。写题解和博客的朋友不可能都从头开始写，每个人写题解的侧重点也不同，会假设读者有的算法和数据结构的知识也会不同。</p>
+<p>看完别人的思路，觉得合理可行，再自己尝试编码。遇到问题再去比对别人给的示例代码。</p>
+<p>即使是自己独立做完的问题，也很有必要在做完以后看看别人的思路，这一步也会让自己学习到很多。</p>
+<ul>
+<li>用好收藏夹</li>
+</ul>
+<p>实在不懂又很想搞清楚的问题，不妨就放在收藏夹里，「力扣」本来就有提供收藏夹功能。也可以给自己刷题的 GitHub 仓库提交一个 issue ，把这道题和自己找到相关的参考资料写进去，提醒自己以后花时间去搞清楚。今天怎么想都不明白，过两天一下子就想通的事情也是常有的。因为有些时候学习和思考问题，个人的情绪和状态也是有关系的。</p>
+<p>还有一些比较难的问题，一开始先别去碰，可以先看看题目的意思，不感兴趣就不做，感兴趣的话，不强求自己一定要做出来，就放在那里慢慢花时间搞懂，也是常有的事情，一道题可能重启 4 遍到 5 遍才搞懂是非常正常的，而且这样的问题如果最后自己真的搞定了以后是很有满足感的，力扣的第 4 题、第 5 题、第 47 题、第 41 题、第 300 题，第 42 题、第 84 题差不多就是类似的问题，即使是刷了很多遍以后，我都不敢说我完全搞懂了这些问题，就让它们在收藏夹里先吃灰叭。</p>
+<ul>
+<li>尝试表达输出，尽量用简单、通俗的语言描述自己的思路</li>
+</ul>
+<p>在刷题的过程中，需要自己总结这一类问题的特点，然后用自己的语言表达，写博客、题解或者是和一起刷题的小伙伴讨论。这些虽然不是写代码，但也属于刷题的一部分，可以积累下来形成刷题的「数据」，以后不论是找工作还是自己复习都是十分有帮助的，我和很多小伙伴都是这么做的。</p>
+<ul>
+<li>养成好的编码习惯</li>
+</ul>
+<p>刷题不是只有“数量”这个指标，即使是同样的思路，不同的人写出来的代码也会有很大差异。怎么写代码也是需要自己总结和训练的。代码格式良好，有恰当的、必要的注释，让别人能够很清楚地了解自己的思路，也是需要慢慢锻炼的。虽然刷题是个人行为，但是在写代码的时候按照写工程代码的标准来要求自己，我个人觉得是非常有益处的，我自己也是坚持这么做的，可以让自己避免很多坑和不必要的麻烦。</p>
+<ul>
+<li>不只是为了面试而刷题</li>
+</ul>
+<p>刷题这件事情对于绝大多数朋友，也包括我，目标主要是在面试中得到一个好的成绩，找到一份好的工作。但刷题的过程是很值得经历的，从焦虑到欣喜，再到焦虑和自我怀疑，然后又莫名其妙自我感动，都是很正常的。</p>
+<p>把「力扣」的算法题就想象成解决一个一个日常生活中遇到的问题，我们写的「算法」就是解决这些问题的方法，而「数据结构」是存储和处理数据的容器，是我们可以利用的工具，很多是现成的编程语言的函数库就提供给我们使用的。</p>
+<ul>
+<li>不要把刷题想得很难，很多时候只是心态的问题</li>
+</ul>
+<p>刷题比起很多工作，例如机器学习里的公式推导、打一些数据挖掘竞赛、很多研究生朋友写科研论文，是要简单得多，甚至比起大家考研的时候学习的高等数学、线性代数、概率论与数理统计都要简单很多，要相信自己一定可以慢慢拿下的。</p>
+<p>不要有太大压力，一道题做得出来做不出来，都不能说明太大问题，做对了有可能是侥幸，做错了也有可能是一时头脑短路或者是题目不对味口。</p>
+<p>我有一位非常好的朋友，他是科班出身，听他说他以前刷题的时候，没有思路得去找学长讨论，LeetCode 当时还没有中文社区，看思路和题解、和别人交流得用英文。现在其实我们方便很多了。</p>
+<p>刷基础算法问题和智商绝大多数情况下没有关系（刷 ACM 等竞赛题库除外），我个人觉得是和「态度」有关。可以想一想自己是不是认真地在刷题，参考资料和视频讲解手上都有，还搞不清楚，是不是自己花的时间不够，或者说没有找认真找合适的资料，或者就是自己想偷懒。</p>
+<p>适合自己的刷题方式也是需要慢慢摸索的，一开始需要一些帮助和基础知识储备是必要的。后期就是查缺补漏，重点训练了。一开始不要过于执着一个问题，一个问题没有搞清楚，就放一放，问题很多，不可能全部做完，也不可能全部搞懂。自己需要合理分配时间和精力。</p>
+<p>即使是「回溯算法」「动态规划」「贪心算法」「哈希表」「红黑树」这样高级的数据结构和算法，它们确实很复杂、很难，但是它们的基本思想是很简单的，或者说它们就是从一个很简单的样子一点一点变化，变成我们现在看到的这个样子，绝大多数算法思想都可以在我们的生活中找到对应的例子去理解它。</p>
+<p>「力扣」的周赛其实也是很适合新手的，我现在想做的时候，也都会去做一下周赛，然后会和固定的小伙伴交流做题心得，有的时候也就是简单汇报一下自己做出了哪题，哪题实在想不出来，或者吐槽一下一些问题题目太长或者题意难懂实在不想做。有些朋友会误解我可能做那些问题会很轻松，其实不是的，我现在做周赛也就 2 题到 3 题，从来没有 4 题都做完过。头几次周赛一道题都没做出来就是我了。可以把每次周赛就当做是一次模拟的笔试、有很多小伙伴陪我们一起做，找找感觉，我想说的是，而且一定会有真·大佬出来，在「力扣」的「圈子」板块和题解区、评论区分享它们的做题思路和代码，在一些视频网站也可以看到他们的比赛实况和赛后讲解，讲得都非常不错，我们可以趁机向他们学习。</p>
+<p>个人观点，仅供参考。</p>
+<p>（本节完）</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" rel="external nofollow noreferrer">liweiwei1419</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2020/03/01/algorithms-and-data-structures/introduction/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2020/03/01/algorithms-and-data-structures/introduction/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/leetcode-algo/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/leetcode-algo/medias/reward/alipayimg.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/leetcode-algo/medias/reward/wechatpayimg.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/leetcode-algo/2020/04/29/leetcode-solution-new/search-insert-position/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/10.jpg" class="responsive-img" alt="特别好用的二分查找法模板（第 2 版）">
+                        
+                        <span class="card-title">特别好用的二分查找法模板（第 2 版）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            特别好用的二分查找法模板（第 2 版）
+特点：
+1、讲思想，讲原理，不只是单纯讲模板；
+2、把细节的地方理解清楚，就不难了，二分法可以轻松掌握。
+
+一、点击视频快速理解
+「力扣」第 1095 题：山脉数组中查找目标值 题解；
+
+「力扣」第 
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 2：二分查找）
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                        <span class="chip bg-color">二分查找</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E6%80%9D%E6%83%B3/">
+                        <span class="chip bg-color">减治思想</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/leetcode-algo/2017/05/14/leetcode-algo/bucket-sort/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/19.jpg" class="responsive-img" alt="「排序算法」专题 14：桶排序（了解）">
+                        
+                        <span class="card-title">「排序算法」专题 14：桶排序（了解）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            本文介绍了三路快排。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">排序算法</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
+                        <span class="chip bg-color">分治</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                        <span class="chip bg-color">递归</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/partition/">
+                        <span class="chip bg-color">partition</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/leetcode-algo/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/liweiwei1419" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiwei1419@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=121088825" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 121088825" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/leetcode-algo/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/leetcode-algo/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/leetcode-algo/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/leetcode-algo/libs/materialize/materialize.min.js"></script>
+    <script src="/leetcode-algo/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/leetcode-algo/libs/aos/aos.js"></script>
+    <script src="/leetcode-algo/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/leetcode-algo/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/leetcode-algo/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/leetcode-algo/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/leetcode-algo/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/leetcode-algo/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

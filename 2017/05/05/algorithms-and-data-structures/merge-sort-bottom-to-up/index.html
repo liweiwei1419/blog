@@ -1,0 +1,1395 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="「排序算法」专题 5：「分治思想」经典例子, 算法与数据结构入门教程">
+    <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>「排序算法」专题 5：「分治思想」经典例子 | 算法与数据结构入门教程</title>
+    <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/my.css">
+
+    <script src="/leetcode-algo/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/leetcode-algo/atom.xml" title="算法与数据结构入门教程" type="application/atom+xml">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/leetcode-algo/" class="waves-effect waves-light">
+                    
+                    <img src="/leetcode-algo/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">算法与数据结构入门教程</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/leetcode-algo/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">算法与数据结构入门教程</div>
+        <div class="logo-desc">
+            
+            Java、Python3 语言实现，「专题」教程持续更新中...
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/10.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">「排序算法」专题 5：「分治思想」经典例子</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/leetcode-algo/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    .toc-fixed .toc-link::before{
+        position: fixed!important;/*当toc的位置改为fixed时，.toc-link::before也要改为fixed*/
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">排序算法</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                算法与数据结构（专题 1：排序算法）
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2017-05-05
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="「排序算法」专题-5：「分治思想」经典例子"><a href="#「排序算法」专题-5：「分治思想」经典例子" class="headerlink" title="「排序算法」专题 5：「分治思想」经典例子"></a>「排序算法」专题 5：「分治思想」经典例子</h2><p>这里给出的例题的解题思路如果对于初学者来说可能不是很容易想到，不过其实你只要熟悉归并排序，按照归并排序的套路，是不难写出下面的代码。反正不过我是写不出的，不过我会看别人写的代码，理解之后，自己写出来。如果觉得理解这些代码比较吃力的话，可以暂时跳过，我写出来还是费了很大力气，并且也是调试和一段时间才把代码写正确的。</p>
+<p>本节介绍了 3 道例题，它们分别是：计算数组的逆序对、计算右侧小于当前元素的个数、最大子序和。</p>
+<h3 id="例1：《剑指-Offer》（第-2-版）第-51-题：计算数组的逆序对"><a href="#例1：《剑指-Offer》（第-2-版）第-51-题：计算数组的逆序对" class="headerlink" title="例1：《剑指 Offer》（第 2 版）第 51 题：计算数组的逆序对"></a>例1：《剑指 Offer》（第 2 版）第 51 题：计算数组的逆序对</h3><p>传送门：<a href="https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/" target="_blank" rel="noopener">《剑指 Offer》（第 2 版）第 51 题：计算数组的逆序对</a>。</p>
+<blockquote>
+<p>在数组中的两个数字如果前面一个数字大于后面的数字，则这两个数字组成一个逆序对。</p>
+<p>输入一个数组，求出这个数组中的逆序对的总数。</p>
+<h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h4><pre><code>输入：[1,2,3,4,5,6,0]
+
+输出：6</code></pre></blockquote>
+<p>思路1：首先我们应该想到，使用定义计算逆序数，时间复杂度是：$O(n^2)$。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">inversePairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        res <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    res <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这种思路虽然很直接，但编写出错的概率就很低了，在没有在线评测系统的时候，它可以作为一个“正确的”参考答案，用以检验我们自己编写的算法是否正确。</p>
+<p>思路2：借助归并排序的分治思想，时间复杂度为 $O(n \log n)$。</p>
+<p>分析：例如：前有序数组：$[2,3,5,8]$，后有序数组：$[4,6,7,12]$。</p>
+<p>做归并的时候，步骤如下：</p>
+<p>第 1 步，$2$ 先出列，$2$ 比“后有序数组”中所有的元素都小，构成“顺序对”；</p>
+<p>第 2 步，$3$ 出列，$3$ 比“后有序数组”中所有的元素都小，构成“顺序对”；</p>
+<p>第 3 步，$4$ 出列，关键的地方在这里，<strong>“前有序数组”中所有剩下的元素 $[5,8]$ 比 $4$  都大，构成 $2$ 个 “逆序对”</strong>；</p>
+<p>第 4 步，$5$ 出列，$5$ 比“后有序数组”中所有剩下的元素都小，构成“顺序对”；</p>
+<p>第 5 步，$6$ 出列，<strong>“前有序数组”中所有剩下的元素 $[8]$ 比 $6$ 都大，构成 $1$ 个“逆序对”</strong>；</p>
+<p>第 6 步，$7$ 出列，<strong>“前有序数组”中所有剩下的元素 $[8]$ 比 $7$ 都大，构成 $1$ 个“逆序对”</strong>；</p>
+<p>第 7 步，$8$ 出列，$8$ 比“后有序数组”中所有剩下的元素 $[8]$ 都小，构成 $1$ 个“顺序对”；</p>
+<p>第 8 步，$12$ 出列，此时“前有序数组”为空。</p>
+<p>因此，我们只需要在<strong>“前有序数组”非空，且“后有序数组”中有元素出列的时候，即上面的第 3、5、6 步计算“逆序对”就可以了</strong>。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">inversePairs1</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        res <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    res <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> res
+
+    <span class="token keyword">def</span> <span class="token function">inversePairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        :type nums: List[int]
+        :rtype: int
+        """</span>
+
+        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        temp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>count_inversion_pairs<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">count_inversion_pairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        在数组 nums 的区间 [l,r] 统计逆序对
+        :param nums:
+        :param l: 待统计数组的左边界，可以取到
+        :param r: 待统计数组的右边界，可以取到
+        :param temp:
+        :return:
+        """</span>
+        <span class="token comment" spellcheck="true"># 极端情况下，就是只有 1 个元素的时候</span>
+        <span class="token keyword">if</span> l <span class="token operator">==</span> r<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+        left_pairs <span class="token operator">=</span> self<span class="token punctuation">.</span>count_inversion_pairs<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
+        right_pairs <span class="token operator">=</span> self<span class="token punctuation">.</span>count_inversion_pairs<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
+
+        merge_pairs <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token comment" spellcheck="true"># 代码走到这里的时候，</span>
+        <span class="token comment" spellcheck="true"># [l, mid] 已经完成了排序并且计算好逆序对</span>
+        <span class="token comment" spellcheck="true"># [mid + 1, r] 已经完成了排序并且计算好逆序对</span>
+        <span class="token comment" spellcheck="true"># 如果 nums[mid] &lt;= nums[mid + 1]，此时就不存在逆序对</span>
+        <span class="token comment" spellcheck="true"># 当 nums[mid] > nums[mid + 1] 的时候，就要继续计算逆序对</span>
+        <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 在归并的过程中计算逆序对</span>
+            merge_pairs <span class="token operator">=</span> self<span class="token punctuation">.</span>merge_and_count<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 走到这里有 nums[mid] &lt;= nums[mid + 1] 成立，已经是顺序结构</span>
+        <span class="token keyword">return</span> left_pairs <span class="token operator">+</span> right_pairs <span class="token operator">+</span> merge_pairs
+
+    <span class="token keyword">def</span> <span class="token function">merge_and_count</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        前：[2,3,5,8]，后：[4,6,7,12]
+        我们只需要在后面数组元素出列的时候，数一数前面这个数组还剩下多少个数字，
+        因为"前"数组和"后"数组都有序，
+        因此，"前"数组剩下的元素个数 mid - i + 1 就是与"后"数组元素出列的这个元素构成的逆序对个数
+
+        """</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">,</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+        i <span class="token operator">=</span> l
+        j <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
+        res <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> k <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">,</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> i <span class="token operator">></span> mid<span class="token punctuation">:</span>
+                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                j <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> j <span class="token operator">></span> r<span class="token punctuation">:</span>
+                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                i <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 不统计逆序对，只做排序</span>
+                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                i <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">assert</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                j <span class="token operator">+=</span> <span class="token number">1</span>
+                <span class="token comment" spellcheck="true"># 快就快在这里，一次可以数出一个区间的个数的逆序对</span>
+                <span class="token comment" spellcheck="true"># 例：[7,8,9][4,6,9]，4 与 7 以及 7 前面所有的数都构成逆序对</span>
+                res <span class="token operator">+=</span> <span class="token punctuation">(</span>mid <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>说明：归并两个有序数组的时候，我们要借助额外的辅助空间，为此可以全局使用一个和原始数组等长的辅助数组，否则每一次进入 <code>merge</code> 函数都要 new 新数组，开销很大。</p>
+<p>上述解法的缺点是修改了原始数组，排序完成以后，逆序数就计算出来了。为此：1、我们可以引入一个索引数组；2、或者直接拷贝一个原始数组，这样就不用修改原始数组了。</p>
+<h3 id="例2：「力扣」第-315-题：计算右侧小于当前元素的个数"><a href="#例2：「力扣」第-315-题：计算右侧小于当前元素的个数" class="headerlink" title="例2：「力扣」第 315 题：计算右侧小于当前元素的个数"></a>例2：「力扣」第 315 题：计算右侧小于当前元素的个数</h3><p>传送门：<a href="https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/" target="_blank" rel="noopener">315. 计算右侧小于当前元素的个数</a>。</p>
+<blockquote>
+<p>给定一个整数数组 <em>nums<em>，按要求返回一个新数组 *counts</em>。数组 *counts</em> 有该性质： <code>counts[i]</code> 的值是  <code>nums[i]</code> 右侧小于 <code>nums[i]</code> 的元素的数量。</p>
+<p><strong>示例:</strong></p>
+<pre><code>输入: [5,2,6,1]
+输出: [2,1,1,0] 
+解释:
+5 的右侧有 2 个更小的元素 (2 和 1).
+2 的右侧仅有 1 个更小的元素 (1).
+6 的右侧有 1 个更小的元素 (1).
+1 的右侧有 0 个更小的元素.</code></pre></blockquote>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">countSmaller</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        :type nums: List[int]
+        :rtype: List[int]
+        """</span>
+
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+
+        temp <span class="token operator">=</span> <span class="token punctuation">[</span>None <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        indexes <span class="token operator">=</span> <span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+        self<span class="token punctuation">.</span>__helper<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> res
+
+    <span class="token keyword">def</span> <span class="token function">__helper</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> left <span class="token operator">==</span> right<span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+        mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+
+        <span class="token comment" spellcheck="true"># 计算一下左边</span>
+        self<span class="token punctuation">.</span>__helper<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 计算一下右边</span>
+        self<span class="token punctuation">.</span>__helper<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> nums<span class="token punctuation">[</span>indexes<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>indexes<span class="token punctuation">[</span>mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+        self<span class="token punctuation">.</span>__sort_and_count_smaller<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> right<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__sort_and_count_smaller</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> right<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># [left,mid] 前有序数组</span>
+        <span class="token comment" spellcheck="true"># [mid+1,right] 后有序数组</span>
+
+        <span class="token comment" spellcheck="true"># 先拷贝，再合并</span>
+
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>left<span class="token punctuation">,</span> right <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+
+        l <span class="token operator">=</span> left
+        r <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>left<span class="token punctuation">,</span> right <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> l <span class="token operator">></span> mid<span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># l 用完，就拼命使用 r</span>
+                <span class="token comment" spellcheck="true"># [1,2,3,4] [5,6,7,8]</span>
+                indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>r<span class="token punctuation">]</span>
+                r <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> r <span class="token operator">></span> right<span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># r 用完，就拼命使用 l</span>
+                <span class="token comment" spellcheck="true"># [6,7,8,9] [1,2,3,4]</span>
+                indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>l<span class="token punctuation">]</span>
+                l <span class="token operator">+=</span> <span class="token number">1</span>
+                <span class="token comment" spellcheck="true"># 注意：此时前面剩下的数，比后面所有的数都大</span>
+                res<span class="token punctuation">[</span>indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> mid<span class="token punctuation">)</span>
+            <span class="token keyword">elif</span> nums<span class="token punctuation">[</span>temp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>temp<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># [3,5,7,9] [4,6,8,10]</span>
+                indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>l<span class="token punctuation">]</span>
+                l <span class="token operator">+=</span> <span class="token number">1</span>
+                <span class="token comment" spellcheck="true"># 注意：</span>
+                res<span class="token punctuation">[</span>indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">assert</span> nums<span class="token punctuation">[</span>temp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>temp<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">]</span>
+                <span class="token comment" spellcheck="true"># 上面两种情况只在其中一种统计就可以了</span>
+                <span class="token comment" spellcheck="true"># [3,5,7,9] [4,6,8,10]</span>
+                indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>r<span class="token punctuation">]</span>
+                r <span class="token operator">+=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>说明：这里用到了一个索引数组 <code>indeses</code>，是一个常见的技巧。比如我们交换数组的元素成本很大的时候，可以使用索引数组，交换索引成本很低。这一点，在我们以后介绍索引堆的时候还会用到。</p>
+<h3 id="例3：「力扣」第-53-题：最大子序和"><a href="#例3：「力扣」第-53-题：最大子序和" class="headerlink" title="例3：「力扣」第 53 题：最大子序和"></a>例3：「力扣」第 53 题：最大子序和</h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/maximum-subarray/description/" target="_blank" rel="noopener">53. Maximum Subarray</a> ，中文网址：<a href="https://leetcode-cn.com/problems/maximum-subarray/description/" target="_blank" rel="noopener">53. 最大子序和</a> 。</p>
+<blockquote>
+<p>给定一个整数数组 <code>nums</code> ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p><strong>示例:</strong></p>
+<pre><code>输入: [-2,1,-3,4,-1,2,1,-5,4],
+输出: 6
+解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</code></pre><p><strong>进阶:</strong></p>
+<p>如果你已经实现复杂度为 O(<em>n</em>) 的解法，尝试使用更为精妙的分治法求解。</p>
+</blockquote>
+<p>分析：这道题其实最先应该想到使用动态规划，使用分治有点“小题大作”，我们不妨把分治解法看做一个例题。</p>
+<p>分治的时候，要注意一点，不重不漏。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">maxSubArray</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        :type nums: List[int]
+        :rtype: int
+        """</span>
+        n <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>__max_sub_array<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__max_sub_array</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> left <span class="token operator">==</span> right<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span>
+        mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+        <span class="token keyword">return</span> max<span class="token punctuation">(</span>self<span class="token punctuation">.</span>__max_sub_array<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                   self<span class="token punctuation">.</span>__max_sub_array<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                   self<span class="token punctuation">.</span>__max_cross_array<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__max_cross_array</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        一定包含 nums[mid] 元素的最大连续子数组的和
+        思路是看看左边扩散到底，得到一个最大数
+        右边扩散到底得到一个最大数
+        :param nums:
+        :param mid:
+        :param right:
+        :return:
+        """</span>
+        ls <span class="token operator">=</span> <span class="token number">0</span>
+        j <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
+        s1 <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">while</span> j <span class="token operator">>=</span> left<span class="token punctuation">:</span>
+            s1 <span class="token operator">+=</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+            ls <span class="token operator">=</span> max<span class="token punctuation">(</span>ls<span class="token punctuation">,</span> s1<span class="token punctuation">)</span>
+            j <span class="token operator">-=</span> <span class="token number">1</span>
+
+        rs <span class="token operator">=</span> <span class="token number">0</span>
+        j <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
+        s2 <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">while</span> j <span class="token operator">&lt;=</span> right<span class="token punctuation">:</span>
+            s2 <span class="token operator">+=</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+            rs <span class="token operator">=</span> max<span class="token punctuation">(</span>rs<span class="token punctuation">,</span> s2<span class="token punctuation">)</span>
+            j <span class="token operator">+=</span> <span class="token number">1</span>
+
+        <span class="token keyword">return</span> ls <span class="token operator">+</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">+</span> rs
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    s <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
+    result <span class="token operator">=</span> s<span class="token punctuation">.</span>maxSubArray<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>（本节完）</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" rel="external nofollow noreferrer">liweiwei1419</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2017/05/05/algorithms-and-data-structures/merge-sort-bottom-to-up/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2017/05/05/algorithms-and-data-structures/merge-sort-bottom-to-up/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">排序算法</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/leetcode-algo/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/leetcode-algo/medias/reward/alipayimg.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/leetcode-algo/medias/reward/wechatpayimg.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/leetcode-algo/2017/05/06/algorithms-and-data-structures/quick-sort-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/0.jpg" class="responsive-img" alt="「排序算法」专题 6：快速排序（第 1 节）">
+                        
+                        <span class="card-title">「排序算法」专题 6：快速排序（第 1 节）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「排序算法」专题 6：快速排序（第 1 节）
+基本思路：快速排序每一次都排定一个元素（这个元素呆在了它最终应该呆的位置），然后递归地去排它左边的部分和右边的部分，依次进行下去，直到数组有序；
+
+算法思想：分而治之（分治思想），与「归并排序」
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2017-05-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">排序算法</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
+                        <span class="chip bg-color">分治</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                        <span class="chip bg-color">递归</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/partition/">
+                        <span class="chip bg-color">partition</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/leetcode-algo/2017/05/04/algorithms-and-data-structures/merge-sort-optimize/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/14.jpg" class="responsive-img" alt="「分治思想」的应用">
+                        
+                        <span class="card-title">「分治思想」的应用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「排序算法」专题 4：归并排序的优化根据上一节的「归并排序」的 3 个优化，写出的代码。
+Java 代码：
+public class Solution {
+
+    /**
+     * 列表大小等于或小于该大小，将优先于 mergeSor
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-05-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E4%B8%93%E9%A2%98-1%EF%BC%9A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%89/" class="post-category">
+                                    算法与数据结构（专题 1：排序算法）
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">排序算法</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
+                        <span class="chip bg-color">分治</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                        <span class="chip bg-color">递归</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/leetcode-algo/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/liweiwei1419" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiwei1419@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=121088825" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 121088825" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/leetcode-algo/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/leetcode-algo/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/leetcode-algo/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/leetcode-algo/libs/materialize/materialize.min.js"></script>
+    <script src="/leetcode-algo/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/leetcode-algo/libs/aos/aos.js"></script>
+    <script src="/leetcode-algo/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/leetcode-algo/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/leetcode-algo/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/leetcode-algo/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/leetcode-algo/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/leetcode-algo/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
