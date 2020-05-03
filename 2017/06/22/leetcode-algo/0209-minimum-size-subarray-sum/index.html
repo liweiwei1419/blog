@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="「力扣」第 209 题：长度最小的子数组, 算法与数据结构入门教程">
+    <meta name="keywords" content="「力扣」第 220 题：存在重复元素 III, 算法与数据结构入门教程">
     <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>「力扣」第 209 题：长度最小的子数组 | 算法与数据结构入门教程</title>
+    <title>「力扣」第 220 题：存在重复元素 III | 算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/13.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">「力扣」第 209 题：长度最小的子数组</h1>
+                    <h1 class="description center-align post-title">「力扣」第 220 题：存在重复元素 III</h1>
                 </div>
             </div>
         </div>
@@ -481,165 +481,295 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="「力扣」第-209-题：长度最小的子数组"><a href="#「力扣」第-209-题：长度最小的子数组" class="headerlink" title="「力扣」第 209 题：长度最小的子数组"></a>「力扣」第 209 题：长度最小的子数组</h2><ul>
-<li><p>中文网址：<a href="https://leetcode-cn.com/problems/minimum-size-subarray-sum/description/" target="_blank" rel="noopener">209. 长度最小的子数组</a> ；</p>
-</li>
-<li><p>英文网址：<a href="https://leetcode.com/problems/minimum-size-subarray-sum/description/" target="_blank" rel="noopener">209. Minimum Size Subarray Sum</a> 。</p>
-</li>
-</ul>
+                <h2 id="「力扣」第-220-题：存在重复元素-III"><a href="#「力扣」第-220-题：存在重复元素-III" class="headerlink" title="「力扣」第 220 题：存在重复元素 III"></a>「力扣」第 220 题：存在重复元素 III</h2><p>题解地址：<a href="">滑动窗口 + 二叉搜索树找上下边界（Python 代码、Java 代码）</a>。</p>
+<p>说明：文本首发在力扣的题解版块，更新也会在第 1 时间在上面的网站中更新，这篇文章只是上面的文章的一个快照，您可以点击上面的链接看到其他网友对本文的评论。</p>
+<p>传送门：<a href="https://leetcode-cn.com/problems/contains-duplicate-iii/" target="_blank" rel="noopener">220. 存在重复元素 III</a>。</p>
 <blockquote>
-<p>给定一个含有 <strong>n</strong> 个正整数的数组和一个正整数 <strong>s ，</strong>找出该数组中满足其和 <strong>≥ s</strong> 的长度最小的连续子数组<strong>。</strong>如果不存在符合条件的连续子数组，返回 0。</p>
-<p><strong>示例:</strong> </p>
-<pre><code>输入: s = 7, nums = [2,3,1,2,4,3]
-输出: 2
-解释: 子数组 [4,3] 是该条件下的长度最小的连续子数组。</code></pre><p><strong>进阶:</strong></p>
-<p>如果你已经完成了<em>O</em>(<em>n</em>) 时间复杂度的解法, 请尝试 <em>O</em>(<em>n</em> log <em>n</em>) 时间复杂度的解法。</p>
+<p>给定一个整数数组，判断数组中是否有两个不同的索引 i 和 j，使得 nums [i] 和 nums [j] 的差的绝对值最大为 t，并且 i 和 j 之间的差的绝对值最大为 ķ。</p>
+<p>示例 1:</p>
+<p>输入: nums = [1,2,3,1], k = 3, t = 0<br>输出: true<br>示例 2:</p>
+<p>输入: nums = [1,0,1,1], k = 1, t = 2<br>输出: true<br>示例 3:</p>
+<p>输入: nums = [1,5,9,1,5,9], k = 2, t = 3<br>输出: false</p>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/contains-duplicate-iii" target="_blank" rel="noopener">https://leetcode-cn.com/problems/contains-duplicate-iii</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
 </blockquote>
-<p>思路1：使用滑动窗口的技巧来完成，要看过一遍整个数组的元素，时间复杂度是 $O(n)$。要求满足区间和 &gt;= s 的最小子区间的长度，因此，我们从左向右进行扫描。</p>
-<p>情况1：当区间和小于 s 的时候，右区间的端点向右扩展，这一点依赖外层循环的遍历就可以完成；</p>
-<p>情况2：一旦区间和大于等于 s，尝试一步一步缩小左区间端点，看看是否能得到一个更短的区间，满足区间和 &gt;=s，这一步通过一个内层循环实现。</p>
-<p>Python 代码1：在理解的基础上，记住下面这个写法，右指针也是用于遍历的指针</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        :type s: int
-        :type nums: List[int]
-        :rtype: int
-        """</span>
-        <span class="token comment" spellcheck="true"># 滑动窗口</span>
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 特判</span>
-        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
+<h2 id="滑动窗口-二叉搜索树找上下边界（Python-代码、Java-代码）"><a href="#滑动窗口-二叉搜索树找上下边界（Python-代码、Java-代码）" class="headerlink" title="滑动窗口 + 二叉搜索树找上下边界（Python 代码、Java 代码）"></a>滑动窗口 + 二叉搜索树找上下边界（Python 代码、Java 代码）</h2><p><strong>思路分析</strong>：</p>
+<p>1、存在性问题，找到符合题意的数据对即可，所有可能的情况看完以后才返回 <code>false</code>；</p>
+<p>2、题目给出了两个限制条件，分别是针对数（<code>nums [i]</code> 和 <code>nums [j]</code> 的差的绝对值最大为 <code>t</code>）和对应的索引（<code>i</code> 和 <code>j</code> 之间的差的绝对值最大为 <code>ķ</code>）的。</p>
+<blockquote>
+<p><strong>由于索引方便定位，因此我们将索引的差值固定，于是问题转化为固定长度（长度为 $k+1$）的窗口内，是否存在两个值的差距不超过 <code>t</code>，即问题转化为一个“滑动窗口”问题</strong>。</p>
+</blockquote>
+<p>由于转化成了“滑动窗口”问题，因此，两个限制条件只剩下一个，即：<code>nums [i]</code> 和 <code>nums [j]</code> 的差的绝对值最大为 <code>t</code>。下面这一点是针对这个限制条件的分析。</p>
+<p>3、“数组”和“滑动窗口”问题，我们通常都得遍历，在遍历的过程中，我们试图在“已经出现、但还未滑出滑动窗口”的所有数中查找是否有一个数与当前出现的这个数的差的绝对值最大为 <code>t</code>，这件事情我们换一个说法：</p>
+<blockquote>
+<p>我们在数轴上标出 <code>nums[i]</code> 的位置，然后以 <code>t</code> 为半径画圆，这个圆与 <code>nums[i]</code> 的左边相交于 <code>nums[i] - t</code>，与 <code>nums[i]</code> 的y右边相交于 <code>nums[i] + t</code>，如果我们在遍历中发现，“滑动窗口”内有元素落在 <code>[nums[i] - t, nums[i] + t]</code> 这个区间内，那么根据第 1 点，直接返回 <code>true</code> 即可。</p>
+</blockquote>
+<p><img src="https://pic.leetcode-cn.com/e7b5ec71ff3a7addc6ad099eb6037dbe28b758fbeba0f7aeebd568ebb24ef774-image.png" alt="image.png"></p>
+<p>再想想，在“滑动窗口”滑动的过程中，我们需要做什么？</p>
+<blockquote>
+<p>在“滑动窗口”中查找落在 <code>[nums[i] - t, nums[i] + t]</code> 这个区间内的元素，存在一个即可。</p>
+</blockquote>
+<p>对于查找问题，我们有什么？顺序查找、二分查找，二叉搜索树，哈希表。</p>
+<ul>
+<li>“顺序查找”可行，“滑动窗口”每滑动一次，就得遍历一遍这个窗口内的元素，效率太低；</li>
+<li>“二分查找”不满足前提条件“数组有序”，故不适用；</li>
+<li>“哈希表”时间复杂度最低，“滑动窗口”每滑动一次，能高效处理添加和删除元素，但我们要找范围，要比较大小，而“哈希表”中的元素丢失了顺序性。</li>
+</ul>
+<p>只能下“二叉搜索树”了，看看它能不能胜任：</p>
+<p>1、“二叉搜索树”能够“动态地”存储和删除数据，符合“滑动窗口”元素是动态变化，虽然它没有哈希表那么高效；</p>
+<p>2、“二叉搜索树”的顺序性就正好符合我们要查找落在 <code>[nums[i] - t, nums[i] + t]</code> 这个区间内的元素这个任务。</p>
+<p>这时要用到的两个与我们的任务相关的 API 有：</p>
+<ul>
+<li><code>ceiling(key)</code> 函数：返回大于等于 <code>key</code> 的最小元素，如果不存在，返回空。下面的是这个函数的文档（通过 Intellij IDEA 查看）。</li>
+</ul>
+<pre class="line-numbers language-Java"><code class="language-Java">/**
+  * Returns the least key greater than or equal to the given key,
+  * or {@code null} if there is no such key.
+  *
+  * @param key the key
+  * @return the least key greater than or equal to {@code key},
+  *         or {@code null} if there is no such key
+  * @throws ClassCastException if the specified key cannot be compared
+  *         with the keys currently in the map
+  * @throws NullPointerException if the specified key is null
+  *         and this map does not permit null keys
+  */
+K ceilingKey(K key);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><code>floor(key)</code> 函数：返回小于等于 <code>key</code> 的最大元素，如果不存在，返回空。下面的是这个函数的文档（通过 Intellij IDEA 查看）。</li>
+</ul>
+<pre class="line-numbers language-Java"><code class="language-Java">/**
+  * Returns the greatest key less than or equal to the given key,
+  * or {@code null} if there is no such key.
+  *
+  * @param key the key
+  * @return the greatest key less than or equal to {@code key},
+  *         or {@code null} if there is no such key
+  * @throws ClassCastException if the specified key cannot be compared
+  *         with the keys currently in the map
+  * @throws NullPointerException if the specified key is null
+  *         and this map does not permit null keys
+  */
+K floorKey(K key);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>于是，我们可以</p>
+<p>1、在 <code>nums[i]</code> 的左边找一下 <code>ceiling(nums[i] - t)</code>，即大于等于 <code>nums[i] - t</code> 的元素是否存在；</p>
+<p>2、在 <code>nums[i]</code> 的右边找一下 <code>floor(nums[i] + t)</code>，即小于等于 <code>nums[i] + t</code> 的元素是否存在。</p>
+<p><strong>参考代码</strong>：</p>
+<p>说明：<br>1、在 Java 中，“二叉搜索树”是用红黑树实现的，并且也提供了 <code>ceiling</code> 和 <code>floor</code> 实现，这道题用 Java 语言实现比较方便；</p>
+<p>2、由于 Python 中没有“二叉搜索树”实现，以下 Python 示例代码使用了我自己编写的 <code>BST</code> 实现，由于水平有限，没有实现自平衡，故性能较差，供各位参考。</p>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">import java.util.TreeSet;
 
-        l <span class="token operator">=</span> <span class="token number">0</span>
+public class Solution {
 
-        <span class="token comment" spellcheck="true"># 既然是求最小的长度，初始值应该设置成一个不可能达到的上限</span>
-        res <span class="token operator">=</span> size <span class="token operator">+</span> <span class="token number">1</span>
-        cur_sum <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            cur_sum <span class="token operator">+=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
-            <span class="token comment" spellcheck="true"># 此时 cur_sum >= s</span>
-            <span class="token keyword">while</span> cur_sum <span class="token operator">>=</span> s<span class="token punctuation">:</span>
-                res <span class="token operator">=</span> min<span class="token punctuation">(</span>res<span class="token punctuation">,</span> i <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-                cur_sum <span class="token operator">-=</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token comment" spellcheck="true"># 如果全部数组元素加起来都 &lt; s ，即 res 的值没有被更新，根据题意返回 0</span>
-        <span class="token keyword">if</span> res <span class="token operator">==</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Python 代码2：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        :type s: int
-        :type nums: List[int]
-        :rtype: int
-        """</span>
-        <span class="token comment" spellcheck="true"># 滑动窗口</span>
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 特判</span>
-        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        int len = nums.length;
+        // 特判
+        if (len == 0 || k <= 0 || t < 0) {
+            return false;
+        }
 
-        l <span class="token operator">=</span> <span class="token number">0</span>
-        r <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
-        sum <span class="token operator">=</span> <span class="token number">0</span>
-        res <span class="token operator">=</span> size <span class="token operator">+</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> size<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> size <span class="token operator">and</span> sum <span class="token operator">&lt;</span> s<span class="token punctuation">:</span>
-                r <span class="token operator">+=</span> <span class="token number">1</span>
-                sum <span class="token operator">+=</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                sum <span class="token operator">-=</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">if</span> sum <span class="token operator">>=</span> s<span class="token punctuation">:</span>
-                res <span class="token operator">=</span> min<span class="token punctuation">(</span>res<span class="token punctuation">,</span> r <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> res <span class="token operator">==</span> size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：使用滑动窗口</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+        // 泛型类型为 Long 是提交失败以后看到测试用例以后改的
+        TreeSet<Long> set = new TreeSet<>();
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span><span class="token keyword">int</span> s<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> r <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> minSubArrayLen <span class="token operator">=</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> segmentSum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num <span class="token operator">:</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            segmentSum <span class="token operator">+=</span> num<span class="token punctuation">;</span>
-            r<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// 注意：根据题意"找出该数组中满足其和 ≥ s 的长度最小的子数组"</span>
-            <span class="token comment" spellcheck="true">// 注意这个边界条件</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>segmentSum <span class="token operator">>=</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                minSubArrayLen <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>minSubArrayLen<span class="token punctuation">,</span> r <span class="token operator">-</span> l<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                segmentSum <span class="token operator">-=</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                l<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>minSubArrayLen <span class="token operator">==</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> minSubArrayLen<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>思路2：二分法，利用“数组是正整数”这个条件，构造前缀和数组，这个前缀和数组一定是严格增加的。 任意区间和可以通过前缀和数组得到，这是我们常见的一种做法。 起点固定的时候，区间越长，区间和越大。</p>
-<p>Java 代码：构造前缀和数组，使用二分查找法，要考虑一些边界条件，编码易出错，了解即可</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+        // 一个一个加进去
+        for (int i = 0; i < len; i++) {
+            // 检测逻辑 1：以当前数为中心，向左边扩展，看看 set 里有没有大于等于 nums[i] - t 的元素
+            // 大于等于 nums[i] - t ，在这个数上面，故使用天花板函数 ceiling
+            Long ceiling = set.ceiling((long) nums[i] - t);
+            // 在 nums[i] 为中心，半径为 t 的左边有元素，因此直接返回 true 即可
+            if (ceiling != null && ceiling <= nums[i]) {
+                return true;
+            }
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span><span class="token keyword">int</span> s<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 构造前缀和数组</span>
-        <span class="token comment" spellcheck="true">// 因为 nums 全都是正整数，因此 preSum 严格单调增加</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> preSum <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        preSum<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            preSum<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> preSum<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 因为前缀和数组严格单调增加，因此我们可以使用二分查找算法</span>
-        <span class="token comment" spellcheck="true">// 最后一位没有下一位了，所以外层遍历到最后一位的前一位就可以了</span>
-        <span class="token keyword">int</span> ret <span class="token operator">=</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 计算区间和</span>
-            <span class="token keyword">int</span> l <span class="token operator">=</span> i<span class="token punctuation">;</span>
-            <span class="token keyword">int</span> r <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// 设置成一个比较大的数，但是这个数有下界</span>
-            <span class="token comment" spellcheck="true">// i 的最大值是 len - 2,</span>
-            <span class="token comment" spellcheck="true">// ans - i + 1 >= len + 1</span>
-            <span class="token comment" spellcheck="true">// ans >= i + len = 2 * len -2</span>
-            <span class="token keyword">int</span> ans <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> len <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// int ans = 2 * len - 1; 能通过</span>
-            <span class="token comment" spellcheck="true">// int ans = 2 * len - 3; 不能通过</span>
-            <span class="token comment" spellcheck="true">// 退出循环的条件是 l > r</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;=</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">int</span> mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">// 计算一下区间和，找一个位置，使得这个位置到索引 i 的区间和为 s</span>
-                <span class="token comment" spellcheck="true">// 13 14 15 17 19 20</span>
-                <span class="token keyword">int</span> segmentSum <span class="token operator">=</span> preSum<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> preSum<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>segmentSum <span class="token operator">>=</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    ans <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-                    r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                    l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-            ret <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>ans <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>ret <span class="token operator">==</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>（本节完）</p>
+            // 检测逻辑 2：以当前数为中心，向左边扩展，看看 set 里有没有小于等于 nums[i] + t 的元素
+            // 小于等于 nums[i] + t ，在这个数下面，故使用地板函数 floor
+            Long floor = set.floor((long) nums[i] + t);
+            // 在 nums[i] 为中心，半径为 t 的右边有元素，因此直接返回 true 即可
+            if (floor != null && floor >= nums[i]) {
+                return true;
+            }
 
+            set.add((long) nums[i]);
+            // 当 k = 3 时，[0,1,2,3,4]，i = 3 的时候就要把 i = 0 删掉了
+            if (i >= k) {
+                set.remove((long) nums[i - k]);
+            }
+        }
+        // 遍历以后都找不到符合题意的数据对，就只能返回 False
+        return false;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Python 代码：</p>
+<pre class="line-numbers language-Python"><code class="language-Python">from typing import List
+
+
+class Solution:
+    def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:
+
+        size = len(nums)
+        # 特判
+        if size == 0 or k <= 0 or t < 0:
+            return False
+
+        # 初始化自定义的 bst
+        bst = Solution.BST()
+
+        # 一个一个加进去
+        for i in range(size):
+            # 检测逻辑 1：以当前数为中心，向左边扩展，看看 set 里有没有大于等于 nums[i] - t 的元素
+            # 大于等于 nums[i] - t ，在这个数上面，故使用天花板函数 ceiling
+            ceiling = bst.ceiling(nums[i] - t)
+            # 在 nums[i] 为中心，半径为 t 的左边有元素，因此直接返回 true 即可
+            if ceiling is not None and ceiling <= nums[i]:
+                return True
+
+            # 检测逻辑 2：以当前数为中心，向左边扩展，看看 set 里有没有小于等于 nums[i] + t 的元素
+            # 小于等于 nums[i] + t ，在这个数下面，故使用地板函数 floor
+            floor = bst.floor(nums[i] + t)
+            if floor is not None and nums[i] <= floor:
+                return True
+
+            bst.insert(nums[i])
+            # 当 k = 3 时，[0,1,2,3,4]，i = 3 的时候就要把 i = 0 删掉了
+            if i >= k:
+                bst.remove(nums[i - k])
+        return False
+
+    # 以下是自定义的 BST 实现，未实现自平衡，性能较差
+    class TreeNode:
+        def __init__(self, x):
+            self.val = x
+            self.left = None
+            self.right = None
+
+    class BST:
+        def __init__(self):
+            self.root = None
+
+        def __str__(self):
+            # 中序遍历 bst
+            s = ''
+            if self.root is None:
+                return ''
+            stack = [(1, self.root)]
+
+            while stack:
+                type, node = stack.pop()
+                if type == 0:
+                    s += str(node.val) + ','
+                else:
+                    if node.right:
+                        stack.append((1, node.right))
+                    stack.append((0, node))
+                    if node.left:
+                        stack.append((1, node.left))
+            return s[:-1]
+
+        def insert(self, val):
+            """
+            将 val 插入 bst
+            :param val:
+            :return:
+            """
+            self.root = self.__insert(self.root, val)
+
+        def __insert(self, node, val):
+            # 在以 node 为根结点的 bst 中，插入 val
+            if node is None:
+                return Solution.TreeNode(val)
+            if val < node.val:
+                # 注意：不要写成 return self.__insert(node.left, val)
+                node.left = self.__insert(node.left, val)
+                return node
+            elif val > node.val:
+                # 注意：不要写成 return self.__insert(node.right, val)
+                node.right = self.__insert(node.right, val)
+                return node
+            node.val = val
+            # 注意：要把 node 返回回去
+            return node
+
+        def remove(self, val):
+            """
+            删除 bst 中等于 val 的结点
+            :param val:
+            :return:
+            """
+            if self.root:
+                self.root = self.__remove(self.root, val)
+
+        def __remove(self, node, val):
+            if node is None:
+                return None
+            if val < node.val:
+                node.left = self.__remove(node.left, val)
+                return node
+            if val > node.val:
+                node.right = self.__remove(node.right, val)
+                return node
+
+            if node.left is None:
+                new_root = node.right
+                node.right = None
+                return new_root
+
+            if node.right is None:
+                new_root = node.left
+                node.left = None
+                return new_root
+
+            # 用前驱结点 precursor 代替被删除结点
+            precursor = self.__maximum(node.left)
+            precursor_copy = Solution.TreeNode(precursor.val)
+            precursor_copy.left = self.__remove_max(node.left)
+            precursor_copy.right = node.right
+            node.left = None
+            node.right = None
+            return precursor_copy
+
+        def __maximum(self, node):
+            while node.right:
+                node = node.right
+            return node
+
+        def __remove_max(self, node):
+            if node.right is None:
+                new_root = node.left
+                node.left = None
+                return new_root
+            node.right = self.__remove_max(node.right)
+            return node
+
+        def floor(self, val):
+            return self.__floor(self.root, val)
+
+        def __floor(self, node, val):
+            if node is None:
+                return None
+            if node.val == val:
+                return node.val
+            if val < node.val:
+                return self.__floor(node.left, val)
+            temp_val = self.__floor(node.right, val)
+            if temp_val:
+                return temp_val
+            return node.val
+
+        def ceiling(self, val):
+            return self.__ceiling(self.root, val)
+
+        def __ceiling(self, node, val):
+            if node is None:
+                return None
+            if node.val == val:
+                return node.val
+            if val > node.val:
+                return self.__ceiling(node.right, val)
+            temp_val = self.__ceiling(node.left, val)
+            if temp_val:
+                return temp_val
+            return node.val<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<Vssue title="contains-duplicate-iii"/>
             </div>
             <hr/>
 
@@ -878,20 +1008,20 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/leetcode-algo/2017/06/23/leetcode-algo/0209-minimum-size-subarray-sum/">
+                <a href="/leetcode-algo/2017/06/23/leetcode-algo/0239-sliding-window-maximum/">
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/13.jpg" class="responsive-img" alt="「力扣」第 220 题：存在重复元素 III">
+                        <img src="/leetcode-algo/medias/featureimages/11.jpg" class="responsive-img" alt="「力扣」第 239 题：滑动窗口的最大值">
                         
-                        <span class="card-title">「力扣」第 220 题：存在重复元素 III</span>
+                        <span class="card-title">「力扣」第 239 题：滑动窗口的最大值</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 220 题：存在重复元素 III题解地址：滑动窗口 + 二叉搜索树找上下边界（Python 代码、Java 代码）。
-说明：文本首发在力扣的题解版块，更新也会在第 1 时间在上面的网站中更新，这篇文章只是上面的文章的一个快照，您
+                            「力扣」第 239 题：滑动窗口的最大值题解地址：最大索引堆 + 双端队列存索引值的思路分析（Python 代码、Java 代码）。
+说明：文本首发在力扣的题解版块，更新也会在第 1 时间在上面的网站中更新，这篇文章只是上面的文章的一个快照
                         
                     </div>
                     <div class="publish-info">
@@ -917,6 +1047,10 @@
                         <span class="chip bg-color">滑动窗口</span>
                     </a>
                     
+                    <a href="/leetcode-algo/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">
+                        <span class="chip bg-color">单调队列</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -928,27 +1062,26 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/leetcode-algo/2017/06/21/leetcode-algo/0076-minimum-window-substring/">
+                <a href="/leetcode-algo/2017/06/21/leetcode-algo/0209-minimum-size-subarray-sum/">
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/17.jpg" class="responsive-img" alt="「力扣」第 76 题：最小覆盖子串">
+                        <img src="/leetcode-algo/medias/featureimages/6.jpg" class="responsive-img" alt="「力扣」第 209 题：长度最小的子数组">
                         
-                        <span class="card-title">「力扣」第 76 题：最小覆盖子串</span>
+                        <span class="card-title">「力扣」第 209 题：长度最小的子数组</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 76 题：最小覆盖子串
-中文网址：76. 最小覆盖子串 ；
+                            「力扣」第 209 题：长度最小的子数组
+中文网址：209. 长度最小的子数组 ；
 
-英文网址：76. Minimum Window Substring 。
+英文网址：209. Minimum Size Subarray Sum 。
 
 
 
-给定一个字符串 S 和一个字符串 T，请在 S 中找出包含 T 所有字母的最小子串。
-示
+给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和
                         
                     </div>
                     <div class="publish-info">
@@ -1173,6 +1306,10 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     </a>
 
 
+
+    <a href="https://weibo.com/u/2194939432" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/2194939432" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
 
 
 

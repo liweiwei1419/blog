@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="「滑动窗口」专题：概述与经典问题, 算法与数据结构入门教程">
+    <meta name="keywords" content="「力扣」第 209 题：长度最小的子数组, 算法与数据结构入门教程">
     <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>「滑动窗口」专题：概述与经典问题 | 算法与数据结构入门教程</title>
+    <title>「力扣」第 209 题：长度最小的子数组 | 算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">「滑动窗口」专题：概述与经典问题</h1>
+                    <h1 class="description center-align post-title">「力扣」第 209 题：长度最小的子数组</h1>
                 </div>
             </div>
         </div>
@@ -440,12 +440,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                                <span class="chip bg-color">二分查找</span>
-                            </a>
-                        
-                            <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E6%80%9D%E6%83%B3/">
-                                <span class="chip bg-color">减治思想</span>
+                            <a href="/leetcode-algo/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+                                <span class="chip bg-color">滑动窗口</span>
                             </a>
                         
                     </div>
@@ -469,7 +465,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-04-29
+                    2017-06-21
                 </div>
                 
 
@@ -485,7 +481,164 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="「滑动窗口」专题-：滑动窗口的基本思想"><a href="#「滑动窗口」专题-：滑动窗口的基本思想" class="headerlink" title="「滑动窗口」专题 ：滑动窗口的基本思想"></a>「滑动窗口」专题 ：滑动窗口的基本思想</h2><p>（本节完）</p>
+                <h2 id="「力扣」第-209-题：长度最小的子数组"><a href="#「力扣」第-209-题：长度最小的子数组" class="headerlink" title="「力扣」第 209 题：长度最小的子数组"></a>「力扣」第 209 题：长度最小的子数组</h2><ul>
+<li><p>中文网址：<a href="https://leetcode-cn.com/problems/minimum-size-subarray-sum/description/" target="_blank" rel="noopener">209. 长度最小的子数组</a> ；</p>
+</li>
+<li><p>英文网址：<a href="https://leetcode.com/problems/minimum-size-subarray-sum/description/" target="_blank" rel="noopener">209. Minimum Size Subarray Sum</a> 。</p>
+</li>
+</ul>
+<blockquote>
+<p>给定一个含有 <strong>n</strong> 个正整数的数组和一个正整数 <strong>s ，</strong>找出该数组中满足其和 <strong>≥ s</strong> 的长度最小的连续子数组<strong>。</strong>如果不存在符合条件的连续子数组，返回 0。</p>
+<p><strong>示例:</strong> </p>
+<pre><code>输入: s = 7, nums = [2,3,1,2,4,3]
+输出: 2
+解释: 子数组 [4,3] 是该条件下的长度最小的连续子数组。</code></pre><p><strong>进阶:</strong></p>
+<p>如果你已经完成了<em>O</em>(<em>n</em>) 时间复杂度的解法, 请尝试 <em>O</em>(<em>n</em> log <em>n</em>) 时间复杂度的解法。</p>
+</blockquote>
+<p>思路1：使用滑动窗口的技巧来完成，要看过一遍整个数组的元素，时间复杂度是 $O(n)$。要求满足区间和 &gt;= s 的最小子区间的长度，因此，我们从左向右进行扫描。</p>
+<p>情况1：当区间和小于 s 的时候，右区间的端点向右扩展，这一点依赖外层循环的遍历就可以完成；</p>
+<p>情况2：一旦区间和大于等于 s，尝试一步一步缩小左区间端点，看看是否能得到一个更短的区间，满足区间和 &gt;=s，这一步通过一个内层循环实现。</p>
+<p>Python 代码1：在理解的基础上，记住下面这个写法，右指针也是用于遍历的指针</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        :type s: int
+        :type nums: List[int]
+        :rtype: int
+        """</span>
+        <span class="token comment" spellcheck="true"># 滑动窗口</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 特判</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+
+        l <span class="token operator">=</span> <span class="token number">0</span>
+
+        <span class="token comment" spellcheck="true"># 既然是求最小的长度，初始值应该设置成一个不可能达到的上限</span>
+        res <span class="token operator">=</span> size <span class="token operator">+</span> <span class="token number">1</span>
+        cur_sum <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            cur_sum <span class="token operator">+=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+            <span class="token comment" spellcheck="true"># 此时 cur_sum >= s</span>
+            <span class="token keyword">while</span> cur_sum <span class="token operator">>=</span> s<span class="token punctuation">:</span>
+                res <span class="token operator">=</span> min<span class="token punctuation">(</span>res<span class="token punctuation">,</span> i <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+                cur_sum <span class="token operator">-=</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span>
+                l <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token comment" spellcheck="true"># 如果全部数组元素加起来都 &lt; s ，即 res 的值没有被更新，根据题意返回 0</span>
+        <span class="token keyword">if</span> res <span class="token operator">==</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Python 代码2：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        :type s: int
+        :type nums: List[int]
+        :rtype: int
+        """</span>
+        <span class="token comment" spellcheck="true"># 滑动窗口</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 特判</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+
+        l <span class="token operator">=</span> <span class="token number">0</span>
+        r <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+        sum <span class="token operator">=</span> <span class="token number">0</span>
+        res <span class="token operator">=</span> size <span class="token operator">+</span> <span class="token number">1</span>
+        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> size<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> size <span class="token operator">and</span> sum <span class="token operator">&lt;</span> s<span class="token punctuation">:</span>
+                r <span class="token operator">+=</span> <span class="token number">1</span>
+                sum <span class="token operator">+=</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                sum <span class="token operator">-=</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span>
+                l <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">if</span> sum <span class="token operator">>=</span> s<span class="token punctuation">:</span>
+                res <span class="token operator">=</span> min<span class="token punctuation">(</span>res<span class="token punctuation">,</span> r <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> res <span class="token operator">==</span> size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
+        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：使用滑动窗口</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span><span class="token keyword">int</span> s<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> r <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> minSubArrayLen <span class="token operator">=</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> segmentSum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num <span class="token operator">:</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            segmentSum <span class="token operator">+=</span> num<span class="token punctuation">;</span>
+            r<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 注意：根据题意"找出该数组中满足其和 ≥ s 的长度最小的子数组"</span>
+            <span class="token comment" spellcheck="true">// 注意这个边界条件</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>segmentSum <span class="token operator">>=</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                minSubArrayLen <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>minSubArrayLen<span class="token punctuation">,</span> r <span class="token operator">-</span> l<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                segmentSum <span class="token operator">-=</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                l<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>minSubArrayLen <span class="token operator">==</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> minSubArrayLen<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>思路2：二分法，利用“数组是正整数”这个条件，构造前缀和数组，这个前缀和数组一定是严格增加的。 任意区间和可以通过前缀和数组得到，这是我们常见的一种做法。 起点固定的时候，区间越长，区间和越大。</p>
+<p>Java 代码：构造前缀和数组，使用二分查找法，要考虑一些边界条件，编码易出错，了解即可</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span><span class="token keyword">int</span> s<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 构造前缀和数组</span>
+        <span class="token comment" spellcheck="true">// 因为 nums 全都是正整数，因此 preSum 严格单调增加</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> preSum <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        preSum<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            preSum<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> preSum<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 因为前缀和数组严格单调增加，因此我们可以使用二分查找算法</span>
+        <span class="token comment" spellcheck="true">// 最后一位没有下一位了，所以外层遍历到最后一位的前一位就可以了</span>
+        <span class="token keyword">int</span> ret <span class="token operator">=</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 计算区间和</span>
+            <span class="token keyword">int</span> l <span class="token operator">=</span> i<span class="token punctuation">;</span>
+            <span class="token keyword">int</span> r <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 设置成一个比较大的数，但是这个数有下界</span>
+            <span class="token comment" spellcheck="true">// i 的最大值是 len - 2,</span>
+            <span class="token comment" spellcheck="true">// ans - i + 1 >= len + 1</span>
+            <span class="token comment" spellcheck="true">// ans >= i + len = 2 * len -2</span>
+            <span class="token keyword">int</span> ans <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> len <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// int ans = 2 * len - 1; 能通过</span>
+            <span class="token comment" spellcheck="true">// int ans = 2 * len - 3; 不能通过</span>
+            <span class="token comment" spellcheck="true">// 退出循环的条件是 l > r</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;=</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 计算一下区间和，找一个位置，使得这个位置到索引 i 的区间和为 s</span>
+                <span class="token comment" spellcheck="true">// 13 14 15 17 19 20</span>
+                <span class="token keyword">int</span> segmentSum <span class="token operator">=</span> preSum<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> preSum<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>segmentSum <span class="token operator">>=</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    ans <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+                    r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            ret <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>ans <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> ret<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>ret <span class="token operator">==</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>（本节完）</p>
 
             </div>
             <hr/>
@@ -511,9 +664,9 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/2020/04/29/leetcode-algo/search-insert-position/">https://liweiwei1419.gitee.io/leetcode-algo/2020/04/29/leetcode-algo/search-insert-position/</a>
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/2017/06/21/leetcode-algo/0209-minimum-size-subarray-sum/">https://liweiwei1419.gitee.io/leetcode-algo/2017/06/21/leetcode-algo/0209-minimum-size-subarray-sum/</a>
                     <!-- GitHub 用配置
-                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2020/04/29/leetcode-algo/search-insert-position/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2020/04/29/leetcode-algo/search-insert-position/</a>
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2017/06/21/leetcode-algo/0209-minimum-size-subarray-sum/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2017/06/21/leetcode-algo/0209-minimum-size-subarray-sum/</a>
                     -->
                 </span>
             </div>
@@ -552,12 +705,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                                    <span class="chip bg-color">二分查找</span>
-                                </a>
-                            
-                                <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E6%80%9D%E6%83%B3/">
-                                    <span class="chip bg-color">减治思想</span>
+                                <a href="/leetcode-algo/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+                                    <span class="chip bg-color">滑动窗口</span>
                                 </a>
                             
                         </div>
@@ -729,32 +878,32 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/leetcode-algo/2020/04/29/leetcode-algo/1095-find-in-mountain-array/">
+                <a href="/leetcode-algo/2017/06/22/leetcode-algo/0209-minimum-size-subarray-sum/">
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/2.jpg" class="responsive-img" alt="「力扣」第 1095 题：山脉数组中查找目标值（困难）">
+                        <img src="/leetcode-algo/medias/featureimages/13.jpg" class="responsive-img" alt="「力扣」第 220 题：存在重复元素 III">
                         
-                        <span class="card-title">「力扣」第 1095 题：山脉数组中查找目标值（困难）</span>
+                        <span class="card-title">「力扣」第 220 题：存在重复元素 III</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 1095 题：山脉数组中查找目标值（困难）题解地址：十分好用的二分查找法模板（Python 代码、Java 代码）。
+                            「力扣」第 220 题：存在重复元素 III题解地址：滑动窗口 + 二叉搜索树找上下边界（Python 代码、Java 代码）。
 说明：文本首发在力扣的题解版块，更新也会在第 1 时间在上面的网站中更新，这篇文章只是上面的文章的一个快照，您
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-29
+                            <i class="far fa-clock fa-fw icon-date"></i>2017-06-22
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-category">
-                                    专题 2：二分查找
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-4%EF%BC%9A%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" class="post-category">
+                                    专题 4：滑动窗口
                                 </a>
                             
                             
@@ -764,12 +913,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                        <span class="chip bg-color">二分查找</span>
-                    </a>
-                    
-                    <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">减治算法</span>
+                    <a href="/leetcode-algo/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+                        <span class="chip bg-color">滑动窗口</span>
                     </a>
                     
                 </div>
@@ -783,37 +928,39 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/leetcode-algo/2020/03/30/leetcode-solution/0075-sort-colors/">
+                <a href="/leetcode-algo/2017/06/20/leetcode-algo/0076-minimum-window-substring/">
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/11.jpg" class="responsive-img" alt="「力扣」第 283 题：移动零（循环不变量）">
+                        <img src="/leetcode-algo/medias/featureimages/17.jpg" class="responsive-img" alt="「力扣」第 76 题：最小覆盖子串">
                         
-                        <span class="card-title">「力扣」第 283 题：移动零（循环不变量）</span>
+                        <span class="card-title">「力扣」第 76 题：最小覆盖子串</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 283 题：移动零
-中文网址：283. 移动零 ；
-英文网址：283. Move Zeroes 
-我的题解链接：遵守循环不变式（Java）。
+                            「力扣」第 76 题：最小覆盖子串
+中文网址：76. 最小覆盖子串 ；
+
+英文网址：76. Minimum Window Substring 。
 
 
-给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素
+
+给定一个字符串 S 和一个字符串 T，请在 S 中找出包含 T 所有字母的最小子串。
+示
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-06-20
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-3%EF%BC%9A%E6%95%B0%E7%BB%84/" class="post-category">
-                                    专题 3：数组
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-4%EF%BC%9A%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" class="post-category">
+                                    专题 4：滑动窗口
                                 </a>
                             
                             
@@ -823,16 +970,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/leetcode-algo/tags/partition/">
-                        <span class="chip bg-color">partition</span>
-                    </a>
-                    
-                    <a href="/leetcode-algo/tags/%E6%95%B0%E7%BB%84/">
-                        <span class="chip bg-color">数组</span>
-                    </a>
-                    
-                    <a href="/leetcode-algo/tags/%E5%BE%AA%E7%8E%AF%E4%B8%8D%E5%8F%98%E9%87%8F/">
-                        <span class="chip bg-color">循环不变量</span>
+                    <a href="/leetcode-algo/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">
+                        <span class="chip bg-color">滑动窗口</span>
                     </a>
                     
                 </div>
@@ -1034,6 +1173,10 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     </a>
 
 
+
+    <a href="https://weibo.com/u/2194939432" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/2194939432" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
 
 
 
