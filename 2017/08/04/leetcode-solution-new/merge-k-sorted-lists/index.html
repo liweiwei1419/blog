@@ -997,7 +997,106 @@ if __name__ == '__main__':
 
     result = solution.mergeKLists(lists=[sorted_linked1, sorted_linked2,sorted_linked3])
     print_linked_list(result)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="LeetCode-第-23-题：归并多个有序链表"><a href="#LeetCode-第-23-题：归并多个有序链表" class="headerlink" title="LeetCode 第 23 题：归并多个有序链表"></a>LeetCode 第 23 题：归并多个有序链表</h3><p>传送门：<a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">23. 合并K个排序链表</a>。</p>
+<blockquote>
+<p>合并 <em>k</em> 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
+<p><strong>示例:</strong></p>
+<pre><code>输入:
+[
+1-&gt;4-&gt;5,
+1-&gt;3-&gt;4,
+2-&gt;6
+]
+输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</code></pre></blockquote>
+<p>思路1：使用优先队列。</p>
+<p>首先要复习一下 Python 中优先队列的使用。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Definition for singly-linked list.</span>
+<span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
 
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">mergeKLists</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> lists<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """</span>
+        <span class="token keyword">import</span> heapq
+        l <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>lists<span class="token punctuation">)</span>
+
+        <span class="token keyword">for</span> index <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> lists<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                heapq<span class="token punctuation">.</span>heappush<span class="token punctuation">(</span>l<span class="token punctuation">,</span> <span class="token punctuation">(</span>lists<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>val<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+        dummy_node <span class="token operator">=</span> ListNode<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+        cur <span class="token operator">=</span> dummy_node
+
+        <span class="token keyword">while</span> l<span class="token punctuation">:</span>
+            _<span class="token punctuation">,</span> index <span class="token operator">=</span> heapq<span class="token punctuation">.</span>heappop<span class="token punctuation">(</span>l<span class="token punctuation">)</span>
+
+            head <span class="token operator">=</span> lists<span class="token punctuation">[</span>index<span class="token punctuation">]</span>
+
+            cur<span class="token punctuation">.</span>next <span class="token operator">=</span> head
+            cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next
+            <span class="token keyword">if</span> head<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
+                heapq<span class="token punctuation">.</span>heappush<span class="token punctuation">(</span>l<span class="token punctuation">,</span> <span class="token punctuation">(</span>head<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                lists<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> head<span class="token punctuation">.</span>next
+                head<span class="token punctuation">.</span>next <span class="token operator">=</span> None
+
+        <span class="token keyword">return</span> dummy_node<span class="token punctuation">.</span>next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>思路2：使用分治</p>
+<p>参考资料：<a href="https://liweiwei1419.github.io/leetcode-solution/leetcode-0023-merge-k-sorted-lists/" target="_blank" rel="noopener">https://liweiwei1419.github.io/leetcode-solution/leetcode-0023-merge-k-sorted-lists/</a></p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 23. 合并K个排序链表</span>
+<span class="token comment" spellcheck="true"># 合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</span>
+
+<span class="token comment" spellcheck="true"># Definition for singly-linked list.</span>
+<span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
+
+
+<span class="token comment" spellcheck="true"># 思路：分治法与优先队列</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">mergeKLists</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> lists<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """</span>
+
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>lists<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> None
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>__merge_k_lists<span class="token punctuation">(</span>lists<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__merge_k_lists</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> lists<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> left <span class="token operator">>=</span> right<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> lists<span class="token punctuation">[</span>left<span class="token punctuation">]</span>
+        mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+        listnode1 <span class="token operator">=</span> self<span class="token punctuation">.</span>__merge_k_lists<span class="token punctuation">(</span>lists<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">)</span>
+        listnode2 <span class="token operator">=</span> self<span class="token punctuation">.</span>__merge_k_lists<span class="token punctuation">(</span>lists<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>__merge_two_sorted_list_node<span class="token punctuation">(</span>listnode1<span class="token punctuation">,</span> listnode2<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__merge_two_sorted_list_node</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> list1<span class="token punctuation">,</span> list2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> list1 <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> list2
+        <span class="token keyword">if</span> list2 <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> list1
+
+        <span class="token keyword">if</span> list1<span class="token punctuation">.</span>val <span class="token operator">&lt;</span> list2<span class="token punctuation">.</span>val<span class="token punctuation">:</span>
+            list1<span class="token punctuation">.</span>next <span class="token operator">=</span> self<span class="token punctuation">.</span>__merge_two_sorted_list_node<span class="token punctuation">(</span>list1<span class="token punctuation">.</span>next<span class="token punctuation">,</span> list2<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> list1
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            list2<span class="token punctuation">.</span>next <span class="token operator">=</span> self<span class="token punctuation">.</span>__merge_two_sorted_list_node<span class="token punctuation">(</span>list1<span class="token punctuation">,</span> list2<span class="token punctuation">.</span>next<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> list2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
             </div>
             <hr/>
 

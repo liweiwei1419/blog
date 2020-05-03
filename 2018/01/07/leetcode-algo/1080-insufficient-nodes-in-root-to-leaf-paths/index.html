@@ -1,0 +1,1413 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="「力扣」第 1080 题：根到叶路径上的不足节点, 算法与数据结构入门教程">
+    <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>「力扣」第 1080 题：根到叶路径上的不足节点 | 算法与数据结构入门教程</title>
+    <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/my.css">
+
+    <script src="/leetcode-algo/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/leetcode-algo/atom.xml" title="算法与数据结构入门教程" type="application/atom+xml">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/leetcode-algo/" class="waves-effect waves-light">
+                    
+                    <img src="/leetcode-algo/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">算法与数据结构入门教程</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/leetcode-algo/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">算法与数据结构入门教程</div>
+        <div class="logo-desc">
+            
+            Java、Python3 语言实现，「专题」教程持续更新中...
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/19.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">「力扣」第 1080 题：根到叶路径上的不足节点</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/leetcode-algo/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    .toc-fixed .toc-link::before{
+        position: fixed!important;/*当toc的位置改为fixed时，.toc-link::before也要改为fixed*/
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">分治算法</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-13%EF%BC%9A-%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/" class="post-category">
+                                专题 13： 分治算法
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-01-07
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="「力扣」第-1080-题：根到叶路径上的不足节点"><a href="#「力扣」第-1080-题：根到叶路径上的不足节点" class="headerlink" title="「力扣」第 1080 题：根到叶路径上的不足节点"></a>「力扣」第 1080 题：根到叶路径上的不足节点</h2><p>题解地址：<a href="https://leetcode-cn.com/problems/insufficient-nodes-in-root-to-leaf-paths/solution/hou-xu-bian-li-python-dai-ma-java-dai-ma-by-liweiw/" target="_blank" rel="noopener">分治法、后序遍历（Python 代码、Java 代码）</a>。</p>
+<p>说明：文本首发在力扣的题解版块，更新也会在第 1 时间在上面的网站中更新，这篇文章只是上面的文章的一个快照，您可以点击上面的链接看到其他网友对本文的评论。</p>
+<p>传送门：<a href="https://leetcode-cn.com/problems/insufficient-nodes-in-root-to-leaf-paths/" target="_blank" rel="noopener">根到叶路径上的不足节点</a>。</p>
+<blockquote>
+<p>给定一棵二叉树的根 root，请你考虑它所有 从根到叶的路径：从根到任何叶的路径。（所谓一个叶子节点，就是一个没有子节点的节点）</p>
+<p>假如通过节点 node 的每种可能的 “根-叶” 路径上值的总和全都小于给定的 limit，则该节点被称之为「不足节点」，需要被删除。</p>
+<p>请你删除所有不足节点，并返回生成的二叉树的根。</p>
+<p>示例 1：</p>
+<p>输入：root = [1,2,3,4,-99,-99,7,8,9,-99,-99,12,13,-99,14], limit = 1</p>
+<p>输出：[1,2,3,4,null,null,7,8,9,null,14]<br>示例 2：</p>
+<p>输入：root = [5,4,8,11,null,17,4,7,1,null,null,5,3], limit = 22</p>
+<p>输出：[5,4,8,11,null,17,4,7,null,null,null,5]<br>示例 3：</p>
+<p>输入：root = [5,-6,-6], limit = 0<br>输出：[]</p>
+<p>提示：</p>
+<p>给定的树有 1 到 5000 个节点<br>-10^5 &lt;= node.val &lt;= 10^5<br>-10^9 &lt;= limit &lt;= 10^9</p>
+</blockquote>
+<h3 id="分治法、后序遍历（Python-代码、Java-代码）"><a href="#分治法、后序遍历（Python-代码、Java-代码）" class="headerlink" title="分治法、后序遍历（Python 代码、Java 代码）"></a>分治法、后序遍历（Python 代码、Java 代码）</h3><h3 id="首先考虑结点如何删除"><a href="#首先考虑结点如何删除" class="headerlink" title="首先考虑结点如何删除"></a>首先考虑结点如何删除</h3><p>首先我们考虑如何删除结点的问题。已知一个二叉树中的结点要被删除，有两种办法：</p>
+<ol>
+<li>自己删除自己；</li>
+<li>告诉父亲结点，自己需要从二叉树中被删除。</li>
+</ol>
+<p>“自己删除自己” 让我想到了 “单链表删除某个结点”，如果这个要被删除的结点是末尾结点，那还麻烦了。不过第 2 种办法“告诉父亲结点，自己需要从二叉树中被删除”，就很简单了，<strong>父亲结点收到孩子结点这个信号以后，只要把对孩子结点的引用切断即可</strong>。</p>
+<h3 id="其次考虑使用哪一种遍历方式"><a href="#其次考虑使用哪一种遍历方式" class="headerlink" title="其次考虑使用哪一种遍历方式"></a>其次考虑使用哪一种遍历方式</h3><p>二叉树的问题一定离不开遍历，遍历有 DFS 和 BFS，根据题目中的描述 “考虑它所有 从根到叶的路径”，就知道不能用 BFS 了，那么 DFS 又有 3 种，分别如下：</p>
+<p>1、先序遍历</p>
+<p>（1）先执行当前结点的逻辑；<br>（2）如果有左结点，就递归执行左结点的逻辑；<br>（3）如果有右结点，就递归执行右结点的逻辑。</p>
+<p>2、中序遍历</p>
+<p>（1）如果有左结点，就递归执行左结点的逻辑；<br>（2）先执行当前结点的逻辑；<br>（3）如果有右结点，就递归执行右结点的逻辑。</p>
+<p>3、后序遍历</p>
+<p>（1）如果有左结点，就递归执行左结点的逻辑；<br>（2）如果有右结点，就递归执行右结点的逻辑；<br>（3）先执行当前结点的逻辑。</p>
+<p>再看看我们首先考虑的问题，“告诉父亲结点，自己是否需要从二叉树中被删除”，那么 <strong>首先两个子结点（如果存在的话）要清楚自己是不是需要被删除</strong>，明显使用 “后序遍历”。</p>
+<p>因此，<strong>删除结点（也可以称为 “剪枝”）的过程是从下到上的</strong>。</p>
+<h3 id="最后编码实现"><a href="#最后编码实现" class="headerlink" title="最后编码实现"></a>最后编码实现</h3><p>进行后序遍历的时候，要告诉父亲节点自己是否需要从二叉树中删除，返回一个布尔值就可以了。这里编码要注意几个细节：</p>
+<p>1、使用 Python 编码的朋友，尽量少使用 <code>not</code>，否定的判断出现太多，比较容易把自己绕晕，我这一版代码是改过几次的，原先我的 <code>__dfs</code> 方法设置的返回值的意思是“是否保留”。后来我把返回值的含义改成“是否删除”，就是为了让逻辑中少一些 <code>not</code>；  </p>
+<p>2、当一个结点不是叶子结点的时候，它是否被删除，也要看它的孩子结点，<strong>只要孩子结点有一个被保留，父亲结点就不能被删，换句话说，父亲结点被删除当且仅当它的两个孩子结点均被删除</strong>；  </p>
+<p>（温馨提示：下面的幻灯片中，有几页上有较多的文字，可能需要您停留一下，可以点击右下角的后退 “|◀” 或者前进 “▶|” 按钮控制幻灯片的播放。）</p>
+<p><img src="https://pic.leetcode-cn.com/bbb86d78566a142c2daa2077ec3c28c9dc3c0829c88c95d20e60aeea6ccb29a9-1080-1.png" alt="1080-1.png">),<img src="https://pic.leetcode-cn.com/40229b370a84335b89a845e3f03ce93d9832105787afa6358b2d39b3c3219b24-1080-2.png" alt="1080-2.png">),<img src="https://pic.leetcode-cn.com/16d9e881d0ead4da82aeb6c6de9ed5f06f85fe51813000b0d9c7193f7d98dac8-1080-3.png" alt="1080-3.png">),<img src="https://pic.leetcode-cn.com/fd03f33eac29352e42bc4673aede9c0122bf41047017c69f427c6a98a4f8f7bc-1080-4.png" alt="1080-4.png">),<img src="https://pic.leetcode-cn.com/2adb2be65b0456553104f30d63cc32d97c022965b5736886429a80dcc345978a-1080-5.png" alt="1080-5.png">),<img src="https://pic.leetcode-cn.com/0f3df57c61bd6293c46e49f0a230590c4c3d34feb77ddddfb6241f972df3b8f4-1080-6.png" alt="1080-6.png">),<img src="https://pic.leetcode-cn.com/d5a0587ac83411d7b969188f963009ee2e4c798756ce3371b87acf3716f1c639-1080-7.png" alt="1080-7.png"></p>
+<p>3、<strong>返回值的含义设置成“是否删除”的前提下，左右孩子的默认策略是删除，因为当只有一个孩子结点存在的时候，这个孩子结点的删除与否直接决定了父亲结点是否被删除</strong>，逻辑运算符 <code>and</code> 把不存在的那一边设置为 <code>True</code> ，就符合这个逻辑，不妨看看真值表，把其中一列全部设置成 <code>True</code> ，<code>and</code> 的结果就正好和另外一列是一样的。</p>
+<table>
+<thead>
+<tr>
+<th>左子树是否被删除</th>
+<th>右子树是否被删除</th>
+<th>and</th>
+<th>or</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+</tr>
+<tr>
+<td><code>False</code></td>
+<td><code>True</code></td>
+<td><code>False</code></td>
+<td><code>True</code></td>
+</tr>
+<tr>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+</tr>
+</tbody></table>
+<p>如果你把 <code>__dfs</code> 方法的返回值意义设置成 <code>是否保留</code>，你就得看 <code>or</code> 那一列，并且左右孩子的默认策略就是保留。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这道题使用后序遍历完成，但更本质上的算法思想是分治法：<strong>把原问题拆解成同样结构且规模更小的子问题，待子问题处理完成以后，原问题就得到了解决</strong>，大家想一想是不是这样。</p>
+<p>下面展示了两种后序遍历的返回值意义的示例代码，请读者比较它们二者的差别。</p>
+<p>如果 <code>__dfs()</code> 方法返回值的意义是“当前结点是否被删除”，参考代码如下。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+class Solution:
+
+    def __dfs(self, node, s, limit):
+        """
+        后序遍历
+        :param node: 当前遍历的结点
+        :param s: 当前累计的和
+        :param limit: 题目中给出的 limit
+        :return: 是否要删除 node 这个结点，True 表示要删除，False 表示不删除
+        """
+        # 先写递归终止条件：如果小于 limit，根据题意，要删除
+        if node.left is None and node.right is None:
+            return s + node.val < limit
+
+        # 默认为左右结点均剪枝，注意：初值不能设置成 False
+        l_tree_deleted = True
+        r_tree_deleted = True
+
+        # 如果有左子树，就先递归处理左子树
+        if node.left:
+            l_tree_deleted = self.__dfs(node.left, s + node.val, limit)
+
+        # 如果有右子树，就先递归处理右子树
+        if node.right:
+            r_tree_deleted = self.__dfs(node.right, s + node.val, limit)
+
+        # 左右子树是否删除的结论得到了，由自己来执行是否删除它们
+        if l_tree_deleted:
+            node.left = None
+        if r_tree_deleted:
+            node.right = None
+
+        # 只有左右子树都被删除了，自己才没有必要保留
+        return l_tree_deleted and r_tree_deleted
+
+    def sufficientSubset(self, root: TreeNode, limit: int) -> TreeNode:
+        root_deleted = self.__dfs(root, 0, limit)
+        if root_deleted:
+            return None
+        return root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public class Solution2 {
+
+    /**
+     * @param node
+     * @param s
+     * @param limit
+     * @return 返回 node 结点是否被删除（注意：这个返回值的意义，直接影响整个逻辑。）
+     */
+    private Boolean dfs(TreeNode node, int s, int limit) {
+        if (node.left == null && node.right == null) {
+            return s + node.val < limit;
+        }
+
+        // 注意：如果 dfs 的返回值的意义是这个结点是否被删除，它们的默认值应该设置为 true
+        boolean lTreeDeleted = true;
+        boolean rTreeDeleted = true;
+
+        // 如果有左子树，就先递归处理左子树
+        if (node.left != null) {
+            lTreeDeleted = dfs(node.left, s + node.val, limit);
+        }
+        // 如果有右子树，就先递归处理右子树
+        if (node.right != null) {
+            rTreeDeleted = dfs(node.right, s + node.val, limit);
+        }
+
+        // 左右子树是否保留的结论得到了，由自己来执行是否删除它们
+        if (lTreeDeleted) {
+            node.left = null;
+        }
+        if (rTreeDeleted) {
+            node.right = null;
+        }
+
+        // 只有左右子树都被删除了，自己才没有必要保留
+        return lTreeDeleted && rTreeDeleted;
+    }
+
+    public TreeNode sufficientSubset(TreeNode root, int limit) {
+        boolean rootDeleted = dfs(root, 0, limit);
+        if (rootDeleted) {
+            return null;
+        }
+        return root;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果 <code>__dfs()</code> 方法返回值的意义是“当前结点是否被保留”，参考代码如下。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+# 算法思想：分治法
+# 后序遍历：dfs 的返回值是：是否保留这个节点
+
+class Solution:
+    def __dfs(self, node, s, limit):
+        """
+        后序遍历
+        :param node: 当前遍历的结点
+        :param s: 当前累计的和
+        :param limit: 题目中给出的 limit
+        :return: 是否要保留 node 这个结点，True 表示要保留，False 表示不保留
+        """
+        # 先写递归终止条件：如果大于等于 limit，根据题意，要保留
+        if node.left is None and node.right is None:
+            return node.val + s >= limit
+
+        # 默认为左右结点均剪枝
+        # 注意：初值不能设置成 True
+        # 因为，当左右子树只有一个存在的时候，这个子树的逻辑值直接决定了父结点是否被保留
+        ltree_saved = False
+        rtree_saved = False
+
+        # 如果有左子树，就先递归处理左子树
+        if node.left:
+            ltree_saved = self.__dfs(node.left, s + node.val, limit)
+        # 如果有右子树，就先递归处理右子树
+        if node.right:
+            rtree_saved = self.__dfs(node.right, s + node.val, limit)
+
+        # 左右子树是否保留的结论得到了，由自己来执行是否保留它们
+        if not ltree_saved:
+            node.left = None
+        if not rtree_saved:
+            node.right = None
+
+        # 只要左右结点有一个被保留，这个结点就得被保留
+        return ltree_saved or rtree_saved
+
+    def sufficientSubset(self, root: TreeNode, limit: int) -> TreeNode:
+        root_saved = self.__dfs(root, 0, limit)
+        if not root_saved:
+            return None
+        return root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
+public class Solution {
+
+    /**
+     * @param node
+     * @param s
+     * @param limit
+     * @return 返回 node 结点是否被保留（注意：这个返回值的意义，直接影响整个逻辑。）
+     */
+    private Boolean dfs(TreeNode node, int s, int limit) {
+        if (node.left == null && node.right == null) {
+            return s + node.val >= limit;
+        }
+
+        // 注意：如果 dfs 的返回值的意义是这个结点是否被保留，它们的默认值应该设置为 false
+        boolean ltree_saved = false;
+        boolean rtree_saved = false;
+
+        // 如果有左子树，就先递归处理左子树
+        if (node.left != null) {
+            ltree_saved = dfs(node.left, s + node.val, limit);
+        }
+
+        // 如果有右子树，就先递归处理右子树
+        if (node.right != null) {
+            rtree_saved = dfs(node.right, s + node.val, limit);
+        }
+
+        // 左右子树是否保留的结论得到了，由自己来执行是否删除它们
+        if (!ltree_saved) {
+            node.left = null;
+        }
+
+        if (!rtree_saved) {
+            node.right = null;
+        }
+
+        // 左右子树有一颗被保留，自己就应该被保留
+        return ltree_saved || rtree_saved;
+    }
+
+    public TreeNode sufficientSubset(TreeNode root, int limit) {
+        boolean root_saved = dfs(root, 0, limit);
+        if (!root_saved) {
+            return null;
+        }
+        return root;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：</p>
+<ul>
+<li>时间复杂度：$O(N)$，$N$ 为二叉树结点的个数。</li>
+<li>空间复杂度：$O(1)$。</li>
+</ul>
+<Vssue title="median-of-two-sorted-arrays"/>
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" rel="external nofollow noreferrer">liweiwei1419</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/2018/01/07/leetcode-algo/1080-insufficient-nodes-in-root-to-leaf-paths/">https://liweiwei1419.gitee.io/leetcode-algo/2018/01/07/leetcode-algo/1080-insufficient-nodes-in-root-to-leaf-paths/</a>
+                    <!-- GitHub 用配置
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2018/01/07/leetcode-algo/1080-insufficient-nodes-in-root-to-leaf-paths/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2018/01/07/leetcode-algo/1080-insufficient-nodes-in-root-to-leaf-paths/</a>
+                    -->
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">分治算法</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/leetcode-algo/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/leetcode-algo/medias/reward/alipayimg.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/leetcode-algo/medias/reward/wechatpayimg.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/leetcode-algo/2018/02/01/leetcode-solution/backtracking-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/13.jpg" class="responsive-img" alt="「回溯算法」专题 1：在树形问题中使用深度优先遍历">
+                        
+                        <span class="card-title">「回溯算法」专题 1：在树形问题中使用深度优先遍历</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「回溯算法」专题 1：在树形问题中使用深度优先遍历回溯法是解决很多算法问题的常见思想，甚至可以说是传统人工智能的基础方法。其本质依然是使用递归的方法在树形空间中寻找解。在这一章，我们来具体看一下将递归这种技术使用在非二叉树的结构中，从而认识
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-02-01
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-14%EF%BC%9A-%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/" class="post-category">
+                                    专题 14： 回溯算法
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                        <span class="chip bg-color">递归</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%9B%9E%E6%BA%AF%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">回溯算法</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E6%A0%91%E5%BD%A2%E9%97%AE%E9%A2%98/">
+                        <span class="chip bg-color">树形问题</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/leetcode-algo/2018/01/06/leetcode-solution-new/count-of-smaller-numbers-after-self/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/18.jpg" class="responsive-img" alt="「力扣」第 315 题：计算右侧小于当前元素的个数">
+                        
+                        <span class="card-title">「力扣」第 315 题：计算右侧小于当前元素的个数</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「力扣」第 315 题：计算右侧小于当前元素的个数
+
+
+题目地址
+题解
+
+
+
+LeetCode 第 315 题：计算右侧小于当前元素的个数
+归并排序 + 索引数组（Python 代码、Java 代码）
+
+
+归并排序（索引数组）如果有学习过一
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-01-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-13%EF%BC%9A-%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/" class="post-category">
+                                    专题 13： 分治算法
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">分治算法</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
+                        <span class="chip bg-color">归并排序</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E7%B4%A2%E5%BC%95%E6%95%B0%E7%BB%84/">
+                        <span class="chip bg-color">索引数组</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/leetcode-algo/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/liweiwei1419" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiwei1419@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=121088825" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 121088825" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/leetcode-algo/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/leetcode-algo/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/leetcode-algo/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/leetcode-algo/libs/materialize/materialize.min.js"></script>
+    <script src="/leetcode-algo/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/leetcode-algo/libs/aos/aos.js"></script>
+    <script src="/leetcode-algo/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/leetcode-algo/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/leetcode-algo/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/leetcode-algo/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/leetcode-algo/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/leetcode-algo/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
