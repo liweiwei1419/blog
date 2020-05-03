@@ -493,59 +493,56 @@
 </li>
 </ul>
 <h4 id="冒泡排序第-1-版"><a href="#冒泡排序第-1-版" class="headerlink" title="冒泡排序第 1 版"></a>冒泡排序第 1 版</h4><p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">def bubble_sort_1(nums):
-    n = len(nums)
-    for i in range(0, n - 1):
-        for j in range(0, n - i - 1):  # 注意临界值的选取
-            if nums[j] > nums[j + 1]:
-                swap(nums, j, j + 1)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">bubble_sort_1</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    n <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 注意临界值的选取</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                swap<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> j<span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="冒泡排序第-2-版"><a href="#冒泡排序第-2-版" class="headerlink" title="冒泡排序第 2 版"></a>冒泡排序第 2 版</h4><p>Java 代码：</p>
 <p>以下代码提交以后会出现超时，超时数据是规模较大的数据，一般情况下说明算法是正确的，但不高效。</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 冒泡排序：超时
+    <span class="token comment" spellcheck="true">// 冒泡排序：超时</span>
 
-    public int[] sortArray(int[] nums) {
-        int len = nums.length;
-        for (int i = len - 1; i >= 0; i--) {
-            // 先默认数组是有序的，只要发生一次交换，就必须进行下一轮比较，
-            // 如果在内层循环中，都没有执行一次交换操作，说明此时数组已经是升序数组
-            boolean sorted = true;
-            for (int j = 0; j < i; j++) {
-                if (nums[j] > nums[j + 1]) {
-                    swap(nums, j, j + 1);
-                    sorted = false;
-                }
-            }
-            if (sorted) {
-                break;
-            }
-        }
-        return nums;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">sortArray</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 先默认数组是有序的，只要发生一次交换，就必须进行下一轮比较，</span>
+            <span class="token comment" spellcheck="true">// 如果在内层循环中，都没有执行一次交换操作，说明此时数组已经是升序数组</span>
+            <span class="token keyword">boolean</span> sorted <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> i<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> j<span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    sorted <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>sorted<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> nums<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    private void swap(int[] nums, int index1, int index2) {
-        int temp = nums[index1];
-        nums[index1] = nums[index2];
-        nums[index2] = temp;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> index1<span class="token punctuation">,</span> <span class="token keyword">int</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> temp <span class="token operator">=</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：在「冒泡」的过程中检查数组是否已经排好序，如果已经是顺序数组，整个算法就可以终止了。</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">def bubble_sort_2(nums):
-    n = len(nums)
-    for i in range(0, n - 1):
-        sorted = True  # 假设数组是排好序的
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">bubble_sort_2</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    n <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        sorted <span class="token operator">=</span> <span class="token boolean">True</span>  <span class="token comment" spellcheck="true"># 假设数组是排好序的</span>
 
-        for j in range(0, n - i - 1):  # 注意临界值的选取
-            if nums[j] > nums[j + 1]:
-                swap(nums, j, j + 1)
-                sorted = False  # 只要发现有元素交换，就说明假设是错误的
-        # 如果一轮下来都没有元素交换，那么接下来的几轮就没有必要进行比较了
-        if sorted:
-            break
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># 注意临界值的选取</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                swap<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> j<span class="token punctuation">,</span> j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+                sorted <span class="token operator">=</span> <span class="token boolean">False</span>  <span class="token comment" spellcheck="true"># 只要发现有元素交换，就说明假设是错误的</span>
+        <span class="token comment" spellcheck="true"># 如果一轮下来都没有元素交换，那么接下来的几轮就没有必要进行比较了</span>
+        <span class="token keyword">if</span> sorted<span class="token punctuation">:</span>
+            <span class="token keyword">break</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N^2)$，这里 $N$ 是数组的长度；</li>

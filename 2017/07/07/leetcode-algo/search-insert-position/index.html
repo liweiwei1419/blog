@@ -499,31 +499,41 @@
 <p>这个思路我感觉比较“显然”，甚至说不出什么道理来。</p>
 <p><strong>参考代码</strong>：</p>
 <p>Python 代码：</p>
-<p>```Python []<br>from typing import List</p>
-<p>class Solution:<br>    def twoSum(self, numbers: List[int], target: int) -&gt; List[int]:<br>        size = len(numbers)<br>        left = 0<br>        right = size - 1<br>        while left &lt; right:<br>            if numbers[left] + numbers[right] &gt; target:<br>                right -= 1<br>            elif numbers[left] + numbers[right] &lt; target:<br>                left += 1<br>            else:<br>                return [left + 1, right + 1]</p>
-<pre><code>
-Java 代码：
+<pre class="line-numbers language-Python"><code class="language-Python">from typing import List
 
-```Java []
-public class Solution {
+
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        size = len(numbers)
+        left = 0
+        right = size - 1
+        while left < right:
+            if numbers[left] + numbers[right] > target:
+                right -= 1
+            elif numbers[left] + numbers[right] < target:
+                left += 1
+            else:
+                return [left + 1, right + 1]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
 
     public int[] twoSum(int[] numbers, int target) {
         int left = 0;
         int right = numbers.length - 1;
-        while (left &lt; right) {
+        while (left < right) {
             int sum = numbers[left] + numbers[right];
             if (sum == target) {
                 return new int[]{left + 1, right + 1};
-            } else if (sum &gt; target) {
+            } else if (sum > target) {
                 right--;
             } else {
                 left++;
             }
         }
-        throw new RuntimeException(&quot;在数组中没有找到这样的两个数，使得它们的和为指定值&quot;);
+        throw new RuntimeException("在数组中没有找到这样的两个数，使得它们的和为指定值");
     }
-}
-</code></pre><p><strong>复杂度分析</strong>：</p>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N)$，这里 $N$ 表示数组中的元素的大小。</li>
 <li>空间复杂度：$O(1)$，只使用了常数个变量。</li>
@@ -533,40 +543,46 @@ public class Solution {
 <p>二分查找，起点得固定，因此，外面要套上一层循环。</p>
 <p><strong>参考代码</strong>：</p>
 <p>Python 代码：</p>
-<p>```Python []<br>from typing import List</p>
-<p>class Solution:<br>    def twoSum(self, numbers: List[int], target: int) -&gt; List[int]:<br>        size = len(numbers)<br>        for left in range(size - 1):<br>            right = self.__binary_search(numbers, left + 1, size - 1, target - numbers[left])<br>            if right != -1:<br>                return [left + 1, right + 1]</p>
-<pre><code>def __binary_search(self, numbers, left, right, target):
-    # 在子区间 [left, right] 找 target
-    while left &lt; right:
-        mid = (left + right) &gt;&gt; 1
-        if numbers[mid] &lt; target:
-            left = mid + 1
-        else:
-            right = mid
-    return left if numbers[left] == target else -1
-</code></pre><pre><code>
-Java 代码：
+<pre class="line-numbers language-Python"><code class="language-Python">from typing import List
 
-```Java []
-public class Solution {
+
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        size = len(numbers)
+        for left in range(size - 1):
+            right = self.__binary_search(numbers, left + 1, size - 1, target - numbers[left])
+            if right != -1:
+                return [left + 1, right + 1]
+
+    def __binary_search(self, numbers, left, right, target):
+        # 在子区间 [left, right] 找 target
+        while left < right:
+            mid = (left + right) >> 1
+            if numbers[mid] < target:
+                left = mid + 1
+            else:
+                right = mid
+        return left if numbers[left] == target else -1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
 
     public int[] twoSum(int[] numbers, int target) {
         int len = numbers.length;
         // 最后一个数不会成为起始的数字
-        for (int left = 0; left &lt; numbers.length - 1; left++) {
+        for (int left = 0; left < numbers.length - 1; left++) {
             // 挨个二分查找
             int right = binarySearch(numbers, left + 1, len - 1, target - numbers[left]);
             if (right != -1) {
                 return new int[]{left + 1, right + 1};
             }
         }
-        throw new RuntimeException(&quot;在数组中没有找到这样的两个数，使得它们的和为指定值&quot;);
+        throw new RuntimeException("在数组中没有找到这样的两个数，使得它们的和为指定值");
     }
 
     public int binarySearch(int[] nums, int left, int right, int target) {
-        while (left &lt; right) {
-            int mid = (left + right) &gt;&gt;&gt;  1;
-            if (nums[mid] &lt; target) {
+        while (left < right) {
+            int mid = (left + right) >>>  1;
+            if (nums[mid] < target) {
                 left = mid + 1;
             } else {
                 right = mid;
@@ -578,8 +594,8 @@ public class Solution {
         return -1;
     }
 
-}
-</code></pre><p><strong>复杂度分析</strong>：</p>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N \log N)$，这里 $N$ 表示数组中的元素的大小，外层循环是线性时间复杂度，内层循环是对数级别的时间复杂度。</li>
 <li>空间复杂度：$O(1)$，只使用了常数个变量。</li>
@@ -598,57 +614,54 @@ public class Solution {
 <p><strong>示例:</strong></p>
 <pre><code>输入: numbers = [2, 7, 11, 15], target = 9
 输出: [1,2]
-解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。
-</code></pre></blockquote>
+解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。</code></pre></blockquote>
 <p>分析：看到有序，第 1 想到「二分查找」，但是我们这题，用「指针对撞」更合适。当然用哈希表也是可以的，不过哈希表的方法没有用到数组的有序性。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def twoSum(self, numbers, target):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">twoSum</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> numbers<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type numbers: List[int]
         :type target: int
         :rtype: List[int]
-        """
-        # 有序数组，index1 必须小于 index2，用指针对撞是最合适的
+        """</span>
+        <span class="token comment" spellcheck="true"># 有序数组，index1 必须小于 index2，用指针对撞是最合适的</span>
 
-        size = len(numbers)
-        if size < 2:
-            return []
-        l = 0
-        r = size - 1
-        while l < r:
-            if numbers[l] + numbers[r] == target:
-                return [l + 1, r + 1]
-            elif numbers[l] + numbers[r] < target:
-                l += 1
-            else:
-                r -= 1
-        return []
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>numbers<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        l <span class="token operator">=</span> <span class="token number">0</span>
+        r <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> numbers<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">+</span> numbers<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token punctuation">[</span>l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span>
+            <span class="token keyword">elif</span> numbers<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">+</span> numbers<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">&lt;</span> target<span class="token punctuation">:</span>
+                l <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                r <span class="token operator">-=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class Solution {
-    public int[] twoSum(int[] numbers, int target) {
-        int len = numbers.length;
-        int l = 0;
-        int r = len - 1;
-        while (l < r) {
-            int sum = numbers[l] + numbers[r];
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">twoSum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> numbers<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> numbers<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> r <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> sum <span class="token operator">=</span> numbers<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">+</span> numbers<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-            if (sum > target) {
-                r--;
-            } else if (sum < target) {
-                l++;
-            } else {
-                int[] res = new int[2];
-                res[0] = l + 1;
-                res[1] = r + 1;
-                return res;
-            }
-        }
-        throw  new IllegalArgumentException("输入数据有误");
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>sum <span class="token operator">></span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                r<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>sum <span class="token operator">&lt;</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                l<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                res<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                res<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">throw</span>  <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"输入数据有误"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="LeetCode-第-167-题：两数之和-II-输入有序数组"><a href="#LeetCode-第-167-题：两数之和-II-输入有序数组" class="headerlink" title="LeetCode 第 167 题：两数之和 II - 输入有序数组"></a>LeetCode 第 167 题：两数之和 II - 输入有序数组</h3><p>传送门：<a href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/" target="_blank" rel="noopener">167. 两数之和 II - 输入有序数组</a>。</p>
 <blockquote>
 <p>给定一个已按照<strong>升序排列</strong> 的有序数组，找到两个数使得它们相加之和等于目标数。</p>
@@ -661,57 +674,54 @@ public class Solution {
 <p><strong>示例:</strong></p>
 <pre><code>输入: numbers = [2, 7, 11, 15], target = 9
 输出: [1,2]
-解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。
-</code></pre></blockquote>
+解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。</code></pre></blockquote>
 <p>分析：看到有序，第 1 想到“二分查找”，但是我们这题，用“指针对撞”更合适。当然用哈希表也是可以的，不过哈希表的方法没有用到数组的有序性。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def twoSum(self, numbers, target):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">twoSum</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> numbers<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type numbers: List[int]
         :type target: int
         :rtype: List[int]
-        """
-        # 有序数组，index1 必须小于 index2，用指针对撞是最合适的
+        """</span>
+        <span class="token comment" spellcheck="true"># 有序数组，index1 必须小于 index2，用指针对撞是最合适的</span>
 
-        size = len(numbers)
-        if size < 2:
-            return []
-        l = 0
-        r = size - 1
-        while l < r:
-            if numbers[l] + numbers[r] == target:
-                return [l + 1, r + 1]
-            elif numbers[l] + numbers[r] < target:
-                l += 1
-            else:
-                r -= 1
-        return []
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>numbers<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        l <span class="token operator">=</span> <span class="token number">0</span>
+        r <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> numbers<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">+</span> numbers<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token punctuation">[</span>l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span>
+            <span class="token keyword">elif</span> numbers<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">+</span> numbers<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">&lt;</span> target<span class="token punctuation">:</span>
+                l <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                r <span class="token operator">-=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class Solution {
-    public int[] twoSum(int[] numbers, int target) {
-        int len = numbers.length;
-        int l = 0;
-        int r = len - 1;
-        while (l < r) {
-            int sum = numbers[l] + numbers[r];
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">twoSum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> numbers<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> numbers<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> r <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> sum <span class="token operator">=</span> numbers<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">+</span> numbers<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-            if (sum > target) {
-                r--;
-            } else if (sum < target) {
-                l++;
-            } else {
-                int[] res = new int[2];
-                res[0] = l + 1;
-                res[1] = r + 1;
-                return res;
-            }
-        }
-        throw  new IllegalArgumentException("输入数据有误");
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>sum <span class="token operator">></span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                r<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>sum <span class="token operator">&lt;</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                l<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                res<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                res<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">throw</span>  <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"输入数据有误"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

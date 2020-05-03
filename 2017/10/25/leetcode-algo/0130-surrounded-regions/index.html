@@ -491,159 +491,155 @@
 <pre><code>X X X X
 X O O X
 X X O X
-X O X X
-</code></pre><p>运行你的函数后，矩阵变为：</p>
+X O X X</code></pre><p>运行你的函数后，矩阵变为：</p>
 <pre><code>X X X X
 X X X X
 X X X X
-X O X X
-</code></pre><p><strong>解释:</strong></p>
+X O X X</code></pre><p><strong>解释:</strong></p>
 <p>被围绕的区间不会存在于边界上，换句话说，任何边界上的 <code>&#39;O&#39;</code> 都不会被填充为 <code>&#39;X&#39;</code>。 任何不在边界上，或不与边界上的 <code>&#39;O&#39;</code> 相连的 <code>&#39;O&#39;</code> 最终都会被填充为 <code>&#39;X&#39;</code>。如果两个元素在水平或垂直方向相邻，则称它们是“相连”的。</p>
 <p>分析：其实就是将不与边上的  <code>&#39;O&#39;</code> 相连的 <code>&#39;O&#39;</code> 改成  <code>&#39;X&#39;</code>，可以使用并查集完成。</p>
 </blockquote>
 <p>Python 代码1：一开始的写法，不太好理解。</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def solve(self, board):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">solve</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> board<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type board: List[List[str]]
         :rtype: void Do not return anything, modify board in-place instead.
-        """
+        """</span>
 
-        # 使用并查集
-        class UnionFind:
-            def __init__(self, n):
-                self.parent = [i for i in range(n)]
+        <span class="token comment" spellcheck="true"># 使用并查集</span>
+        <span class="token keyword">class</span> <span class="token class-name">UnionFind</span><span class="token punctuation">:</span>
+            <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent <span class="token operator">=</span> <span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">]</span>
 
-            def find(self, p):
-                root = p
-                while root != self.parent[root]:
-                    root = self.parent[root]
-                while p != self.parent[p]:
-                    temp = self.parent[p]
-                    self.parent[p] = root
-                    p = temp
-                return root
+            <span class="token keyword">def</span> <span class="token function">find</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                root <span class="token operator">=</span> p
+                <span class="token keyword">while</span> root <span class="token operator">!=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>root<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    root <span class="token operator">=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>root<span class="token punctuation">]</span>
+                <span class="token keyword">while</span> p <span class="token operator">!=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    temp <span class="token operator">=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span>
+                    self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">=</span> root
+                    p <span class="token operator">=</span> temp
+                <span class="token keyword">return</span> root
 
-            def is_connected(self, p, q):
-                return self.find(p) == self.find(q)
+            <span class="token keyword">def</span> <span class="token function">is_connected</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">==</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>q<span class="token punctuation">)</span>
 
-            def union(self, p, q):
-                p_id = self.find(p)
-                q_id = self.find(q)
-                if p_id == q_id:
-                    return
-                self.parent[p_id] = q_id
+            <span class="token keyword">def</span> <span class="token function">union</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                p_id <span class="token operator">=</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+                q_id <span class="token operator">=</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>q<span class="token punctuation">)</span>
+                <span class="token keyword">if</span> p_id <span class="token operator">==</span> q_id<span class="token punctuation">:</span>
+                    <span class="token keyword">return</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p_id<span class="token punctuation">]</span> <span class="token operator">=</span> q_id
 
-        # 一开始是常规的代码
-        m = len(board)
-        if m == 0:
-            return
-        n = len(board[0])
+        <span class="token comment" spellcheck="true"># 一开始是常规的代码</span>
+        m <span class="token operator">=</span> len<span class="token punctuation">(</span>board<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> m <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+        n <span class="token operator">=</span> len<span class="token punctuation">(</span>board<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-        def get_index(x, y):
-            return x * n + y
+        <span class="token keyword">def</span> <span class="token function">get_index</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> x <span class="token operator">*</span> n <span class="token operator">+</span> y
 
-        directions = [(-1, 0), (0, -1), (1, 0), (0, 1)]
-        # 这里多留了一个位置，表示与边上的 'O' 相连
-        uf = UnionFind(m * n + 1)
-        for i in range(m):
-            for j in range(n):
-                if board[i][j] == 'O':
-                    # 把所有不被 'X' 包围的 'O' 放在同一个集合里
-                    if i == 0 or j == 0 or i == m - 1 or j == n - 1:
-                        uf.union(get_index(i, j), m * n)
-                    else:
-                        # 向 4 个方向找，只用看 4 个方向，不要和回溯算法混淆了
-                        # 只要都是 'O' ，才有必要合并
-                        for direction in directions:
-                            new_i = i + direction[0]
-                            new_j = j + direction[1]
-                            if board[new_i][new_j] == 'O':
-                                uf.union(get_index(i, j), get_index(new_i, new_j))
+        directions <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token comment" spellcheck="true"># 这里多留了一个位置，表示与边上的 'O' 相连</span>
+        uf <span class="token operator">=</span> UnionFind<span class="token punctuation">(</span>m <span class="token operator">*</span> n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'O'</span><span class="token punctuation">:</span>
+                    <span class="token comment" spellcheck="true"># 把所有不被 'X' 包围的 'O' 放在同一个集合里</span>
+                    <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> j <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> i <span class="token operator">==</span> m <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">or</span> j <span class="token operator">==</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                        uf<span class="token punctuation">.</span>union<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> m <span class="token operator">*</span> n<span class="token punctuation">)</span>
+                    <span class="token keyword">else</span><span class="token punctuation">:</span>
+                        <span class="token comment" spellcheck="true"># 向 4 个方向找，只用看 4 个方向，不要和回溯算法混淆了</span>
+                        <span class="token comment" spellcheck="true"># 只要都是 'O' ，才有必要合并</span>
+                        <span class="token keyword">for</span> direction <span class="token keyword">in</span> directions<span class="token punctuation">:</span>
+                            new_i <span class="token operator">=</span> i <span class="token operator">+</span> direction<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+                            new_j <span class="token operator">=</span> j <span class="token operator">+</span> direction<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+                            <span class="token keyword">if</span> board<span class="token punctuation">[</span>new_i<span class="token punctuation">]</span><span class="token punctuation">[</span>new_j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'O'</span><span class="token punctuation">:</span>
+                                uf<span class="token punctuation">.</span>union<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> get_index<span class="token punctuation">(</span>new_i<span class="token punctuation">,</span> new_j<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-        # 最后，才内圈里，只要是 'O'，且不与边上的 'O' 连接，都改成 'X' 即可  
-        for i in range(1, m - 1):
-            for j in range(1, n - 1):
-                if board[i][j] == 'O' and not uf.is_connected(get_index(i, j), m * n):
-                    board[i][j] = 'X'
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token comment" spellcheck="true"># 最后，才内圈里，只要是 'O'，且不与边上的 'O' 连接，都改成 'X' 即可  </span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> m <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'O'</span> <span class="token operator">and</span> <span class="token operator">not</span> uf<span class="token punctuation">.</span>is_connected<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> m <span class="token operator">*</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'X'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这个版本写出来，感觉思路不是很清晰，于是，我又写了一版。</p>
 <p>Python 代码2：其实并查集的写法容易受 floorfill 的影响，用并查集的时候，其实只用每一行的右边和下面都看一下，只针对“O”，能合并就合并一下。</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def solve(self, board):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">solve</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> board<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type board: List[List[str]]
         :rtype: void Do not return anything, modify board in-place instead.
-        """
+        """</span>
 
-        # 使用并查集
-        class UnionFind:
-            def __init__(self, n):
-                self.parent = [i for i in range(n)]
+        <span class="token comment" spellcheck="true"># 使用并查集</span>
+        <span class="token keyword">class</span> <span class="token class-name">UnionFind</span><span class="token punctuation">:</span>
+            <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>parent <span class="token operator">=</span> <span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">]</span>
 
-            def find(self, p):
-                root = p
-                while root != self.parent[root]:
-                    root = self.parent[root]
-                while p != self.parent[p]:
-                    temp = self.parent[p]
-                    self.parent[p] = root
-                    p = temp
-                return root
+            <span class="token keyword">def</span> <span class="token function">find</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                root <span class="token operator">=</span> p
+                <span class="token keyword">while</span> root <span class="token operator">!=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>root<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    root <span class="token operator">=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>root<span class="token punctuation">]</span>
+                <span class="token keyword">while</span> p <span class="token operator">!=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    temp <span class="token operator">=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span>
+                    self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">=</span> root
+                    p <span class="token operator">=</span> temp
+                <span class="token keyword">return</span> root
 
-            def is_connected(self, p, q):
-                return self.find(p) == self.find(q)
+            <span class="token keyword">def</span> <span class="token function">is_connected</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">==</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>q<span class="token punctuation">)</span>
 
-            def union(self, p, q):
-                p_id = self.find(p)
-                q_id = self.find(q)
-                if p_id == q_id:
-                    return
-                self.parent[p_id] = q_id
+            <span class="token keyword">def</span> <span class="token function">union</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                p_id <span class="token operator">=</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+                q_id <span class="token operator">=</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>q<span class="token punctuation">)</span>
+                <span class="token keyword">if</span> p_id <span class="token operator">==</span> q_id<span class="token punctuation">:</span>
+                    <span class="token keyword">return</span>
+                self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p_id<span class="token punctuation">]</span> <span class="token operator">=</span> q_id
 
-        # 一开始是常规的代码
-        m = len(board)
-        if m == 0:
-            return
-        n = len(board[0])
+        <span class="token comment" spellcheck="true"># 一开始是常规的代码</span>
+        m <span class="token operator">=</span> len<span class="token punctuation">(</span>board<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> m <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+        n <span class="token operator">=</span> len<span class="token punctuation">(</span>board<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-        def get_index(x, y):
-            return x * n + y
+        <span class="token keyword">def</span> <span class="token function">get_index</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> x <span class="token operator">*</span> n <span class="token operator">+</span> y
 
-        dummy_node = m * n
+        dummy_node <span class="token operator">=</span> m <span class="token operator">*</span> n
 
-        uf = UnionFind(m * n + 1)
+        uf <span class="token operator">=</span> UnionFind<span class="token punctuation">(</span>m <span class="token operator">*</span> n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
 
-        # 先把四条边上的 "O" 全部连起来
-        for row_index in range(m):
-            if board[row_index][0] == 'O':
-                uf.union(get_index(row_index, 0), dummy_node)
-            if board[row_index][n - 1] == 'O':
-                uf.union(get_index(row_index, n - 1), dummy_node)
+        <span class="token comment" spellcheck="true"># 先把四条边上的 "O" 全部连起来</span>
+        <span class="token keyword">for</span> row_index <span class="token keyword">in</span> range<span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> board<span class="token punctuation">[</span>row_index<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'O'</span><span class="token punctuation">:</span>
+                uf<span class="token punctuation">.</span>union<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span>row_index<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> dummy_node<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> board<span class="token punctuation">[</span>row_index<span class="token punctuation">]</span><span class="token punctuation">[</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'O'</span><span class="token punctuation">:</span>
+                uf<span class="token punctuation">.</span>union<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span>row_index<span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> dummy_node<span class="token punctuation">)</span>
 
-        for col_index in range(n):
-            if board[0][col_index] == 'O':
-                uf.union(get_index(0, col_index), dummy_node)
-            if board[m - 1][col_index] == 'O':
-                uf.union(get_index(m - 1, col_index), dummy_node)
+        <span class="token keyword">for</span> col_index <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> board<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>col_index<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'O'</span><span class="token punctuation">:</span>
+                uf<span class="token punctuation">.</span>union<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> col_index<span class="token punctuation">)</span><span class="token punctuation">,</span> dummy_node<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> board<span class="token punctuation">[</span>m <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>col_index<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'O'</span><span class="token punctuation">:</span>
+                uf<span class="token punctuation">.</span>union<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span>m <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> col_index<span class="token punctuation">)</span><span class="token punctuation">,</span> dummy_node<span class="token punctuation">)</span>
 
-        directions = [(1, 0), (0, 1)]
-        for i in range(m):
-            for j in range(n):
-                if board[i][j] == 'O':
-                    # 只向 2 个方向找，只用看 2 个方向，不要和回溯算法混淆了
-                    for direction in directions:
-                        new_i = i + direction[0]
-                        new_j = j + direction[1]
-                        if new_i < m and new_j < n and board[new_i][new_j] == 'O':
-                            uf.union(get_index(i, j), get_index(new_i, new_j))
+        directions <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'O'</span><span class="token punctuation">:</span>
+                    <span class="token comment" spellcheck="true"># 只向 2 个方向找，只用看 2 个方向，不要和回溯算法混淆了</span>
+                    <span class="token keyword">for</span> direction <span class="token keyword">in</span> directions<span class="token punctuation">:</span>
+                        new_i <span class="token operator">=</span> i <span class="token operator">+</span> direction<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+                        new_j <span class="token operator">=</span> j <span class="token operator">+</span> direction<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+                        <span class="token keyword">if</span> new_i <span class="token operator">&lt;</span> m <span class="token operator">and</span> new_j <span class="token operator">&lt;</span> n <span class="token operator">and</span> board<span class="token punctuation">[</span>new_i<span class="token punctuation">]</span><span class="token punctuation">[</span>new_j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'O'</span><span class="token punctuation">:</span>
+                            uf<span class="token punctuation">.</span>union<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> get_index<span class="token punctuation">(</span>new_i<span class="token punctuation">,</span> new_j<span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-        for i in range(1, m - 1):
-            for j in range(1, n - 1):
-                if board[i][j] == 'O' and not uf.is_connected(get_index(i, j), m * n):
-                    board[i][j] = 'X'
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> m <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'O'</span> <span class="token operator">and</span> <span class="token operator">not</span> uf<span class="token punctuation">.</span>is_connected<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> m <span class="token operator">*</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'X'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
             </div>
             <hr/>
 

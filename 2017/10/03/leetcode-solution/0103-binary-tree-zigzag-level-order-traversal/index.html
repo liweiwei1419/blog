@@ -489,55 +489,52 @@
 / \
 9  20
  /  \
-15   7
-</code></pre><p>返回锯齿形层次遍历如下：</p>
+15   7</code></pre><p>返回锯齿形层次遍历如下：</p>
 <pre><code>[
 [3],
 [20,9],
 [15,7]
-]
-</code></pre></blockquote>
+]</code></pre></blockquote>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python"># Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Definition for a binary tree node.</span>
+<span class="token comment" spellcheck="true"># class TreeNode:</span>
+<span class="token comment" spellcheck="true">#     def __init__(self, x):</span>
+<span class="token comment" spellcheck="true">#         self.val = x</span>
+<span class="token comment" spellcheck="true">#         self.left = None</span>
+<span class="token comment" spellcheck="true">#         self.right = None</span>
 
 
-class Solution:
-    def zigzagLevelOrder(self, root):
-        """
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">zigzagLevelOrder</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> root<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type root: TreeNode
         :rtype: List[List[int]]
-        """
-        if root is None:
-            return []
+        """</span>
+        <span class="token keyword">if</span> root <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
 
-        queue = [root]
-        res = []
-        turn_left = True
-        while queue:
-            cur_list = []
-            size = len(queue)
-            for _ in range(size):
-                top = queue.pop(0)
+        queue <span class="token operator">=</span> <span class="token punctuation">[</span>root<span class="token punctuation">]</span>
+        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        turn_left <span class="token operator">=</span> <span class="token boolean">True</span>
+        <span class="token keyword">while</span> queue<span class="token punctuation">:</span>
+            cur_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+            size <span class="token operator">=</span> len<span class="token punctuation">(</span>queue<span class="token punctuation">)</span>
+            <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                top <span class="token operator">=</span> queue<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
 
-                if turn_left:
-                    cur_list.append(top.val)
-                else:
-                    cur_list.insert(0, top.val)
+                <span class="token keyword">if</span> turn_left<span class="token punctuation">:</span>
+                    cur_list<span class="token punctuation">.</span>append<span class="token punctuation">(</span>top<span class="token punctuation">.</span>val<span class="token punctuation">)</span>
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    cur_list<span class="token punctuation">.</span>insert<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> top<span class="token punctuation">.</span>val<span class="token punctuation">)</span>
 
-                if top.left:
-                    queue.append(top.left)
-                if top.right:
-                    queue.append(top.right)
-            res.append(cur_list)
-            turn_left = not turn_left
-        return res
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
+                <span class="token keyword">if</span> top<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
+                    queue<span class="token punctuation">.</span>append<span class="token punctuation">(</span>top<span class="token punctuation">.</span>left<span class="token punctuation">)</span>
+                <span class="token keyword">if</span> top<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
+                    queue<span class="token punctuation">.</span>append<span class="token punctuation">(</span>top<span class="token punctuation">.</span>right<span class="token punctuation">)</span>
+            res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>cur_list<span class="token punctuation">)</span>
+            turn_left <span class="token operator">=</span> <span class="token operator">not</span> turn_left
+        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
             </div>
             <hr/>
 

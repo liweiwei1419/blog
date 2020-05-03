@@ -494,129 +494,126 @@
 
 当 k = 2 时，应当返回: 2-&gt;1-&gt;4-&gt;3-&gt;5
 
-当 k = 3 时，应当返回: 3-&gt;2-&gt;1-&gt;4-&gt;5
-</code></pre><p>说明 :</p>
+当 k = 3 时，应当返回: 3-&gt;2-&gt;1-&gt;4-&gt;5</code></pre><p>说明 :</p>
 <ul>
 <li>你的算法只能使用常数的额外空间。</li>
 <li>你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</li>
 </ul>
 </blockquote>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * Definition for singly-linked list.
  * public class ListNode {
  *     int val;
  *     ListNode next;
  *     ListNode(int x) { val = x; }
  * }
- */
-class Solution {
-    public ListNode reverseKGroup(ListNode head, int k) {
-        // 使用递归写法的话，先考虑特殊情况
-        if (head == null || head.next == null || k <= 1) {
-            return head;
-        }
-        // 探测长度的结点
-        ListNode tempNode = head;
-        int curK = k;
-        while (tempNode != null && curK != 0) {
-            curK--;
-            tempNode = tempNode.next;
-        }
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> ListNode <span class="token function">reverseKGroup</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 使用递归写法的话，先考虑特殊情况</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null <span class="token operator">||</span> k <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 探测长度的结点</span>
+        ListNode tempNode <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> curK <span class="token operator">=</span> k<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>tempNode <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> curK <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            curK<span class="token operator">--</span><span class="token punctuation">;</span>
+            tempNode <span class="token operator">=</span> tempNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        if (curK == 0) {
-            // 下面开始反转
-            ListNode pre = null;
-            ListNode curNode = head;
-            for (int i = 0; i < k; i++) {
-                ListNode nextNode = curNode.next;
-                curNode.next = pre;
-                pre = curNode;
-                curNode = nextNode;
-            }
-            head.next = reverseKGroup(tempNode, k);
-            return pre;
-        }
-        return head;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>curK <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 下面开始反转</span>
+            ListNode pre <span class="token operator">=</span> null<span class="token punctuation">;</span>
+            ListNode curNode <span class="token operator">=</span> head<span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> k<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                ListNode nextNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+                curNode<span class="token punctuation">.</span>next <span class="token operator">=</span> pre<span class="token punctuation">;</span>
+                pre <span class="token operator">=</span> curNode<span class="token punctuation">;</span>
+                curNode <span class="token operator">=</span> nextNode<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            head<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token function">reverseKGroup</span><span class="token punctuation">(</span>tempNode<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> pre<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class ListNode {
-    int val;
-    ListNode next;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
+    ListNode next<span class="token punctuation">;</span>
 
-    ListNode(int x) {
-        val = x;
-    }
+    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        val <span class="token operator">=</span> x<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public ListNode(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            throw new IllegalArgumentException("arr can not be empty");
-        }
-        this.val = nums[0];
-        ListNode curr = this;
-        for (int i = 1; i < nums.length; i++) {
-            curr.next = new ListNode(nums[i]);
-            curr = curr.next;
-        }
-    }
+    <span class="token keyword">public</span> <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>nums <span class="token operator">==</span> null <span class="token operator">||</span> nums<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"arr can not be empty"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>val <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        ListNode curr <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            curr<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            curr <span class="token operator">=</span> curr<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        ListNode cur = this;
-        while (cur != null) {
-            s.append(cur.val + " -> ");
-            cur = cur.next;
-        }
-        s.append("NULL");
-        return s.toString();
-    }
-}
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        StringBuilder s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ListNode cur <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>cur <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            s<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>cur<span class="token punctuation">.</span>val <span class="token operator">+</span> <span class="token string">" -> "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        s<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"NULL"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-// 参考资料：https://blog.csdn.net/weiyongle1996/article/details/78473055
+<span class="token comment" spellcheck="true">// 参考资料：https://blog.csdn.net/weiyongle1996/article/details/78473055</span>
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public ListNode reverseKGroup(ListNode head, int k) {
-        // 使用递归写法的话，先考虑特殊情况
-        if (head == null || head.next == null || k <= 1) {
-            return head;
-        }
-        // 探测长度的结点
-        ListNode tempNode = head;
-        int curK = k;
-        while (tempNode != null && curK != 0) {
-            curK--;
-            tempNode = tempNode.next;
-        }
-        // 如果够数了，先考虑反转
-        if (curK == 0) {
-            // 下面开始反转
-            ListNode pre = null;
-            ListNode curNode = head;
-            for (int i = 0; i < k; i++) {
-                ListNode nextNode = curNode.next;
-                curNode.next = pre;
-                pre = curNode;
-                curNode = nextNode;
-            }
-            head.next = reverseKGroup(tempNode, k);
-            return pre;
-        }
-        return head;
-    }
+    <span class="token keyword">public</span> ListNode <span class="token function">reverseKGroup</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 使用递归写法的话，先考虑特殊情况</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null <span class="token operator">||</span> k <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 探测长度的结点</span>
+        ListNode tempNode <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> curK <span class="token operator">=</span> k<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>tempNode <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> curK <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            curK<span class="token operator">--</span><span class="token punctuation">;</span>
+            tempNode <span class="token operator">=</span> tempNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 如果够数了，先考虑反转</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>curK <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 下面开始反转</span>
+            ListNode pre <span class="token operator">=</span> null<span class="token punctuation">;</span>
+            ListNode curNode <span class="token operator">=</span> head<span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> k<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                ListNode nextNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+                curNode<span class="token punctuation">.</span>next <span class="token operator">=</span> pre<span class="token punctuation">;</span>
+                pre <span class="token operator">=</span> curNode<span class="token punctuation">;</span>
+                curNode <span class="token operator">=</span> nextNode<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            head<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token function">reverseKGroup</span><span class="token punctuation">(</span>tempNode<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> pre<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        int[] nums = new int[]{1, 2};
-        ListNode head = new ListNode(nums);
-        Solution solution = new Solution();
-        ListNode reverseKGroup = solution.reverseKGroup(head, 2);
-        System.out.println(reverseKGroup);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        ListNode head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ListNode reverseKGroup <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">reverseKGroup</span><span class="token punctuation">(</span>head<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>reverseKGroup<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

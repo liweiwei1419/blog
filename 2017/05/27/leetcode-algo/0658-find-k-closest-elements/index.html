@@ -506,72 +506,70 @@
 <p>2、一共 $7$ 个元素，要保留 $3$ 个元素，因此要删除 $4$ 个元素；</p>
 <p>3、因为要删除的元素都位于边界，于是可以使用<strong>双指针</strong>对撞的方式确定保留区间，即“最优区间”。</p>
 <p>（温馨提示：下面的幻灯片中，有几页上有较多的文字，可能需要您停留一下，可以点击右下角的后退 “|◀” 或者前进 “▶|” 按钮控制幻灯片的播放。）</p>
-<p><img src="https://pic.leetcode-cn.com/7cac52f799ba654e9483f47cd17533706a380dbc15fbb6dbc93a83bce11c45db-658-1.png" alt="658-1.png">,<img src="https://pic.leetcode-cn.com/ab9c789d3c7fc18cdb1dd7d383c3fa984033f4420412ffe91d747cdfe3623994-658-2.png" alt="658-2.png">,<img src="https://pic.leetcode-cn.com/0ae58bb7d22e120a900c8eb7a5735ef5e777373885d17f8f90fe0a172579716a-658-3.png" alt="658-3.png">,<img src="https://pic.leetcode-cn.com/3b003257d123fe2e944f0f06f94d88d1b35cc0f071748dc5ca2f77362c69621e-658-4.png" alt="658-4.png">,<img src="https://pic.leetcode-cn.com/9b971313fa81e97893a9321769478375dac74fa92d8cdc75563386949f18731d-658-5.png" alt="658-5.png"></p>
+<p><img src="https://pic.leetcode-cn.com/7cac52f799ba654e9483f47cd17533706a380dbc15fbb6dbc93a83bce11c45db-658-1.png" alt="658-1.png">),<img src="https://pic.leetcode-cn.com/ab9c789d3c7fc18cdb1dd7d383c3fa984033f4420412ffe91d747cdfe3623994-658-2.png" alt="658-2.png">),<img src="https://pic.leetcode-cn.com/0ae58bb7d22e120a900c8eb7a5735ef5e777373885d17f8f90fe0a172579716a-658-3.png" alt="658-3.png">),<img src="https://pic.leetcode-cn.com/3b003257d123fe2e944f0f06f94d88d1b35cc0f071748dc5ca2f77362c69621e-658-4.png" alt="658-4.png">),<img src="https://pic.leetcode-cn.com/9b971313fa81e97893a9321769478375dac74fa92d8cdc75563386949f18731d-658-5.png" alt="658-5.png"></p>
 <p><strong>参考代码</strong>：</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.ArrayList;
-import java.util.List;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public List<Integer> findClosestElements(int[] arr, int k, int x) {
-        int size = arr.length;
+    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> <span class="token function">findClosestElements</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> size <span class="token operator">=</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
 
-        int left = 0;
-        int right = size - 1;
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
-        int removeNums = size - k;
-        while (removeNums > 0) {
-            if (x - arr[left] <= arr[right] - x) {
-                right--;
-            } else {
-                left++;
-            }
-            removeNums--;
-        }
+        <span class="token keyword">int</span> removeNums <span class="token operator">=</span> size <span class="token operator">-</span> k<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>removeNums <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">-</span> arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> arr<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">-</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                right<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                left<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            removeNums<span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        List<Integer> res = new ArrayList<>();
-        for (int i = left; i < left + k; i++) {
-            res.add(arr[i]);
-        }
-        return res;
-    }
+        List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> left<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> left <span class="token operator">+</span> k<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        int[] arr = {0, 0, 1, 2, 3, 3, 4, 7, 7, 8};
-        int k = 3;
-        int x = 5;
-        Solution solution = new Solution();
-        List<Integer> res = solution.findClosestElements(arr, k, x);
-        System.out.println(res);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> res <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">findClosestElements</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> k<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">from typing import List
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> typing <span class="token keyword">import</span> List
 
 
-class Solution:
-    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        # 排除法（双指针）
-        size = len(arr)
-        left = 0
-        right = size - 1
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">findClosestElements</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> arr<span class="token punctuation">:</span> List<span class="token punctuation">[</span>int<span class="token punctuation">]</span><span class="token punctuation">,</span> k<span class="token punctuation">:</span> int<span class="token punctuation">,</span> x<span class="token punctuation">:</span> int<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span>int<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 排除法（双指针）</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>arr<span class="token punctuation">)</span>
+        left <span class="token operator">=</span> <span class="token number">0</span>
+        right <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span>
 
-        # 我们要排除掉 size - k 这么多元素
-        remove_nums = size - k
-        while remove_nums:
-            # 调试语句
-            # print(left, right, k)
-            # 注意：这里等于号的含义，题目中说，距离相等的时候取小的
-            # 所以，相等的时候，尽量缩小右边界
-            if x - arr[left] <= arr[right] - x:
-                right -= 1
-            else:
-                left += 1
-            remove_nums -= 1
-        return arr[left:left + k]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token comment" spellcheck="true"># 我们要排除掉 size - k 这么多元素</span>
+        remove_nums <span class="token operator">=</span> size <span class="token operator">-</span> k
+        <span class="token keyword">while</span> remove_nums<span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 调试语句</span>
+            <span class="token comment" spellcheck="true"># print(left, right, k)</span>
+            <span class="token comment" spellcheck="true"># 注意：这里等于号的含义，题目中说，距离相等的时候取小的</span>
+            <span class="token comment" spellcheck="true"># 所以，相等的时候，尽量缩小右边界</span>
+            <span class="token keyword">if</span> x <span class="token operator">-</span> arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> arr<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">-</span> x<span class="token punctuation">:</span>
+                right <span class="token operator">-=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                left <span class="token operator">+=</span> <span class="token number">1</span>
+            remove_nums <span class="token operator">-=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> arr<span class="token punctuation">[</span>left<span class="token punctuation">:</span>left <span class="token operator">+</span> k<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N)$，这里 $N$ 是数组的长度。</li>
@@ -597,10 +595,8 @@ class Solution:
 <p>1、如果区间包含 <code>x</code>，我们尝试删除 1 个元素，好让区间发生移动，便于定位“最优区间的左边界”的索引；<br>2、如果区间不包含 <code>x</code>，就更简单了，我们尝试把区间进行移动，以试图包含 <code>x</code>，但也有可能区间移动不了（极端情况下）。</p>
 <p>以下的讨论，对于记号 <code>left</code>、<code>right</code> 和 <code>mid</code> 说明如下：</p>
 <p>1、<code>left</code>、<code>right</code> 是候选区间的左右边界的索引，根据上面的分析，初始时，<code>left = 0</code>，<code>right = size - k</code>；<br>2、而 <code>mid</code> 是候选区间的中位数的索引，它的取值可能是</p>
-<pre><code>mid = left + (right - left) // 2
-</code></pre><p>也可能是</p>
-<pre><code>mid = left + (right - left + 1) // 2
-</code></pre><p>之所以我们选择 <code>mid = left + (right - left) // 2</code> ，请参考我在「力扣」第 35 题：搜索插入位置的题解<a href="https://leetcode-cn.com/problems/search-insert-position/solution/te-bie-hao-yong-de-er-fen-cha-fa-fa-mo-ban-python-/" target="_blank" rel="noopener">《特别好用的二分查找法模板（Python 代码、Java 代码）》</a>中的叙述。</p>
+<pre><code>mid = left + (right - left) // 2</code></pre><p>也可能是</p>
+<pre><code>mid = left + (right - left + 1) // 2</code></pre><p>之所以我们选择 <code>mid = left + (right - left) // 2</code> ，请参考我在「力扣」第 35 题：搜索插入位置的题解<a href="https://leetcode-cn.com/problems/search-insert-position/solution/te-bie-hao-yong-de-er-fen-cha-fa-fa-mo-ban-python-/" target="_blank" rel="noopener">《特别好用的二分查找法模板（Python 代码、Java 代码）》</a>中的叙述。</p>
 <blockquote>
 <p>后面的文字可能会非常绕，在这里建议读者通读，前后来回看，不太清楚的地方先跳过，且不一定全看我的叙述，看明白一小段，在草稿纸上写写画画一点，卡壳了再看我的叙述，这样就不会太晕。</p>
 </blockquote>
@@ -629,53 +625,56 @@ class Solution:
 <pre><code>if x - arr[mid] &gt; arr[mid + k] - x:
     left = mid + 1
 else:
-    right = mid
-</code></pre><p>写个草稿就清楚多了，原来是并不困难，只是稍显复杂。</p>
+    right = mid</code></pre><p>写个草稿就清楚多了，原来是并不困难，只是稍显复杂。</p>
 <p><img src="https://pic.leetcode-cn.com/1505e8c19730133b6bc9c2b6088fd9f0ff376f9539dcf0932214b77415e542b6-image.png" alt="image.png"></p>
 <p><img src="https://pic.leetcode-cn.com/1ff7a2c278f3624bae64e29bc4e3a7aeb2f1fb3835baaeb444f5d4c5df1e4c7d-image.png" alt="image.png"></p>
 <p><strong>参考代码</strong>：</p>
 <p>Python 代码：</p>
-<p>```Python []<br>from typing import List</p>
-<p>class Solution:<br>    def findClosestElements(self, arr: List[int], k: int, x: int) -&gt; List[int]:<br>        size = len(arr)<br>        left = 0<br>        right = size - k</p>
-<pre><code>    while left &lt; right:
-        # mid = left + (right - left) // 2
-        mid = (left + right) &gt;&gt; 1
-        # 尝试从长度为 k + 1 的连续子区间删除一个元素
-        # 从而定位左区间端点的边界值
-        if x - arr[mid] &gt; arr[mid + k] - x:
-            left = mid + 1
-        else:
-            right = mid
-    return arr[left:left + k]
-</code></pre><pre><code>
-Java 代码：
+<pre class="line-numbers language-Python"><code class="language-Python">from typing import List
 
-```Java []
-import java.util.ArrayList;
+
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        size = len(arr)
+        left = 0
+        right = size - k
+
+        while left < right:
+            # mid = left + (right - left) // 2
+            mid = (left + right) >> 1
+            # 尝试从长度为 k + 1 的连续子区间删除一个元素
+            # 从而定位左区间端点的边界值
+            if x - arr[mid] > arr[mid + k] - x:
+                left = mid + 1
+            else:
+                right = mid
+        return arr[left:left + k]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">import java.util.ArrayList;
 import java.util.List;
 
 public class Solution {
 
-    public List&lt;Integer&gt; findClosestElements(int[] arr, int k, int x) {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
         int size = arr.length;
 
         int left = 0;
         int right = size - k;
 
-        while (left &lt; right) {
+        while (left < right) {
             // int mid = left + (right - left) / 2;
-            int mid = (left + right) &gt;&gt;&gt; 1;
+            int mid = (left + right) >>> 1;
             // 尝试从长度为 k + 1 的连续子区间删除一个元素
             // 从而定位左区间端点的边界值
-            if (x - arr[mid] &gt; arr[mid + k] - x) {
+            if (x - arr[mid] > arr[mid + k] - x) {
                 left = mid + 1;
             } else {
                 right = mid;
             }
         }
 
-        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
-        for (int i = left; i &lt; left + k; i++) {
+        List<Integer> res = new ArrayList<>();
+        for (int i = left; i < left + k; i++) {
             res.add(arr[i]);
         }
         return res;
@@ -686,11 +685,11 @@ public class Solution {
         int k = 3;
         int x = 5;
         Solution2 solution = new Solution2();
-        List&lt;Integer&gt; res = solution.findClosestElements(arr, k, x);
+        List<Integer> res = solution.findClosestElements(arr, k, x);
         System.out.println(res);
     }
-}
-</code></pre><p><strong>复杂度分析</strong>：</p>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(\log N)$，这里 $N$ 是数组的长度，使用二分法的时间复杂度是对数级别的。</li>
 <li>空间复杂度：$O(1)$，只使用了常数个额外的辅助空间。</li>

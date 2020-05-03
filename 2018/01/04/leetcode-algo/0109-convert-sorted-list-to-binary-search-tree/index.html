@@ -491,8 +491,7 @@
 <p>给定的有序链表： [-10, -3, 0, 5, 9],</p>
 <p>一个可能的答案是：[0, -3, 9, -10, null, 5], 它可以表示下面这个高度平衡二叉搜索树：</p>
 <pre><code>  0
- / \
-</code></pre><p>   -3   9<br>   /   /<br> -10  5</p>
+ / \</code></pre><p>   -3   9<br>   /   /<br> -10  5</p>
 </blockquote>
 <h2 id="分治法（Python-代码、Java-代码）"><a href="#分治法（Python-代码、Java-代码）" class="headerlink" title="分治法（Python 代码、Java 代码）"></a>分治法（Python 代码、Java 代码）</h2><p><strong>思路分析</strong>：</p>
 <p>思路其实<a href="https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/solution/you-xu-lian-biao-zhuan-huan-er-cha-sou-suo-shu-by-/" target="_blank" rel="noopener">官方题解</a>已经写得非常清楚了，建议看看其中的动画，生动形象。</p>
@@ -500,46 +499,55 @@
 <p>编码的细节已经体现在代码注释中。</p>
 <p><strong>参考代码</strong>：</p>
 <p>Python 代码：</p>
-<p>```Python []<br>class ListNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.next = None</p>
-<p>class TreeNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.left = None<br>        self.right = None</p>
-<p>class Solution:<br>    def sortedListToBST(self, head: ListNode) -&gt; TreeNode:</p>
-<pre><code>    # 特判：当结点为空，或者单结点的时候的简单逻辑
-    if head is None:
-        return None
+<pre class="line-numbers language-Python"><code class="language-Python">class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
-    if head.next is None:
-        return TreeNode(head.val)
 
-    # 设置 pre 指针是为了切断单链表 mid 的前半部分
-    pre = None
-    slow = head
-    fast = head
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-    # 如果写 while fast and fast.next: 后面的代码稍有不同
-    while fast.next and fast.next.next:
-        pre = slow
-        slow = slow.next
-        fast = fast.next.next
 
-    # 此时 slow 结点就位于链表的中部，
-    # 它的值就作为 BST 的根结点返回
-    root = TreeNode(slow.val)
+class Solution:
+    def sortedListToBST(self, head: ListNode) -> TreeNode:
+        # 特判：当结点为空，或者单结点的时候的简单逻辑
+        if head is None:
+            return None
 
-    # 因为要传入下一个递归方法，所以得先保存索引
-    new_head = slow.next
-    slow.next = None
+        if head.next is None:
+            return TreeNode(head.val)
 
-    # 当链表只有 2 个结点的时候，pre 指针此时为 None，不用递归构造左子树
-    if pre:
-        pre.next = None
-        root.left = self.sortedListToBST(head)
-    root.right = self.sortedListToBST(new_head)
-    return root
-</code></pre><pre><code>
-Java 代码：
+        # 设置 pre 指针是为了切断单链表 mid 的前半部分
+        pre = None
+        slow = head
+        fast = head
 
-```Java []
-class ListNode {
+        # 如果写 while fast and fast.next: 后面的代码稍有不同
+        while fast.next and fast.next.next:
+            pre = slow
+            slow = slow.next
+            fast = fast.next.next
+
+        # 此时 slow 结点就位于链表的中部，
+        # 它的值就作为 BST 的根结点返回
+        root = TreeNode(slow.val)
+
+        # 因为要传入下一个递归方法，所以得先保存索引
+        new_head = slow.next
+        slow.next = None
+
+        # 当链表只有 2 个结点的时候，pre 指针此时为 None，不用递归构造左子树
+        if pre:
+            pre.next = None
+            root.left = self.sortedListToBST(head)
+        root.right = self.sortedListToBST(new_head)
+        return root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">class ListNode {
     int val;
     ListNode next;
 
@@ -575,7 +583,7 @@ public class Solution {
         ListNode fast = head;
 
         // 如果写 while fast and fast.next: 后面的代码稍有不同
-        while (fast.next != null &amp;&amp; fast.next.next != null) {
+        while (fast.next != null && fast.next.next != null) {
             pre = slow;
             slow = slow.next;
             fast = fast.next.next;
@@ -596,8 +604,8 @@ public class Solution {
         root.right = sortedListToBST(newHead);
         return root;
     }
-}
-</code></pre><Vssue title="convert-sorted-list-to-binary-search-tree"/>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<Vssue title="convert-sorted-list-to-binary-search-tree"/>
 
 
             </div>

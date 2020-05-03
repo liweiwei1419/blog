@@ -498,69 +498,66 @@
 nums1 = [1,2,3,0,0,0], m = 3
 nums2 = [2,5,6],       n = 3
 
-输出: [1,2,2,3,5,6]
-</code></pre></blockquote>
+输出: [1,2,2,3,5,6]</code></pre></blockquote>
 <p>分析：其实就是归并排序，不过从后向前归并是这道题的考点。注意分 4 种情况，代码的写法其实是相对固定的。</p>
 <p>思路1：可以使用标准的归并排序来做。</p>
 <p>Python 代码：从前向后写</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def merge(self, nums1, m, nums2, n):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">merge</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums1<span class="token punctuation">,</span> m<span class="token punctuation">,</span> nums2<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type nums1: List[int]
         :type m: int
         :type nums2: List[int]
         :type n: int
         :rtype: void Do not return anything, modify nums1 in-place instead.
-        """
-        nums3 = nums1.copy()
+        """</span>
+        nums3 <span class="token operator">=</span> nums1<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-        i = 0
-        j = 0
+        i <span class="token operator">=</span> <span class="token number">0</span>
+        j <span class="token operator">=</span> <span class="token number">0</span>
 
-        for k in range(m + n):
-            if i == m:  # i 用完了
-                nums1[k] = nums2[j]
-                j += 1
-            elif j == n:
-                nums1[k] = nums3[i]
-                i += 1
-            elif nums3[i] < nums2[j]:
-                nums1[k] = nums3[i]
-                i += 1
-            else:
-                nums1[k] = nums2[j]
-                j += 1
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">for</span> k <span class="token keyword">in</span> range<span class="token punctuation">(</span>m <span class="token operator">+</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> i <span class="token operator">==</span> m<span class="token punctuation">:</span>  <span class="token comment" spellcheck="true"># i 用完了</span>
+                nums1<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> nums2<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                j <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> j <span class="token operator">==</span> n<span class="token punctuation">:</span>
+                nums1<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> nums3<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                i <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> nums3<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> nums2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                nums1<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> nums3<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                i <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                nums1<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> nums2<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                j <span class="token operator">+=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>思路2：考虑到这道题的特殊性，即 <code>nums1</code> 有足够的空间，因此，我们可以从后向前归并，每次从两个数组的末尾选出最大的元素放在 nums1 的末尾，而不使用额外的数组空间。</p>
 <p>你可能会担心，nums1 之前有效的元素会不会被覆盖掉，但在这题中，这种情况是不可能出现的。在实现的时候，还是要特别注意一些边界条件。</p>
 <p>Python 代码：从后向前写</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def merge(self, nums1, m, nums2, n):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">merge</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums1<span class="token punctuation">,</span> m<span class="token punctuation">,</span> nums2<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type nums1: List[int]
         :type m: int
         :type nums2: List[int]
         :type n: int
         :rtype: void Do not return anything, modify nums1 in-place instead.
-        """
+        """</span>
 
-        i = m - 1
-        j = n - 1
+        i <span class="token operator">=</span> m <span class="token operator">-</span> <span class="token number">1</span>
+        j <span class="token operator">=</span> n <span class="token operator">-</span> <span class="token number">1</span>
 
-        for k in range(m + n - 1, -1, -1):
-            if i == -1: 
-                nums1[k] = nums2[j]
-                j -= 1
-            elif j == -1:
-                nums1[k] = nums1[i]
-                i -= 1
-            elif nums1[i] > nums2[j]:
-                nums1[k] = nums1[i]
-                i -= 1
-            else:
-                nums1[k] = nums2[j]
-                j -= 1
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">for</span> k <span class="token keyword">in</span> range<span class="token punctuation">(</span>m <span class="token operator">+</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span> 
+                nums1<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> nums2<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                j <span class="token operator">-=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> j <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
+                nums1<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                i <span class="token operator">-=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> nums2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                nums1<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                i <span class="token operator">-=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                nums1<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> nums2<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                j <span class="token operator">-=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>说明：<code>range(m + n - 1, -1, -1)</code> 表示索引的最大值是 <code>m + n - 1</code> ，最小值是 <code>0</code>。</p>
 <p>（本节完）</p>
 

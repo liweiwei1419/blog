@@ -489,28 +489,31 @@
 <p>什么是路径压缩 path Compression？以上我们都是针对于 <code>union</code> 操作的优化，其实我们在 <code>find</code> 的时候，就可以对一棵树进行整理，让它的高度变低，这一点是基于并查集的一个特性：只要它们是连在一起的，其实谁指向谁，并不重要，所以我们在接下来的讨论中看到的并查集的表示图，它们是等价的，即它们表示的都是同一个并查集。</p>
 <p>路径压缩 path Compression 的思路：在 find 的时候一次又一次的整理，将并查集构造（整理）成一个与之等价的并查集，使得后续的每一次 find 这样的操作路径最短。</p>
 <p>假设一个最极端的并查集的图表示如下：</p>
-<p><img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/路径压缩-1.jpg" alt="高级数据结构：并查集-9" style="zoom:50%;" /></p>
+<img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/路径压缩-1.jpg" alt="高级数据结构：并查集-9" style="zoom:50%;" />
+
 <p>我们开始找 $4$ 的父亲结点，$4$ 的父亲结点不是 $4$ ，说明不是根结点，此时，我们尝试 $2$ 步一跳，将 $4$ 的父亲结点“改成”父亲结点的父亲结点，于是得到一个等价的并查集：</p>
-<p><img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/路径压缩-2.jpg" alt="高级数据结构：并查集-10" style="zoom:50%;" /></p>
+<img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/路径压缩-2.jpg" alt="高级数据结构：并查集-10" style="zoom:50%;" />
+
 <p>下面我们该考察元素 $2$ 了，$2$ 的父亲结点是 $1$，$2$ 不是根结点，所以我们继续两步一跳，把 $2$ 的父亲结点设置成它的父亲结点的父亲结点，于是又得到一个等价的并查集：</p>
-<p><img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/路径压缩-3.jpg" alt="高级数据结构：并查集-11" style="zoom:50%;" /></p>
+<img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/路径压缩-3.jpg" alt="高级数据结构：并查集-11" style="zoom:50%;" />
+
 <p>此时，整棵树的高度就在一次 <code>find</code> 的过程中被压缩了。这里有一个疑问：即使我们在最后只差一步的情况下，我们跳两步，也不会出现无效的索引。其实，一步一跳，两步一跳，甚至三步一跳都没有关系。</p>
 <p>画图画了这么多，代码实现只有一行：<code>parent[p] = parent[parent[p]];</code> 编写的时候要注意这行代码添加的位置，画一个示意图，想想这个路径压缩的过程，就不难写出。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public int find(int p) {
-    // 在 find 的时候执行路径压缩
-    while (p != parent[p]) {
-        // 编写这句代码的时候可能会觉得有点绕，
-        // 画一个示意图，就能很直观地写出正确的逻辑
-        // 两步一跳完成路径压缩
-        parent[p] = parent[parent[p]];
-        p = parent[p];
-    }
-    return p;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 在 find 的时候执行路径压缩</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>p <span class="token operator">!=</span> parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 编写这句代码的时候可能会觉得有点绕，</span>
+        <span class="token comment" spellcheck="true">// 画一个示意图，就能很直观地写出正确的逻辑</span>
+        <span class="token comment" spellcheck="true">// 两步一跳完成路径压缩</span>
+        parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">=</span> parent<span class="token punctuation">[</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        p <span class="token operator">=</span> parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> p<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>根据上面的图，我们通过  <code>find</code> 操作执行路径压缩，最终形成的并查集如下：</p>
-<p><img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/路径压缩-4.jpg" alt="高级数据结构：并查集-12" style="zoom:50%;" /></p>
+<img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/路径压缩-4.jpg" alt="高级数据结构：并查集-12" style="zoom:50%;" />
+
 
             </div>
             <hr/>

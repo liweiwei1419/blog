@@ -502,98 +502,95 @@
 </blockquote>
 <p>重点：1、设置虚拟头结点；2、快慢指针</p>
 <h3 id="方法一：先数出有多少个结点，然后走-len-n-步"><a href="#方法一：先数出有多少个结点，然后走-len-n-步" class="headerlink" title="方法一：先数出有多少个结点，然后走 len - n 步"></a>方法一：先数出有多少个结点，然后走 <code>len - n</code> 步</h3><p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-        int len = getLenOfNode(head);
+    <span class="token keyword">public</span> ListNode <span class="token function">removeNthFromEnd</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token function">getLenOfNode</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        // 删除索引为 len - n 的结点
-        // 有了虚拟头结点以后，就走 len - n 步，来到要删除的结点之前
-        ListNode dummyNode = new ListNode(-1);
-        dummyNode.next = head;
-        ListNode curNode = dummyNode;
-        for (int i = 0; i < len - n; i++) {
-            curNode = curNode.next;
-        }
+        <span class="token comment" spellcheck="true">// 删除索引为 len - n 的结点</span>
+        <span class="token comment" spellcheck="true">// 有了虚拟头结点以后，就走 len - n 步，来到要删除的结点之前</span>
+        ListNode dummyNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dummyNode<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        ListNode curNode <span class="token operator">=</span> dummyNode<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len <span class="token operator">-</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            curNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        ListNode deleteNode = curNode.next;
-        curNode.next = deleteNode.next;
-        deleteNode.next = null;
-        return dummyNode.next;
-    }
+        ListNode deleteNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        curNode<span class="token punctuation">.</span>next <span class="token operator">=</span> deleteNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        deleteNode<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> dummyNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    private int getLenOfNode(ListNode head) {
-        int len = 0;
-        while (head != null) {
-            len++;
-            head = head.next;
-        }
-        return len;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">getLenOfNode</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>head <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            len<span class="token operator">++</span><span class="token punctuation">;</span>
+            head <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> len<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h3><p>使用快慢指针。其实只要掌握了如何找到距离末尾 $n$ 个元素的位置，就很容易了。还要注意的就是边界值的选取，其实往往我们认为的值与正确值无非就是 $+1$ 或者 $-1$ ，为了避免粗心出错，我们可以拿一个具体的例子。另外，涉及链表头结点的操作，一般都会引入虚拟结点，以减少讨论的可能，这是一个常见的技巧。</p>
 <p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g83eo97mocj310y0d60tk.jpg" alt="image-20191019123938705"></p>
 <p><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g83eoivq2gj30vz0u0acd.jpg" alt="image-20191019123954924"></p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 快慢指针：给定的 n 保证是有效的。
      *
      * @param head
      * @param n
      * @return
-     */
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+     */</span>
+    <span class="token keyword">public</span> ListNode <span class="token function">removeNthFromEnd</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-        ListNode dummyNode = new ListNode(-1);
-        dummyNode.next = head;
+        ListNode dummyNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dummyNode<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
 
-        // 来到倒数第 N + 1 个结点的位置
-        ListNode fastNode = dummyNode;
-        for (int i = 0; i < n + 1; i++) {
-            fastNode = fastNode.next;
-        }
+        <span class="token comment" spellcheck="true">// 来到倒数第 N + 1 个结点的位置</span>
+        ListNode fastNode <span class="token operator">=</span> dummyNode<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            fastNode <span class="token operator">=</span> fastNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        ListNode slowNode = dummyNode;
-        while (fastNode != null) {
-            fastNode = fastNode.next;
-            slowNode = slowNode.next;
-        }
+        ListNode slowNode <span class="token operator">=</span> dummyNode<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>fastNode <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            fastNode <span class="token operator">=</span> fastNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            slowNode <span class="token operator">=</span> slowNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        // 此时 slowNode 来到了待删除的结点的上一个结点
-        ListNode deleteNode = slowNode.next;
-        slowNode.next = deleteNode.next;
-        deleteNode.next = null;
-        return dummyNode.next;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token comment" spellcheck="true">// 此时 slowNode 来到了待删除的结点的上一个结点</span>
+        ListNode deleteNode <span class="token operator">=</span> slowNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        slowNode<span class="token punctuation">.</span>next <span class="token operator">=</span> deleteNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        deleteNode<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> dummyNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
 
 
-class Solution(object):
-    def findKthToTail(self, pListHead, k):
-        if pListHead is None:
-            return None
-        fast = pListHead
-        # 要注意的临界点1：
-        for _ in range(k - 1):
-            fast = fast.next
-            if fast is None:
-                return None
-        slow = pListHead
-        # 要注意的临界点2：
-        while fast.next:
-            slow = slow.next
-            fast = fast.next
-        return slow
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">findKthToTail</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> pListHead<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> pListHead <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> None
+        fast <span class="token operator">=</span> pListHead
+        <span class="token comment" spellcheck="true"># 要注意的临界点1：</span>
+        <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next
+            <span class="token keyword">if</span> fast <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> None
+        slow <span class="token operator">=</span> pListHead
+        <span class="token comment" spellcheck="true"># 要注意的临界点2：</span>
+        <span class="token keyword">while</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
+            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next
+            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next
+        <span class="token keyword">return</span> slow<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
 
             </div>

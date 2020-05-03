@@ -496,65 +496,64 @@
 <p>「力扣」上有很多使用「优先队列」完成的问题，感兴趣的朋友不妨做一下。</p>
 <p>至于现在笔试考不考「手写一个堆」，我个人觉得意义不大。如果真的考到了，能写尽量写，不能一次写对就和面试官说明自己对于「堆」所掌握的知识我感觉就可以了。面试的时候，本来精神就比平常紧张。我们都不是「堆」的发明人，了解和熟悉「堆」的原理和使用场景，自己学习的时候，手写过堆，通过了测试用例就可以了。</p>
 <p><strong>参考代码 5</strong>：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public int[] sortArray(int[] nums) {
-        int len = nums.length;
-        // 将数组整理成堆
-        heapify(nums);
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">sortArray</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 将数组整理成堆</span>
+        <span class="token function">heapify</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        // 循环不变量：区间 [0, i] 堆有序
-        for (int i = len - 1; i >= 1; ) {
-            // 把堆顶元素（当前最大）交换到数组末尾
-            swap(nums, 0, i);
-            // 逐步减少堆有序的部分
-            i--;
-            // 下标 0 位置下沉操作，使得区间 [0, i] 堆有序
-            siftDown(nums, 0, i);
-        }
-        return nums;
-    }
+        <span class="token comment" spellcheck="true">// 循环不变量：区间 [0, i] 堆有序</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 把堆顶元素（当前最大）交换到数组末尾</span>
+            <span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 逐步减少堆有序的部分</span>
+            i<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 下标 0 位置下沉操作，使得区间 [0, i] 堆有序</span>
+            <span class="token function">siftDown</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> nums<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 将数组整理成堆（堆有序）
      *
      * @param nums
-     */
-    private void heapify(int[] nums) {
-        int len = nums.length;
-        // 只需要从 i = (len - 1) / 2 这个位置开始逐层下移
-        for (int i = (len - 1) / 2; i >= 0; i--) {
-            siftDown(nums, i, len - 1);
-        }
-    }
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">heapify</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 只需要从 i = (len - 1) / 2 这个位置开始逐层下移</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">siftDown</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> i<span class="token punctuation">,</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * @param nums
      * @param k    当前下沉元素的下标
      * @param end  [0, end] 是 nums 的有效部分
-     */
-    private void siftDown(int[] nums, int k, int end) {
-        while (2 * k + 1 <= end) {
-            int j = 2 * k + 1;
-            if (j + 1 <= end && nums[j + 1] > nums[j]) {
-                j++;
-            }
-            if (nums[j] > nums[k]) {
-                swap(nums, j, k);
-            } else {
-                break;
-            }
-            k = j;
-        }
-    }
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">siftDown</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">,</span> <span class="token keyword">int</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> k <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;=</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> k <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>j <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;=</span> end <span class="token operator">&amp;&amp;</span> nums<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                j<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            k <span class="token operator">=</span> j<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    private void swap(int[] nums, int index1, int index2) {
-        int temp = nums[index1];
-        nums[index1] = nums[index2];
-        nums[index2] = temp;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> index1<span class="token punctuation">,</span> <span class="token keyword">int</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> temp <span class="token operator">=</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N \log N)$，这里 $N$ 是数组的长度；</li>

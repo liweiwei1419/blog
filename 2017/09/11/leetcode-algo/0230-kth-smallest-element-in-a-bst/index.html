@@ -488,8 +488,8 @@
 <p>给定一个二叉搜索树，编写一个函数 kthSmallest 来查找其中第 k 个最小的元素。</p>
 <p>说明：<br>你可以假设 k 总是有效的，1 ≤ k ≤ 二叉搜索树元素个数。</p>
 <p>示例 1:</p>
-<p>输入: root = [3,1,4,null,2], k = 1<br>  3<br> / \<br>1   4<br> \<br>  2<br>输出: 1<br>示例 2:</p>
-<p>输入: root = [5,3,6,2,4,null,null,1], k = 3<br>      5<br>     / \<br>    3   6<br>   / \<br>  2   4<br> /<br>1<br>输出: 3<br>进阶：<br>如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化 kthSmallest 函数？</p>
+<p>输入: root = [3,1,4,null,2], k = 1<br>  3<br> / <br>1   4<br> <br>  2<br>输出: 1<br>示例 2:</p>
+<p>输入: root = [5,3,6,2,4,null,null,1], k = 3<br>      5<br>     / <br>    3   6<br>   / <br>  2   4<br> /<br>1<br>输出: 3<br>进阶：<br>如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化 kthSmallest 函数？</p>
 </blockquote>
 <h2 id="递归与非递归写法（同理完成第-144、94、145-题，Python-代码、Java-代码）"><a href="#递归与非递归写法（同理完成第-144、94、145-题，Python-代码、Java-代码）" class="headerlink" title="递归与非递归写法（同理完成第 144、94、145 题，Python 代码、Java 代码）"></a>递归与非递归写法（同理完成第 144、94、145 题，Python 代码、Java 代码）</h2><p><strong>思路分析</strong>：利用“二叉搜索树”在“中序遍历”以后，得到的是有序数组，那么我们就中序遍历好了，遍历到第 $k$ 个数即可。</p>
 <blockquote>
@@ -497,43 +497,55 @@
 </blockquote>
 <p><strong>参考代码 1</strong>：使用递归“中序遍历”。</p>
 <p>Python 代码：</p>
-<p>```Python []<br>class TreeNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.left = None<br>        self.right = None</p>
-<h1 id="使用递归的方法，中序遍历"><a href="#使用递归的方法，中序遍历" class="headerlink" title="使用递归的方法，中序遍历"></a>使用递归的方法，中序遍历</h1><p>class Solution:</p>
-<pre><code>def __init__(self):
-    self.counter = 0
-    self.res = 0
+<pre class="line-numbers language-Python"><code class="language-Python">class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-def kthSmallest(self, root, k):
-    # 递归执行左子树的逻辑
-    if root.left:
-        # 不是空，才继续遍历
-        self.kthSmallest(root.left, k)
+# 使用递归的方法，中序遍历
 
-    # 在这里执行操作，数到第 k 个即可
-    self.counter += 1
-    # print(root.val)
-    if self.counter == k:
-        # 注意：千万不能在这里返回，后序遍历还要继续进行下去
-        self.res = root.val
-        # 注意：这里不能加 return
+class Solution:
 
-    # 递归执行右子树的逻辑
-    if root.right:
-        self.kthSmallest(root.right, k)
-    return self.res
-</code></pre><p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    node3 = TreeNode(3)<br>    node1 = TreeNode(1)<br>    node4 = TreeNode(4)<br>    node2 = TreeNode(2)</p>
-<pre><code>node3.left = node1
-node3.right = node4
-node1.right = node2
+    def __init__(self):
+        self.counter = 0
+        self.res = 0
 
-solution = Solution()
-result = solution.kthSmallest(node3, k=1)
-print(result)
-</code></pre><pre><code>
-Java 代码：
+    def kthSmallest(self, root, k):
+        # 递归执行左子树的逻辑
+        if root.left:
+            # 不是空，才继续遍历
+            self.kthSmallest(root.left, k)
 
-```Java []
-class TreeNode {
+        # 在这里执行操作，数到第 k 个即可
+        self.counter += 1
+        # print(root.val)
+        if self.counter == k:
+            # 注意：千万不能在这里返回，后序遍历还要继续进行下去
+            self.res = root.val
+            # 注意：这里不能加 return
+
+        # 递归执行右子树的逻辑
+        if root.right:
+            self.kthSmallest(root.right, k)
+        return self.res
+
+
+if __name__ == '__main__':
+    node3 = TreeNode(3)
+    node1 = TreeNode(1)
+    node4 = TreeNode(4)
+    node2 = TreeNode(2)
+
+    node3.left = node1
+    node3.right = node4
+    node1.right = node2
+
+    solution = Solution()
+    result = solution.kthSmallest(node3, k=1)
+    print(result)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">class TreeNode {
     int val;
     TreeNode left;
     TreeNode right;
@@ -582,31 +594,39 @@ public class Solution {
         int kthSmallest = solution.kthSmallest(treeNode2, 2);
         System.out.println(kthSmallest);
     }
-}
-</code></pre><p>下面是 Python 的另一种写法：使用 <code>global</code> 关键字，仍需使用辅助函数：</p>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>下面是 Python 的另一种写法：使用 <code>global</code> 关键字，仍需使用辅助函数：</p>
 <p>Python 代码：</p>
-<p>```Python []<br>class TreeNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.left = None<br>        self.right = None</p>
-<p>class Solution:<br>    def kthSmallest(self, root, k):<br>        global counter, res<br>        counter = 0<br>        res = 0</p>
-<pre><code>    def dfs(root, k):
-        if not root:
-            # 如果是空，直接退出
-            return
-        dfs(root.left, k)
+<pre class="line-numbers language-Python"><code class="language-Python">class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+class Solution:
+    def kthSmallest(self, root, k):
         global counter, res
-        counter += 1
-        if counter == k:
-            res = root.val
-        dfs(root.right, k)
+        counter = 0
+        res = 0
 
-    dfs(root, k)
-    return res
-</code></pre><pre><code>
-**参考代码 2**：模拟系统栈的方式：使用二叉树非递归遍历的通用方法。使用同样的的方法还可以解决 [「力扣」LeetCode 第 144 题：二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)、[「力扣」第 94 题：二叉树的中序遍历](https://leetcode-cn.com/problems/binary-tree-inorder-traversal)、[「力扣」第 145 题：二叉树的后序遍历](https://leetcode-cn.com/problems/binary-tree-postorder-traversal)。
+        def dfs(root, k):
+            if not root:
+                # 如果是空，直接退出
+                return
+            dfs(root.left, k)
+            global counter, res
+            counter += 1
+            if counter == k:
+                res = root.val
+            dfs(root.right, k)
 
-Python 代码：
-
-```Python []
-class TreeNode:
+        dfs(root, k)
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>参考代码 2</strong>：模拟系统栈的方式：使用二叉树非递归遍历的通用方法。使用同样的的方法还可以解决 <a href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal/" target="_blank" rel="noopener">「力扣」LeetCode 第 144 题：二叉树的前序遍历</a>、<a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal" target="_blank" rel="noopener">「力扣」第 94 题：二叉树的中序遍历</a>、<a href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal" target="_blank" rel="noopener">「力扣」第 145 题：二叉树的后序遍历</a>。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class TreeNode:
     def __init__(self, x):
         self.val = x
         self.left = None
@@ -637,22 +657,28 @@ class Solution:
                 # 注意：写的时候倒过来写
                 stack.append((1, node.right))
                 stack.append((0, node))
-                stack.append((1, node.left))
-</code></pre><p>其实入栈的时候，就可以判断，我们只将非空结点入栈，<strong>推荐下面这种写法</strong>：</p>
+                stack.append((1, node.left))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其实入栈的时候，就可以判断，我们只将非空结点入栈，<strong>推荐下面这种写法</strong>：</p>
 <p>Python 代码：</p>
-<p>```Python []<br>class Solution:<br>    def kthSmallest(self, root, k):<br>        stack = [(1, root)]<br>        while stack:<br>            command, node = stack.pop()<br>            if command == 0:<br>                k -= 1<br>                if k == 0:<br>                    return node.val<br>            else:</p>
-<pre><code>            # 模拟系统栈实现中序遍历(先左边、再自己、再右边)
-            # 注意：写的时候倒过来写
-            if node.right:
-                stack.append((1, node.right))
-            stack.append((0, node))
-            if node.left:
-                stack.append((1, node.left))
-</code></pre><pre><code>
-Java 代码：
-
-```Java []
-import java.util.Stack;
+<pre class="line-numbers language-Python"><code class="language-Python">class Solution:
+    def kthSmallest(self, root, k):
+        stack = [(1, root)]
+        while stack:
+            command, node = stack.pop()
+            if command == 0:
+                k -= 1
+                if k == 0:
+                    return node.val
+            else:
+                # 模拟系统栈实现中序遍历(先左边、再自己、再右边)
+                # 注意：写的时候倒过来写
+                if node.right:
+                    stack.append((1, node.right))
+                stack.append((0, node))
+                if node.left:
+                    stack.append((1, node.left))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">import java.util.Stack;
 
 public class Solution4 {
 
@@ -674,7 +700,7 @@ public class Solution4 {
 
 
     public int kthSmallest(TreeNode root, int k) {
-        Stack&lt;Command&gt; stack = new Stack&lt;&gt;();
+        Stack<Command> stack = new Stack<>();
         stack.add(new Command(Action.GO, root));
         while (!stack.isEmpty()) {
             Command cur = stack.pop();
@@ -696,11 +722,11 @@ public class Solution4 {
                 }
             }
         }
-        throw new RuntimeException(&quot;参数错误&quot;);
+        throw new RuntimeException("参数错误");
     }
 
-}
-</code></pre><Vssue title="kth-smallest-element-in-a-bst"/>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<Vssue title="kth-smallest-element-in-a-bst"/>
 
 
 

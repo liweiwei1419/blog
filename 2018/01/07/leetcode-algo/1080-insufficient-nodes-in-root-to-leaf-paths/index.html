@@ -516,9 +516,8 @@
 <p>1、使用 Python 编码的朋友，尽量少使用 <code>not</code>，否定的判断出现太多，比较容易把自己绕晕，我这一版代码是改过几次的，原先我的 <code>__dfs</code> 方法设置的返回值的意思是“是否保留”。后来我把返回值的含义改成“是否删除”，就是为了让逻辑中少一些 <code>not</code>；  </p>
 <p>2、当一个结点不是叶子结点的时候，它是否被删除，也要看它的孩子结点，<strong>只要孩子结点有一个被保留，父亲结点就不能被删，换句话说，父亲结点被删除当且仅当它的两个孩子结点均被删除</strong>；  </p>
 <p>（温馨提示：下面的幻灯片中，有几页上有较多的文字，可能需要您停留一下，可以点击右下角的后退 “|◀” 或者前进 “▶|” 按钮控制幻灯片的播放。）</p>
-<p><img src="https://pic.leetcode-cn.com/bbb86d78566a142c2daa2077ec3c28c9dc3c0829c88c95d20e60aeea6ccb29a9-1080-1.png" alt="1080-1.png">,<img src="https://pic.leetcode-cn.com/40229b370a84335b89a845e3f03ce93d9832105787afa6358b2d39b3c3219b24-1080-2.png" alt="1080-2.png">,<img src="https://pic.leetcode-cn.com/16d9e881d0ead4da82aeb6c6de9ed5f06f85fe51813000b0d9c7193f7d98dac8-1080-3.png" alt="1080-3.png">,<img src="https://pic.leetcode-cn.com/fd03f33eac29352e42bc4673aede9c0122bf41047017c69f427c6a98a4f8f7bc-1080-4.png" alt="1080-4.png">,<img src="https://pic.leetcode-cn.com/2adb2be65b0456553104f30d63cc32d97c022965b5736886429a80dcc345978a-1080-5.png" alt="1080-5.png">,<img src="https://pic.leetcode-cn.com/0f3df57c61bd6293c46e49f0a230590c4c3d34feb77ddddfb6241f972df3b8f4-1080-6.png" alt="1080-6.png">,<img src="https://pic.leetcode-cn.com/d5a0587ac83411d7b969188f963009ee2e4c798756ce3371b87acf3716f1c639-1080-7.png" alt="1080-7.png"></p>
+<p><img src="https://pic.leetcode-cn.com/bbb86d78566a142c2daa2077ec3c28c9dc3c0829c88c95d20e60aeea6ccb29a9-1080-1.png" alt="1080-1.png">),<img src="https://pic.leetcode-cn.com/40229b370a84335b89a845e3f03ce93d9832105787afa6358b2d39b3c3219b24-1080-2.png" alt="1080-2.png">),<img src="https://pic.leetcode-cn.com/16d9e881d0ead4da82aeb6c6de9ed5f06f85fe51813000b0d9c7193f7d98dac8-1080-3.png" alt="1080-3.png">),<img src="https://pic.leetcode-cn.com/fd03f33eac29352e42bc4673aede9c0122bf41047017c69f427c6a98a4f8f7bc-1080-4.png" alt="1080-4.png">),<img src="https://pic.leetcode-cn.com/2adb2be65b0456553104f30d63cc32d97c022965b5736886429a80dcc345978a-1080-5.png" alt="1080-5.png">),<img src="https://pic.leetcode-cn.com/0f3df57c61bd6293c46e49f0a230590c4c3d34feb77ddddfb6241f972df3b8f4-1080-6.png" alt="1080-6.png">),<img src="https://pic.leetcode-cn.com/d5a0587ac83411d7b969188f963009ee2e4c798756ce3371b87acf3716f1c639-1080-7.png" alt="1080-7.png"></p>
 <p>3、<strong>返回值的含义设置成“是否删除”的前提下，左右孩子的默认策略是删除，因为当只有一个孩子结点存在的时候，这个孩子结点的删除与否直接决定了父亲结点是否被删除</strong>，逻辑运算符 <code>and</code> 把不存在的那一边设置为 <code>True</code> ，就符合这个逻辑，不妨看看真值表，把其中一列全部设置成 <code>True</code> ，<code>and</code> 的结果就正好和另外一列是一样的。</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -528,8 +527,7 @@
 <th>or</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>True</code></td>
 <td><code>True</code></td>
 <td><code>True</code></td>
@@ -553,59 +551,60 @@
 <td><code>False</code></td>
 <td><code>False</code></td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>如果你把 <code>__dfs</code> 方法的返回值意义设置成 <code>是否保留</code>，你就得看 <code>or</code> 那一列，并且左右孩子的默认策略就是保留。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这道题使用后序遍历完成，但更本质上的算法思想是分治法：<strong>把原问题拆解成同样结构且规模更小的子问题，待子问题处理完成以后，原问题就得到了解决</strong>，大家想一想是不是这样。</p>
 <p>下面展示了两种后序遍历的返回值意义的示例代码，请读者比较它们二者的差别。</p>
 <p>如果 <code>__dfs()</code> 方法返回值的意义是“当前结点是否被删除”，参考代码如下。</p>
 <p>Python 代码：</p>
-<p>```Python []<br>class TreeNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.left = None<br>        self.right = None</p>
-<p>class Solution:</p>
-<pre><code>def __dfs(self, node, s, limit):
-    &quot;&quot;&quot;
-    后序遍历
-    :param node: 当前遍历的结点
-    :param s: 当前累计的和
-    :param limit: 题目中给出的 limit
-    :return: 是否要删除 node 这个结点，True 表示要删除，False 表示不删除
-    &quot;&quot;&quot;
-    # 先写递归终止条件：如果小于 limit，根据题意，要删除
-    if node.left is None and node.right is None:
-        return s + node.val &lt; limit
+<pre class="line-numbers language-Python"><code class="language-Python">class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-    # 默认为左右结点均剪枝，注意：初值不能设置成 False
-    l_tree_deleted = True
-    r_tree_deleted = True
+class Solution:
 
-    # 如果有左子树，就先递归处理左子树
-    if node.left:
-        l_tree_deleted = self.__dfs(node.left, s + node.val, limit)
+    def __dfs(self, node, s, limit):
+        """
+        后序遍历
+        :param node: 当前遍历的结点
+        :param s: 当前累计的和
+        :param limit: 题目中给出的 limit
+        :return: 是否要删除 node 这个结点，True 表示要删除，False 表示不删除
+        """
+        # 先写递归终止条件：如果小于 limit，根据题意，要删除
+        if node.left is None and node.right is None:
+            return s + node.val < limit
 
-    # 如果有右子树，就先递归处理右子树
-    if node.right:
-        r_tree_deleted = self.__dfs(node.right, s + node.val, limit)
+        # 默认为左右结点均剪枝，注意：初值不能设置成 False
+        l_tree_deleted = True
+        r_tree_deleted = True
 
-    # 左右子树是否删除的结论得到了，由自己来执行是否删除它们
-    if l_tree_deleted:
-        node.left = None
-    if r_tree_deleted:
-        node.right = None
+        # 如果有左子树，就先递归处理左子树
+        if node.left:
+            l_tree_deleted = self.__dfs(node.left, s + node.val, limit)
 
-    # 只有左右子树都被删除了，自己才没有必要保留
-    return l_tree_deleted and r_tree_deleted
+        # 如果有右子树，就先递归处理右子树
+        if node.right:
+            r_tree_deleted = self.__dfs(node.right, s + node.val, limit)
 
-def sufficientSubset(self, root: TreeNode, limit: int) -&gt; TreeNode:
-    root_deleted = self.__dfs(root, 0, limit)
-    if root_deleted:
-        return None
-    return root
-</code></pre><pre><code>
-Java 代码：
+        # 左右子树是否删除的结论得到了，由自己来执行是否删除它们
+        if l_tree_deleted:
+            node.left = None
+        if r_tree_deleted:
+            node.right = None
 
-```Java []
-public class Solution2 {
+        # 只有左右子树都被删除了，自己才没有必要保留
+        return l_tree_deleted and r_tree_deleted
+
+    def sufficientSubset(self, root: TreeNode, limit: int) -> TreeNode:
+        root_deleted = self.__dfs(root, 0, limit)
+        if root_deleted:
+            return None
+        return root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public class Solution2 {
 
     /**
      * @param node
@@ -614,8 +613,8 @@ public class Solution2 {
      * @return 返回 node 结点是否被删除（注意：这个返回值的意义，直接影响整个逻辑。）
      */
     private Boolean dfs(TreeNode node, int s, int limit) {
-        if (node.left == null &amp;&amp; node.right == null) {
-            return s + node.val &lt; limit;
+        if (node.left == null && node.right == null) {
+            return s + node.val < limit;
         }
 
         // 注意：如果 dfs 的返回值的意义是这个结点是否被删除，它们的默认值应该设置为 true
@@ -640,7 +639,7 @@ public class Solution2 {
         }
 
         // 只有左右子树都被删除了，自己才没有必要保留
-        return lTreeDeleted &amp;&amp; rTreeDeleted;
+        return lTreeDeleted && rTreeDeleted;
     }
 
     public TreeNode sufficientSubset(TreeNode root, int limit) {
@@ -650,47 +649,61 @@ public class Solution2 {
         }
         return root;
     }
-}
-</code></pre><p>如果 <code>__dfs()</code> 方法返回值的意义是“当前结点是否被保留”，参考代码如下。</p>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果 <code>__dfs()</code> 方法返回值的意义是“当前结点是否被保留”，参考代码如下。</p>
 <p>Python 代码：</p>
-<p>```Python []<br>class TreeNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.left = None<br>        self.right = None</p>
-<h1 id="算法思想：分治法"><a href="#算法思想：分治法" class="headerlink" title="算法思想：分治法"></a>算法思想：分治法</h1><h1 id="后序遍历：dfs-的返回值是：是否保留这个节点"><a href="#后序遍历：dfs-的返回值是：是否保留这个节点" class="headerlink" title="后序遍历：dfs 的返回值是：是否保留这个节点"></a>后序遍历：dfs 的返回值是：是否保留这个节点</h1><p>class Solution:<br>    def __dfs(self, node, s, limit):<br>        “””<br>        后序遍历<br>        :param node: 当前遍历的结点<br>        :param s: 当前累计的和<br>        :param limit: 题目中给出的 limit<br>        :return: 是否要保留 node 这个结点，True 表示要保留，False 表示不保留<br>        “””</p>
-<pre><code>    # 先写递归终止条件：如果大于等于 limit，根据题意，要保留
-    if node.left is None and node.right is None:
-        return node.val + s &gt;= limit
+<pre class="line-numbers language-Python"><code class="language-Python">class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
-    # 默认为左右结点均剪枝
-    # 注意：初值不能设置成 True
-    # 因为，当左右子树只有一个存在的时候，这个子树的逻辑值直接决定了父结点是否被保留
-    ltree_saved = False
-    rtree_saved = False
 
-    # 如果有左子树，就先递归处理左子树
-    if node.left:
-        ltree_saved = self.__dfs(node.left, s + node.val, limit)
-    # 如果有右子树，就先递归处理右子树
-    if node.right:
-        rtree_saved = self.__dfs(node.right, s + node.val, limit)
+# 算法思想：分治法
+# 后序遍历：dfs 的返回值是：是否保留这个节点
 
-    # 左右子树是否保留的结论得到了，由自己来执行是否保留它们
-    if not ltree_saved:
-        node.left = None
-    if not rtree_saved:
-        node.right = None
+class Solution:
+    def __dfs(self, node, s, limit):
+        """
+        后序遍历
+        :param node: 当前遍历的结点
+        :param s: 当前累计的和
+        :param limit: 题目中给出的 limit
+        :return: 是否要保留 node 这个结点，True 表示要保留，False 表示不保留
+        """
+        # 先写递归终止条件：如果大于等于 limit，根据题意，要保留
+        if node.left is None and node.right is None:
+            return node.val + s >= limit
 
-    # 只要左右结点有一个被保留，这个结点就得被保留
-    return ltree_saved or rtree_saved
+        # 默认为左右结点均剪枝
+        # 注意：初值不能设置成 True
+        # 因为，当左右子树只有一个存在的时候，这个子树的逻辑值直接决定了父结点是否被保留
+        ltree_saved = False
+        rtree_saved = False
 
-def sufficientSubset(self, root: TreeNode, limit: int) -&gt; TreeNode:
-    root_saved = self.__dfs(root, 0, limit)
-    if not root_saved:
-        return None
-    return root
-</code></pre><pre><code>
-Java 代码：
+        # 如果有左子树，就先递归处理左子树
+        if node.left:
+            ltree_saved = self.__dfs(node.left, s + node.val, limit)
+        # 如果有右子树，就先递归处理右子树
+        if node.right:
+            rtree_saved = self.__dfs(node.right, s + node.val, limit)
 
-```Java []
-class TreeNode {
+        # 左右子树是否保留的结论得到了，由自己来执行是否保留它们
+        if not ltree_saved:
+            node.left = None
+        if not rtree_saved:
+            node.right = None
+
+        # 只要左右结点有一个被保留，这个结点就得被保留
+        return ltree_saved or rtree_saved
+
+    def sufficientSubset(self, root: TreeNode, limit: int) -> TreeNode:
+        root_saved = self.__dfs(root, 0, limit)
+        if not root_saved:
+            return None
+        return root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">class TreeNode {
     int val;
     TreeNode left;
     TreeNode right;
@@ -709,8 +722,8 @@ public class Solution {
      * @return 返回 node 结点是否被保留（注意：这个返回值的意义，直接影响整个逻辑。）
      */
     private Boolean dfs(TreeNode node, int s, int limit) {
-        if (node.left == null &amp;&amp; node.right == null) {
-            return s + node.val &gt;= limit;
+        if (node.left == null && node.right == null) {
+            return s + node.val >= limit;
         }
 
         // 注意：如果 dfs 的返回值的意义是这个结点是否被保留，它们的默认值应该设置为 false
@@ -747,8 +760,8 @@ public class Solution {
         }
         return root;
     }
-}
-</code></pre><p><strong>复杂度分析</strong>：</p>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N)$，$N$ 为二叉树结点的个数。</li>
 <li>空间复杂度：$O(1)$。</li>
@@ -1091,10 +1104,8 @@ public class Solution {
                             「力扣」第 315 题：计算右侧小于当前元素的个数
 
 
-
 题目地址
 题解
-
 
 
 
@@ -1102,9 +1113,7 @@ LeetCode 第 315 题：计算右侧小于当前元素的个数
 归并排序 + 索引数组（Python 代码、Java 代码）
 
 
-
-
-归并排序（索引数组）如果有
+归并排序（索引数组）如果有学习过一
                         
                     </div>
                     <div class="publish-info">

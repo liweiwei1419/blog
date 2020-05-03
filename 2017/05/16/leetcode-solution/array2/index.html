@@ -491,30 +491,26 @@
 <p><strong>根据 <code>mid</code> 被分到左边区间还是右边区间，代码写出来只有以下 2 种（重难点）</strong>：</p>
 <p><strong>边界收缩行为 1</strong>： <code>mid</code> 被分到左边。即区间被分成 <code>[left, mid]</code> 与 <code>[mid + 1, right]</code>，这里用“闭区间”表示区间端点可以取到，下同；</p>
 <p>代码写出来是这样的：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">if (check(mid)) {
-    // 下一轮搜索区间是 [mid + 1, right]，因此把左边界设置到 mid + 1 位置
-    left = mid + 1;
-} else {
-    // 上面对了以后，不加思考，剩下的区间一定是 [left, mid]，因此左边界向右收缩到 mid 位置
-    right = mid;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [mid + 1, right]，因此把左边界设置到 mid + 1 位置</span>
+    left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 上面对了以后，不加思考，剩下的区间一定是 [left, mid]，因此左边界向右收缩到 mid 位置</span>
+    right <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>说明：这里的 <code>check(mid)</code> 函数通常是一个表达式（例如上面的“参考代码 1”），在一些情况下有可能逻辑比较复杂，建议专门抽取成一个私有方法，以突显主干逻辑。</p>
 <p><strong>边界收缩行为 2</strong>： <code>mid</code> 被分到右边。即区间被分成 <code>[left, mid - 1]</code> 与 <code>[mid, right]</code>；</p>
 <p>同上，代码写出来是这样的（由于注释是对称的，这里省略，留给读者填充）：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">if (check(mid)) {
-    right = mid - 1;
-} else {
-    left = mid;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    left <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>3、<strong>根据「边界收缩行为」修改取中间数的行为（重难点）</strong>。</p>
 <p>先说一下中间数的取法。一般是这样的：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">int mid = (left + right) / 2;
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>left <span class="token operator">+</span> right<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这种写法在绝大多数情况下没问题，但是在 <code>left</code> 和 <code>right</code> 特别大的场景中，<code>left + right</code> 会发生整形溢出，得到一个负数，<code>mid</code> 的值随之也是负数。改进的写法是：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">int mid = left + (right - left) / 2;
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>这两种写法事实上没有本质的区别，在 <code>left</code> 和 <code>right</code> 都表示数组索引的时候，几乎不会越界，因为绝大多数情况下不会开那么长的数组。</p>
 <p>这里有一个细节，<code>/</code> 是整除，它的行为是“向下取整”，造成了 <strong><code>int mid = (left + right) / 2</code> 这种写法 <code>mid</code> 永远取不到带搜索区间里最右边的位置</strong>（读者可以举一个只有 <code>2</code> 个元素的子数组，理解这句话）。</p>
 <p>面对上面的“<strong>边界收缩行为 2</strong>”（<code>mid</code> 被分到右边），在待搜索区间收缩到只剩下 2 个元素的时候，<strong>就有可能</strong>（请读者在练习的过程中体会这里我的描述为什么是“有可能”而不是“一定”）造成死循环。如下图：</p>
@@ -525,23 +521,21 @@
 </blockquote>
 <p>有了上面的分析，我们把上面「边界收缩行为」对应的中间数取法补上：</p>
 <p><strong>边界收缩行为 1</strong>： <code>mid</code> 被分到左边。即区间被分成 <code>[left, mid]</code> 与 <code>[mid + 1, right]</code>，此时取中间数的时候下取整。</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">int mid = left + (right - left) / 2;
-if (check(mid)) {
-    // 下一轮搜索区间是 [mid + 1, right]
-    left = mid + 1;
-} else {
-    right = mid;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [mid + 1, right]</span>
+    left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    right <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>边界收缩行为 2</strong>： <code>mid</code> 被分到右边。即区间被分成 <code>[left, mid - 1]</code> 与 <code>[mid, right]</code>，此时取中间数的时候<strong>上取整</strong>。</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">int mid = left + (right - left + 1) / 2;
-if (check(mid)) {
-    // 下一轮搜索区间是 [left, mid - 1]
-    right = mid - 1;
-} else {
-    left = mid;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [left, mid - 1]</span>
+    right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    left <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这里我可能没有说得很清楚。如果读者不太明白，也没有关系，读者在练习的过程中，如果遇到死循环，可以在 <code>while</code> 循环里把 <code>left</code>、<code>right</code>、<code>mid</code> 变量的值打印出来看，就看得很清楚了。</p>
 <p><strong>遇到几次死循环，调试正确以后</strong>，就能很清楚地记住：</p>
 <blockquote>
@@ -577,7 +571,6 @@ if (check(mid)) {
 <p>优点：不用去理解和处理第 2 点说的那种上取整的行为，因为不会出现死循环。<br>缺点：一定需要后处理，在后处理这个问题上增加了思考的负担。另外 <code>while (left + 1 &lt; right)</code> 这种写法我个人认为不那么自然。</p>
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>「力扣」上的二分查找问题主要有这三类题型。</p>
 <h4 id="一、在数组中查找符合条件的元素的索引"><a href="#一、在数组中查找符合条件的元素的索引" class="headerlink" title="一、在数组中查找符合条件的元素的索引"></a>一、在数组中查找符合条件的元素的索引</h4><p>一般而言这个数组是有序的，也可能是半有序的，但不大可能是无序的。</p>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -585,8 +578,7 @@ if (check(mid)) {
 <th>提示与题解</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><a href="https://leetcode-cn.com/problems/binary-search/" target="_blank" rel="noopener">704. 二分查找</a></td>
 <td>二分查找的模板问题，使用本题解介绍的方法就要注意，需要“后处理”。</td>
 </tr>
@@ -626,19 +618,15 @@ if (check(mid)) {
 <td><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">4. 寻找两个有序数组的中位数</a></td>
 <td>二分搜索中最难的问题之一，建议先弄清楚解题思路，<a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/he-bing-yi-hou-zhao-gui-bing-guo-cheng-zhong-zhao-/" target="_blank" rel="noopener">题解</a>。</td>
 </tr>
-</tbody>
-</table>
-</div>
-<h4 id="二、在一个有上下界的区间里搜索一个整数"><a href="#二、在一个有上下界的区间里搜索一个整数" class="headerlink" title="二、在一个有上下界的区间里搜索一个整数"></a>二、在一个有上下界的区间里搜索一个整数</h4><div class="table-container">
-<table>
+</tbody></table>
+<h4 id="二、在一个有上下界的区间里搜索一个整数"><a href="#二、在一个有上下界的区间里搜索一个整数" class="headerlink" title="二、在一个有上下界的区间里搜索一个整数"></a>二、在一个有上下界的区间里搜索一个整数</h4><table>
 <thead>
 <tr>
 <th>题目</th>
 <th>提示与题解</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><a href="https://leetcode-cn.com/problems/sqrtx/" target="_blank" rel="noopener">69. 平方根</a></td>
 <td>在一个整数范围里查找一个整数，也是二分查找法的应用场景，<a href="https://leetcode-cn.com/problems/sqrtx/solution/er-fen-cha-zhao-niu-dun-fa-python-dai-ma-by-liweiw/" target="_blank" rel="noopener">题解</a>。</td>
 </tr>
@@ -650,19 +638,15 @@ if (check(mid)) {
 <td><a href="https://leetcode-cn.com/problems/guess-number-higher-or-lower/" target="_blank" rel="noopener">374. 猜数字大小</a></td>
 <td><a href="https://leetcode-cn.com/problems/guess-number-higher-or-lower/solution/shi-fen-hao-yong-de-er-fen-cha-zhao-fa-mo-ban-pyth/" target="_blank" rel="noopener">题解</a></td>
 </tr>
-</tbody>
-</table>
-</div>
-<h4 id="三、判别条件是一个函数"><a href="#三、判别条件是一个函数" class="headerlink" title="三、判别条件是一个函数"></a>三、判别条件是一个函数</h4><div class="table-container">
-<table>
+</tbody></table>
+<h4 id="三、判别条件是一个函数"><a href="#三、判别条件是一个函数" class="headerlink" title="三、判别条件是一个函数"></a>三、判别条件是一个函数</h4><table>
 <thead>
 <tr>
 <th>题目</th>
 <th>提示与题解</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><a href="https://leetcode-cn.com/problems/first-bad-version/" target="_blank" rel="noopener">278. 第一个错误的版本</a></td>
 <td></td>
 </tr>
@@ -682,9 +666,7 @@ if (check(mid)) {
 <td><a href="https://leetcode-cn.com/problems/sum-of-mutated-array-closest-to-target/" target="_blank" rel="noopener">1300. 转变数组后最接近目标值的数组和</a></td>
 <td><a href="https://leetcode-cn.com/problems/sum-of-mutated-array-closest-to-target/solution/er-fen-cha-zhao-by-liweiwei1419-2/" target="_blank" rel="noopener">题解</a></td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 
             </div>
             <hr/>

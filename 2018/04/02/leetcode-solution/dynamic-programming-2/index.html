@@ -489,18 +489,15 @@
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: coins = [1, 2, 5], amount = 11
 输出: 3 
-解释: 11 = 5 + 5 + 1
-</code></pre><p><strong>示例 2:</strong></p>
+解释: 11 = 5 + 5 + 1</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: coins = [2], amount = 3
-输出: -1
-</code></pre><p><strong>说明</strong>:<br>你可以认为每种硬币的数量是无限的。</p>
+输出: -1</code></pre><p><strong>说明</strong>:<br>你可以认为每种硬币的数量是无限的。</p>
 <p>思路：</p>
 <ul>
 <li>看题目的问法，只问最优值是多少，没有要我们求最优解，一般情况下就是「动态规划」可以解决的问题。</li>
 <li>最优子结构其实比较明显，我们看示例 1：</li>
 </ul>
-<pre><code>输入: coins = [1, 2, 5], amount = 11
-</code></pre><p>凑成面值为 <code>11</code> 的最小硬币数可以由以下 $3$ 者的最小值得到：</p>
+<pre><code>输入: coins = [1, 2, 5], amount = 11</code></pre><p>凑成面值为 <code>11</code> 的最小硬币数可以由以下 $3$ 者的最小值得到：</p>
 <p>1、凑成面值为 <code>10</code> 的最小硬币数（假设已知） + 面值为 <code>1</code> 的这一枚硬币；</p>
 <p>2、凑成面值为 <code>9</code> 的最小硬币数（假设已知） + 面值为 <code>2</code> 的这一枚硬币；</p>
 <p>3、凑成面值为 <code>6</code> 的最小硬币数（假设已知） + 面值为 <code>5</code> 的这一枚硬币；</p>
@@ -510,41 +507,39 @@
 <h4 id="第-1-步：定义「状态」"><a href="#第-1-步：定义「状态」" class="headerlink" title="第 1 步：定义「状态」"></a>第 1 步：定义「状态」</h4><p><code>dp[i]</code>：凑齐总价值 <code>i</code> 需要的最少硬币数，状态就是问的问题。</p>
 <h4 id="第-2-步：写出「状态转移方程」"><a href="#第-2-步：写出「状态转移方程」" class="headerlink" title="第 2 步：写出「状态转移方程」"></a>第 2 步：写出「状态转移方程」</h4><p>所谓「状态转移方程」，其实就是「最优子结构」。</p>
 <p>根据对具体例子的分析：</p>
-<pre><code> dp[amount] = min(1 + dp[amount - coin[i]]) for i in [0, len - 1] if coin[i] &lt;= amount
-</code></pre><p>注意的是：</p>
+<pre><code> dp[amount] = min(1 + dp[amount - coin[i]]) for i in [0, len - 1] if coin[i] &lt;= amount</code></pre><p>注意的是：</p>
 <p>1、首先硬币的面值首先要<strong>小于等于</strong>当前要凑出来的面值；</p>
 <p>2、剩余的那个面值应该要能够凑出来，例如：求 <code>dp[11]</code> 需要参考 <code>dp[10]</code> ，如果不能凑出来的话，<code>dp[10]</code> 应该等于一个不可能的值，可以设计为 <code>11 + 1</code>，也可以设计为 <code>-1</code> ，它们的区别只是在具体的代码编写细节上不一样而已。</p>
 <p>再强调一次：新状态的值要参考的值以前计算出来的「有效」状态值。这一点在编码的时候需要特别注意。</p>
 <p>因此，不妨先假设凑不出来，因为比的是小，所以初始化的时候应该设置为一个不可能的数。</p>
 <p><strong>参考代码</strong>：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.Arrays;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public int coinChange(int[] coins, int amount) {
-        // 给 0 占位
-        int[] dp = new int[amount + 1];
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">coinChange</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> coins<span class="token punctuation">,</span> <span class="token keyword">int</span> amount<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 给 0 占位</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> dp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>amount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-        // 注意：因为要比较的是最小值，这个不可能的值就得赋值成为一个最大值
-        Arrays.fill(dp, amount + 1);
+        <span class="token comment" spellcheck="true">// 注意：因为要比较的是最小值，这个不可能的值就得赋值成为一个最大值</span>
+        Arrays<span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span>dp<span class="token punctuation">,</span> amount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        dp[0] = 0;
+        dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-        for (int i = 1; i <= amount; i++) {
-            for (int coin : coins) {
-                if (i - coin >= 0 && dp[i - coin] != amount + 1) {
-                    dp[i] = Math.min(dp[i], 1 + dp[i - coin]);
-                }
-            }
-        }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> amount<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> coin <span class="token operator">:</span> coins<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">-</span> coin <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> coin<span class="token punctuation">]</span> <span class="token operator">!=</span> amount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token number">1</span> <span class="token operator">+</span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> coin<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        if (dp[amount] == amount + 1) {
-            dp[amount] = -1;
-        }
-        return dp[amount];
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>dp<span class="token punctuation">[</span>amount<span class="token punctuation">]</span> <span class="token operator">==</span> amount <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            dp<span class="token punctuation">[</span>amount<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> dp<span class="token punctuation">[</span>amount<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注意：</p>
 <ul>
 <li>要求的是恰好填满，所以初始化的时候需要赋值为一个不可能的值：<code>amount + 1</code>。只有在有「正常值」的时候，「状态转移」才可以正常发生。</li>

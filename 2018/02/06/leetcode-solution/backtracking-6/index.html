@@ -504,8 +504,7 @@
 
 给定 word = &quot;ABCCED&quot;, 返回 true
 给定 word = &quot;SEE&quot;, 返回 true
-给定 word = &quot;ABCB&quot;, 返回 false
-</code></pre><p>提示：</p>
+给定 word = &quot;ABCB&quot;, 返回 false</code></pre><p>提示：</p>
 <ul>
 <li>board 和 word 中只包含大写和小写英文字母。</li>
 <li><code>1 &lt;= board.length &lt;= 200</code></li>
@@ -513,7 +512,7 @@
 <li><code>1 &lt;= word.length &lt;= 10^3</code></li>
 </ul>
 <p>这个问题的思路是这样的，我们首先先遍历二维矩阵，只要找到了这个单词的首字母，就可以在这个起点上搜索第 2 个字符，搜索字符的过程，应该注意一点，那就是，在尝试搜索的时候，已经搜索过的地方应该占住这个位置，如果四个方向都搜索不到结果，就应该释放对当前结点的占用，回退上上一格，继续搜索。</p>
-<p>这样的算法很像叫做 <code>floodfill</code> ，<strong>泛洪填充（</strong>也称为<strong>种子填充）</strong>是一种<a href="https://en.wikipedia.org/wiki/Algorithm" target="_blank" rel="noopener">算法</a>，用于确定<a href="https://en.wikipedia.org/wiki/Glossary_of_graph_theory#Connectivity" target="_blank" rel="noopener">连接</a>到多维<a href="https://en.wikipedia.org/wiki/Array_data_structure" target="_blank" rel="noopener">数组中</a>给定节点的区域。它用于<a href="https://en.wikipedia.org/wiki/Paint_program" target="_blank" rel="noopener">绘画程序</a>的“存储桶”填充工具中，以不同的颜色填充连接的相似颜色的区域，并用于诸如<a href="https://en.wikipedia.org/wiki/Go_(game" target="_blank" rel="noopener">Go</a>)和<a href="https://en.wikipedia.org/wiki/Minesweeper_(video_game" target="_blank" rel="noopener">Minesweeper之类的</a>)游戏中，以确定要清除的部分。</p>
+<p>这样的算法很像叫做 <code>floodfill</code> ，<strong>泛洪填充（</strong>也称为<strong>种子填充）</strong>是一种<a href="https://en.wikipedia.org/wiki/Algorithm" target="_blank" rel="noopener">算法</a>，用于确定<a href="https://en.wikipedia.org/wiki/Glossary_of_graph_theory#Connectivity" target="_blank" rel="noopener">连接</a>到多维<a href="https://en.wikipedia.org/wiki/Array_data_structure" target="_blank" rel="noopener">数组中</a>给定节点的区域。它用于<a href="https://en.wikipedia.org/wiki/Paint_program" target="_blank" rel="noopener">绘画程序</a>的“存储桶”填充工具中，以不同的颜色填充连接的相似颜色的区域，并用于诸如<a href="https://en.wikipedia.org/wiki/Go_(game)" target="_blank" rel="noopener">Go</a>和<a href="https://en.wikipedia.org/wiki/Minesweeper_(video_game)" target="_blank" rel="noopener">Minesweeper之类的</a>游戏中，以确定要清除的部分。</p>
 <p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQud2lraW1lZGlhLm9yZy93aWtpcGVkaWEvY29tbW9ucy83LzdlL1JlY3Vyc2l2ZV9GbG9vZF9GaWxsXzRfJTI4YWthJTI5LmdpZg" alt=""></p>
 <p>这样的算法，其实也是一个树形结构。</p>
 <p>编写代码的过程中，我们要注意：</p>
@@ -522,85 +521,84 @@
 <p>3、还需要一个函数判断当前位置是否越界。</p>
 <p>这些都是非常常规的编码技巧，大家需要多练习，以巩固，并且养成良好的编码习惯。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    private boolean[][] marked;
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> marked<span class="token punctuation">;</span>
 
-    //        x-1,y
-    // x,y-1  x,y    x,y+1
-    //        x+1,y
-    private int[][] direction = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
-    // 盘面上有多少行
-    private int m;
-    // 盘面上有多少列
-    private int n;
-    private String word;
-    private char[][] board;
+    <span class="token comment" spellcheck="true">//        x-1,y</span>
+    <span class="token comment" spellcheck="true">// x,y-1  x,y    x,y+1</span>
+    <span class="token comment" spellcheck="true">//        x+1,y</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> direction <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 盘面上有多少行</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> m<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 盘面上有多少列</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> n<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String word<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> board<span class="token punctuation">;</span>
 
-    public boolean exist(char[][] board, String word) {
-        m = board.length;
-        if (m == 0) {
-            return false;
-        }
-        n = board[0].length;
-        marked = new boolean[m][n];
-        this.word = word;
-        this.board = board;
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">exist</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> board<span class="token punctuation">,</span> String word<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        m <span class="token operator">=</span> board<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>m <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        n <span class="token operator">=</span> board<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        marked <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">boolean</span><span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>word <span class="token operator">=</span> word<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>board <span class="token operator">=</span> board<span class="token punctuation">;</span>
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (dfs(i, j, 0)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dfs</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    private boolean dfs(int i, int j, int start) {
-        if (start == word.length() - 1) {
-            return board[i][j] == word.charAt(start);
-        }
-        if (board[i][j] == word.charAt(start)) {
-            marked[i][j] = true;
-            for (int k = 0; k < 4; k++) {
-                int newX = i + direction[k][0];
-                int newY = j + direction[k][1];
-                if (inArea(newX, newY) && !marked[newX][newY]) {
-                    if (dfs(newX, newY, start + 1)) {
-                        return true;
-                    }
-                }
-            }
-            marked[i][j] = false;
-        }
-        return false;
-    }
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">,</span> <span class="token keyword">int</span> start<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>start <span class="token operator">==</span> word<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> word<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>start<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> word<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>start<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            marked<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;</span> <span class="token number">4</span><span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> newX <span class="token operator">=</span> i <span class="token operator">+</span> direction<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">int</span> newY <span class="token operator">=</span> j <span class="token operator">+</span> direction<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">inArea</span><span class="token punctuation">(</span>newX<span class="token punctuation">,</span> newY<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>marked<span class="token punctuation">[</span>newX<span class="token punctuation">]</span><span class="token punctuation">[</span>newY<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dfs</span><span class="token punctuation">(</span>newX<span class="token punctuation">,</span> newY<span class="token punctuation">,</span> start <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            marked<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    private boolean inArea(int x, int y) {
-        return x >= 0 && x < m && y >= 0 && y < n;
-    }
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">inArea</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> x <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> x <span class="token operator">&lt;</span> m <span class="token operator">&amp;&amp;</span> y <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> y <span class="token operator">&lt;</span> n<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-//        char[][] board =
-//                {
-//                        {'A', 'B', 'C', 'E'},
-//                        {'S', 'F', 'C', 'S'},
-//                        {'A', 'D', 'E', 'E'}
-//                };
-//
-//        String word = "ABCCED";
+<span class="token comment" spellcheck="true">//        char[][] board =</span>
+<span class="token comment" spellcheck="true">//                {</span>
+<span class="token comment" spellcheck="true">//                        {'A', 'B', 'C', 'E'},</span>
+<span class="token comment" spellcheck="true">//                        {'S', 'F', 'C', 'S'},</span>
+<span class="token comment" spellcheck="true">//                        {'A', 'D', 'E', 'E'}</span>
+<span class="token comment" spellcheck="true">//                };</span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">//        String word = "ABCCED";</span>
 
 
-        char[][] board = {{'a', 'b'}};
-        String word = "ba";
-        Solution solution = new Solution();
-        boolean exist = solution.exist(board, word);
-        System.out.println(exist);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> board <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        String word <span class="token operator">=</span> <span class="token string">"ba"</span><span class="token punctuation">;</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> exist <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">exist</span><span class="token punctuation">(</span>board<span class="token punctuation">,</span> word<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>exist<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>希望大家通过这个问题，继续体会「回溯算法」里一条路走不通，就「回退」的思想，它依然是「深度优先遍历」的思想。</p>
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>1、「力扣」第 200 题：<a href="https://leetcode-cn.com/problems/number-of-islands" target="_blank" rel="noopener">岛屿数量</a>。</p>
 <p>2、「力扣」之「剑指 Offer 系列」第 13 题：<a href="https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof" target="_blank" rel="noopener">机器人的运动范围</a>。</p>

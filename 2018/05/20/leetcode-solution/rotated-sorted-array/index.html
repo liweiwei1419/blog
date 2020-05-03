@@ -490,18 +490,14 @@
 <p>你的算法时间复杂度必须是 <em>O</em>(log <em>n</em>) 级别。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: nums = [4,5,6,7,0,1,2], target = 0
-输出: 4
-</code></pre><p><strong>示例 2:</strong></p>
+输出: 4</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: nums = [4,5,6,7,0,1,2], target = 3
-输出: -1
-</code></pre></blockquote>
+输出: -1</code></pre></blockquote>
 <p>思路：二分查找，<strong>特别要注意边界条件的判断。</strong></p>
 <p>1、注意一个细节：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">int mid = left + (right - left) / 2;
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>在只有两个数的区间 $[4,5]$ 找中点的时候，就只会得到 $4$ ，所以要<strong>将</strong> <strong>nums[mid]</strong> <strong>和</strong> <strong>nums[right]</strong> <strong>进行判断</strong>。并且 <code>while</code> 里面是 <code>left &lt;= right</code> 必须要能够取等号。这时可以使用</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">int mid = left + (right - left + 1) / 2;
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>让中点靠近右边。</p>
 <p>2、这道题应用了旋转数组的一个性质，那就是：<strong>分割以后，有且只有其中的一部分是顺序数组，另一个数组是仍是旋转数组</strong>；</p>
 <p>3、一个重要的条件：<strong>你可以假设数组中不存在重复的元素</strong>。你的算法时间复杂度必须是 $O(\log n)$ 级别。</p>
@@ -510,97 +506,94 @@
 <p>3、这道题比较适合使用循环来做，递归的话容易写错。</p>
 <p>4、特别注意临界情况，体会 <code>mid = left + (right - left) / 2;</code> 与 <code>int mid = left + (right - left + 1) / 2;</code> 这两者的区别。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def search(self, nums, target):
-        size = len(nums)
-        if size == 0:
-            return -1
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">search</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
 
-        l = 0
-        r = size - 1
+        l <span class="token operator">=</span> <span class="token number">0</span>
+        r <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span>
 
-        while l <= r:
-            mid = l + (r - l) // 2
-            if nums[mid] == target:
-                return mid
+        <span class="token keyword">while</span> l <span class="token operator">&lt;=</span> r<span class="token punctuation">:</span>
+            mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> mid
 
-            if nums[mid] < nums[r]:
-                # nums[mid + 1:r] 包括左右区间端点有序
-                if nums[mid] < target <= nums[r]:
-                    l = mid + 1
-                else:
-                    r = mid - 1
-            else:
-                # nums[l:mid - 1] 包括左右区间端点有序
-                if nums[l] <= target < nums[mid]:
-                    r = mid - 1
-                else:
-                    l = mid + 1
-        return -1
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># nums[mid + 1:r] 包括左右区间端点有序</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> target <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># nums[l:mid - 1] 包括左右区间端点有序</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> target <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class Solution {
-    public int search(int[] nums, int target) {
-        int len = nums.length;
-        if (len == 0) {
-            return -1;
-        }
-        int left = 0;
-        int right = len - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (nums[mid] == target) {
-                return mid;
-            }
-            if (nums[mid] < nums[right]) {
-                // 从 mid 到 right 都是顺序数组
-                if (nums[mid] < target && target <= nums[right]) {
-                    left = mid + 1;
-                } else {
-                    // 其余的情况就在右边了
-                    right = mid - 1;
-                }
-            } else {
-                // 此时 left 到 mid 是顺序数组
-                if (nums[left] <= target && target < nums[mid]) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
-            }
-        }
-        return -1;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;=</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> mid<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 从 mid 到 right 都是顺序数组</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> target <span class="token operator">&amp;&amp;</span> target <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// 其余的情况就在右边了</span>
+                    right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 此时 left 到 mid 是顺序数组</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> target <span class="token operator">&amp;&amp;</span> target <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>使用“逼近”方式的二分法。</p>
 <p>Python 代码：注意：左右区间“收缩”的方式要一致</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def search(self, nums, target):
-        size = len(nums)
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">search</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
 
-        if size == 0:
-            return -1
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
 
-        l = 0
-        r = size - 1
+        l <span class="token operator">=</span> <span class="token number">0</span>
+        r <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span>
 
-        while l < r:
-            mid = l + (r - l + 1) // 2
-            if nums[mid] < nums[r]:
-                # [7,8,9,1,2,3,4,5,6] ，后半部分有序
-                if nums[mid] <= target <= nums[r]:
-                    l = mid
-                else:
-                    r = mid - 1
-            else:
-                # [4,5,6,7,8,9,0,1,2]，前半部分有序
-                if nums[l] <= target <= nums[mid - 1]:
-                    r = mid - 1
-                else:
-                    l = mid
-        return l if nums[l] == target else -1
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
+            mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># [7,8,9,1,2,3,4,5,6] ，后半部分有序</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> target <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    l <span class="token operator">=</span> mid
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># [4,5,6,7,8,9,0,1,2]，前半部分有序</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> target <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    l <span class="token operator">=</span> mid
+        <span class="token keyword">return</span> l <span class="token keyword">if</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">==</span> target <span class="token keyword">else</span> <span class="token operator">-</span><span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="「力扣」第-81-题：搜索旋转排序数组-II"><a href="#「力扣」第-81-题：搜索旋转排序数组-II" class="headerlink" title="「力扣」第 81 题：搜索旋转排序数组 II"></a>「力扣」第 81 题：搜索旋转排序数组 <strong>II</strong></h3><p>传送门：<a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/" target="_blank" rel="noopener">81. 搜索旋转排序数组 II</a>。</p>
 <blockquote>
 <p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
@@ -608,11 +601,9 @@
 <p>编写一个函数来判断给定的目标值是否存在于数组中。若存在返回 <code>true</code>，否则返回 <code>false</code>。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: nums = [2,5,6,0,0,1,2], target = 0
-输出: true
-</code></pre><p><strong>示例 2:</strong></p>
+输出: true</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: nums = [2,5,6,0,0,1,2], target = 3
-输出: false
-</code></pre><p><strong>进阶:</strong></p>
+输出: false</code></pre><p><strong>进阶:</strong></p>
 <ul>
 <li>这是 <a href="https://leetcode-cn.com/problems/search-in-rotated-sorted-array/description/" target="_blank" rel="noopener">搜索旋转排序数组</a> 的延伸题目，本题中的 <code>nums</code>  可能包含重复元素。</li>
 <li>这会影响到程序的时间复杂度吗？会有怎样的影响，为什么？</li>
@@ -620,74 +611,72 @@
 </blockquote>
 <p>思路：这道题在第 33 题的基础上，加上了可能有重复元素的条件。重点在于：<code>nums[mid] == nums[right]</code> 的判断，因为“可能有重复元素”此时不能断定哪一边一定是旋转数组，哪一边一定是顺序数组，因此，只能够去掉 <code>right</code>。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class Solution {
-    public boolean search(int[] nums, int target) {
-        int len = nums.length;
-        if (len == 0) {
-            return false;
-        }
-        int left = 0;
-        int right = len - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (nums[mid] == target) {
-                return true;
-            }
-            if (nums[mid] == nums[right]) {
-                right--;
-            } else if (nums[mid] < nums[right]) {
-                // mid 到 right 是顺序数组
-                if (nums[mid] < target && target <= nums[right]) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
-            } else {
-                // nums[mid] > nums[right]
-                // left 到 mid 是顺序数组
-                if (nums[left] <= target && target < nums[mid]) {
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
-            }
-        }
-        return false;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;=</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> nums<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                right<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// mid 到 right 是顺序数组</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> target <span class="token operator">&amp;&amp;</span> target <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// nums[mid] > nums[right]</span>
+                <span class="token comment" spellcheck="true">// left 到 mid 是顺序数组</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> target <span class="token operator">&amp;&amp;</span> target <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def search(self, nums, target):
-        size = len(nums)
-        if size == 0:
-            return False
-        l = 0
-        r = size - 1
-        while l < r:
-            mid = l + (r - l + 1) // 2
-            if nums[mid] < nums[r]:
-                # 后面是有序的
-                # [2,3,4,5,5,6,6,7]
-                if nums[mid] <= target <= nums[r]:
-                    l = mid
-                else:
-                    r = mid - 1
-            elif nums[mid] > nums[r]:
-                # [3,4,5,5,6,6,7,2]
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">search</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        l <span class="token operator">=</span> <span class="token number">0</span>
+        r <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
+            mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 后面是有序的</span>
+                <span class="token comment" spellcheck="true"># [2,3,4,5,5,6,6,7]</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> target <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    l <span class="token operator">=</span> mid
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># [3,4,5,5,6,6,7,2]</span>
 
-                if nums[l] <= target <= nums[mid - 1]:
-                    r = mid - 1
-                else:
-                    l = mid
-            else:
-                assert nums[mid] == nums[r]
-                if nums[r] == target:
-                    return True
-                # 右边不是才删除
-                r = r - 1
-        return nums[l] == target
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> target <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
+                <span class="token keyword">else</span><span class="token punctuation">:</span>
+                    l <span class="token operator">=</span> mid
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">assert</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">:</span>
+                    <span class="token keyword">return</span> <span class="token boolean">True</span>
+                <span class="token comment" spellcheck="true"># 右边不是才删除</span>
+                r <span class="token operator">=</span> r <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">==</span> target<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="「力扣」第-153-题：寻找旋转排序数组中的最小值"><a href="#「力扣」第-153-题：寻找旋转排序数组中的最小值" class="headerlink" title="「力扣」第 153 题：寻找旋转排序数组中的最小值"></a>「力扣」第 153 题：<strong>寻找旋转排序数组中的最小值</strong></h3><p>传送门：<a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/" target="_blank" rel="noopener">153. 寻找旋转排序数组中的最小值</a>。</p>
 <blockquote>
 <p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
@@ -696,11 +685,9 @@
 <p>你可以假设数组中不存在重复元素。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: [3,4,5,1,2]
-输出: 1
-</code></pre><p><strong>示例 2:</strong></p>
+输出: 1</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: [4,5,6,7,0,1,2]
-输出: 0
-</code></pre></blockquote>
+输出: 0</code></pre></blockquote>
 <p>分析：这个问题中给出的数组没有重复元素。还是利用旋转数组的那个性质，另外不要把问题想得过于复杂。</p>
 <p>下面这个模板是要记住的。</p>
 <p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fyzw9rpagaj31180n0dmu.jpg" alt="image-20190109054313705"></p>
@@ -708,48 +695,46 @@
 <p>1、<code>nums[mid] &gt; nums[right]</code>：例子：<code>[7,8,9,10,1,2]</code>，<code>mid</code> 肯定不是最小。<br>2、否则，<code>nums[mid] &lt; nums[right]</code>：例子：<code>[8,9,1,2,3,4,5,6]</code>，此时 <code>mid</code> 有可能是最小。</p>
 <p>3、还可以使用分治的思想解决这个问题。</p>
 <p>Python 代码：二分法</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def findMin(self, nums):
-        size = len(nums)
-        if size == 0:
-            raise Exception('程序出错')
-        if size == 1:
-            return nums[0]
-        l = 0
-        r = size - 1
-        while l < r:
-            mid = l + (r - l) // 2
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">findMin</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'程序出错'</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        l <span class="token operator">=</span> <span class="token number">0</span>
+        r <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
+            mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
 
-            if nums[mid] > nums[r]:
-                  # [3,4,5,6,7,8,1,2]
-                # 此时 mid 肯定不是最小元素
-                  l = mid + 1
-            else:
-                assert nums[mid] < nums[r]
-                # [7,8,1,2,3,4,5,6]
-                # mid 有可能是最小元素，所以，不能排除它
-                r = mid
-        # 一定存在最小元素，因此无须再做判断
-        return nums[l]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                  <span class="token comment" spellcheck="true"># [3,4,5,6,7,8,1,2]</span>
+                <span class="token comment" spellcheck="true"># 此时 mid 肯定不是最小元素</span>
+                  l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">assert</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span>
+                <span class="token comment" spellcheck="true"># [7,8,1,2,3,4,5,6]</span>
+                <span class="token comment" spellcheck="true"># mid 有可能是最小元素，所以，不能排除它</span>
+                r <span class="token operator">=</span> mid
+        <span class="token comment" spellcheck="true"># 一定存在最小元素，因此无须再做判断</span>
+        <span class="token keyword">return</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码2：分治法</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def findMin(self, nums):
-        size = len(nums)
-        if size == 0:
-            raise Exception('程序出错')
-        if size == 1:
-            return nums[0]
-        return self.__findMin(nums, 0, size - 1)
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">findMin</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'程序出错'</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>__findMin<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
 
-    def __findMin(self, nums, left, right):
-        if left == right:
-            return nums[left]
-        if left + 1 == right:
-            return min(nums[left], nums[right])
-        mid = left + (right - left) // 2
-        return min(self.__findMin(nums, left, mid), self.__findMin(nums, mid + 1, right))
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">def</span> <span class="token function">__findMin</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> left <span class="token operator">==</span> right<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span>
+        <span class="token keyword">if</span> left <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">==</span> right<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> min<span class="token punctuation">(</span>nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+        <span class="token keyword">return</span> min<span class="token punctuation">(</span>self<span class="token punctuation">.</span>__findMin<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">)</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>__findMin<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="「力扣」第-154-题：找旋转排序数组中的最小值-II"><a href="#「力扣」第-154-题：找旋转排序数组中的最小值-II" class="headerlink" title="「力扣」第 154 题：找旋转排序数组中的最小值 II"></a>「力扣」第 154 题：找旋转排序数组中的最小值 II</h3><p>传送门： <a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/description/" target="_blank" rel="noopener">154. 寻找旋转排序数组中的最小值 II</a>。</p>
 <blockquote>
 <p>假设按照升序排序的数组在预先未知的某个点上进行了旋转。</p>
@@ -758,11 +743,9 @@
 <p>注意数组中可能存在重复的元素。</p>
 <p><strong>示例 1：</strong></p>
 <pre><code>输入: [1,3,5]
-输出: 1
-</code></pre><p><strong>示例 2：</strong></p>
+输出: 1</code></pre><p><strong>示例 2：</strong></p>
 <pre><code>输入: [2,2,2,0,1]
-输出: 0
-</code></pre><p><strong>说明：</strong></p>
+输出: 0</code></pre><p><strong>说明：</strong></p>
 <ul>
 <li>这道题是 <a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/description/" target="_blank" rel="noopener">寻找旋转排序数组中的最小值</a> 的延伸题目。</li>
 <li>允许重复会影响算法的时间复杂度吗？会如何影响，为什么？</li>
@@ -772,65 +755,63 @@
 <p>注意点1：<code>left &lt; right</code>这是模板二分法的写法。</p>
 <p>注意点2：<code>nums[mid] &lt; nums[right]</code> 进行比较。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def findMin(self, nums):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">findMin</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type nums: List[int]
         :rtype: int
-        """
-        size = len(nums)
-        if size == 0:
-            return Exception('程序出错')
-        l = 0
-        r = size - 1
-        while l < r:
-            mid = l + (r - l) // 2
+        """</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> Exception<span class="token punctuation">(</span><span class="token string">'程序出错'</span><span class="token punctuation">)</span>
+        l <span class="token operator">=</span> <span class="token number">0</span>
+        r <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
+            mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
 
-            if nums[mid] < nums[r]:
-                # mid 有可能是最小值
-                # [7,8,1,2,3]
-                r = mid
-            elif nums[mid] > nums[r]:
-                # mid 肯定不是最小值
-                # [7,8,9,10,11,1,2,3]
-                l = mid + 1
-            else:
-                # 都有可能，所以就把 r 排除了
-                # [1,1,1,1,1,0,1]
-                assert nums[mid] == nums[r]
-                r = r - 1
-        return nums[l]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># mid 有可能是最小值</span>
+                <span class="token comment" spellcheck="true"># [7,8,1,2,3]</span>
+                r <span class="token operator">=</span> mid
+            <span class="token keyword">elif</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># mid 肯定不是最小值</span>
+                <span class="token comment" spellcheck="true"># [7,8,9,10,11,1,2,3]</span>
+                l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 都有可能，所以就把 r 排除了</span>
+                <span class="token comment" spellcheck="true"># [1,1,1,1,1,0,1]</span>
+                <span class="token keyword">assert</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span>
+                r <span class="token operator">=</span> r <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class Solution {
-    public int findMin(int[] nums) {
-        int len = nums.length;
-        if (len == 0) {
-            return 0;
-        }
-        int first = 0;
-        int last = len - 1;
-        while (first < last) {
-            int mid = first + (last - first) / 2;
-            if (nums[mid] > nums[last]) {
-                // 例如：[7,8,9,10,11,12,1,2]，最小的一定不在前面，也一定不是 mid
-                // 所以可以放心地 + 1
-                first = mid + 1;
-            } else if (nums[mid] == nums[last]) {
-                // [1,1,1,1,0,1] 和 [1,0,1,1,1,1] 这两种情况，只能把 last 给排除掉
-                // 因为 nums[mid] == nums[last] 相等，最小元素不会丢掉
-                last = last - 1;
-            } else {
-                // 当 nums[mid] < nums[last] 的时候
-                // mid 有可能是最小解，不能写成 last = mid - 1
-                last = mid;
-            }
-        }
-        // 这里 return nums[last] 也是可以的，因为跳出那层 while 的时候有，first = last 
-        return nums[first];
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">findMin</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> first <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> last <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>first <span class="token operator">&lt;</span> last<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> first <span class="token operator">+</span> <span class="token punctuation">(</span>last <span class="token operator">-</span> first<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>last<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 例如：[7,8,9,10,11,12,1,2]，最小的一定不在前面，也一定不是 mid</span>
+                <span class="token comment" spellcheck="true">// 所以可以放心地 + 1</span>
+                first <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> nums<span class="token punctuation">[</span>last<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// [1,1,1,1,0,1] 和 [1,0,1,1,1,1] 这两种情况，只能把 last 给排除掉</span>
+                <span class="token comment" spellcheck="true">// 因为 nums[mid] == nums[last] 相等，最小元素不会丢掉</span>
+                last <span class="token operator">=</span> last <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 当 nums[mid] &lt; nums[last] 的时候</span>
+                <span class="token comment" spellcheck="true">// mid 有可能是最小解，不能写成 last = mid - 1</span>
+                last <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 这里 return nums[last] 也是可以的，因为跳出那层 while 的时候有，first = last </span>
+        <span class="token keyword">return</span> nums<span class="token punctuation">[</span>first<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>此时，还可以使用分治的思想。</p>
 <p>如果使用分治法，代码和第 153 题是一模一样的。</p>
 <p>同《剑指 Offer》第 11 题：旋转数组中的最小数字。</p>
@@ -843,8 +824,7 @@
 <p><strong>注意</strong>：数组内所含元素非负，若数组大小为0，请返回-1。</p>
 <h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h4><pre><code>输入：nums=[2,2,2,0,1]
 
-输出：0
-</code></pre></blockquote>
+输出：0</code></pre></blockquote>
 <p>分析：使用二分查找算法解决，要注意一些细节，从后向前。</p>
 <p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1fyy2jdlwtrj30tw11ynpd.jpg" alt="image-20190107154850626"></p>
 <h3 id="LeetCode-第-189-题：生成旋转数组"><a href="#LeetCode-第-189-题：生成旋转数组" class="headerlink" title="LeetCode 第 189 题：生成旋转数组"></a>LeetCode 第 189 题：生成旋转数组</h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/rotate-array/description/" target="_blank" rel="noopener">189. Rotate Array</a> ，中文网址：<a href="https://leetcode-cn.com/problems/rotate-array/description/" target="_blank" rel="noopener">189. 旋转数组</a> 。</p>
@@ -856,64 +836,61 @@
 解释:
 向右旋转 1 步: [7,1,2,3,4,5,6]
 向右旋转 2 步: [6,7,1,2,3,4,5]
-向右旋转 3 步: [5,6,7,1,2,3,4]
-</code></pre><p><strong>示例 2:</strong></p>
+向右旋转 3 步: [5,6,7,1,2,3,4]</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: [-1,-100,3,99] 和 k = 2
 输出: [3,99,-1,-100]
 解释: 
 向右旋转 1 步: [99,-1,-100,3]
-向右旋转 2 步: [3,99,-1,-100]
-</code></pre><p><strong>说明:</strong></p>
+向右旋转 2 步: [3,99,-1,-100]</code></pre><p><strong>说明:</strong></p>
 <ul>
 <li>尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。</li>
 <li>要求使用空间复杂度为 O(1) 的原地算法。</li>
 </ul>
 </blockquote>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def rotate(self, nums, k):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">rotate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type nums: List[int]
         :type k: int
         :rtype: void Do not return anything, modify nums in-place instead.
-        """
+        """</span>
 
-        # 先处理极端情况
+        <span class="token comment" spellcheck="true"># 先处理极端情况</span>
 
-        if len(nums) == 0 or k <= 0:
-            return
+        <span class="token keyword">if</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> k <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
 
-        k = k % len(nums)
+        k <span class="token operator">=</span> k <span class="token operator">%</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
 
-        # 做下面 3 个逆转动作的时候，注意边界条件
-        # 技巧就是举具体的例子
-        self.__reverse(nums, 0, len(nums) - 1)
-        self.__reverse(nums, 0, k - 1)
-        self.__reverse(nums, k, len(nums) - 1)
+        <span class="token comment" spellcheck="true"># 做下面 3 个逆转动作的时候，注意边界条件</span>
+        <span class="token comment" spellcheck="true"># 技巧就是举具体的例子</span>
+        self<span class="token punctuation">.</span>__reverse<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>__reverse<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>__reverse<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> k<span class="token punctuation">,</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
 
-    def __reverse(self, nums, index1, index2):
-        """
+    <span class="token keyword">def</span> <span class="token function">__reverse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> index1<span class="token punctuation">,</span> index2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         将数组 [index1,index2] 区间内的元素进行逆转
         :param nums:
         :param index1:
         :param index2:
         :return:
-        """
+        """</span>
 
-        while index1 < index2:
-            nums[index1], nums[index2] = nums[index2], nums[index1]
-            index1 += 1
-            index2 -= 1
+        <span class="token keyword">while</span> index1 <span class="token operator">&lt;</span> index2<span class="token punctuation">:</span>
+            nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span>
+            index1 <span class="token operator">+=</span> <span class="token number">1</span>
+            index2 <span class="token operator">-=</span> <span class="token number">1</span>
 
 
-if __name__ == '__main__':
-    nums = [1, 2, 3, 4, 5, 6, 7]
-    k = 3
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">]</span>
+    k <span class="token operator">=</span> <span class="token number">3</span>
 
-    s = Solution()
-    s.rotate(nums, k)
-    print(nums)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    s <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>rotate<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> k<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
 
             </div>
@@ -1181,39 +1158,38 @@ if __name__ == '__main__':
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/leetcode-algo/2019/06/19/leetcode-solution-new/search-insert-position/">
+                <a href="/leetcode-algo/2018/07/01/leetcode-algo/0012-integer-to-roman/">
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/10.jpg" class="responsive-img" alt="特别好用的二分查找法模板（第 2 版）">
+                        <img src="/leetcode-algo/medias/featureimages/0.jpg" class="responsive-img" alt="「力扣」第 12 题：整数转罗马数字">
                         
-                        <span class="card-title">特别好用的二分查找法模板（第 2 版）</span>
+                        <span class="card-title">「力扣」第 12 题：整数转罗马数字</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            特别好用的二分查找法模板（第 2 版）
-特点：
-1、讲思想，讲原理；
-2、把细节的地方理解清楚，就不难了，二分法可以轻松掌握。
+                            「力扣」第 12 题：整数转罗马数字
+链接：12. 整数转罗马数字；
+题解：贪心算法（贪心算法的有效性未证明））。
 
-一、点击视频快速理解
-「力扣」第 1095 题：山脉数组中查找目标值 题解；
 
-「力扣」第 35 题：搜索插入
+罗马数字包含以下七种字符： I，V， X， L，C，D 和 M。
+字符          数值
+I           
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2019-06-19
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-07-01
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-category">
-                                    专题 2：二分查找
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-16%EF%BC%9A%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/" class="post-category">
+                                    专题 16：贪心算法
                                 </a>
                             
                             
@@ -1223,12 +1199,8 @@ if __name__ == '__main__':
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-                        <span class="chip bg-color">二分查找</span>
-                    </a>
-                    
-                    <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E6%80%9D%E6%83%B3/">
-                        <span class="chip bg-color">减治思想</span>
+                    <a href="/leetcode-algo/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">贪心算法</span>
                     </a>
                     
                 </div>

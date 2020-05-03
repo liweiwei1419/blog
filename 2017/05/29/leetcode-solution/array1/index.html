@@ -488,82 +488,82 @@
                 <h2 id="「数组」专题-1：简单问题汇总"><a href="#「数组」专题-1：简单问题汇总" class="headerlink" title="「数组」专题 1：简单问题汇总"></a>「数组」专题 1：简单问题汇总</h2><h3 id="「力扣」第-215-题：数组中的第-K-个最大元素"><a href="#「力扣」第-215-题：数组中的第-K-个最大元素" class="headerlink" title="「力扣」第 215 题：数组中的第 K 个最大元素"></a>「力扣」第 215 题：<a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array" target="_blank" rel="noopener">数组中的第 K 个最大元素</a></h3><p>1、使用优先队列完成；</p>
 <p>2、使用快速排序完成。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 给定任意一个数组，返回第 k 大的元素，并非索引
      *
      * @param nums
      * @param k
      * @return
-     */
-    public int findKthLargest(int[] nums, int k) {
-        int len = nums.length;
-        int p = 0;
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">findKthLargest</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-        int left = 0;
-        int right = len - 1;
-        while (left <= right) {
-            p = partition(nums, left, right);
-            if (len - p == k) {
-                break;
-            } else if (len - p + 1 > k) {
-                left = p + 1;
-            } else {
-                right = p - 1;
-            }
-        }
-        return nums[p];
-    }
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;=</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            p <span class="token operator">=</span> <span class="token function">partition</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">-</span> p <span class="token operator">==</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">-</span> p <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">></span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                left <span class="token operator">=</span> p <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                right <span class="token operator">=</span> p <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> nums<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 4,3,7,8
      *
      * @param nums
      * @param left
      * @param right
      * @return
-     */
-    private int partition(int[] nums, int left, int right) {
-        // 就找第 1 个元素作为标定点
-        int k = nums[left];
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">partition</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 就找第 1 个元素作为标定点</span>
+        <span class="token keyword">int</span> k <span class="token operator">=</span> nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-        int i = left + 1; // [left,i)小于 k
-        int j = right; // (j,right]大于 k
+        <span class="token keyword">int</span> i <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [left,i)小于 k</span>
+        <span class="token keyword">int</span> j <span class="token operator">=</span> right<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// (j,right]大于 k</span>
 
-        for (int l = left + 1; i <= j; l++) {
-            if (nums[l] < k) {
-                i++;
-            } else {//nums[l]>=k
-                swap(nums, l, j--);
-                l--;
-            }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> l <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> j<span class="token punctuation">;</span> l<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">&lt;</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                i<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token comment" spellcheck="true">//nums[l]>=k</span>
+                <span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> j<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                l<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-        }
-        i--;
-        swap(nums, i, left);
-        return i;
-    }
-
-
-    private void swap(int[] data, int index1, int index2) {
-        if (index1 == index2) return;
-        int temp = data[index1];
-        data[index1] = data[index2];
-        data[index2] = temp;
-    }
+        <span class="token punctuation">}</span>
+        i<span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> i<span class="token punctuation">,</span> left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
 
-    public static void main(String[] args) {
-        int[] data = {3, 2, 1, 5, 6, 4};
-        int k = 2;
-        Solution solution = new Solution();
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data<span class="token punctuation">,</span> <span class="token keyword">int</span> index1<span class="token punctuation">,</span> <span class="token keyword">int</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index1 <span class="token operator">==</span> index2<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> temp <span class="token operator">=</span> data<span class="token punctuation">[</span>index1<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        data<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> data<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        data<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-        solution.partition(data, 2, 4);
-        int kthLargest = solution.findKthLargest(data, k);
-        System.out.println("kthLargest = >" + kthLargest);
-    }
-}
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        solution<span class="token punctuation">.</span><span class="token function">partition</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> kthLargest <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">findKthLargest</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"kthLargest = >"</span> <span class="token operator">+</span> kthLargest<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="「力扣」第-5-题：最长回文子串"><a href="#「力扣」第-5-题：最长回文子串" class="headerlink" title="「力扣」第 5 题：最长回文子串"></a>「力扣」第 5 题：最长回文子串</h3><p>解法1：中心扩散法； </p>
 <p>解法2：动态规划； </p>
@@ -572,326 +572,318 @@
 <h3 id="「力扣」第-438-题：找到字符串中所有字母异位词"><a href="#「力扣」第-438-题：找到字符串中所有字母异位词" class="headerlink" title="「力扣」第 438 题：找到字符串中所有字母异位词"></a>「力扣」第 438 题：找到字符串中所有字母异位词</h3><p>使用<strong>滑动窗口</strong>解决的典型问题。</p>
 <h3 id="「力扣」第-76-题：-最小覆盖子串（困难）"><a href="#「力扣」第-76-题：-最小覆盖子串（困难）" class="headerlink" title="「力扣」第 76 题： 最小覆盖子串（困难）"></a>「力扣」第 76 题： 最小覆盖子串（困难）</h3><h3 id="「力扣」第-630-题：课程调度问题"><a href="#「力扣」第-630-题：课程调度问题" class="headerlink" title="「力扣」第 630 题：课程调度问题"></a>「力扣」第 630 题：课程调度问题</h3><h3 id="「力扣」第-452-题：用最少数量的箭引爆气球。"><a href="#「力扣」第-452-题：用最少数量的箭引爆气球。" class="headerlink" title="「力扣」第 452 题：用最少数量的箭引爆气球。"></a>「力扣」第 452 题：用最少数量的箭引爆气球。</h3><p>关键：画图。<strong>理解按照右端点升序排序的好处。</strong></p>
 <h3 id="「力扣」第-80-题：删除排序数组中的重复项-II"><a href="#「力扣」第-80-题：删除排序数组中的重复项-II" class="headerlink" title="「力扣」第 80 题：删除排序数组中的重复项 II"></a>「力扣」第 80 题：<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii" target="_blank" rel="noopener">删除排序数组中的重复项 II</a></h3><p>这个写的比较顺，一下就通过了，但是我的解法只是击败了 35.43% 的选手。</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 如果我们允许重复的元素最多出现两次呢？
      *
      * @param nums
      * @return
-     */
-    public int removeDuplicates(int[] nums) {
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">removeDuplicates</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-        int k = 0;// 从[0,k) 这个区间里的所有元素是一个有序数组，并且重复元素最多出现两次
-        int duplicate_time = 0;
+        <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">// 从[0,k) 这个区间里的所有元素是一个有序数组，并且重复元素最多出现两次</span>
+        <span class="token keyword">int</span> duplicate_time <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-        // 首先考虑极端的情况
-        int len = nums.length;
-        if (len == 0) {
-            return 0;
-        }
-        nums[k++] = nums[0];
+        <span class="token comment" spellcheck="true">// 首先考虑极端的情况</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        nums<span class="token punctuation">[</span>k<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-        if (len == 1) {
-            return 1;
-        }
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        for (int i = 1; i < len; i++) {
-            if (nums[i] - nums[i - 1] == 0) {
-                duplicate_time++;
-                if (duplicate_time < 2) {
-                    // 重复次数大于等于 2 次，什么都不做
-                    nums[k++] = nums[i];
-                }
-            } else { // nums[i] - nums[i - 1] > 0
-                duplicate_time = 0;
-                nums[k++] = nums[i];
-            }
-        }
-        // 把数组的剩余元素赋值为 -1
-        for (int i = k; i < len; i++) {
-            nums[i] = -1;
-        }
-        return k;
-    }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> nums<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                duplicate_time<span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>duplicate_time <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">// 重复次数大于等于 2 次，什么都不做</span>
+                    nums<span class="token punctuation">[</span>k<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// nums[i] - nums[i - 1] > 0</span>
+                duplicate_time <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+                nums<span class="token punctuation">[</span>k<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 把数组的剩余元素赋值为 -1</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> k<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> k<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        int[] arr = {1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4};
-        Solution solution = new Solution();
-        int removeDuplicates = solution.removeDuplicates(arr);
-        System.out.println("剩余的数组元素的个数 => " + removeDuplicates);
-        System.out.println(Arrays.toString(arr));
-    }
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> removeDuplicates <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">removeDuplicates</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"剩余的数组元素的个数 => "</span> <span class="token operator">+</span> removeDuplicates<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="「力扣」第-75-题：颜色分类"><a href="#「力扣」第-75-题：颜色分类" class="headerlink" title="「力扣」第 75 题：颜色分类"></a>「力扣」第 75 题：<a href="https://leetcode-cn.com/problems/sort-colors" target="_blank" rel="noopener">颜色分类</a></h3><p>分析：三路快排，不借助额外空间就排好序，背模板。。</p>
 <h3 id="「力扣」第-88-题：合并两个有序数组"><a href="#「力扣」第-88-题：合并两个有序数组" class="headerlink" title="「力扣」第 88 题：合并两个有序数组"></a>「力扣」第 88 题：<a href="https://leetcode-cn.com/problems/merge-sorted-array" target="_blank" rel="noopener">合并两个有序数组</a></h3><p>关键：从后向前归并排序，背模板。其实就是归并排序，从后面向前面归并排序，扩展：字符串替换空格。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * @param nums1 一个排好序的数组1
      * @param m
      * @param nums2 一个排好序的数组2
      * @param n     结果放在 nums1 中
-     */
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int[] temp = new int[m + n];
-        for (int i = 0; i < m; i++) {
-            temp[i] = nums1[i];
-        }
-        for (int i = 0; i < n; i++) {
-            temp[m + i] = nums2[i];
-        }
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums1<span class="token punctuation">,</span> <span class="token keyword">int</span> m<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums2<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>m <span class="token operator">+</span> n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            temp<span class="token punctuation">[</span>m <span class="token operator">+</span> i<span class="token punctuation">]</span> <span class="token operator">=</span> nums2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
 
-        int left = 0; // 数组1的第1个元素
-        int right = m; // 数组2的第1个元素
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 数组1的第1个元素</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> m<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 数组2的第1个元素</span>
 
-        // 这种特殊情况要考虑进去
-        if (m > 0 && n > 0 && temp[m - 1] <= temp[m]) {
-            for (int i = 0; i < m + n; i++) {
-                nums1[i] = temp[i];
-            }
-            return;
-        }
+        <span class="token comment" spellcheck="true">// 这种特殊情况要考虑进去</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>m <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> n <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> temp<span class="token punctuation">[</span>m <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&lt;=</span> temp<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m <span class="token operator">+</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        // 要赋值完 m+n 个元素，就要遍历 m+n 个元素
-        for (int i = 0; i < m + n; i++) {
-            if (left >= m) { // 如果左边用完了，就一直拿右边的元素
-                nums1[i] = temp[right];
-                right++;
-            } else if (right >= m + n) {
-                nums1[i] = temp[left];
-                left++;
-            } else if (temp[left] < temp[right]) {
-                nums1[i] = temp[left];
-                left++;
-            } else { // temp[left] >= temp[right]
-                nums1[i] = temp[right];
-                right++;
-            }
-        }
-    }
+        <span class="token comment" spellcheck="true">// 要赋值完 m+n 个元素，就要遍历 m+n 个元素</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m <span class="token operator">+</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>left <span class="token operator">>=</span> m<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 如果左边用完了，就一直拿右边的元素</span>
+                nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                right<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>right <span class="token operator">>=</span> m <span class="token operator">+</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                left<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>temp<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">&lt;</span> temp<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                left<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// temp[left] >= temp[right]</span>
+                nums1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                right<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        int[] nums1 = {0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-        int[] nums2 = {5, 6, 7, 8, 9};
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-        Solution solution = new Solution();
-        solution.merge(nums1, 5, nums2, 5);
-        System.out.println(Arrays.toString(nums1));
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        solution<span class="token punctuation">.</span><span class="token function">merge</span><span class="token punctuation">(</span>nums1<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> nums2<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>nums1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    }
+    <span class="token punctuation">}</span>
 
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="「力扣」第-56-题：压缩区间（区间个数变少）"><a href="#「力扣」第-56-题：压缩区间（区间个数变少）" class="headerlink" title="「力扣」第 56 题：压缩区间（区间个数变少）"></a>「力扣」第 56 题：压缩区间（区间个数变少）</h3><p>链接：<a href="https://leetcode-cn.com/problems/merge-intervals/" target="_blank" rel="noopener">56. 合并区间</a>。</p>
 <blockquote>
 <p>给出一个区间的集合，请合并所有重叠的区间。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: [[1,3],[2,6],[8,10],[15,18]]
 输出: [[1,6],[8,10],[15,18]]
-解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
-</code></pre><p><strong>示例 2:</strong></p>
+解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: [[1,4],[4,5]]
 输出: [[1,5]]
-解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。
-</code></pre></blockquote>
+解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</code></pre></blockquote>
 <p>注意：对于 <code>list</code> 对象而言，<code>if l</code> 等价于 <code>if len(l) &gt; 0</code> 而不是 <code>l is not Node</code>。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/414598-708701bf68919ed9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190110155739620"></p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python"># Definition for an interval.
-class Interval(object):
-    def __init__(self, s=0, e=0):
-        self.start = s
-        self.end = e
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Definition for an interval.</span>
+<span class="token keyword">class</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">,</span> e<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>start <span class="token operator">=</span> s
+        self<span class="token punctuation">.</span>end <span class="token operator">=</span> e
 
-    def __str__(self):
-        return '[' + str(self.start) + ',' + str(self.end) + ']'
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">'['</span> <span class="token operator">+</span> str<span class="token punctuation">(</span>self<span class="token punctuation">.</span>start<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">','</span> <span class="token operator">+</span> str<span class="token punctuation">(</span>self<span class="token punctuation">.</span>end<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">']'</span>
 
 
-class Solution(object):
-    def merge(self, intervals):
-        """
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">merge</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> intervals<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type intervals: List[Interval]
         :rtype: List[Interval]
-        """
-        result = []
-        # 按照开始端点升序排序
-        sorted_intervals = sorted(intervals, key=lambda x: x.start)
+        """</span>
+        result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token comment" spellcheck="true"># 按照开始端点升序排序</span>
+        sorted_intervals <span class="token operator">=</span> sorted<span class="token punctuation">(</span>intervals<span class="token punctuation">,</span> key<span class="token operator">=</span><span class="token keyword">lambda</span> x<span class="token punctuation">:</span> x<span class="token punctuation">.</span>start<span class="token punctuation">)</span>
 
-        for intv in sorted_intervals:
-            if len(result) != 0 and result[-1].end >= intv.start:
-                # 说明当前遍历到的区间和结果集中有交集
-                result[-1].end = max(result[-1].end, intv.end)
-            else:
-                result.append(intv)
-        return result
+        <span class="token keyword">for</span> intv <span class="token keyword">in</span> sorted_intervals<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> len<span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token operator">and</span> result<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>end <span class="token operator">>=</span> intv<span class="token punctuation">.</span>start<span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 说明当前遍历到的区间和结果集中有交集</span>
+                result<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>end <span class="token operator">=</span> max<span class="token punctuation">(</span>result<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>end<span class="token punctuation">,</span> intv<span class="token punctuation">.</span>end<span class="token punctuation">)</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                result<span class="token punctuation">.</span>append<span class="token punctuation">(</span>intv<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> result
 
 
-if __name__ == '__main__':
-    # [[1, 3], [2, 6], [8, 10], [15, 18]]
-    i1 = Interval(1, 3)
-    i2 = Interval(2, 6)
-    i3 = Interval(8, 10)
-    i4 = Interval(15, 18)
-    intervals = [i1, i2, i3, i4]
-    solution = Solution()
-    result = solution.merge(intervals)
-    for item in result:
-        print(item)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># [[1, 3], [2, 6], [8, 10], [15, 18]]</span>
+    i1 <span class="token operator">=</span> Interval<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+    i2 <span class="token operator">=</span> Interval<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span>
+    i3 <span class="token operator">=</span> Interval<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+    i4 <span class="token operator">=</span> Interval<span class="token punctuation">(</span><span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">18</span><span class="token punctuation">)</span>
+    intervals <span class="token operator">=</span> <span class="token punctuation">[</span>i1<span class="token punctuation">,</span> i2<span class="token punctuation">,</span> i3<span class="token punctuation">,</span> i4<span class="token punctuation">]</span>
+    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    result <span class="token operator">=</span> solution<span class="token punctuation">.</span>merge<span class="token punctuation">(</span>intervals<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> item <span class="token keyword">in</span> result<span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="「力扣」第-57-题：插入一个区间（区间个数不变）"><a href="#「力扣」第-57-题：插入一个区间（区间个数不变）" class="headerlink" title="「力扣」第 57 题：插入一个区间（区间个数不变）"></a>「力扣」第 57 题：插入一个区间（区间个数不变）</h3><p>链接：<a href="https://leetcode-cn.com/problems/insert-interval/" target="_blank" rel="noopener">57. 插入区间</a>。</p>
 <blockquote>
 <p>给出一个<em>无重叠的 ，</em>按照区间起始端点排序的区间列表。</p>
 <p>在列表中插入一个新的区间，你需要确保列表中的区间仍然有序且不重叠（如果有必要的话，可以合并区间）。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: intervals = [[1,3],[6,9]], newInterval = [2,5]
-输出: [[1,5],[6,9]]
-</code></pre><p><strong>示例 2:</strong></p>
+输出: [[1,5],[6,9]]</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
 输出: [[1,2],[3,10],[12,16]]
-解释: 这是因为新的区间 [4,8] 与 [3,5],[6,7],[8,10] 重叠。
-</code></pre></blockquote>
+解释: 这是因为新的区间 [4,8] 与 [3,5],[6,7],[8,10] 重叠。</code></pre></blockquote>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.*;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
 
-class Interval {
-    int start;
-    int end;
+<span class="token keyword">class</span> <span class="token class-name">Interval</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> start<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> end<span class="token punctuation">;</span>
 
-    Interval() {
-        start = 0;
-        end = 0;
-    }
+    <span class="token function">Interval</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        end <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    Interval(int s, int e) {
-        start = s;
-        end = e;
-    }
-}
+    <span class="token function">Interval</span><span class="token punctuation">(</span><span class="token keyword">int</span> s<span class="token punctuation">,</span> <span class="token keyword">int</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        start <span class="token operator">=</span> s<span class="token punctuation">;</span>
+        end <span class="token operator">=</span> e<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 
-// http://zxi.mytechroad.com/blog/geometry/leetcode-57-insert-interval/
+<span class="token comment" spellcheck="true">// http://zxi.mytechroad.com/blog/geometry/leetcode-57-insert-interval/</span>
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-        int len = intervals.size();
-        if (len == 0) {
-            intervals.add(newInterval);
-            return intervals;
-        }
-        intervals.add(newInterval);
+    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>Interval<span class="token operator">></span> <span class="token function">insert</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>Interval<span class="token operator">></span> intervals<span class="token punctuation">,</span> Interval newInterval<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> intervals<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>newInterval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> intervals<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>newInterval<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        // intervals.sort((Interval a, Interval b) -> a.start - b.start);
-        intervals.sort(Comparator.comparingInt((Interval i) -> i.start));
-        Stack<Interval> stack = new Stack<>();
-        stack.add(intervals.get(0));
+        <span class="token comment" spellcheck="true">// intervals.sort((Interval a, Interval b) -> a.start - b.start);</span>
+        intervals<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>Comparator<span class="token punctuation">.</span><span class="token function">comparingInt</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Interval i<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> i<span class="token punctuation">.</span>start<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Stack<span class="token operator">&lt;</span>Interval<span class="token operator">></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        stack<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>intervals<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        for (int i = 1; i <= len; i++) {
-            Interval peekInterval = stack.peek();
-            Interval curInterval = intervals.get(i);
-            if (peekInterval.end < curInterval.start) {
-                // [1,3] [4,6] 这种情况，无论如何也合并不了的
-                stack.add(curInterval);
-            } else {
-                // [1,3][3,5]
-                // [1,3][2,6]
-                // 这两种情况就需要合并
-                peekInterval.end = Math.max(curInterval.end, peekInterval.end);
-            }
-        }
-        return stack;
-    }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Interval peekInterval <span class="token operator">=</span> stack<span class="token punctuation">.</span><span class="token function">peek</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Interval curInterval <span class="token operator">=</span> intervals<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>peekInterval<span class="token punctuation">.</span>end <span class="token operator">&lt;</span> curInterval<span class="token punctuation">.</span>start<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// [1,3] [4,6] 这种情况，无论如何也合并不了的</span>
+                stack<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>curInterval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// [1,3][3,5]</span>
+                <span class="token comment" spellcheck="true">// [1,3][2,6]</span>
+                <span class="token comment" spellcheck="true">// 这两种情况就需要合并</span>
+                peekInterval<span class="token punctuation">.</span>end <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>curInterval<span class="token punctuation">.</span>end<span class="token punctuation">,</span> peekInterval<span class="token punctuation">.</span>end<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> stack<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        // intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
-        Interval interval1 = new Interval(1, 2);
-        Interval interval2 = new Interval(3, 5);
-        Interval interval3 = new Interval(6, 7);
-        Interval interval4 = new Interval(8, 10);
-        Interval interval5 = new Interval(12, 16);
-        List<Interval> intervals = new ArrayList<>();
-        intervals.add(interval1);
-        intervals.add(interval2);
-        intervals.add(interval3);
-        intervals.add(interval4);
-        intervals.add(interval5);
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]</span>
+        Interval interval1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Interval interval2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Interval interval3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Interval interval4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Interval interval5 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>Interval<span class="token operator">></span> intervals <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interval1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interval2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interval3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interval4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interval5<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        Solution solution = new Solution();
-        Interval newInterval = new Interval(4, 8);
-        List<Interval> list = solution.insert(intervals, newInterval);
-        for (Interval interval : list) {
-            System.out.println("[" + interval.start + ", " + interval.end + "]");
-        }
-    }
-}
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Interval newInterval <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>Interval<span class="token operator">></span> list <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>intervals<span class="token punctuation">,</span> newInterval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Interval interval <span class="token operator">:</span> list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"["</span> <span class="token operator">+</span> interval<span class="token punctuation">.</span>start <span class="token operator">+</span> <span class="token string">", "</span> <span class="token operator">+</span> interval<span class="token punctuation">.</span>end <span class="token operator">+</span> <span class="token string">"]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.ArrayList;
-import java.util.List;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
 
-public class Solution2 {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution2</span> <span class="token punctuation">{</span>
 
-    public List<Interval> insert(List<Interval> intervals, Interval newInterval) {
-        if (newInterval == null) {
-            return intervals;
-        }
-        List<Interval> res = new ArrayList<>();
-        int len = intervals.size();
+    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>Interval<span class="token operator">></span> <span class="token function">insert</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>Interval<span class="token operator">></span> intervals<span class="token punctuation">,</span> Interval newInterval<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>newInterval <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> intervals<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        List<span class="token operator">&lt;</span>Interval<span class="token operator">></span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> intervals<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        // 之前的加起来
-        int i = 0;
-        while (i < len && intervals.get(i).end < newInterval.start) {
-            res.add(intervals.get(i));
-            i++;
-        }
+        <span class="token comment" spellcheck="true">// 之前的加起来</span>
+        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> len <span class="token operator">&amp;&amp;</span> intervals<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span>end <span class="token operator">&lt;</span> newInterval<span class="token punctuation">.</span>start<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>intervals<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            i<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        //
-        // intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
-        // 此时 intervals.get(i).end >= newInterval.start
-        while (i < len && intervals.get(i).start <= newInterval.end) {
-            newInterval.start = Math.min(newInterval.start, intervals.get(i).start);
-            newInterval.end = Math.max(newInterval.end, intervals.get(i).end);
-            i++;
-        }
+        <span class="token comment" spellcheck="true">//</span>
+        <span class="token comment" spellcheck="true">// intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]</span>
+        <span class="token comment" spellcheck="true">// 此时 intervals.get(i).end >= newInterval.start</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> len <span class="token operator">&amp;&amp;</span> intervals<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span>start <span class="token operator">&lt;=</span> newInterval<span class="token punctuation">.</span>end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            newInterval<span class="token punctuation">.</span>start <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>newInterval<span class="token punctuation">.</span>start<span class="token punctuation">,</span> intervals<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span>start<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            newInterval<span class="token punctuation">.</span>end <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>newInterval<span class="token punctuation">.</span>end<span class="token punctuation">,</span> intervals<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span>end<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            i<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        res.add(newInterval);
+        res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>newInterval<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        // 把剩下的加掉
-        while (i < intervals.size()) {
-            res.add(intervals.get(i));
-            i++;
-        }
-        return res;
-    }
+        <span class="token comment" spellcheck="true">// 把剩下的加掉</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> intervals<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>intervals<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            i<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        // intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
-        Interval interval1 = new Interval(1, 2);
-        Interval interval2 = new Interval(3, 5);
-        Interval interval3 = new Interval(6, 7);
-        Interval interval4 = new Interval(8, 10);
-        Interval interval5 = new Interval(12, 16);
-        List<Interval> intervals = new ArrayList<>();
-        intervals.add(interval1);
-        intervals.add(interval2);
-        intervals.add(interval3);
-        intervals.add(interval4);
-        intervals.add(interval5);
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]</span>
+        Interval interval1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Interval interval2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Interval interval3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Interval interval4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Interval interval5 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>Interval<span class="token operator">></span> intervals <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interval1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interval2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interval3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interval4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervals<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interval5<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        Solution2 solution2 = new Solution2();
-        Interval newInterval = new Interval(4, 8);
-        List<Interval> list = solution2.insert(intervals, newInterval);
-        for (Interval interval : list) {
-            System.out.println("[" + interval.start + ", " + interval.end + "]");
-        }
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        Solution2 solution2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Interval newInterval <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Interval</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>Interval<span class="token operator">></span> list <span class="token operator">=</span> solution2<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>intervals<span class="token punctuation">,</span> newInterval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Interval interval <span class="token operator">:</span> list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"["</span> <span class="token operator">+</span> interval<span class="token punctuation">.</span>start <span class="token operator">+</span> <span class="token string">", "</span> <span class="token operator">+</span> interval<span class="token punctuation">.</span>end <span class="token operator">+</span> <span class="token string">"]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="「力扣」第-836-题：矩形重叠"><a href="#「力扣」第-836-题：矩形重叠" class="headerlink" title="「力扣」第 836 题：矩形重叠"></a>「力扣」第 836 题：矩形重叠</h3><p>要求：矩形以列表 <code>[x1, y1, x2, y2]</code> 的形式表示，其中 <code>(x1, y1)</code> 为左下角的坐标，<code>(x2, y2)</code> 是右上角的坐标。</p>
 <p>如果相交的面积为正，则称两矩形重叠。需要明确的是，只在角或边接触的两个矩形不构成重叠。</p>
 <p>给出两个矩形，判断它们是否重叠并返回结果。</p>
@@ -903,16 +895,14 @@ public class Solution2 {
 
 （2,0）（2,1）（2,2）（2,3）
 
-（3,0）（3,1）（3,2）（3,3）
-</code></pre><p>而是直角坐标系</p>
+（3,0）（3,1）（3,2）（3,3）</code></pre><p>而是直角坐标系</p>
 <pre><code>（3,0）（3,1）（3,2）（3,3）
 
 （2,0）（2,1）（2,2）（2,3）
 
 （1,0）（1,1）（1,2）（1,3）
 
-（0,0）（0,1）（0,2）（0,3）
-</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/414598-7e119ec656bb6f8e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190111002624407"></p>
+（0,0）（0,1）（0,2）（0,3）</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/414598-7e119ec656bb6f8e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image-20190111002624407"></p>
 <p>（本节完）</p>
 
             </div>

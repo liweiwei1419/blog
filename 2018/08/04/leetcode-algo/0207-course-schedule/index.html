@@ -1,0 +1,1744 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="「力扣」第 207 题：课程表, 算法与数据结构入门教程">
+    <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>「力扣」第 207 题：课程表 | 算法与数据结构入门教程</title>
+    <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/my.css">
+
+    <script src="/leetcode-algo/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/leetcode-algo/atom.xml" title="算法与数据结构入门教程" type="application/atom+xml">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-xonokai.css" type="text/css">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-line-numbers.css" type="text/css"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/leetcode-algo/" class="waves-effect waves-light">
+                    
+                    <img src="/leetcode-algo/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">算法与数据结构入门教程</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/leetcode-algo/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">算法与数据结构入门教程</div>
+        <div class="logo-desc">
+            
+            Java、Python3 语言实现，「专题」教程持续更新中...
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">「力扣」第 207 题：课程表</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/leetcode-algo/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    .toc-fixed .toc-link::before{
+        position: fixed!important;/*当toc的位置改为fixed时，.toc-link::before也要改为fixed*/
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/">
+                                <span class="chip bg-color">广度优先遍历</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/" class="post-category">
+                                专题 17：广度优先遍历
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-08-04
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="「力扣」第-207-题：课程表"><a href="#「力扣」第-207-题：课程表" class="headerlink" title="「力扣」第 207 题：课程表"></a>「力扣」第 207 题：课程表</h2><ul>
+<li>链接：<a href="https://leetcode-cn.com/problems/course-schedule/" target="_blank" rel="noopener">207. 课程表</a>；</li>
+<li>题解地址：<a href="https://leetcode-cn.com/problems/course-schedule/solution/tuo-bu-pai-xu-by-liweiwei1419/" target="_blank" rel="noopener">拓扑排序 + 深度优先遍历（Python 代码、Java 代码）</a>。</li>
+</ul>
+<blockquote>
+<p>现在你总共有 n 门课需要选，记为 0 到 n-1。</p>
+<p>在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: [0,1]</p>
+<p>给定课程总量以及它们的先决条件，判断是否可能完成所有课程的学习？</p>
+<p>示例 1:</p>
+<p>输入: 2, [[1,0]]<br>输出: true<br>解释: 总共有 2 门课程。学习课程 1 之前，你需要完成课程 0。所以这是可能的。<br>示例 2:</p>
+<p>输入: 2, [[1,0],[0,1]]<br>输出: false<br>解释: 总共有 2 门课程。学习课程 1 之前，你需要先完成课程 0；并且学习课程 0 之前，你还应先完成课程 1。这是不可能的。<br>说明:</p>
+<p>输入的先决条件是由边缘列表表示的图形，而不是邻接矩阵。详情请参见图的表示法。<br>你可以假定输入的先决条件中没有重复的边。<br>提示:</p>
+<p>这个问题相当于查找一个循环是否存在于有向图中。如果存在循环，则不存在拓扑排序，因此不可能选取所有课程进行学习。<br>通过 DFS 进行拓扑排序 - 一个关于Coursera的精彩视频教程（21分钟），介绍拓扑排序的基本概念。<br>拓扑排序也可以通过 BFS 完成。</p>
+</blockquote>
+<h2 id="拓扑排序-深度优先遍历（Python-代码、Java-代码）"><a href="#拓扑排序-深度优先遍历（Python-代码、Java-代码）" class="headerlink" title="拓扑排序 + 深度优先遍历（Python 代码、Java 代码）"></a>拓扑排序 + 深度优先遍历（Python 代码、Java 代码）</h2><p>这道题的做法同样适用于第 210 题。</p>
+<h3 id="方法一：拓扑排序（Kahn-算法）"><a href="#方法一：拓扑排序（Kahn-算法）" class="headerlink" title="方法一：拓扑排序（Kahn 算法）"></a>方法一：拓扑排序（Kahn 算法）</h3><p><img src="https://pic.leetcode-cn.com/ca22fa351d5278e95c4c8c94aba6da42ae45d465ff3e8e82149777274293e194-0210.gif" alt="0210.gif"></p>
+<p>拓扑排序实际上应用的是<strong>贪心算法</strong>。贪心算法简而言之：每一步最优，全局就最优。</p>
+<p>具体到拓扑排序，每一次都输出入度为 $0$ 的结点，并移除它、修改它指向的结点的入度，依次得到的结点序列就是拓扑排序的结点序列。如果图中还有结点没有被移除，则说明“不能完成所有课程的学习”。</p>
+<p>拓扑排序保证了每个活动（在这题中是“课程”）的所有前驱活动都排在该活动的前面，并且可以完成所有活动。拓扑排序的结果不唯一。拓扑排序还可以用于检测一个有向图是否有环。相关的概念还有 AOV 网，这里就不展开了。</p>
+<p><strong>算法流程</strong>：</p>
+<p>1、在开始排序前，扫描对应的存储空间（使用邻接表），将入度为 $0$ 的结点放入队列。</p>
+<p>2、只要队列非空，就从队首取出入度为 $0$ 的结点，将这个结点输出到结果集中，并且将这个结点的所有邻接结点（它指向的结点）的入度减 $1$，在减 $1$ 以后，如果这个被减 $1$ 的结点的入度为  $0$ ，就继续入队。</p>
+<p>3、当队列为空的时候，检查结果集中的顶点个数是否和课程数相等即可。</p>
+<p>思考这里为什么要使用队列？（马上就会给出答案。）</p>
+<p>在代码具体实现的时候，除了保存入度为 0 的队列，我们还需要两个辅助的数据结构：</p>
+<p>1、邻接表：通过结点的索引，我们能够得到这个结点的后继结点；</p>
+<p>2、入度数组：通过结点的索引，我们能够得到指向这个结点的结点个数。</p>
+<p>这个两个数据结构在遍历题目给出的邻边以后就可以很方便地得到。</p>
+<p><strong>参考代码 1</strong>：</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class Solution(object):
+
+    # 思想：该方法的每一步总是输出当前无前趋（即入度为零）的顶点
+
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        """
+        :type numCourses: int 课程门数
+        :type prerequisites: List[List[int]] 课程与课程之间的关系
+        :rtype: bool
+        """
+        # 课程的长度
+        clen = len(prerequisites)
+        if clen == 0:
+            # 没有课程，当然可以完成课程的学习
+            return True
+
+        # 步骤1：统计每个顶点的入度
+        # 入度数组，记录了指向它的结点的个数，一开始全部为 0
+        in_degrees = [0 for _ in range(numCourses)]
+        # 邻接表，使用散列表是为了去重
+        adj = [set() for _ in range(numCourses)]
+
+        # 想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: [0,1]
+        # [0, 1] 表示 1 在先，0 在后
+        # 注意：邻接表存放的是后继 successor 结点的集合
+        for second, first in prerequisites:
+            in_degrees[second] += 1
+            adj[first].add(second)
+
+        # 步骤2：拓扑排序开始之前，先把所有入度为 0 的结点加入到一个队列中
+        # 首先遍历一遍，把所有入度为 0 的结点都加入队列
+        queue = []
+        for i in range(numCourses):
+            if in_degrees[i] == 0:
+                queue.append(i)
+
+        counter = 0
+        while queue:
+            top = queue.pop(0)
+            counter += 1
+            # 步骤3：把这个结点的所有后继结点的入度减去 1，如果发现入度为 0 ，就马上添加到队列中
+            for successor in adj[top]:
+                in_degrees[successor] -= 1
+                if in_degrees[successor] == 0:
+                    queue.append(successor)
+
+        return counter == numCourses<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * 该方法还存储了拓扑排序的结果，个人觉得这种写法很好理解，根据这个写法可以马上写出 LeetCode 第 210 题 课程表 II
+ *
+ * @author liwei
+ * @date 18/6/24 下午12:20
+ */
+public class Solution {
+
+    /**
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if (numCourses <= 0) {
+            return false;
+        }
+        int plen = prerequisites.length;
+        if (plen == 0) {
+            return true;
+        }
+        int[] inDegree = new int[numCourses];
+        for (int[] p : prerequisites) {
+            inDegree[p[0]]++;
+        }
+        LinkedList<Integer> queue = new LinkedList<>();
+        // 首先加入入度为 0 的结点
+        for (int i = 0; i < numCourses; i++) {
+            if (inDegree[i] == 0) {
+                queue.addLast(i);
+            }
+        }
+        // 拓扑排序的结果
+        List<Integer> res = new ArrayList<>();
+        while (!queue.isEmpty()) {
+            Integer num = queue.removeFirst();
+            res.add(num);
+            // 把邻边全部遍历一下
+            for (int[] p : prerequisites) {
+                if (p[1] == num) {
+                    inDegree[p[0]]--;
+                    if (inDegree[p[0]] == 0) {
+                        queue.addLast(p[0]);
+                    }
+                }
+            }
+        }
+        // System.out.println("拓扑排序结果：");
+        // System.out.println(res);
+        return res.size() == numCourses;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析：</strong></p>
+<ul>
+<li>时间复杂度：$O(E + V)$。这里 $E$ 表示邻边的条数，$V$ 表示结点的个数。初始化入度为 $0$ 的集合需要遍历整张图，具体做法是检查每个结点和每条边，因此复杂度为 $O(E+V)$，然后对该集合进行操作，又需要遍历整张图中的每个结点和每条边，复杂度也为 $O(E+V)$；</li>
+<li>空间复杂度：$O(V)$：入度数组、邻接表的长度都是结点的个数 $V$，即使使用队列，队列最长的时候也不会超过 $V$，因此空间复杂度是 $O(V)$。</li>
+</ul>
+<p>这里回答一下使用队列的问题，如果不使用队列，要想得到当前入度为 $0$ 的结点，就得遍历一遍入度数组。使用队列即用空间换时间。</p>
+<h3 id="方法二：深度优先遍历"><a href="#方法二：深度优先遍历" class="headerlink" title="方法二：深度优先遍历"></a>方法二：深度优先遍历</h3><p>这里要使用逆邻接表。其实就是检测这个有向图中有没有环，只要存在环，这些课程就不能按要求学完。</p>
+<p>具体方法是：</p>
+<p>第 1 步：构建逆邻接表；</p>
+<p>第 2 步：递归处理每一个还没有被访问的结点，具体做法很简单：对于一个结点来说，<strong>先输出指向它的所有顶点，再输出自己</strong>。</p>
+<p>第 3 步：如果这个顶点还没有被遍历过，就递归遍历它，把所有指向它的结点都输出了，再输出自己。注意：<strong>当访问一个结点的时候，应当先递归访问它的前驱结点，直至前驱结点没有前驱结点为止</strong>。</p>
+<p><strong>参考代码 2</strong>：</p>
+<p>Java 代码：</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class Solution(object):
+
+    # 这里使用逆邻接表
+
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        """
+        :type numCourses: int 课程门数
+        :type prerequisites: List[List[int]] 课程与课程之间的关系
+        :rtype: bool
+        """
+        # 课程的长度
+        clen = len(prerequisites)
+        if clen == 0:
+            # 没有课程，当然可以完成课程的学习
+            return True
+        # 深度优先遍历，判断结点是否访问过
+        # 这里要设置 3 个状态
+        # 0 就对应 False ，表示结点没有访问过
+        # 1 就对应 True ，表示结点已经访问过，在深度优先遍历结束以后才置为 1
+        # 2 表示当前正在遍历的结点，如果在深度优先遍历的过程中，
+        # 有遇到状态为 2 的结点，就表示这个图中存在环
+        visited = [0 for _ in range(numCourses)]
+
+        # 逆邻接表，存的是每个结点的前驱结点的集合
+        # 想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: [0,1]
+        # 1 在前，0 在后
+        inverse_adj = [set() for _ in range(numCourses)]
+        for second, first in prerequisites:
+            inverse_adj[second].add(first)
+
+        for i in range(numCourses):
+            # 在遍历的过程中，如果发现有环，就退出
+            if self.__dfs(i, inverse_adj, visited):
+                return False
+        return True
+
+    def __dfs(self, vertex, inverse_adj, visited):
+        """
+        注意：这个递归方法的返回值是返回是否有环
+        :param vertex: 结点的索引
+        :param inverse_adj: 逆邻接表，记录的是当前结点的前驱结点的集合
+        :param visited: 记录了结点是否被访问过，2 表示当前正在 DFS 这个结点
+        :return: 是否有环，返回 True 表示这个有向图有环
+        """
+        # 2 表示这个结点正在访问
+        if visited[vertex] == 2:
+            # 表示遇到环
+            return True
+        if visited[vertex] == 1:
+            return False
+
+        visited[vertex] = 2
+        for precursor in inverse_adj[vertex]:
+            # 如果有环，就返回 True 表示有环
+            if self.__dfs(precursor, inverse_adj, visited):
+                return True
+
+        # 1 表示访问结束
+        # 先把 vertex 这个结点的所有前驱结点都输出之后，再输出自己
+        visited[vertex] = 1
+        return False<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Python 代码：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">import java.util.HashSet;
+
+/**
+ * 根据 Solution5 做的修改
+ *
+ * @author liwei
+ * @date 18/6/24 下午12:42
+ */
+public class Solution6 {
+
+    /**
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if (numCourses <= 0) {
+            return false;
+        }
+        int plen = prerequisites.length;
+        if (plen == 0) {
+            return true;
+        }
+        int[] marked = new int[numCourses];
+
+        // 初始化有向图 begin
+        HashSet<Integer>[] graph = new HashSet[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            graph[i] = new HashSet<>();
+        }
+        // 初始化有向图 end
+        // 有向图的 key 是前驱结点，value 是后继结点的集合
+        for (int[] p : prerequisites) {
+            graph[p[1]].add(p[0]);
+        }
+
+        for (int i = 0; i < numCourses; i++) {
+            if (dfs(i, graph, marked)) {
+                // 注意方法的语义，如果图中存在环，表示课程任务不能完成，应该返回 false
+                return false;
+            }
+        }
+        // 在遍历的过程中，一直 dfs 都没有遇到已经重复访问的结点，就表示有向图中没有环
+        // 所有课程任务可以完成，应该返回 true
+        return true;
+    }
+
+    /**
+     * 注意这个 dfs 方法的语义
+     * @param i      当前访问的课程结点
+     * @param graph
+     * @param marked 如果 == 1 表示正在访问中，如果 == 2 表示已经访问完了
+     * @return true 表示图中存在环，false 表示访问过了，不用再访问了
+     */
+    private boolean dfs(int i,
+                        HashSet<Integer>[] graph,
+                        int[] marked) {
+        // 如果访问过了，就不用再访问了
+        if (marked[i] == 1) {
+            // 从正在访问中，到正在访问中，表示遇到了环
+            return true;
+        }
+
+        if (marked[i] == 2) {
+            // 表示在访问的过程中没有遇到环，这个节点访问过了
+            return false;
+        }
+        // 走到这里，是因为初始化呢，此时 marked[i] == 0
+        // 表示正在访问中
+        marked[i] = 1;
+        // 后继结点的集合
+        HashSet<Integer> successorNodes = graph[i];
+
+        for (Integer successor : successorNodes) {
+            if (dfs(successor, graph, marked)) {
+                // 层层递归返回 true ，表示图中存在环
+                return true;
+            }
+        }
+        // i 的所有后继结点都访问完了，都没有存在环，则这个结点就可以被标记为已经访问结束
+        // 状态设置为 2
+        marked[i] = 2;
+        // false 表示图中不存在环
+        return false;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析：</strong></p>
+<ul>
+<li>时间复杂度：$O(E + V)$；</li>
+<li>空间复杂度：$O(V)$。</li>
+</ul>
+<h3 id="LeetCode-第-207-题：课程表"><a href="#LeetCode-第-207-题：课程表" class="headerlink" title="LeetCode 第 207 题：课程表"></a>LeetCode 第 207 题：课程表</h3><p>传送门：<a href="https://leetcode-cn.com/problems/course-schedule/" target="_blank" rel="noopener">207. 课程表</a>。</p>
+<blockquote>
+<p>现在你总共有 <em>n</em> 门课需要选，记为 <code>0</code> 到 <code>n-1</code>。</p>
+<p>在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: <code>[0,1]</code></p>
+<p>给定课程总量以及它们的先决条件，判断是否可能完成所有课程的学习？</p>
+<p><strong>示例 1:</strong></p>
+<pre><code>输入: 2, [[1,0]] 
+输出: true
+解释: 总共有 2 门课程。学习课程 1 之前，你需要完成课程 0。所以这是可能的。</code></pre><p><strong>示例 2:</strong></p>
+<pre><code>输入: 2, [[1,0],[0,1]]
+输出: false
+解释: 总共有 2 门课程。学习课程 1 之前，你需要先完成课程 0；并且学习课程 0 之前，你还应先完成课程 1。这是不可能的。</code></pre><p><strong>说明:</strong></p>
+<ol>
+<li>输入的先决条件是由<strong>边缘列表</strong>表示的图形，而不是邻接矩阵。详情请参见<a href="http://blog.csdn.net/woaidapaopao/article/details/51732947" target="_blank" rel="noopener">图的表示法</a>。</li>
+<li>你可以假定输入的先决条件中没有重复的边。</li>
+</ol>
+<p><strong>提示:</strong></p>
+<ol>
+<li>这个问题相当于查找一个循环是否存在于有向图中。如果存在循环，则不存在拓扑排序，因此不可能选取所有课程进行学习。</li>
+<li><a href="https://www.coursera.org/specializations/algorithms" target="_blank" rel="noopener">通过 DFS 进行拓扑排序</a> - 一个关于Coursera的精彩视频教程（21分钟），介绍拓扑排序的基本概念。</li>
+<li>拓扑排序也可以通过 <a href="https://baike.baidu.com/item/%E5%AE%BD%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/5224802?fr=aladdin&fromid=2148012&fromtitle=%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2" target="_blank" rel="noopener">BFS</a> 完成。</li>
+</ol>
+</blockquote>
+<h4 id="方法一：拓扑排序（Kahn-算法）-1"><a href="#方法一：拓扑排序（Kahn-算法）-1" class="headerlink" title="方法一：拓扑排序（Kahn 算法）"></a>方法一：拓扑排序（Kahn 算法）</h4><p>拓扑排序实际上应用的是贪心算法，贪心算法简而言之：每一步最优，全局就最优）。具体到拓扑排序，每一次都输出入度为 $0$ 的结点，并移除它、修改它指向的结点的入度，依次得到的结点序列就是拓扑排序的结点序列。如果图中还有结点没有被移除，则说明“不能完成所有课程的学习”。</p>
+<p>拓扑排序保证了每个活动（在这题中是“课程”）的所有前驱活动都排在该活动的前面，并且可以完成所有活动。拓扑排序的结果不唯一。拓扑排序还可以用于检测一个有向图是否有环。相关的概念还有 AOV 网，这里就不展开了。</p>
+<p>具体做如下：</p>
+<p>1、在开始排序前，扫描对应的存储空间（使用邻接表），将入度为 $0$ 的结点放入队列。</p>
+<p>2、只要队列非空，就从队首取出入度为 $0$ 的结点，将这个结点输出到结果集中，并且将这个结点的所有邻接结点（它指向的结点）的入度减 $1$，在减 $1$ 以后，如果这个被减 $1$ 的结点的入度为  $0$ ，就继续入队。</p>
+<p>3、当队列为空的时候，检查结果集中的顶点个数是否和课程数相等即可。</p>
+<p>（思考这里为什么要使用队列？如果不用队列，还可以怎么做，会比用队列的效果差还是更好？）</p>
+<p>在代码具体实现的时候，除了保存入度为 $0$ 的队列，我们还需要两个辅助的数据结构：</p>
+<p>1、邻接表：通过结点的索引，我们能够得到这个结点的后继结点；</p>
+<p>2、入度数组：通过结点的索引，我们能够得到指向这个结点的结点个数。</p>
+<p>这个两个数据结构在遍历题目给出的邻边以后就可以很方便地得到。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment" spellcheck="true"># 思想：该方法的每一步总是输出当前无前趋（即入度为零）的顶点</span>
+
+    <span class="token keyword">def</span> <span class="token function">canFinish</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> numCourses<span class="token punctuation">:</span> int<span class="token punctuation">,</span> prerequisites<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span>int<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> bool<span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        :type numCourses: int 课程门数
+        :type prerequisites: List[List[int]] 课程与课程之间的关系
+        :rtype: bool
+        """</span>
+        <span class="token comment" spellcheck="true"># 课程的长度</span>
+        clen <span class="token operator">=</span> len<span class="token punctuation">(</span>prerequisites<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> clen <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 没有课程，当然可以完成课程的学习</span>
+            <span class="token keyword">return</span> <span class="token boolean">True</span>
+
+        <span class="token comment" spellcheck="true"># 步骤1：统计每个顶点的入度</span>
+        <span class="token comment" spellcheck="true"># 入度数组，记录了指向它的结点的个数，一开始全部为 0</span>
+        in_degrees <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>numCourses<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token comment" spellcheck="true"># 邻接表，使用散列表是为了去重</span>
+        adj <span class="token operator">=</span> <span class="token punctuation">[</span>set<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>numCourses<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+        <span class="token comment" spellcheck="true"># 想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: [0,1]</span>
+        <span class="token comment" spellcheck="true"># [0, 1] 表示 1 在先，0 在后</span>
+        <span class="token comment" spellcheck="true"># 注意：邻接表存放的是后继 successor 结点的集合</span>
+        <span class="token keyword">for</span> second<span class="token punctuation">,</span> first <span class="token keyword">in</span> prerequisites<span class="token punctuation">:</span>
+            in_degrees<span class="token punctuation">[</span>second<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+            adj<span class="token punctuation">[</span>first<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>second<span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true"># 步骤2：拓扑排序开始之前，先把所有入度为 0 的结点加入到一个队列中</span>
+        <span class="token comment" spellcheck="true"># 首先遍历一遍，把所有入度为 0 的结点都加入队列</span>
+        queue <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>numCourses<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> in_degrees<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                queue<span class="token punctuation">.</span>append<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+
+        counter <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">while</span> queue<span class="token punctuation">:</span>
+            top <span class="token operator">=</span> queue<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+            counter <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token comment" spellcheck="true"># 步骤3：把这个结点的所有后继结点的入度减去 1，如果发现入度为 0 ，就马上添加到队列中</span>
+            <span class="token keyword">for</span> successor <span class="token keyword">in</span> adj<span class="token punctuation">[</span>top<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                in_degrees<span class="token punctuation">[</span>successor<span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
+                <span class="token keyword">if</span> in_degrees<span class="token punctuation">[</span>successor<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                    queue<span class="token punctuation">.</span>append<span class="token punctuation">(</span>successor<span class="token punctuation">)</span>
+
+        <span class="token keyword">return</span> counter <span class="token operator">==</span> numCourses<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>LinkedList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 该方法还存储了拓扑排序的结果，个人觉得这种写法很好理解，根据这个写法可以马上写出 LeetCode 第 210 题 课程表 II
+ *
+ * @author liwei
+ * @date 18/6/24 下午12:20
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">canFinish</span><span class="token punctuation">(</span><span class="token keyword">int</span> numCourses<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> prerequisites<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>numCourses <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> plen <span class="token operator">=</span> prerequisites<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>plen <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> inDegree <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>numCourses<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> p <span class="token operator">:</span> prerequisites<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            inDegree<span class="token punctuation">[</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        LinkedList<span class="token operator">&lt;</span>Integer<span class="token operator">></span> queue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 首先加入入度为 0 的结点</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numCourses<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>inDegree<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                queue<span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 拓扑排序的结果</span>
+        List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>queue<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Integer num <span class="token operator">=</span> queue<span class="token punctuation">.</span><span class="token function">removeFirst</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 把邻边全部遍历一下</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> p <span class="token operator">:</span> prerequisites<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    inDegree<span class="token punctuation">[</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>inDegree<span class="token punctuation">[</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        queue<span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// System.out.println("拓扑排序结果：");</span>
+        <span class="token comment" spellcheck="true">// System.out.println(res);</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> numCourses<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>复杂度分析：</p>
+<ul>
+<li>时间复杂度：$O(E + V)$。这里 $E$ 表示邻边的条数，$V$ 表示结点的个数。初始化入度为 $0$ 的集合需要遍历整张图，具体做法是检查每个结点和每条边，因此复杂度为 $O(E+V)$，然后对该集合进行操作，又需要遍历整张图中的每个结点和每条边，复杂度也为 $O(E+V)$；</li>
+<li>空间复杂度：$O(V)$：入度数组、邻接表的长度都是结点的个数 $V$，即使使用队列，队列最长的时候也不会超过 $V$，因此空间复杂度是 $O(V)$。</li>
+</ul>
+<h4 id="方法二：深度优先遍历-1"><a href="#方法二：深度优先遍历-1" class="headerlink" title="方法二：深度优先遍历"></a>方法二：深度优先遍历</h4><p>这里要使用逆邻接表。其实就是检测这个有向图中有没有环，只要存在环，这些课程就不能按要求学完。</p>
+<p>具体方法是：</p>
+<p>第 1 步：构建逆邻接表；</p>
+<p>第 2 步：递归处理每一个还没有被访问的结点，具体做法很简单：对于一个结点来说，<strong>先输出指向它的所有顶点，再输出自己</strong>。</p>
+<p>第 3 步：如果这个顶点还没有被遍历过，就递归遍历它，把所有指向它的结点都输出了，再输出自己。注意：<strong>当访问一个结点的时候，应当先递归访问它的前驱结点，直至前驱结点没有前驱结点为止</strong>。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+
+    <span class="token comment" spellcheck="true"># 这里使用逆邻接表</span>
+
+    <span class="token keyword">def</span> <span class="token function">canFinish</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> numCourses<span class="token punctuation">:</span> int<span class="token punctuation">,</span> prerequisites<span class="token punctuation">:</span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span>int<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> bool<span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        :type numCourses: int 课程门数
+        :type prerequisites: List[List[int]] 课程与课程之间的关系
+        :rtype: bool
+        """</span>
+        <span class="token comment" spellcheck="true"># 课程的长度</span>
+        clen <span class="token operator">=</span> len<span class="token punctuation">(</span>prerequisites<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> clen <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 没有课程，当然可以完成课程的学习</span>
+            <span class="token keyword">return</span> <span class="token boolean">True</span>
+        <span class="token comment" spellcheck="true"># 深度优先遍历，判断结点是否访问过</span>
+        <span class="token comment" spellcheck="true"># 这里要设置 3 个状态</span>
+        <span class="token comment" spellcheck="true"># 0 就对应 False ，表示结点没有访问过</span>
+        <span class="token comment" spellcheck="true"># 1 就对应 True ，表示结点已经访问过，在深度优先遍历结束以后才置为 1</span>
+        <span class="token comment" spellcheck="true"># 2 表示当前正在遍历的结点，如果在深度优先遍历的过程中，</span>
+        <span class="token comment" spellcheck="true"># 有遇到状态为 2 的结点，就表示这个图中存在环</span>
+        visited <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>numCourses<span class="token punctuation">)</span><span class="token punctuation">]</span>
+
+        <span class="token comment" spellcheck="true"># 逆邻接表，存的是每个结点的前驱结点的集合</span>
+        <span class="token comment" spellcheck="true"># 想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: [0,1]</span>
+        <span class="token comment" spellcheck="true"># 1 在前，0 在后</span>
+        inverse_adj <span class="token operator">=</span> <span class="token punctuation">[</span>set<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>numCourses<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        <span class="token keyword">for</span> second<span class="token punctuation">,</span> first <span class="token keyword">in</span> prerequisites<span class="token punctuation">:</span>
+            inverse_adj<span class="token punctuation">[</span>second<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>first<span class="token punctuation">)</span>
+
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>numCourses<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 在遍历的过程中，如果发现有环，就退出</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>__dfs<span class="token punctuation">(</span>i<span class="token punctuation">,</span> inverse_adj<span class="token punctuation">,</span> visited<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">False</span>
+        <span class="token keyword">return</span> <span class="token boolean">True</span>
+
+    <span class="token keyword">def</span> <span class="token function">__dfs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> vertex<span class="token punctuation">,</span> inverse_adj<span class="token punctuation">,</span> visited<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
+        注意：这个递归方法的返回值是返回是否有环
+        :param vertex: 结点的索引
+        :param inverse_adj: 逆邻接表，记录的是当前结点的前驱结点的集合
+        :param visited: 记录了结点是否被访问过，2 表示当前正在 DFS 这个结点
+        :return: 是否有环，返回 True 表示这个有向图有环
+        """</span>
+        <span class="token comment" spellcheck="true"># 2 表示这个结点正在访问</span>
+        <span class="token keyword">if</span> visited<span class="token punctuation">[</span>vertex<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 表示遇到环</span>
+            <span class="token keyword">return</span> <span class="token boolean">True</span>
+        <span class="token keyword">if</span> visited<span class="token punctuation">[</span>vertex<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+
+        visited<span class="token punctuation">[</span>vertex<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span>
+        <span class="token keyword">for</span> precursor <span class="token keyword">in</span> inverse_adj<span class="token punctuation">[</span>vertex<span class="token punctuation">]</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 如果有环，就返回 True 表示有环</span>
+            <span class="token keyword">if</span> self<span class="token punctuation">.</span>__dfs<span class="token punctuation">(</span>precursor<span class="token punctuation">,</span> inverse_adj<span class="token punctuation">,</span> visited<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">True</span>
+
+        <span class="token comment" spellcheck="true"># 1 表示访问结束</span>
+        <span class="token comment" spellcheck="true"># 先把 vertex 这个结点的所有前驱结点都输出之后，再输出自己</span>
+        visited<span class="token punctuation">[</span>vertex<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> <span class="token boolean">False</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashSet<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 根据 Solution5 做的修改
+ *
+ * @author liwei
+ * @date 18/6/24 下午12:42
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution6</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * @param numCourses
+     * @param prerequisites
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">canFinish</span><span class="token punctuation">(</span><span class="token keyword">int</span> numCourses<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> prerequisites<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>numCourses <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> plen <span class="token operator">=</span> prerequisites<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>plen <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> marked <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>numCourses<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 初始化有向图 begin</span>
+        HashSet<span class="token operator">&lt;</span>Integer<span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> graph <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token punctuation">[</span>numCourses<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numCourses<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            graph<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 初始化有向图 end</span>
+        <span class="token comment" spellcheck="true">// 有向图的 key 是前驱结点，value 是后继结点的集合</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> p <span class="token operator">:</span> prerequisites<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            graph<span class="token punctuation">[</span>p<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>p<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> numCourses<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dfs</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> graph<span class="token punctuation">,</span> marked<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 注意方法的语义，如果图中存在环，表示课程任务不能完成，应该返回 false</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 在遍历的过程中，一直 dfs 都没有遇到已经重复访问的结点，就表示有向图中没有环</span>
+        <span class="token comment" spellcheck="true">// 所有课程任务可以完成，应该返回 true</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 注意这个 dfs 方法的语义
+     * @param i      当前访问的课程结点
+     * @param graph
+     * @param marked 如果 == 1 表示正在访问中，如果 == 2 表示已经访问完了
+     * @return true 表示图中存在环，false 表示访问过了，不用再访问了
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">,</span>
+                        HashSet<span class="token operator">&lt;</span>Integer<span class="token operator">></span><span class="token punctuation">[</span><span class="token punctuation">]</span> graph<span class="token punctuation">,</span>
+                        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> marked<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 如果访问过了，就不用再访问了</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>marked<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 从正在访问中，到正在访问中，表示遇到了环</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>marked<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 表示在访问的过程中没有遇到环，这个节点访问过了</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 走到这里，是因为初始化呢，此时 marked[i] == 0</span>
+        <span class="token comment" spellcheck="true">// 表示正在访问中</span>
+        marked<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 后继结点的集合</span>
+        HashSet<span class="token operator">&lt;</span>Integer<span class="token operator">></span> successorNodes <span class="token operator">=</span> graph<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Integer successor <span class="token operator">:</span> successorNodes<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">dfs</span><span class="token punctuation">(</span>successor<span class="token punctuation">,</span> graph<span class="token punctuation">,</span> marked<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 层层递归返回 true ，表示图中存在环</span>
+                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// i 的所有后继结点都访问完了，都没有存在环，则这个结点就可以被标记为已经访问结束</span>
+        <span class="token comment" spellcheck="true">// 状态设置为 2</span>
+        marked<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// false 表示图中不存在环</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>复杂度分析：</p>
+<ul>
+<li>时间复杂度：$O(E + V)$；</li>
+<li>空间复杂度：$O(V)$。</li>
+</ul>
+<p>这两种思路都可以完成 LeetCode 第 210 题。（本节完）</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" rel="external nofollow noreferrer">liweiwei1419</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/2018/08/04/leetcode-algo/0207-course-schedule/">https://liweiwei1419.gitee.io/leetcode-algo/2018/08/04/leetcode-algo/0207-course-schedule/</a>
+                    <!-- GitHub 用配置
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2018/08/04/leetcode-algo/0207-course-schedule/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2018/08/04/leetcode-algo/0207-course-schedule/</a>
+                    -->
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/">
+                                    <span class="chip bg-color">广度优先遍历</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/leetcode-algo/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/leetcode-algo/medias/reward/alipayimg.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/leetcode-algo/medias/reward/wechatpayimg.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+        <link rel="stylesheet" href="/leetcode-algo/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/leetcode-algo/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/leetcode-algo/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '5a0689b99572e0b70f06',
+        clientSecret: 'cf79536d8100da4bed61de8baf26ae798e151d80',
+        repo: 'blog-article-sources',
+        owner: 'liweiwei1419',
+        admin: "liweiwei1419",
+        id: '2018-08-04T08-00-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/leetcode-algo/2018/08/06/leetcode-algo/0127-word-ladder/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/6.jpg" class="responsive-img" alt="「力扣」第 279 题：完全平方式">
+                        
+                        <span class="card-title">「力扣」第 279 题：完全平方式</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「力扣」第 279 题：完全平方式
+链接：279. 完全平方数。
+
+
+给定正整数 n，找到若干个完全平方数（比如 1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的个数最少。
+示例 1:
+输入: n = 1
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2018-08-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/" class="post-category">
+                                    专题 17：广度优先遍历
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/">
+                        <span class="chip bg-color">广度优先遍历</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/leetcode-algo/2018/08/03/leetcode-algo/bfs/0200-number-of-islands/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/0.jpg" class="responsive-img" alt="「力扣」第 200 题：岛屿数量">
+                        
+                        <span class="card-title">「力扣」第 200 题：岛屿数量</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「力扣」第 200 题：岛屿数量题解地址：DFS + BFS + 并查集（Python 代码、Java 代码）。
+说明：文本首发在力扣的题解版块，更新也会在第 1 时间在上面的网站中更新，这篇文章只是上面的文章的一个快照，您可以点击上面的链
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2018-08-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/" class="post-category">
+                                    专题 17：广度优先遍历
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/">
+                        <span class="chip bg-color">广度优先遍历</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/leetcode-algo/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/liweiwei1419" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiwei1419@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=121088825" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 121088825" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/2194939432" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/2194939432" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+    <a href="/leetcode-algo/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/leetcode-algo/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/leetcode-algo/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/leetcode-algo/libs/materialize/materialize.min.js"></script>
+    <script src="/leetcode-algo/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/leetcode-algo/libs/aos/aos.js"></script>
+    <script src="/leetcode-algo/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/leetcode-algo/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/leetcode-algo/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/leetcode-algo/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/leetcode-algo/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/leetcode-algo/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

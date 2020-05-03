@@ -499,14 +499,12 @@
 
 函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。
 
-你不需要考虑数组中超出新长度后面的元素。
-</code></pre><p><strong>示例 2:</strong></p>
+你不需要考虑数组中超出新长度后面的元素。</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>给定 nums = [0,0,1,1,1,1,2,3,3],
 
 函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。
 
-你不需要考虑数组中超出新长度后面的元素。
-</code></pre><p><strong>说明:</strong></p>
+你不需要考虑数组中超出新长度后面的元素。</code></pre><p><strong>说明:</strong></p>
 <p>为什么返回数值是整数，但输出的答案是数组呢?</p>
 <p>请注意，输入数组是以<strong>“引用”</strong>方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。</p>
 <p>你可以想象内部操作如下:</p>
@@ -517,60 +515,57 @@ int len = removeDuplicates(nums);
 // 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。
 for (int i = 0; i &lt; len; i++) {
  print(nums[i]);
-}
-</code></pre></blockquote>
+}</code></pre></blockquote>
 <p>思路1：删除重复的元素，要求重复的元素至多保留两个。利用排序数组这个条件。设置一个额外的 <code>current_num</code> 用于比较就可以了。同样要注意到 <code>nums = []</code> 的情况。</p>
 <p>这道题调试了很久，最终还是独立解出来了，主要是忽略了一个细节，在重复次数为 $1$ 的时候，挪动指针位置的时候，同时也要赋值，刚开始做的时候我忘记赋值了。</p>
 <p>Python 代码：第 1 次作答</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    # 重复元素至多保留 2 个
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token comment" spellcheck="true"># 重复元素至多保留 2 个</span>
 
-    def removeDuplicates(self, nums):
-        """
+    <span class="token keyword">def</span> <span class="token function">removeDuplicates</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type nums: List[int]
         :rtype: int
-        """
+        """</span>
 
-        if len(nums) == 0:
-            return 0
+        <span class="token keyword">if</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">0</span>
 
-        j = 1  # j 始终保存着下一个要更新的元素的索引
-        current_num = nums[0]
-        duplicates_times = 0
-        for i in range(1, len(nums)):
-            if nums[i] == current_num:
-                duplicates_times += 1
-                if duplicates_times == 1:
-                    # 这一步赋值是非常关键的
-                    nums[j] = current_num
-                    j += 1
-            if nums[i] > current_num:
-                current_num = nums[i]
-                duplicates_times = 0
-                nums[j] = nums[i]
-                j += 1
-        return j
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        j <span class="token operator">=</span> <span class="token number">1</span>  <span class="token comment" spellcheck="true"># j 始终保存着下一个要更新的元素的索引</span>
+        current_num <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        duplicates_times <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> current_num<span class="token punctuation">:</span>
+                duplicates_times <span class="token operator">+=</span> <span class="token number">1</span>
+                <span class="token keyword">if</span> duplicates_times <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                    <span class="token comment" spellcheck="true"># 这一步赋值是非常关键的</span>
+                    nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> current_num
+                    j <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> current_num<span class="token punctuation">:</span>
+                current_num <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                duplicates_times <span class="token operator">=</span> <span class="token number">0</span>
+                nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                j <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> j<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>思路2：使用一个 <code>counter</code> 变量向前“数”，这个写法把它记住就好。<strong>关键之处： <code>counter</code> 变量控制着新数组的写入，<code>counter</code> 指向着下一个要写入的元素的索引，它也代表了新数组的个数 。</strong></p>
 <p>例如：<code>nums = [0, 0, 1, 1, 1, 1, 2, 3, 3]</code>。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/414598-74ba9dfae8da9065.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="LeetCode 第 80 题 ：删除排序数组中的重复项 II"></p>
 <p>Python 代码：在理解的基础上记住下面这个写法</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
-    def removeDuplicates(self, nums):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">removeDuplicates</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type nums: List[int]
         :rtype: int
-        """
-        l = len(nums)
-        if l <= 2:
-            return l
-        counter = 2
-        for i in range(2, l):
-            if nums[i] != nums[counter - 2]:
-                nums[counter] = nums[i]
-                counter += 1
-        return counter
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        """</span>
+        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> l <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> l
+        counter <span class="token operator">=</span> <span class="token number">2</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> nums<span class="token punctuation">[</span>counter <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                nums<span class="token punctuation">[</span>counter<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                counter <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> counter<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

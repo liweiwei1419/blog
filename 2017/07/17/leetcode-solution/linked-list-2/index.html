@@ -483,150 +483,140 @@
             <div id="articleContent">
                 <h2 id="「链表」专题-2：测试的链表程序"><a href="#「链表」专题-2：测试的链表程序" class="headerlink" title="「链表」专题 2：测试的链表程序"></a>「链表」专题 2：测试的链表程序</h2><p>为了测试我们写的代码是否正确，我们需要自己写两个个方法，这两个方法对于调试代码来说是十分有帮助的。</p>
 <h3 id="编写辅助函数：通过一个数组创建一个链表"><a href="#编写辅助函数：通过一个数组创建一个链表" class="headerlink" title="编写辅助函数：通过一个数组创建一个链表"></a>编写辅助函数：通过一个数组创建一个链表</h3><p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public ListNode createLinkedList(int[] arr) {
-    if (arr.length == 0) {
-        return null;
-    }
-    ListNode head = new ListNode(arr[0]);
-    ListNode current = head;
-    // 把这个迭代想象成一个动画去理解，就很好理解了
-    for (int i = 1; i < arr.length; i++) {
-        current.next = new ListNode(arr[i]);
-        current = current.next;
-    }
-    return head;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> ListNode <span class="token function">createLinkedList</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>arr<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    ListNode head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ListNode current <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 把这个迭代想象成一个动画去理解，就很好理解了</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        current<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        current <span class="token operator">=</span> current<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>对代码的说明</p>
 <p>1、先创建头结点，在把头结点设置为当前节点，然后开始遍历，几乎成为了一个套路；</p>
 <p>2、<code>current = current.next;</code> 表示指针后移，模板代码；</p>
 <p>3、用头结点就可以代表一个链表，所以返回的是 <code>head</code>。</p>
 <p>注意：要考虑到数组为空的情况。</p>
 <h3 id="编写辅助函数：通过一个链表的头结点打印一个链表"><a href="#编写辅助函数：通过一个链表的头结点打印一个链表" class="headerlink" title="编写辅助函数：通过一个链表的头结点打印一个链表"></a>编写辅助函数：通过一个链表的头结点打印一个链表</h3><p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public void printLinkedList(ListNode head){
-    ListNode current =  head;
-    while (current!=null){
-        System.out.printf("%d -> ",current.val);
-        current = current.next;
-    }
-    System.out.println("NULL");
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">printLinkedList</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    ListNode current <span class="token operator">=</span>  head<span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>current<span class="token operator">!=</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d -> "</span><span class="token punctuation">,</span>current<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        current <span class="token operator">=</span> current<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"NULL"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>下面我们在 main 函数中测试一下。</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public static void main(String[] args) {
-    int[] arr = {1,2,3,4,5};
-    Solution solution = new Solution();
-    ListNode list1 = solution.createLinkedList(arr);
-    solution.printLinkedList(list1);
-    ListNode list2 = solution.reverseList(list1);
-    solution.printLinkedList(list2);
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ListNode list1 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">createLinkedList</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    solution<span class="token punctuation">.</span><span class="token function">printLinkedList</span><span class="token punctuation">(</span>list1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ListNode list2 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">reverseList</span><span class="token punctuation">(</span>list1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    solution<span class="token punctuation">.</span><span class="token function">printLinkedList</span><span class="token punctuation">(</span>list2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="练习1：「力扣」第-83-题：从一个有序的列表中删除重复的元素"><a href="#练习1：「力扣」第-83-题：从一个有序的列表中删除重复的元素" class="headerlink" title="练习1：「力扣」第 83 题：从一个有序的列表中删除重复的元素"></a>练习1：「力扣」第 83 题：从一个有序的列表中删除重复的元素</h3><p>传送门：<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list" target="_blank" rel="noopener">删除排序链表中的重复元素</a>。</p>
 <blockquote>
 <p>给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: 1-&gt;1-&gt;2
-输出: 1-&gt;2
-</code></pre><p><strong>示例 2:</strong></p>
+输出: 1-&gt;2</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: 1-&gt;1-&gt;2-&gt;3-&gt;3
-输出: 1-&gt;2-&gt;3
-</code></pre></blockquote>
+输出: 1-&gt;2-&gt;3</code></pre></blockquote>
 <p>思路：有序链表，相同元素最多保留 $1$ 个。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python"># Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Definition for singly-linked list.</span>
+<span class="token comment" spellcheck="true"># class ListNode(object):</span>
+<span class="token comment" spellcheck="true">#     def __init__(self, x):</span>
+<span class="token comment" spellcheck="true">#         self.val = x</span>
+<span class="token comment" spellcheck="true">#         self.next = None</span>
 
-# 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
-# 【判断的条件是"下一个结点"】
+<span class="token comment" spellcheck="true"># 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。</span>
+<span class="token comment" spellcheck="true"># 【判断的条件是"下一个结点"】</span>
 
 
-class Solution(object):
-    def deleteDuplicates(self, head):
-        """
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">deleteDuplicates</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type head: ListNode
         :rtype: ListNode
-        """
-        # 先判断极端条件
-        if head is None or head.next is None:
-            return head
-        cur = head
-        while cur.next:
-            next = cur.next
-            if next.val == cur.val:
-                # q 向后挪动一位
-                cur.next = next.next
-                next.next = None
-            else:
-                cur = cur.next
-        return head
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        """</span>
+        <span class="token comment" spellcheck="true"># 先判断极端条件</span>
+        <span class="token keyword">if</span> head <span class="token keyword">is</span> None <span class="token operator">or</span> head<span class="token punctuation">.</span>next <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> head
+        cur <span class="token operator">=</span> head
+        <span class="token keyword">while</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
+            next <span class="token operator">=</span> cur<span class="token punctuation">.</span>next
+            <span class="token keyword">if</span> next<span class="token punctuation">.</span>val <span class="token operator">==</span> cur<span class="token punctuation">.</span>val<span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># q 向后挪动一位</span>
+                cur<span class="token punctuation">.</span>next <span class="token operator">=</span> next<span class="token punctuation">.</span>next
+                next<span class="token punctuation">.</span>next <span class="token operator">=</span> None
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next
+        <span class="token keyword">return</span> head<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="练习2：「力扣」第-86-题：分割链表"><a href="#练习2：「力扣」第-86-题：分割链表" class="headerlink" title="练习2：「力扣」第 86 题：分割链表"></a>练习2：「力扣」第 86 题：分割链表</h3><p>英文网址：<a href="https://leetcode.com/problems/partition-list/description/" target="_blank" rel="noopener">86. Partition List</a>  ，中文网址：<a href="https://leetcode-cn.com/problems/partition-list/description/" target="_blank" rel="noopener">86. 分隔链表</a>。</p>
 <blockquote>
 <p>给定一个链表和一个特定值 <em>x</em>，对链表进行分隔，使得所有小于 <em>x</em> 的节点都在大于或等于 <em>x</em> 的节点之前。</p>
 <p>你应当保留两个分区中每个节点的初始相对位置。</p>
 <p><strong>示例:</strong></p>
 <pre><code>输入: head = 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;2, x = 3
-输出: 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5
-</code></pre></blockquote>
+输出: 1-&gt;2-&gt;2-&gt;4-&gt;3-&gt;5</code></pre></blockquote>
 <p>思路：分别拿两个虚拟头结点，最后拼在一起。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution2 {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution2</span> <span class="token punctuation">{</span>
 
-    // 空间复杂度为常数的解法：穿针引线
+    <span class="token comment" spellcheck="true">// 空间复杂度为常数的解法：穿针引线</span>
 
-    public ListNode partition(ListNode head, int x) {
-        // 比 x 小的虚拟头结点
-        ListNode dummyNodeL = new ListNode(-1);
-        // 大于等于 x 的虚拟头结点
-        ListNode dummyNodeR = new ListNode(-1);
-        // 用于遍历
-        ListNode curL = dummyNodeL;
-        // 用于遍历
-        ListNode curR = dummyNodeR;
-        int val;
-        while (head != null) {
-            val = head.val;
-            if (val < x) {
-                curL.next = head;
-                curL = curL.next;
-            } else {
-                curR.next = head;
-                curR = curR.next;
-            }
-            head = head.next;
-        }
-        curL.next = dummyNodeR.next;
-        // 特别注意：最后这一步不能忘记，否则会产生一个循环链表
-        curR.next = null;
-        return dummyNodeL.next;
-    }
+    <span class="token keyword">public</span> ListNode <span class="token function">partition</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 比 x 小的虚拟头结点</span>
+        ListNode dummyNodeL <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 大于等于 x 的虚拟头结点</span>
+        ListNode dummyNodeR <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 用于遍历</span>
+        ListNode curL <span class="token operator">=</span> dummyNodeL<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 用于遍历</span>
+        ListNode curR <span class="token operator">=</span> dummyNodeR<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> val<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>head <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            val <span class="token operator">=</span> head<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>val <span class="token operator">&lt;</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                curL<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
+                curL <span class="token operator">=</span> curL<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                curR<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
+                curR <span class="token operator">=</span> curR<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            head <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        curL<span class="token punctuation">.</span>next <span class="token operator">=</span> dummyNodeR<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 特别注意：最后这一步不能忘记，否则会产生一个循环链表</span>
+        curR<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> dummyNodeL<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        int[] nums = {1, 4, 3, 2, 5, 2};
-        int x = 3;
-        ListNode head = new ListNode(nums);
-        Solution2 solution2 = new Solution2();
-        System.out.println("分隔链表之后：");
-        ListNode partition = solution2.partition(head, x);
-        System.out.println(partition);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+        ListNode head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Solution2 solution2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"分隔链表之后："</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ListNode partition <span class="token operator">=</span> solution2<span class="token punctuation">.</span><span class="token function">partition</span><span class="token punctuation">(</span>head<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>partition<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="练习3：「力扣」第-328-题：奇数（Odd）偶数（Even）链表"><a href="#练习3：「力扣」第-328-题：奇数（Odd）偶数（Even）链表" class="headerlink" title="练习3：「力扣」第 328 题：奇数（Odd）偶数（Even）链表"></a>练习3：「力扣」第 328 题：奇数（Odd）偶数（Even）链表</h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/odd-even-linked-list/description/" target="_blank" rel="noopener">328. Odd Even Linked List</a> ，中文网址：<a href="https://leetcode-cn.com/problems/odd-even-linked-list/description/" target="_blank" rel="noopener">328. 奇偶链表</a> 。</p>
 <blockquote>
 <p>给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。</p>
 <p>请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL
-输出: 1-&gt;3-&gt;5-&gt;2-&gt;4-&gt;NULL
-</code></pre><p><strong>示例 2:</strong></p>
+输出: 1-&gt;3-&gt;5-&gt;2-&gt;4-&gt;NULL</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: 2-&gt;1-&gt;3-&gt;5-&gt;6-&gt;4-&gt;7-&gt;NULL 
-输出: 2-&gt;3-&gt;6-&gt;7-&gt;1-&gt;5-&gt;4-&gt;NULL
-</code></pre><p><strong>说明:</strong></p>
+输出: 2-&gt;3-&gt;6-&gt;7-&gt;1-&gt;5-&gt;4-&gt;NULL</code></pre><p><strong>说明:</strong></p>
 <ul>
 <li>应当保持奇数节点和偶数节点的相对顺序。</li>
 <li>链表的第一个节点视为奇数节点，第二个节点视为偶数节点，以此类推。</li>
@@ -639,39 +629,38 @@ class Solution(object):
 </ul>
 <p><img src="https://liweiwei1419.gitee.io/images/leetcode-solution/328-1.jpg" alt="LeetCode 第 328 题：奇数（Odd）偶数（Even）链表"></p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
 
 
-class Solution:
-    def oddEvenList(self, head):
-        """
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">oddEvenList</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type head: ListNode
         :rtype: ListNode
-        """
+        """</span>
 
-        if head is None or head.next is None:
-            return head
+        <span class="token keyword">if</span> head <span class="token keyword">is</span> None <span class="token operator">or</span> head<span class="token punctuation">.</span>next <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> head
 
-        # odd 奇数
-        odd_head = head
-        even_head = head.next
+        <span class="token comment" spellcheck="true"># odd 奇数</span>
+        odd_head <span class="token operator">=</span> head
+        even_head <span class="token operator">=</span> head<span class="token punctuation">.</span>next
 
-        odd_cur = odd_head
-        even_cur = even_head
+        odd_cur <span class="token operator">=</span> odd_head
+        even_cur <span class="token operator">=</span> even_head
 
-        while even_cur and even_cur.next:
-            odd_cur.next = odd_cur.next.next
-            even_cur.next = even_cur.next.next
+        <span class="token keyword">while</span> even_cur <span class="token operator">and</span> even_cur<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
+            odd_cur<span class="token punctuation">.</span>next <span class="token operator">=</span> odd_cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next
+            even_cur<span class="token punctuation">.</span>next <span class="token operator">=</span> even_cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next
 
-            odd_cur = odd_cur.next
-            even_cur = even_cur.next
+            odd_cur <span class="token operator">=</span> odd_cur<span class="token punctuation">.</span>next
+            even_cur <span class="token operator">=</span> even_cur<span class="token punctuation">.</span>next
 
-        odd_cur.next = even_head
-        return odd_head
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        odd_cur<span class="token punctuation">.</span>next <span class="token operator">=</span> even_head
+        <span class="token keyword">return</span> odd_head<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我还写过一个题解在<a href="https://liweiwei1419.github.io/leetcode-solution/leetcode-0328-odd-even-linked-list/" target="_blank" rel="noopener">这里</a>，可以参考一下。</p>
 <h3 id="练习4：「力扣」第-2-题：两个数相加"><a href="#练习4：「力扣」第-2-题：两个数相加" class="headerlink" title="练习4：「力扣」第 2 题：两个数相加"></a>练习4：「力扣」第 2 题：两个数相加</h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/add-two-numbers/description/" target="_blank" rel="noopener">2. Add Two Numbers</a>  ，中文网址：<a href="https://leetcode-cn.com/problems/add-two-numbers/description/" target="_blank" rel="noopener">2. 两数相加</a>  。</p>
 <blockquote>
@@ -681,8 +670,7 @@ class Solution:
 <p><strong>示例：</strong></p>
 <pre><code>输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)
 输出：7 -&gt; 0 -&gt; 8
-原因：342 + 465 = 807
-</code></pre></blockquote>
+原因：342 + 465 = 807</code></pre></blockquote>
 <p>思路：需要考虑的问题：</p>
 <p>1、数字中是否有前置的 $0$（除了 $0$ 以外，没有前置的 $0$）；</p>
 <p>2、负数是否考虑。</p>
@@ -690,44 +678,43 @@ class Solution:
 <p>1、如何分别获得这个数组的个位、十位、百位、千位；</p>
 <p>2、分别相加，如果大于 $10$，进一。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
 
 
-class Solution:
-    def addTwoNumbers(self, l1, l2):
-        """
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">addTwoNumbers</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> l1<span class="token punctuation">,</span> l2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type l1: ListNode
         :type l2: ListNode
         :rtype: ListNode
-        """
-        if l1 is None:
-            return l2
+        """</span>
+        <span class="token keyword">if</span> l1 <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> l2
 
-        if l2 is None:
-            return l1
+        <span class="token keyword">if</span> l2 <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> l1
 
-        dummy_node = ListNode(-1)
-        cur_node = dummy_node
-        s = 0
+        dummy_node <span class="token operator">=</span> ListNode<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+        cur_node <span class="token operator">=</span> dummy_node
+        s <span class="token operator">=</span> <span class="token number">0</span>
 
-        # 只要二者之一非空，就加下去
-        while l1 or l2:
-            if l1:
-                s += l1.val
-                l1 = l1.next
-            if l2:
-                s += l2.val
-                l2 = l2.next
-            cur_node.next = ListNode(s % 10)
-            s //= 10
-            cur_node = cur_node.next
-        if s == 1:
-            cur_node.next = ListNode(1)
-        return dummy_node.next
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token comment" spellcheck="true"># 只要二者之一非空，就加下去</span>
+        <span class="token keyword">while</span> l1 <span class="token operator">or</span> l2<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> l1<span class="token punctuation">:</span>
+                s <span class="token operator">+=</span> l1<span class="token punctuation">.</span>val
+                l1 <span class="token operator">=</span> l1<span class="token punctuation">.</span>next
+            <span class="token keyword">if</span> l2<span class="token punctuation">:</span>
+                s <span class="token operator">+=</span> l2<span class="token punctuation">.</span>val
+                l2 <span class="token operator">=</span> l2<span class="token punctuation">.</span>next
+            cur_node<span class="token punctuation">.</span>next <span class="token operator">=</span> ListNode<span class="token punctuation">(</span>s <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">)</span>
+            s <span class="token operator">//=</span> <span class="token number">10</span>
+            cur_node <span class="token operator">=</span> cur_node<span class="token punctuation">.</span>next
+        <span class="token keyword">if</span> s <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            cur_node<span class="token punctuation">.</span>next <span class="token operator">=</span> ListNode<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> dummy_node<span class="token punctuation">.</span>next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="练习5：「力扣」第-445-题：两个数相加"><a href="#练习5：「力扣」第-445-题：两个数相加" class="headerlink" title="练习5：「力扣」第 445 题：两个数相加"></a>练习5：「力扣」第 445 题：两个数相加</h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/add-two-numbers-ii/description/" target="_blank" rel="noopener">445. Add Two Numbers II</a>  ，中文网址：<a href="https://leetcode-cn.com/problems/add-two-numbers-ii/description/" target="_blank" rel="noopener">445. 两数相加 II</a>  。</p>
 <blockquote>
 <p>给定两个<strong>非空</strong>链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储单个数字。将这两数相加会返回一个新的链表。</p>
@@ -736,51 +723,49 @@ class Solution:
 <p>如果输入链表不能修改该如何处理？换句话说，你不能对列表中的节点进行翻转。</p>
 <p><strong>示例:</strong></p>
 <pre><code>输入: (7 -&gt; 2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)
-输出: 7 -&gt; 8 -&gt; 0 -&gt; 7
-</code></pre></blockquote>
+输出: 7 -&gt; 8 -&gt; 0 -&gt; 7</code></pre></blockquote>
 <p>思路：需要考虑的问题是如果不允许修改输入的链表该怎么办；使用一个辅助的数据结构来完成。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
 
 
-class Solution:
-    def addTwoNumbers(self, l1, l2):
-        """
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">addTwoNumbers</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> l1<span class="token punctuation">,</span> l2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type l1: ListNode
         :type l2: ListNode
         :rtype: ListNode
-        """
-        stack1 = []
-        stack2 = []
-        p1 = l1
-        p2 = l2
-        while p1:
-            stack1.append(p1.val)
-            p1 = p1.next
-        while p2:
-            stack2.append(p2.val)
-            p2 = p2.next
-        res = []
-        s = 0
-        while stack1 or stack2:
-            if stack1:
-                s += stack1.pop()
-            if stack2:
-                s += stack2.pop()
-            res.append(s % 10)
-            s //= 10
-        if s == 1:
-            res.append(1)
-        head = ListNode(res.pop())
-        cur_node = head
-        while len(res):
-            cur_node.next = ListNode(res.pop())
-            cur_node = cur_node.next
-        return head
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        """</span>
+        stack1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        stack2 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        p1 <span class="token operator">=</span> l1
+        p2 <span class="token operator">=</span> l2
+        <span class="token keyword">while</span> p1<span class="token punctuation">:</span>
+            stack1<span class="token punctuation">.</span>append<span class="token punctuation">(</span>p1<span class="token punctuation">.</span>val<span class="token punctuation">)</span>
+            p1 <span class="token operator">=</span> p1<span class="token punctuation">.</span>next
+        <span class="token keyword">while</span> p2<span class="token punctuation">:</span>
+            stack2<span class="token punctuation">.</span>append<span class="token punctuation">(</span>p2<span class="token punctuation">.</span>val<span class="token punctuation">)</span>
+            p2 <span class="token operator">=</span> p2<span class="token punctuation">.</span>next
+        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        s <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">while</span> stack1 <span class="token operator">or</span> stack2<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> stack1<span class="token punctuation">:</span>
+                s <span class="token operator">+=</span> stack1<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> stack2<span class="token punctuation">:</span>
+                s <span class="token operator">+=</span> stack2<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>s <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">)</span>
+            s <span class="token operator">//=</span> <span class="token number">10</span>
+        <span class="token keyword">if</span> s <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            res<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        head <span class="token operator">=</span> ListNode<span class="token punctuation">(</span>res<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        cur_node <span class="token operator">=</span> head
+        <span class="token keyword">while</span> len<span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            cur_node<span class="token punctuation">.</span>next <span class="token operator">=</span> ListNode<span class="token punctuation">(</span>res<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            cur_node <span class="token operator">=</span> cur_node<span class="token punctuation">.</span>next
+        <span class="token keyword">return</span> head<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
 
             </div>

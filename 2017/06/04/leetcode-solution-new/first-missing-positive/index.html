@@ -515,96 +515,94 @@
 <p>按照以上规则排好序以后，缺失的第 $1$ 个正数一下子就看出来了，那么“最不和谐”的数字的索引 $+ 1$，就为所求。那如果所有的数字都不“和谐”，数组的长度 $+ 1$ 就为所求。</p>
 <p><strong>参考代码 1</strong>：</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def firstMissingPositive(self, nums: List[int]) -> int:
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">firstMissingPositive</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span>int<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> int<span class="token punctuation">:</span>
 
-        size = len(nums)
-        if size == 0:
-            return 1
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token number">1</span>
 
-        for i in range(size):
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
-            while nums[i] > 0 and nums[i] <= size:
-                if nums[nums[i] - 1] == nums[i]:
-                    # 如果已经在合适的位置上，就不用交换了
-                    break
-                # 这里我单独把交换数组两个位置的方法封装起来，是为了不让自己出错，这一行代码有点绕
-                # 就要把它放到合适的位置上，i 应该放在索引为 i - 1 的位置上
-                self.__swap(nums, i , nums[i] - 1)
-
-
-        # 从头到尾看一遍
-        for i in range(size):
-            if nums[i] != i + 1:
-                return i + 1
-        return size + 1
+            <span class="token keyword">while</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">and</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> size<span class="token punctuation">:</span>
+                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    <span class="token comment" spellcheck="true"># 如果已经在合适的位置上，就不用交换了</span>
+                    <span class="token keyword">break</span>
+                <span class="token comment" spellcheck="true"># 这里我单独把交换数组两个位置的方法封装起来，是为了不让自己出错，这一行代码有点绕</span>
+                <span class="token comment" spellcheck="true"># 就要把它放到合适的位置上，i 应该放在索引为 i - 1 的位置上</span>
+                self<span class="token punctuation">.</span>__swap<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> i <span class="token punctuation">,</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
 
 
-    def __swap(self, nums, index1, index2):
-        if index1 == index2:
-            return
-        nums[index1], nums[index2] = nums[index2], nums[index1]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token comment" spellcheck="true"># 从头到尾看一遍</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> i <span class="token operator">+</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> size <span class="token operator">+</span> <span class="token number">1</span>
+
+
+    <span class="token keyword">def</span> <span class="token function">__swap</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> index1<span class="token punctuation">,</span> index2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> index1 <span class="token operator">==</span> index2<span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+        nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span>  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.Arrays;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 关键字：桶排序，什么数字就要放在对应的索引上，其它空着就空着
-    // 最好的例子：[3,4,-1,1]
-    // 整理好应该是这样：[1,-1,3,4]，
-    // 这里 1，3，4 都在正确的位置上，
-    // -1 不在正确的位置上，索引是 1 ，所以返回 2
+    <span class="token comment" spellcheck="true">// 关键字：桶排序，什么数字就要放在对应的索引上，其它空着就空着</span>
+    <span class="token comment" spellcheck="true">// 最好的例子：[3,4,-1,1]</span>
+    <span class="token comment" spellcheck="true">// 整理好应该是这样：[1,-1,3,4]，</span>
+    <span class="token comment" spellcheck="true">// 这里 1，3，4 都在正确的位置上，</span>
+    <span class="token comment" spellcheck="true">// -1 不在正确的位置上，索引是 1 ，所以返回 2</span>
 
-    // [4,3,2,1] 要变成 [1,2,3,4]，*** Offer 上有类似的问题。
+    <span class="token comment" spellcheck="true">// [4,3,2,1] 要变成 [1,2,3,4]，*** Offer 上有类似的问题。</span>
 
-    // 这里负数和大于数组长度的数都是"捣乱项"。
+    <span class="token comment" spellcheck="true">// 这里负数和大于数组长度的数都是"捣乱项"。</span>
 
-    public int firstMissingPositive(int[] nums) {
-        int len = nums.length;
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">firstMissingPositive</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
 
-        for (int i = 0; i < len; i++) {
-            // 前两个是在判断是否成为索引
-            // 后一个是在判断，例如 3 在不在索引 2 上
-            // 即 nums[i] ?= nums[nums[i]-1] 这里要特别小心
-            while (nums[i] > 0 && nums[i] <= len && nums[nums[i] - 1] != nums[i]) {
-                // 第 3 个条件不成立的索引的部分是 i 和 nums[i]-1
-                swap(nums, nums[i] - 1, i);
-            }
-        }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 前两个是在判断是否成为索引</span>
+            <span class="token comment" spellcheck="true">// 后一个是在判断，例如 3 在不在索引 2 上</span>
+            <span class="token comment" spellcheck="true">// 即 nums[i] ?= nums[nums[i]-1] 这里要特别小心</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> len <span class="token operator">&amp;&amp;</span> nums<span class="token punctuation">[</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">!=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 第 3 个条件不成立的索引的部分是 i 和 nums[i]-1</span>
+                <span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        // 调试代码
-        // System.out.println(Arrays.toString(nums));
+        <span class="token comment" spellcheck="true">// 调试代码</span>
+        <span class="token comment" spellcheck="true">// System.out.println(Arrays.toString(nums));</span>
 
-        for (int i = 0; i < len; i++) {
-            // [1,-2,3,4]
-            // 除了 -2 其它都满足： i+1 = num[i]
-            if (nums[i] - 1 != i) {
-                return i + 1;
-            }
-        }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// [1,-2,3,4]</span>
+            <span class="token comment" spellcheck="true">// 除了 -2 其它都满足： i+1 = num[i]</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">!=</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        return len + 1;
-    }
+        <span class="token keyword">return</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    private void swap(int[] nums, int index1, int index2) {
-        if (index1 == index2) {
-            return;
-        }
-        int temp = nums[index1];
-        nums[index1] = nums[index2];
-        nums[index2] = temp;
-    }
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> index1<span class="token punctuation">,</span> <span class="token keyword">int</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index1 <span class="token operator">==</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> temp <span class="token operator">=</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        // int[] nums = {3, 4, -1, 5};
-        int[] nums = {4, 3, 2, 1};
-        int firstMissingPositive = solution.firstMissingPositive(nums);
-        System.out.println(firstMissingPositive);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// int[] nums = {3, 4, -1, 5};</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> firstMissingPositive <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">firstMissingPositive</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>firstMissingPositive<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N)$，这里 $N$ 是数组的长度，其实只要看这个数组一遍，就可以知道每个数字应该放在哪个位置，所以时间复杂度是 $O(N)$。</li>
@@ -616,7 +614,6 @@ public class Solution {
 <blockquote>
 <p>交换两个变量的值，例如 a 和 b，不使用第三个变量，有两种不同的方法：</p>
 </blockquote>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -624,121 +621,115 @@ public class Solution {
 <th>基于加减法</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><code>a = a ^ b</code><br><code>b = a ^ b</code><br><code>a = a ^ b</code></td>
 <td><code>a = a + b</code><br/><code>b = a - b</code><br/><code>a = a - b</code></td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <p>我理解的方式就是自己在纸上写几个例子，并且记住这个结论。个人觉得“基于异或运算”交换两个变量的值好记一些，因为右边都一样，左边是 <code>a</code>、<code>b</code>、<code>a</code>。</p>
 <p><strong>参考代码 2</strong>：基于异或运算交换两个变量的值。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">from typing import List
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> typing <span class="token keyword">import</span> List
 
 
-class Solution:
-    def firstMissingPositive(self, nums: List[int]) -> int:
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">firstMissingPositive</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">:</span> List<span class="token punctuation">[</span>int<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> int<span class="token punctuation">:</span>
 
-        size = len(nums)
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
 
-        # 题目中给出的例子，就是最好的例子
-        # [3,4,-1,1]
-        # [-1,4,3,1]
-        # [-1,1,3,4]
-        # 3 应该放在索引为 2 的地方
-        # 4 应该放在索引为 3 的地方
+        <span class="token comment" spellcheck="true"># 题目中给出的例子，就是最好的例子</span>
+        <span class="token comment" spellcheck="true"># [3,4,-1,1]</span>
+        <span class="token comment" spellcheck="true"># [-1,4,3,1]</span>
+        <span class="token comment" spellcheck="true"># [-1,1,3,4]</span>
+        <span class="token comment" spellcheck="true"># 3 应该放在索引为 2 的地方</span>
+        <span class="token comment" spellcheck="true"># 4 应该放在索引为 3 的地方</span>
 
-        for i in range(size):
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
-            # nums[i] > 0 and nums[i] <= size 的意思是：只要是符合索引的数字
-            # 这里的索引应该认为从 1 开始
-            # 就要把它放到正确的地方上去，这一步叫 hash
-            # nums[i] == nums[nums[i]-1]，叫放到了正确的地方
-            # 例如，3 应该放在索引为 2 的地方，如果不理解，这句话多读几遍
+            <span class="token comment" spellcheck="true"># nums[i] > 0 and nums[i] &lt;= size 的意思是：只要是符合索引的数字</span>
+            <span class="token comment" spellcheck="true"># 这里的索引应该认为从 1 开始</span>
+            <span class="token comment" spellcheck="true"># 就要把它放到正确的地方上去，这一步叫 hash</span>
+            <span class="token comment" spellcheck="true"># nums[i] == nums[nums[i]-1]，叫放到了正确的地方</span>
+            <span class="token comment" spellcheck="true"># 例如，3 应该放在索引为 2 的地方，如果不理解，这句话多读几遍</span>
 
-            # 所以，先判断这个数字是不是索引
-            # 然后判断这个数字是不是放在了正确的地方
+            <span class="token comment" spellcheck="true"># 所以，先判断这个数字是不是索引</span>
+            <span class="token comment" spellcheck="true"># 然后判断这个数字是不是放在了正确的地方</span>
 
-            while 1 <= nums[i] <= size and nums[i] != nums[nums[i] - 1]:
-                # 交换
-                self.__swap(nums, i, nums[i] - 1)
+            <span class="token keyword">while</span> <span class="token number">1</span> <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> size <span class="token operator">and</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> nums<span class="token punctuation">[</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 交换</span>
+                self<span class="token punctuation">.</span>__swap<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> i<span class="token punctuation">,</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
 
-        # print(nums)
-        # 再遍历一次，没有放对的就是你要找的
-        for i in range(size):
-            # value： [1,2,3,4]
-            # index： [0,1,2,3]
-            if i + 1 != nums[i]:
-                return i + 1
+        <span class="token comment" spellcheck="true"># print(nums)</span>
+        <span class="token comment" spellcheck="true"># 再遍历一次，没有放对的就是你要找的</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># value： [1,2,3,4]</span>
+            <span class="token comment" spellcheck="true"># index： [0,1,2,3]</span>
+            <span class="token keyword">if</span> i <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">!=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> i <span class="token operator">+</span> <span class="token number">1</span>
 
-        return size + 1
+        <span class="token keyword">return</span> size <span class="token operator">+</span> <span class="token number">1</span>
 
-    def __swap(self, nums, index1, index2):
-        # nums[index1], nums[index2] = nums[index2], nums[index1]
-        nums[index1] = nums[index1] ^ nums[index2]
-        nums[index2] = nums[index1] ^ nums[index2]
-        nums[index1] = nums[index1] ^ nums[index2]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">def</span> <span class="token function">__swap</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> index1<span class="token punctuation">,</span> index2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># nums[index1], nums[index2] = nums[index2], nums[index1]</span>
+        nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">^</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span>
+        nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">^</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span>
+        nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">^</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 关键字：桶排序，什么数字就要放在对应的索引上，其它空着就空着
-    // 最好的例子：[3,4,-1,1]
-    // 整理好应该是这样：[1,-1,3,4]，
-    // 这里 1，3，4 都在正确的位置上，
-    // -1 不在正确的位置上，索引是 1 ，所以返回 2
+    <span class="token comment" spellcheck="true">// 关键字：桶排序，什么数字就要放在对应的索引上，其它空着就空着</span>
+    <span class="token comment" spellcheck="true">// 最好的例子：[3,4,-1,1]</span>
+    <span class="token comment" spellcheck="true">// 整理好应该是这样：[1,-1,3,4]，</span>
+    <span class="token comment" spellcheck="true">// 这里 1，3，4 都在正确的位置上，</span>
+    <span class="token comment" spellcheck="true">// -1 不在正确的位置上，索引是 1 ，所以返回 2</span>
 
-    // [4,3,2,1] 要变成 [1,2,3,4]，*** Offer 上有类似的问题。
+    <span class="token comment" spellcheck="true">// [4,3,2,1] 要变成 [1,2,3,4]，*** Offer 上有类似的问题。</span>
 
-    // 这里负数和大于数组长度的数都是"捣乱项"。
+    <span class="token comment" spellcheck="true">// 这里负数和大于数组长度的数都是"捣乱项"。</span>
 
-    public int firstMissingPositive(int[] nums) {
-        int len = nums.length;
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">firstMissingPositive</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
 
-        for (int i = 0; i < len; i++) {
-            // 前两个是在判断是否成为索引
-            // 后一个是在判断，例如 3 在不在索引 2 上
-            // 即 nums[i] ?= nums[nums[i]-1] 这里要特别小心
-            while (nums[i] > 0 && nums[i] <= len && nums[nums[i] - 1] != nums[i]) {
-                // 第 3 个条件不成立的索引的部分是 i 和 nums[i]-1
-                swap(nums, nums[i] - 1, i);
-            }
-        }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 前两个是在判断是否成为索引</span>
+            <span class="token comment" spellcheck="true">// 后一个是在判断，例如 3 在不在索引 2 上</span>
+            <span class="token comment" spellcheck="true">// 即 nums[i] ?= nums[nums[i]-1] 这里要特别小心</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> len <span class="token operator">&amp;&amp;</span> nums<span class="token punctuation">[</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">!=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 第 3 个条件不成立的索引的部分是 i 和 nums[i]-1</span>
+                <span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        // 调试代码
-        // System.out.println(Arrays.toString(nums));
+        <span class="token comment" spellcheck="true">// 调试代码</span>
+        <span class="token comment" spellcheck="true">// System.out.println(Arrays.toString(nums));</span>
 
-        for (int i = 0; i < len; i++) {
-            // [1,-2,3,4]
-            // 除了 -2 其它都满足： i+1 = num[i]
-            if (nums[i] - 1 != i) {
-                return i + 1;
-            }
-        }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// [1,-2,3,4]</span>
+            <span class="token comment" spellcheck="true">// 除了 -2 其它都满足： i+1 = num[i]</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">!=</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        return len + 1;
-    }
+        <span class="token keyword">return</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    private void swap(int[] nums, int index1, int index2) {
-        nums[index1] = nums[index1] ^ nums[index2];
-        nums[index2] = nums[index1] ^ nums[index2];
-        nums[index1] = nums[index1] ^ nums[index2];
-    }
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> index1<span class="token punctuation">,</span> <span class="token keyword">int</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">^</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">^</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">^</span> nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        Solution2 solution = new Solution2();
-        // int[] nums = {3, 4, -1, 5};
-        int[] nums = {4, 3, 2, 1};
-        int firstMissingPositive = solution.firstMissingPositive(nums);
-        System.out.println(firstMissingPositive);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Solution2 solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// int[] nums = {3, 4, -1, 5};</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> firstMissingPositive <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">firstMissingPositive</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>firstMissingPositive<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
 <hr>
-<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -746,14 +737,11 @@ class Solution:
 <th>题解</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><a href="https://leetcode-cn.com/problems/first-missing-positive/" target="_blank" rel="noopener">LeetCode 第 41 题：缺失的第一个正数</a></td>
 <td><a href="https://leetcode-cn.com/problems/first-missing-positive/solution/tong-pai-xu-python-dai-ma-by-liweiwei1419/" target="_blank" rel="noopener">桶排序（Python 代码、Java 代码）</a></td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <ul>
 <li>提示：点击上面的题解链接，可以看到我制作的幻灯片轮播图。</li>
 </ul>
@@ -779,7 +767,7 @@ class Solution:
 <p>就看上面那张图，数字 $1$ 应该放在索引为 $0$ 的位置上，数字 $3$ 应该放在索引为 $2$ 的位置上，数字 $4$ 应该放在索引为 $3$ 的位置上。一个数字放在它应该放的位置上，我们就认为这个位置是“和谐”的，看起来“顺眼”的。</p>
 <p>按照以上规则排好序以后，缺失的第 $1$ 个正数一下子就看出来了，那么“最不和谐”的数字的索引 $+ 1$，就为所求。那如果所有的数字都不“和谐”，数组的长度 $+ 1$ 就为所求。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-Python"><code class="language-lang-Python">class Solution:
+<pre class="line-numbers language-Python"><code class="language-Python">class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
 
         size = len(nums)
@@ -807,10 +795,9 @@ class Solution:
     def __swap(self, nums, index1, index2):
         if index1 == index2:
             return
-        nums[index1], nums[index2] = nums[index2], nums[index1]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        nums[index1], nums[index2] = nums[index2], nums[index1]  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-Java"><code class="language-lang-Java">import java.util.Arrays;
+<pre class="line-numbers language-Java"><code class="language-Java">import java.util.Arrays;
 
 public class Solution {
 
@@ -867,8 +854,7 @@ public class Solution {
         int firstMissingPositive = solution.firstMissingPositive(nums);
         System.out.println(firstMissingPositive);
     }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析：</strong></p>
 <ul>
 <li>时间复杂度：$O(N)$，这里 $N$ 是数组的长度，其实只要看这个数组一遍，就可以知道每个数字应该放在哪个位置，所以时间复杂度是 $O(N)$。</li>

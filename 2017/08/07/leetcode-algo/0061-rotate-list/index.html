@@ -494,16 +494,14 @@
 输出: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL
 解释:
 向右旋转 1 步: 5-&gt;1-&gt;2-&gt;3-&gt;4-&gt;NULL
-向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL
-</code></pre><p>示例 2：</p>
+向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL</code></pre><p>示例 2：</p>
 <pre><code>输入: 0-&gt;1-&gt;2-&gt;NULL, k = 4
 输出: 2-&gt;0-&gt;1-&gt;NULL
 解释:
 向右旋转 1 步: 2-&gt;0-&gt;1-&gt;NULL
 向右旋转 2 步: 1-&gt;2-&gt;0-&gt;NULL
 向右旋转 3 步: 0-&gt;1-&gt;2-&gt;NULL
-向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL
-</code></pre></blockquote>
+向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL</code></pre></blockquote>
 <p>思路：问题本身不难，但是要处理一些细节。</p>
 <p>1、一定要先求出链表的总长度；</p>
 <p>2、求得总长度的时候，顺便标记好末尾结点，并且把末尾结点的 next 指针指到头结点去，形成环，否则容易出现空指针异常；</p>
@@ -512,85 +510,89 @@
 <p><img src="https://pic.leetcode-cn.com/0d3f7795cfae2afa8d4145f66216ba837f72ca08d86ecbc010ad1ae9e66696c2-image.png" alt="image.png"></p>
 <p><strong>参考代码</strong>：</p>
 <p>Java 代码：</p>
-<p>```Java []<br>class ListNode {<br>    int val;<br>    ListNode next;</p>
-<pre><code>ListNode(int x) {
-    val = x;
+<pre class="line-numbers language-Java"><code class="language-Java">class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode(int x) {
+        val = x;
+    }
+
+    public ListNode(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            throw new IllegalArgumentException("arr can not be empty");
+        }
+        this.val = nums[0];
+        ListNode curr = this;
+        for (int i = 1; i < nums.length; i++) {
+            curr.next = new ListNode(nums[i]);
+            curr = curr.next;
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        ListNode cur = this;
+        while (cur != null) {
+            s.append(cur.val ).append(" -> ");
+            cur = cur.next;
+        }
+        s.append("NULL");
+        return s.toString();
+    }
 }
 
-public ListNode(int[] nums) {
-    if (nums == null || nums.length == 0) {
-        throw new IllegalArgumentException(&quot;arr can not be empty&quot;);
-    }
-    this.val = nums[0];
-    ListNode curr = this;
-    for (int i = 1; i &lt; nums.length; i++) {
-        curr.next = new ListNode(nums[i]);
-        curr = curr.next;
-    }
-}
 
-@Override
-public String toString() {
-    StringBuilder s = new StringBuilder();
-    ListNode cur = this;
-    while (cur != null) {
-        s.append(cur.val ).append(&quot; -&gt; &quot;);
-        cur = cur.next;
-    }
-    s.append(&quot;NULL&quot;);
-    return s.toString();
-}
-</code></pre><p>}</p>
-<p>// 关键在于边界条件的讨论，和代码调试</p>
-<p>public class Solution {</p>
-<pre><code>public ListNode rotateRight(ListNode head, int k) {
-    // 特判
-    if (head == null || head.next == null || k == 0) {
-        return head;
-    }
+// 关键在于边界条件的讨论，和代码调试
 
-    // 第 1 步：先要知道链表有多少个结点
-    int n = 1;
-    ListNode fastNode = head;
-    while (fastNode.next != null) {
-        fastNode = fastNode.next;
-        n++;
-    }
-    // 此时 fastNode 到末尾结点
+public class Solution {
 
-    k = k % n;
-    if (k == 0) {
-        return head;
-    }
-    // 第 2 步：找到倒数第 k 个结点，走 n - k - 1 步
-    ListNode slowNode = head;
-    for (int i = 0; i &lt; n - k - 1; i++) {
-        slowNode = slowNode.next;
-    }
+    public ListNode rotateRight(ListNode head, int k) {
+        // 特判
+        if (head == null || head.next == null || k == 0) {
+            return head;
+        }
 
-    // 第 3 步：穿针引线
-    ListNode newHead = slowNode.next;
-    // 先把尾部接到开头
-    fastNode.next = head;
-    // 再切断原来的连接
-    slowNode.next = null;
-    return newHead;
-}
-</code></pre><p>}</p>
-<pre><code>
-Python 代码：
+        // 第 1 步：先要知道链表有多少个结点
+        int n = 1;
+        ListNode fastNode = head;
+        while (fastNode.next != null) {
+            fastNode = fastNode.next;
+            n++;
+        }
+        // 此时 fastNode 到末尾结点
 
-```Python []
-class ListNode:
+        k = k % n;
+        if (k == 0) {
+            return head;
+        }
+        // 第 2 步：找到倒数第 k 个结点，走 n - k - 1 步
+        ListNode slowNode = head;
+        for (int i = 0; i < n - k - 1; i++) {
+            slowNode = slowNode.next;
+        }
+
+        // 第 3 步：穿针引线
+        ListNode newHead = slowNode.next;
+        // 先把尾部接到开头
+        fastNode.next = head;
+        // 再切断原来的连接
+        slowNode.next = null;
+        return newHead;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Python 代码：</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
 
 
 class Solution:
-    def rotateRight(self, head: ListNode, k: int) -&gt; ListNode:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
         # 特判
-        if head is None or head.next is None or k &lt;= 0:
+        if head is None or head.next is None or k <= 0:
             return head
 
         # 先看链表有多少元素
@@ -613,8 +615,8 @@ class Solution:
             node = node.next
         new_head = node.next
         node.next = None
-        return new_head
-</code></pre>
+        return new_head<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
             </div>
             <hr/>
 

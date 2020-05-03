@@ -493,28 +493,27 @@
 <p>解题思路：二分法。对“数”做二分，要定位的“数”根据题意在 $1$ 和 $n$ 之间，每一次二分都可以将搜索区间缩小一半。</p>
 <p>以 <code>[1, 2, 2, 3, 4, 5, 6, 7]</code> 为例，一共有 $8$ 个数，每个数都在  $1$ 和 $7$ 之间。$1$ 和 $7$ 的中位数是 $4$，<strong>遍历整个数组</strong>，统计小于 $4$ 的整数的个数，至多应该为 $3$ 个，如果超过 $3$ 个就说明重复的数存在于区间 $[1,4)$ （注意：左闭右开）中；否则，重复的数存在于区间 $[4,7]$（注意：左右都是闭）中。这里小于 $4$ 的整数有 $4$ 个（它们是 1, 2, 2, 3），因此砍掉右半区间，连中位数也砍掉。以此类推，最后区间越来越小，直到变成 $1$ 个整数，这个整数就是我们要找的重复的数。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
 
-    def findDuplicate(self, nums):
-        left = 1
-        right = len(nums) - 1
-        while left < right:
-            # 取中点有两种方式，偏左和偏右
-            mid = left + (right - left + 1) // 2
-            count = 0
-            for num in nums:
-                if num < mid:
-                    count += 1
-            if count < mid:
-                # 因为左边不变，所以取中点的时候，就要偏右
-                left = mid
-            else:
-                # 比 4 小的个数，达到 4 或者更多
-                # 重复的就落在 [1, 2, 3]
-                right = mid - 1
-        # 跳出循环肯定是因为 start = end
-        return left
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">def</span> <span class="token function">findDuplicate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        left <span class="token operator">=</span> <span class="token number">1</span>
+        right <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token keyword">while</span> left <span class="token operator">&lt;</span> right<span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 取中点有两种方式，偏左和偏右</span>
+            mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+            count <span class="token operator">=</span> <span class="token number">0</span>
+            <span class="token keyword">for</span> num <span class="token keyword">in</span> nums<span class="token punctuation">:</span>
+                <span class="token keyword">if</span> num <span class="token operator">&lt;</span> mid<span class="token punctuation">:</span>
+                    count <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">if</span> count <span class="token operator">&lt;</span> mid<span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 因为左边不变，所以取中点的时候，就要偏右</span>
+                left <span class="token operator">=</span> mid
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 比 4 小的个数，达到 4 或者更多</span>
+                <span class="token comment" spellcheck="true"># 重复的就落在 [1, 2, 3]</span>
+                right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token comment" spellcheck="true"># 跳出循环肯定是因为 start = end</span>
+        <span class="token keyword">return</span> left<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>说明：1、在 Python 中，整除使用 <code>//</code> ，如果使用 <code>/</code> ，在不能整除的时候，会返回一个小数；</p>
 <p>2、之所以写成 <code>mid = left + (right - left + 1) // 2</code> ，是因为下面的分支条件是：<code>left = mid</code> 和 <code>right = mid - 1</code>，如果写成 <code>mid = left + (right - left) // 2</code> 就会陷入死循环。我们还是以具体例子为例。</p>
 <p>当一个整数数组（按升序排列）的个数为奇数时，不论 <code>mid = left + (right - left) // 2</code> 和  <code>mid = left + (right - left + 1) // 2</code>  都落在了相同的一个数，大家不妨拿 <code>[1,2,3,4,5]</code> 做验证；</p>
@@ -529,58 +528,57 @@
 <hr>
 <p>分析：</p>
 <p>Python 代码1：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def findDuplicate(self, nums):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">findDuplicate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type nums: List[int]
         :rtype: int
-        """
-        left = 1
-        right = len(nums) - 1
+        """</span>
+        left <span class="token operator">=</span> <span class="token number">1</span>
+        right <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
 
-        # 特别注意：在二分法取中点的算法中，如果有一条分支，不能排除 mid
-        # 在写 while 循环的时候，就不能把 = 写进去，否则会出现死循环，
-        # 这一点要特别注意
+        <span class="token comment" spellcheck="true"># 特别注意：在二分法取中点的算法中，如果有一条分支，不能排除 mid</span>
+        <span class="token comment" spellcheck="true"># 在写 while 循环的时候，就不能把 = 写进去，否则会出现死循环，</span>
+        <span class="token comment" spellcheck="true"># 这一点要特别注意</span>
 
-        # 注意，千万不能写 while left <= right，会进入死循环
-        # 因为下面有一个分支是 right = mid
-        while left < right:
-            # 因为在循环过程中，右边界可能不变，就要使用左偏中点
-            # [1,2] 时，
-            mid = left + (right - left) // 2
-            count = 0
-            for num in nums:
-                if num <= mid:
-                    count += 1
-            if count <= mid:
-                # 在 [left,mid] 这个区间没有重复元素
-                # 所以搜索范围在 [mid+1,right]
-                left = mid + 1
-            else:
-                # 在 [left,mid] 这个区间有重复元素
-                # 所以搜索范围在 [left,mid]
-                right = mid
-        # 退出循环的时候 start == end 为 True
-        return left
+        <span class="token comment" spellcheck="true"># 注意，千万不能写 while left &lt;= right，会进入死循环</span>
+        <span class="token comment" spellcheck="true"># 因为下面有一个分支是 right = mid</span>
+        <span class="token keyword">while</span> left <span class="token operator">&lt;</span> right<span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 因为在循环过程中，右边界可能不变，就要使用左偏中点</span>
+            <span class="token comment" spellcheck="true"># [1,2] 时，</span>
+            mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+            count <span class="token operator">=</span> <span class="token number">0</span>
+            <span class="token keyword">for</span> num <span class="token keyword">in</span> nums<span class="token punctuation">:</span>
+                <span class="token keyword">if</span> num <span class="token operator">&lt;=</span> mid<span class="token punctuation">:</span>
+                    count <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">if</span> count <span class="token operator">&lt;=</span> mid<span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 在 [left,mid] 这个区间没有重复元素</span>
+                <span class="token comment" spellcheck="true"># 所以搜索范围在 [mid+1,right]</span>
+                left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 在 [left,mid] 这个区间有重复元素</span>
+                <span class="token comment" spellcheck="true"># 所以搜索范围在 [left,mid]</span>
+                right <span class="token operator">=</span> mid
+        <span class="token comment" spellcheck="true"># 退出循环的时候 start == end 为 True</span>
+        <span class="token keyword">return</span> left
 
 
-if __name__ == '__main__':
-    nums = [1, 3, 4, 2, 2]
-    solution = Solution()
-    result = solution.findDuplicate(nums)
-    print(result)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span>
+    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    result <span class="token operator">=</span> solution<span class="token punctuation">.</span>findDuplicate<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码2：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python"># 287. 寻找重复数
-# 给定一个包含 n + 1 个整数的数组 nums，
-# 其数字都在 1 到 n 之间（包括 1 和 n），
-# 可知至少存在一个重复的整数。
-# 假设只有一个重复的整数，找出这个重复的数。
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 287. 寻找重复数</span>
+<span class="token comment" spellcheck="true"># 给定一个包含 n + 1 个整数的数组 nums，</span>
+<span class="token comment" spellcheck="true"># 其数字都在 1 到 n 之间（包括 1 和 n），</span>
+<span class="token comment" spellcheck="true"># 可知至少存在一个重复的整数。</span>
+<span class="token comment" spellcheck="true"># 假设只有一个重复的整数，找出这个重复的数。</span>
 
-class Solution:
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
 
-    def findDuplicate(self, nums):
-        """
+    <span class="token keyword">def</span> <span class="token function">findDuplicate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         【不修改数组找出重复的数字】
         给定一个包含 n + 1 个整数的数组 nums，
         其数字都在 1 到 n 之间（包括 1 和 n），
@@ -588,86 +586,80 @@ class Solution:
         假设只有一个重复的整数，找出这个重复的数。
         :type nums: List[int]
         :rtype: int
-        """
-        left = 1
-        right = len(nums) - 1
+        """</span>
+        left <span class="token operator">=</span> <span class="token number">1</span>
+        right <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
 
-        # 特别注意：在二分法取中点的算法中，如果有一条分支，不能排除 mid
-        # 在写 while 循环的时候，就不能把 = 写进去，否则会出现死循环，
-        # 这一点要特别注意
+        <span class="token comment" spellcheck="true"># 特别注意：在二分法取中点的算法中，如果有一条分支，不能排除 mid</span>
+        <span class="token comment" spellcheck="true"># 在写 while 循环的时候，就不能把 = 写进去，否则会出现死循环，</span>
+        <span class="token comment" spellcheck="true"># 这一点要特别注意</span>
 
-        # 注意，千万不能写 while left <= right，会进入死循环
-        # 因为下面有一个分支是 left = mid
-        while left < right:
-            # 取中点有两种方式，偏左和偏右
-            mid = left + (right - left + 1) // 2  # 4
-            count = 0
-            for num in nums:
-                if num < mid:
-                    count += 1
-            if count < mid:
-                # 比 4 小的个数，最多就只能是 3
-                # 所以重复的肯定不是 [1,2,3]
-                # 因为左边不变，所以取中点的时候，就要偏右
-                left = mid
-            else:
-                # 比 4 小的个数，达到 4 或者更多
-                # 重复的就落在 [1,2,3]
-                right = mid - 1
-        # 跳出循环肯定是因为 start = end
-        return left
+        <span class="token comment" spellcheck="true"># 注意，千万不能写 while left &lt;= right，会进入死循环</span>
+        <span class="token comment" spellcheck="true"># 因为下面有一个分支是 left = mid</span>
+        <span class="token keyword">while</span> left <span class="token operator">&lt;</span> right<span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 取中点有两种方式，偏左和偏右</span>
+            mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>  <span class="token comment" spellcheck="true"># 4</span>
+            count <span class="token operator">=</span> <span class="token number">0</span>
+            <span class="token keyword">for</span> num <span class="token keyword">in</span> nums<span class="token punctuation">:</span>
+                <span class="token keyword">if</span> num <span class="token operator">&lt;</span> mid<span class="token punctuation">:</span>
+                    count <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">if</span> count <span class="token operator">&lt;</span> mid<span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 比 4 小的个数，最多就只能是 3</span>
+                <span class="token comment" spellcheck="true"># 所以重复的肯定不是 [1,2,3]</span>
+                <span class="token comment" spellcheck="true"># 因为左边不变，所以取中点的时候，就要偏右</span>
+                left <span class="token operator">=</span> mid
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 比 4 小的个数，达到 4 或者更多</span>
+                <span class="token comment" spellcheck="true"># 重复的就落在 [1,2,3]</span>
+                right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token comment" spellcheck="true"># 跳出循环肯定是因为 start = end</span>
+        <span class="token keyword">return</span> left
 
 
-if __name__ == '__main__':
-    nums = [3, 1, 3, 4, 2]
-    solution = Solution()
-    result = solution.findDuplicate(nums)
-    print(result)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span>
+    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    result <span class="token operator">=</span> solution<span class="token punctuation">.</span>findDuplicate<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>解法3：使用 LeetCode 第 141 题和第 142 题的做法。</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
-    def findDuplicate(self, nums):
-        # 参考了：https://blog.csdn.net/wr339988/article/details/53617914
-        # 参考资料：http://www.cnblogs.com/grandyang/p/4843654.html
-        # 看下来，其实就是 LeetCode 141 和 142
-        # 会了这两题，其实这道题的这个解法就迎刃而解了
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">findDuplicate</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 参考了：https://blog.csdn.net/wr339988/article/details/53617914</span>
+        <span class="token comment" spellcheck="true"># 参考资料：http://www.cnblogs.com/grandyang/p/4843654.html</span>
+        <span class="token comment" spellcheck="true"># 看下来，其实就是 LeetCode 141 和 142</span>
+        <span class="token comment" spellcheck="true"># 会了这两题，其实这道题的这个解法就迎刃而解了</span>
+        <span class="token triple-quoted-string string">"""
         :type nums: List[int]
         :rtype: int
-        """
+        """</span>
 
-        fast = 0
-        slow = 0
+        fast <span class="token operator">=</span> <span class="token number">0</span>
+        slow <span class="token operator">=</span> <span class="token number">0</span>
 
-        while True:
-            fast = nums[nums[fast]]
-            slow = nums[slow]
+        <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+            fast <span class="token operator">=</span> nums<span class="token punctuation">[</span>nums<span class="token punctuation">[</span>fast<span class="token punctuation">]</span><span class="token punctuation">]</span>
+            slow <span class="token operator">=</span> nums<span class="token punctuation">[</span>slow<span class="token punctuation">]</span>
 
-            if fast == slow:
-                break
+            <span class="token keyword">if</span> fast <span class="token operator">==</span> slow<span class="token punctuation">:</span>
+                <span class="token keyword">break</span>
 
-        point = 0
-        while point != slow:
-            point = nums[point]
-            slow = nums[slow]
-        return point
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h1 id="LeetCode-第-287-题：寻找重复数"><a href="#LeetCode-第-287-题：寻找重复数" class="headerlink" title="LeetCode 第 287 题：寻找重复数"></a>LeetCode 第 287 题：寻找重复数</h1><div class="table-container">
-<table>
+        point <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">while</span> point <span class="token operator">!=</span> slow<span class="token punctuation">:</span>
+            point <span class="token operator">=</span> nums<span class="token punctuation">[</span>point<span class="token punctuation">]</span>
+            slow <span class="token operator">=</span> nums<span class="token punctuation">[</span>slow<span class="token punctuation">]</span>
+        <span class="token keyword">return</span> point<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="LeetCode-第-287-题：寻找重复数"><a href="#LeetCode-第-287-题：寻找重复数" class="headerlink" title="LeetCode 第 287 题：寻找重复数"></a>LeetCode 第 287 题：寻找重复数</h1><table>
 <thead>
 <tr>
 <th>题目地址</th>
 <th>题解</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><a href="https://leetcode-cn.com/problems/find-the-duplicate-number/" target="_blank" rel="noopener">LeetCode 第 287 题：寻找重复数</a></td>
 <td><a href="https://leetcode-cn.com/problems/find-the-duplicate-number/solution/er-fen-fa-si-lu-ji-dai-ma-python-by-liweiwei1419/" target="_blank" rel="noopener">桶排序 + 二分法（Python 代码、Java 代码）</a></td>
 </tr>
-</tbody>
-</table>
-</div>
+</tbody></table>
 <ul>
 <li>提示：点击上面的题解链接，可以看到我制作的幻灯片轮播图。</li>
 </ul>
@@ -681,7 +673,7 @@ if __name__ == '__main__':
 <p><img src="https://liweiwei1419.gitee.io/images/leetcode-solution/287-7.png" alt="LeetCode 第 287 题-7"></p>
 <p>这里数与要放置的位置的索引有一个偏差，编码的时候要注意这一点。再整理一下思路：<strong>如果数字 <code>i</code> 没有放在索引 <code>i - 1</code> 上，就要执行交换，把数字 <code>i</code> 放在索引 <code>i - 1</code> 上，如果索引  <code>i - 1</code> 上的那个元素恰好和自己相等，就没有必要交换，说明出现重复了，即找到了这个重复的元素，返回即可</strong>。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-Python"><code class="language-lang-Python">class Solution:
+<pre class="line-numbers language-Python"><code class="language-Python">class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
         # 桶排序，数字 i 应该在索引 i - 1 上，否则交换
         size = len(nums)
@@ -694,10 +686,9 @@ if __name__ == '__main__':
     def __swap(self, nums, index1, index2):
         if index1 == index2:
             return
-        nums[index1], nums[index2] = nums[index2], nums[index1]
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        nums[index1], nums[index2] = nums[index2], nums[index1]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-Java"><code class="language-lang-Java">public class Solution {
+<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
 
     public int findDuplicate(int[] nums) {
         int len = nums.length;
@@ -721,8 +712,7 @@ if __name__ == '__main__':
         nums[index1] = nums[index2];
         nums[index2] = temp;
     }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这里解释一下编码细节，可能有些朋友会比较晕。</p>
 <p>1、<code>nums[i] != i + 1</code>：想一想正确放置的情况，<code>nums[0] = 1</code>、<code>nums[1] = 2</code>，依次类推，这一步是在判断，在遍历的时候，当前索引上的放置的元素的值是不是正确的“萝卜”；</p>
 <p>2、<code>if nums[i] == nums[nums[i] - 1]:</code>：如果不是正确的“萝卜”，就得根据当前索引上的数值，看一看这个数字应该放在哪个位置上。例如数字 4 应该放在索引 3 上，那么就要检查数字 4（这里是 <code>nums[i]</code>），与索引 3 （这里是 <code>nums[i] - 1</code>）上的数值，即 <code>nums[nums[i] - 1]</code> 是否相等，如果相等，返回这个重复数，如果不相等，交换。</p>
@@ -735,7 +725,7 @@ if __name__ == '__main__':
 <h3 id="方法二：二分法"><a href="#方法二：二分法" class="headerlink" title="方法二：二分法"></a>方法二：二分法</h3><p>对“数”做二分，要定位的“数”根据题意在 $1$ 和 $n$ 之间，每一次二分都可以将搜索区间缩小一半。</p>
 <p>以 <code>[1, 2, 2, 3, 4, 5, 6, 7]</code> 为例，一共有 $8$ 个数，每个数都在  $1$ 和 $7$ 之间。$1$ 和 $7$ 的中位数是 $4$，<strong>遍历整个数组</strong>，统计小于 $4$ 的整数的个数，至多应该为 $3$ 个，如果超过 $3$ 个就说明重复的数存在于区间 $[1,4)$ （注意：左闭右开）中；否则，重复的数存在于区间 $[4,7]$（注意：左右都是闭）中。这里小于 $4$ 的整数有 $4$ 个（它们是 1, 2, 2, 3），因此砍掉右半区间，连中位数也砍掉。以此类推，最后区间越来越小，直到变成 $1$ 个整数，这个整数就是我们要找的重复的数。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-Python"><code class="language-lang-Python">class Solution:
+<pre class="line-numbers language-Python"><code class="language-Python">class Solution:
     def findDuplicate(self, nums):
         """
         :type nums: List[int]
@@ -767,10 +757,9 @@ if __name__ == '__main__':
                 # 所以搜索范围在 [left,mid]
                 right = mid
         # 退出循环的时候 start == end 为 True
-        return left
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        return left<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-Java"><code class="language-lang-Java">public class Solution {
+<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
 
     public int findDuplicate(int[] nums) {
         int len = nums.length;
@@ -792,8 +781,7 @@ if __name__ == '__main__':
         }
         return l;
     }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>说明：1、在 Python 中，整除使用 <code>//</code> ，如果使用 <code>/</code> ，在不能整除的时候，会返回一个小数；</p>
 <p>2、之所以写成 <code>mid = left + (right - left + 1) // 2</code> ，是因为下面的分支条件是：<code>left = mid</code> 和 <code>right = mid - 1</code>，如果写成 <code>mid = left + (right - left) // 2</code> 就会陷入死循环。我们还是以具体例子为例。</p>
 <p>当一个整数数组（按升序排列）的个数为奇数时，不论 <code>mid = left + (right - left) // 2</code> 和  <code>mid = left + (right - left + 1) // 2</code>  都落在了相同的一个数，大家不妨拿 <code>[1,2,3,4,5]</code> 做验证；</p>
@@ -807,7 +795,7 @@ if __name__ == '__main__':
 <p>总结一下：<code>while left &lt; right</code> 一定是严格小于，最后把一个区间“夹逼”成一个数，二分法先写两个分支，再根据分支的情况，调整如何取中点。</p>
 <p>下面再提供等价的二分法写法，供体会这个二分法模板的好处和使用技巧：</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-Python"><code class="language-lang-Python">class Solution:
+<pre class="line-numbers language-Python"><code class="language-Python">class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
         size = len(nums)
         l = 1
@@ -828,10 +816,9 @@ if __name__ == '__main__':
             else:
                 l = mid
 
-        return l
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        return l<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-Java"><code class="language-lang-Java">public class Solution {
+<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
 
     public int findDuplicate(int[] nums) {
         int len = nums.length;
@@ -855,8 +842,7 @@ if __name__ == '__main__':
         }
         return l;
     }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析：</strong></p>
 <ul>
 <li>时间复杂度：$O(N \log N)$，二分法的时间复杂度为 $O(\log N)$，在二分法的内部，执行了一次 <code>for</code> 循环，时间复杂度为 $O(N)$，故时间复杂度为 $O(N \log N)$。</li>

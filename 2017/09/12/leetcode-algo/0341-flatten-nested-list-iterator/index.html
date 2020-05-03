@@ -488,87 +488,85 @@
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: [[1,1],2,[1,1]]
 输出: [1,1,2,1,1]
-解释: 通过重复调用 next 直到 hasNext 返回false，next 返回的元素的顺序应该是: [1,1,2,1,1]。
-</code></pre><p><strong>示例 2:</strong></p>
+解释: 通过重复调用 next 直到 hasNext 返回false，next 返回的元素的顺序应该是: [1,1,2,1,1]。</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: [1,[4,[6]]]
 输出: [1,4,6]
-解释: 通过重复调用 next 直到 hasNext 返回false，next 返回的元素的顺序应该是: [1,4,6]。
-</code></pre></blockquote>
+解释: 通过重复调用 next 直到 hasNext 返回false，next 返回的元素的顺序应该是: [1,4,6]。</code></pre></blockquote>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python"># """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># </span><span class="token triple-quoted-string string">"""
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
-# """
-# class NestedInteger(object):
-#    def isInteger(self):
-#        """
+# """</span>
+<span class="token comment" spellcheck="true"># class NestedInteger(object):</span>
+<span class="token comment" spellcheck="true">#    def isInteger(self):</span>
+<span class="token comment" spellcheck="true">#        </span><span class="token triple-quoted-string string">"""
 #        @return True if this NestedInteger holds a single integer, rather than a nested list.
 #        :rtype bool
-#        """
-#
-#    def getInteger(self):
-#        """
+#        """</span>
+<span class="token comment" spellcheck="true">#</span>
+<span class="token comment" spellcheck="true">#    def getInteger(self):</span>
+<span class="token comment" spellcheck="true">#        </span><span class="token triple-quoted-string string">"""
 #        @return the single integer that this NestedInteger holds, if it holds a single integer
 #        Return None if this NestedInteger holds a nested list
 #        :rtype int
-#        """
-#
-#    def getList(self):
-#        """
+#        """</span>
+<span class="token comment" spellcheck="true">#</span>
+<span class="token comment" spellcheck="true">#    def getList(self):</span>
+<span class="token comment" spellcheck="true">#        </span><span class="token triple-quoted-string string">"""
 #        @return the nested list that this NestedInteger holds, if it holds a nested list
 #        Return None if this NestedInteger holds a single integer
 #        :rtype List[NestedInteger]
-#        """
+#        """</span>
 
-class NestedIterator(object):
+<span class="token keyword">class</span> <span class="token class-name">NestedIterator</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
-    def __init__(self, nestedList):
-        """
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nestedList<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         Initialize your data structure here.
         :type nestedList: List[NestedInteger]
-        """
-        self.stack = nestedList[::-1]
-        # 临时存放值的地方
-        self.value = None
+        """</span>
+        self<span class="token punctuation">.</span>stack <span class="token operator">=</span> nestedList<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>
+        <span class="token comment" spellcheck="true"># 临时存放值的地方</span>
+        self<span class="token punctuation">.</span>value <span class="token operator">=</span> None
 
-    def next(self):
-        """
+    <span class="token keyword">def</span> <span class="token function">next</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :rtype: int
-        """
+        """</span>
 
-        result = self.hasNext()
+        result <span class="token operator">=</span> self<span class="token punctuation">.</span>hasNext<span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-        if result:
-            ret = self.value
-            self.value = None
-            return ret
+        <span class="token keyword">if</span> result<span class="token punctuation">:</span>
+            ret <span class="token operator">=</span> self<span class="token punctuation">.</span>value
+            self<span class="token punctuation">.</span>value <span class="token operator">=</span> None
+            <span class="token keyword">return</span> ret
 
-    def hasNext(self):
-        """
+    <span class="token keyword">def</span> <span class="token function">hasNext</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :rtype: bool
-        """
+        """</span>
 
-        if self.value is not None:
-            # 就不执行了，因为没有被取出来
-            return True
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>value <span class="token keyword">is</span> <span class="token operator">not</span> None<span class="token punctuation">:</span>
+            <span class="token comment" spellcheck="true"># 就不执行了，因为没有被取出来</span>
+            <span class="token keyword">return</span> <span class="token boolean">True</span>
 
-        # 如果 self.value 为 None 的话
-        # 就要从 stack 中弹出元素了
+        <span class="token comment" spellcheck="true"># 如果 self.value 为 None 的话</span>
+        <span class="token comment" spellcheck="true"># 就要从 stack 中弹出元素了</span>
 
-        while self.stack:
-            top = self.stack.pop()
-            # 如果栈中有元素，看看这个元素是什么
-            if top.isInteger():
-                # 是数字，就放在临时变量上
-                self.value = top.getInteger()
-                return True
-            else:
-                self.stack.extend(top.getList()[::-1])
-        return False
+        <span class="token keyword">while</span> self<span class="token punctuation">.</span>stack<span class="token punctuation">:</span>
+            top <span class="token operator">=</span> self<span class="token punctuation">.</span>stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true"># 如果栈中有元素，看看这个元素是什么</span>
+            <span class="token keyword">if</span> top<span class="token punctuation">.</span>isInteger<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token comment" spellcheck="true"># 是数字，就放在临时变量上</span>
+                self<span class="token punctuation">.</span>value <span class="token operator">=</span> top<span class="token punctuation">.</span>getInteger<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token keyword">return</span> <span class="token boolean">True</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>stack<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>top<span class="token punctuation">.</span>getList<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">False</span>
 
-# Your NestedIterator object will be instantiated and called as such:
-# i, v = NestedIterator(nestedList), []
-# while i.hasNext(): v.append(i.next())
+<span class="token comment" spellcheck="true"># Your NestedIterator object will be instantiated and called as such:</span>
+<span class="token comment" spellcheck="true"># i, v = NestedIterator(nestedList), []</span>
+<span class="token comment" spellcheck="true"># while i.hasNext(): v.append(i.next())</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>

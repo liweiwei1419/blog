@@ -487,49 +487,48 @@
 <li>希尔排序的「间隔序列」其实是一个超参数，这方面有一些研究成果，有兴趣的朋友可以了解一下，但是如果这是面向笔试面试，就不用了解了。</li>
 </ul>
 <p><strong>参考代码 6</strong>：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 希尔排序
+    <span class="token comment" spellcheck="true">// 希尔排序</span>
 
-    public int[] sortArray(int[] nums) {
-        int len = nums.length;
-        int h = 1;
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">sortArray</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> h <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
-        // 使用 Knuth 增量序列
-        // 找增量的最大值
-        while (3 * h + 1 < len) {
-            h = 3 * h + 1;
-        }
+        <span class="token comment" spellcheck="true">// 使用 Knuth 增量序列</span>
+        <span class="token comment" spellcheck="true">// 找增量的最大值</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">3</span> <span class="token operator">*</span> h <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> len<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            h <span class="token operator">=</span> <span class="token number">3</span> <span class="token operator">*</span> h <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        while (h >= 1) {
-            // insertion sort
-            for (int i = h; i < len; i++) {
-                insertionForDelta(nums, h, i);
-            }
-            h = h / 3;
-        }
-        return nums;
-    }
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>h <span class="token operator">>=</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// insertion sort</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> h<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">insertionForDelta</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> h<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            h <span class="token operator">=</span> h <span class="token operator">/</span> <span class="token number">3</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> nums<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * 将 nums[i] 插入到对应分组的正确位置上，其实就是将原来 1 的部分改成 gap
      *
      * @param nums
      * @param gap
      * @param i
-     */
-    private void insertionForDelta(int[] nums, int gap, int i) {
-        int temp = nums[i];
-        int j = i;
-        // 注意：这里 j >= deta 的原因
-        while (j >= gap && nums[j - gap] > temp) {
-            nums[j] = nums[j - gap];
-            j -= gap;
-        }
-        nums[j] = temp;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">insertionForDelta</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> gap<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> temp <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> j <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 注意：这里 j >= deta 的原因</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">>=</span> gap <span class="token operator">&amp;&amp;</span> nums<span class="token punctuation">[</span>j <span class="token operator">-</span> gap<span class="token punctuation">]</span> <span class="token operator">></span> temp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>j <span class="token operator">-</span> gap<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            j <span class="token operator">-=</span> gap<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>希尔排序的时间复杂度至今还没有明确的结论，只有一个范围，已经不在我能介绍的范围了。</p>
 <p>（本节完）</p>
 

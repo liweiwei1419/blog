@@ -495,11 +495,9 @@
 <p>如果数组中不存在目标值，返回 <code>[-1, -1]</code>。</p>
 <p>示例 1：</p>
 <pre><code>输入: nums = [5, 7, 7, 8, 8, 10], target = 8
-输出: [3, 4]
-</code></pre><p>示例 2：</p>
+输出: [3, 4]</code></pre><p>示例 2：</p>
 <pre><code>输入: nums = [5, 7, 7, 8, 8, 10], target = 6
-输出: [-1, -1]
-</code></pre></blockquote>
+输出: [-1, -1]</code></pre></blockquote>
 <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><blockquote>
 <p>如果当前看到的中间元素的数值恰好等于目标元素，应该<strong>继续使用二分查找</strong>，查找它第一次出现和最后一次出现的位置，不可以线性地去扫描。</p>
 </blockquote>
@@ -513,42 +511,41 @@
 </ul>
 <p>这个算法的时间复杂度是 $O(N)$，不符合题目的要求。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public int[] searchRange(int[] nums, int target) {
-        int[] targetRange = new int[]{-1, -1};
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">searchRange</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> targetRange <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-        int len = nums.length;
-        if (len == 0) {
-            return targetRange;
-        }
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> targetRange<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        for (int i = 0; i < len; i++) {
-            if (nums[i] == target) {
-                targetRange[0] = i;
-                break;
-            }
-        }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                targetRange<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        // 连第 1 个位置都没有找到，说明已经遍历完整个数组了
-        if (targetRange[0] == -1) {
-            return targetRange;
-        }
+        <span class="token comment" spellcheck="true">// 连第 1 个位置都没有找到，说明已经遍历完整个数组了</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>targetRange<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> targetRange<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        for (int i = targetRange[0] + 1; i < len; i++) {
-            if (nums[i] != target) {
-                targetRange[1] = i - 1;
-                break;
-            }
-        }
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> targetRange<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                targetRange<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        if (targetRange[1] == -1) {
-            targetRange[1] = len - 1;
-        }
-        return targetRange;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>targetRange<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            targetRange<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> targetRange<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>代码讲解</strong>：</p>
 <ul>
 <li>首先新建一个有两个元素的整型数组 <code>targetRange</code>，初始化的值为 <code>[-1, -1]</code>，然后把数组的长度赋值成一个变量 <code>len</code>，当数组的长度等于 <code>0</code> 的时候，直接返回 <code>targetRange</code>；</li>
@@ -563,65 +560,67 @@
 </li>
 <li><p>对于这道题，与常见的二分查找问题最大的不同就在于，目标元素  <code>target</code> 在有序数组中很可能存在多个；</p>
 </li>
-<li>而当我们使用二分查找方法看到的处在中间位置的元素的值 <code>nums[mid]</code> 恰好等于目标元素  <code>target</code> 的时候，还需要继续查找下去，而此时比较容易陷入的误区是线性查找，正确的做法是继续二分查找；</li>
-<li>很显然，目标元素第 1 次出现的位置一定不可能是严格小于 <code>target</code> 的元素的位置，根据之前暴力解法的分析，目标元素第 1 次出现的位置是严格小于 <code>target</code> 的元素的位置的边界，因此，我们可以通过这个思路使用二分法找到这个边界；</li>
-<li>对称地，目标元素最后 1 次出现的位置一定不可能是严格大于 <code>target</code> 的元素的位置，目标元素最后 1 次出现的位置是严格大于 <code>target</code> 的元素的位置的边界，因此，我们可以通过这个思路使用二分法找到这个边界。</li>
+<li><p>而当我们使用二分查找方法看到的处在中间位置的元素的值 <code>nums[mid]</code> 恰好等于目标元素  <code>target</code> 的时候，还需要继续查找下去，而此时比较容易陷入的误区是线性查找，正确的做法是继续二分查找；</p>
+</li>
+<li><p>很显然，目标元素第 1 次出现的位置一定不可能是严格小于 <code>target</code> 的元素的位置，根据之前暴力解法的分析，目标元素第 1 次出现的位置是严格小于 <code>target</code> 的元素的位置的边界，因此，我们可以通过这个思路使用二分法找到这个边界；</p>
+</li>
+<li><p>对称地，目标元素最后 1 次出现的位置一定不可能是严格大于 <code>target</code> 的元素的位置，目标元素最后 1 次出现的位置是严格大于 <code>target</code> 的元素的位置的边界，因此，我们可以通过这个思路使用二分法找到这个边界。</p>
+</li>
 </ul>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public int[] searchRange(int[] nums, int target) {
-        int len = nums.length;
-        if (len == 0) {
-            return new int[]{-1, -1};
-        }
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">searchRange</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        int firstPosition = findFirstPosition(nums, target);
-        if (firstPosition == -1) {
-            return new int[]{-1, -1};
-        }
+        <span class="token keyword">int</span> firstPosition <span class="token operator">=</span> <span class="token function">findFirstPosition</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>firstPosition <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        int lastPosition = findLastPosition(nums, target);
-        return new int[]{firstPosition, lastPosition};
-    }
+        <span class="token keyword">int</span> lastPosition <span class="token operator">=</span> <span class="token function">findLastPosition</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>firstPosition<span class="token punctuation">,</span> lastPosition<span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    private int findFirstPosition(int[] nums, int target) {
-        int left = 0;
-        int right = nums.length - 1;
-        while (left < right) {
-            int mid = (left + right) >>> 1;
-            // 小于一定不是解
-            if (nums[mid] < target) {
-                // 下一轮搜索区间是 [mid + 1, right]
-                left = mid + 1;
-            } else {
-                right = mid;
-            }
-        }
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">findFirstPosition</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> nums<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>left <span class="token operator">+</span> right<span class="token punctuation">)</span> <span class="token operator">>>></span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 小于一定不是解</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [mid + 1, right]</span>
+                left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                right <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        if (nums[left] == target) {
-            return left;
-        }
-        return -1;
-    }
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> left<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    private int findLastPosition(int[] nums, int target) {
-        int left = 0;
-        int right = nums.length - 1;
-        while (left < right) {
-            int mid = (left + right + 1) >>> 1;
-            // 大于一定不是解
-            if (nums[mid] > target) {
-                // 下一轮搜索区间是 [left, mid - 1]
-                right = mid - 1;
-            } else {
-                left = mid;
-            }
-        }
-        return left;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">findLastPosition</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> nums<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>left <span class="token operator">+</span> right <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">>>></span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 大于一定不是解</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">></span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [left, mid - 1]</span>
+                right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                left <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> left<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>代码讲解</strong>：</p>
 <ul>
 <li><p>首先依然是将数组的长度赋值给一个变量 <code>len</code>；</p>
@@ -641,78 +640,83 @@
 </li>
 <li><p>对称地，我们来写查找 <code>target</code> 最后 1 次出现的位置的代码。</p>
 <ul>
-<li>首先可以确定的是，如果在查找 <code>target</code> 第 1 次出现的位置的时候，我们都没有找到  <code>target</code> ，在查找 <code>target</code>  最后一次出现的位置的时候，我们肯定也不会找到这个数，因此可以先做一个特殊的判断；</li>
-<li><code>findLastPosition</code> 的结构和 <code>findFirstPosition</code> 很像，我们直接复制下来，需要更改的是 <code>if</code> 和 <code>else</code> 的逻辑，根据刚才的分析，当 <code>nums[mid] &gt; target</code> 的时候，<code>mid</code> 以及 <code>mid</code> 右边的所有元素一定不是 <code>target</code> 出现的最后 1 个位置，因此下一轮搜索的元素就一定在 <code>[left, mid - 1]</code> 中，因此，将右边界设置为 <code>mid - 1</code>；</li>
+<li><p>首先可以确定的是，如果在查找 <code>target</code> 第 1 次出现的位置的时候，我们都没有找到  <code>target</code> ，在查找 <code>target</code>  最后一次出现的位置的时候，我们肯定也不会找到这个数，因此可以先做一个特殊的判断；</p>
+</li>
+<li><p><code>findLastPosition</code> 的结构和 <code>findFirstPosition</code> 很像，我们直接复制下来，需要更改的是 <code>if</code> 和 <code>else</code> 的逻辑，根据刚才的分析，当 <code>nums[mid] &gt; target</code> 的时候，<code>mid</code> 以及 <code>mid</code> 右边的所有元素一定不是 <code>target</code> 出现的最后 1 个位置，因此下一轮搜索的元素就一定在 <code>[left, mid - 1]</code> 中，因此，将右边界设置为 <code>mid - 1</code>；</p>
+</li>
 <li><p>接下来是 <code>nums[mid] &gt; target</code> 的反面， <code>nums[mid] &lt;= target</code> ，此时搜索的区间是 <code>if</code> 这个分支搜索区间的反面，即 <code>[mid, right]</code> ，我们来验证一下：如果我们看到一个数严格小于 <code>target</code> ， <code>target</code> 出现的最后 1 个位置一定出现在这个数的右边；如果我们看到一个数恰好等于 <code>target</code> ，它有可能就是出现的最后 1 个位置，也有可能 <code>target</code> 出现的最后 1 个位置在它右边，但是一定不会在这个位置左边，因此，下一轮搜索的区间是 <code>[mid, right]</code>  是没有问题的，此时需要设置左边界 <code>left = mid</code>；</p>
 </li>
 <li><p>此时要特别注意的一点是：一旦看到  <code>left = mid</code> 与 <code>right = mid - 1</code> 这种在二分搜索中边界收缩的行为，我们需要在取中间数的时候，做一些小的调整，那就是在这个括号里加 1：<code>int mid = left + (right - left + 1) / 2;</code></p>
 </li>
-<li>原因是这样的：<code>/</code> 是整数除法，它默认的取整行为是向下取整，即 <code>(3 + 4) / 2 = 3</code>。当我们使用原来写法的时候，<code>mid</code> 永远取不到 <code>right</code>，而边界收缩是  <code>left = mid</code> 与 <code>right = mid - 1</code> 的时候，我们画一个示意图，它是这样的，当待搜索区间只有 2 个元素的时候，由于中间数永远取不到右边，我们发现区间分不开，此时，一旦代码执行到这一个分支，无论是左边界还是右边界都不会向中间考虑，此时代码进入死循环；</li>
-<li>要想解决这个问题，其实刚刚我已经说了，需要把取中间数时候整数除法的下取整行为改成上取整，即在括号里加 <code>1</code>，虽然这种取整行为的改变只需要在最后只剩 2 个元素的时候做出，但是我们全程就让它上取整也是没有问题的；</li>
-<li>这一条是一个经验总结，也是人们在使用的过程中逐渐总结出来的，其实这个处理也不难发现，我们只需要在出现死循环的时候，在程序中打印出 <code>left</code> 、<code>right</code> 和 <code>mid</code> 的取值，就很容易发现问题并想到解决的办法；</li>
-<li>在退出循环的时候，这里依然是还有一个下标的元素 <code>left</code>（或者说是 <code>right</code> 此时它们的值相等）没有看到。但是我们注意到，其实代码能够执行到这里，是不是说明，<code>target</code> 在 <code>nums</code> 中一定存在，看一看我们之前的判断。因此，我们就没有必要在判断  <code>nums[left]</code> 是否等于 <code>target</code>，此时 <code>left</code>的值就一定是 <code>target</code> 在有序数组 <code>nums</code> 中最后 1 次出现的下标 。</li>
+<li><p>原因是这样的：<code>/</code> 是整数除法，它默认的取整行为是向下取整，即 <code>(3 + 4) / 2 = 3</code>。当我们使用原来写法的时候，<code>mid</code> 永远取不到 <code>right</code>，而边界收缩是  <code>left = mid</code> 与 <code>right = mid - 1</code> 的时候，我们画一个示意图，它是这样的，当待搜索区间只有 2 个元素的时候，由于中间数永远取不到右边，我们发现区间分不开，此时，一旦代码执行到这一个分支，无论是左边界还是右边界都不会向中间考虑，此时代码进入死循环；</p>
+</li>
+<li><p>要想解决这个问题，其实刚刚我已经说了，需要把取中间数时候整数除法的下取整行为改成上取整，即在括号里加 <code>1</code>，虽然这种取整行为的改变只需要在最后只剩 2 个元素的时候做出，但是我们全程就让它上取整也是没有问题的；</p>
+</li>
+<li><p>这一条是一个经验总结，也是人们在使用的过程中逐渐总结出来的，其实这个处理也不难发现，我们只需要在出现死循环的时候，在程序中打印出 <code>left</code> 、<code>right</code> 和 <code>mid</code> 的取值，就很容易发现问题并想到解决的办法；</p>
+</li>
+<li><p>在退出循环的时候，这里依然是还有一个下标的元素 <code>left</code>（或者说是 <code>right</code> 此时它们的值相等）没有看到。但是我们注意到，其实代码能够执行到这里，是不是说明，<code>target</code> 在 <code>nums</code> 中一定存在，看一看我们之前的判断。因此，我们就没有必要在判断  <code>nums[left]</code> 是否等于 <code>target</code>，此时 <code>left</code>的值就一定是 <code>target</code> 在有序数组 <code>nums</code> 中最后 1 次出现的下标 。</p>
+</li>
 </ul>
 </li>
 </ul>
 <p>调试代码：</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class Solution {
-    public int[] searchRange(int[] nums, int target) {
-        int len = nums.length;
-        if (len == 0) {
-            return new int[]{-1, -1};
-        }
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">searchRange</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        int firstPosition = findFirstPosition(nums, target, len);
-        if (firstPosition == -1) {
-            return new int[]{-1, -1};
-        }
+        <span class="token keyword">int</span> firstPosition <span class="token operator">=</span> <span class="token function">findFirstPosition</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> target<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>firstPosition <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        int lastPosition = findLastPosition(nums, target, len);
-        return new int[]{firstPosition, lastPosition};
-    }
+        <span class="token keyword">int</span> lastPosition <span class="token operator">=</span> <span class="token function">findLastPosition</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> target<span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>firstPosition<span class="token punctuation">,</span> lastPosition<span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    private int findLastPosition(int[] nums, int target, int len) {
-        int left = 0;
-        int right = len - 1;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-            System.out.println("left = " + left + ", mid = " + mid + ", right = " + right);
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">findLastPosition</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">,</span> <span class="token keyword">int</span> len<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"left = "</span> <span class="token operator">+</span> left <span class="token operator">+</span> <span class="token string">", mid = "</span> <span class="token operator">+</span> mid <span class="token operator">+</span> <span class="token string">", right = "</span> <span class="token operator">+</span> right<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            // 严格大于 target 的时候不是解
-            if (nums[mid] > target) {
-                // 下一轮搜索的区间是 [left, mid - 1]
-                System.out.println("下一轮搜索的区间是 [left, mid - 1]");
-                right = mid - 1;
-            } else {
-                System.out.println("下一轮搜索的区间是 [mid, right]");
-                // [mid, right]
-                left = mid;
-            }
-        }
-        return left;
-    }
+            <span class="token comment" spellcheck="true">// 严格大于 target 的时候不是解</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">></span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 下一轮搜索的区间是 [left, mid - 1]</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"下一轮搜索的区间是 [left, mid - 1]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"下一轮搜索的区间是 [mid, right]"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// [mid, right]</span>
+                left <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> left<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    private int findFirstPosition(int[] nums, int target, int len) {
-        int left = 0;
-        int right = len - 1;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-            // 严格小于 target 的时候不是解
-            if (nums[mid] < target) {
-                // 下一轮搜索的区间是 [mid + 1, right]
-                left = mid + 1;
-            } else {
-                right = mid;
-            }
-        }
-        if (nums[left] == target) {
-            return left;
-        }
-        return -1;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">findFirstPosition</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">,</span> <span class="token keyword">int</span> len<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 严格小于 target 的时候不是解</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 下一轮搜索的区间是 [mid + 1, right]</span>
+                left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                right <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> left<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(\log N)$，这里 $N$ 是数组的长度，两个子问题都是二分查找，因此时间复杂度为对数级别。</li>

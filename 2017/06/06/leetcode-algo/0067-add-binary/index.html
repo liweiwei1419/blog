@@ -496,11 +496,9 @@
 <p>输入为 <strong>非空</strong> 字符串且只包含数字 <code>1</code> 和 <code>0</code>。</p>
 <p>示例 1：</p>
 <pre><code>输入: a = &quot;11&quot;, b = &quot;1&quot;
-输出: &quot;100&quot;
-</code></pre><p>示例 2：</p>
+输出: &quot;100&quot;</code></pre><p>示例 2：</p>
 <pre><code>输入: a = &quot;1010&quot;, b = &quot;1011&quot;
-输出: &quot;10101&quot;
-</code></pre><p>提示：</p>
+输出: &quot;10101&quot;</code></pre><p>提示：</p>
 <ul>
 <li>每个字符串仅由字符 ‘0’ 或 ‘1’ 组成。</li>
 <li>1 &lt;= a.length, b.length &lt;= 10^4</li>
@@ -509,34 +507,33 @@
 </blockquote>
 <p>思路：从尾巴开始加。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
-    def addBinary(self, a, b):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">addBinary</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type a: str
         :type b: str
         :rtype: str
-        """
-        res = ''
-        # 分别表示两个数从后向前的索引，后对齐
-        i = len(a) - 1
-        j = len(b) - 1
-        # 表示进位标志
-        carry = 0
-        while i >= 0 or j >= 0:
-            s = carry
-            if i >= 0:
-                s += ord(a[i]) - ord('0')
-                i -= 1
-            if j >= 0:
-                s += ord(b[j]) - ord('0')
-                j -= 1
+        """</span>
+        res <span class="token operator">=</span> <span class="token string">''</span>
+        <span class="token comment" spellcheck="true"># 分别表示两个数从后向前的索引，后对齐</span>
+        i <span class="token operator">=</span> len<span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
+        j <span class="token operator">=</span> len<span class="token punctuation">(</span>b<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
+        <span class="token comment" spellcheck="true"># 表示进位标志</span>
+        carry <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">while</span> i <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">or</span> j <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            s <span class="token operator">=</span> carry
+            <span class="token keyword">if</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                s <span class="token operator">+=</span> ord<span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> ord<span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span>
+                i <span class="token operator">-=</span> <span class="token number">1</span>
+            <span class="token keyword">if</span> j <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">:</span>
+                s <span class="token operator">+=</span> ord<span class="token punctuation">(</span>b<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> ord<span class="token punctuation">(</span><span class="token string">'0'</span><span class="token punctuation">)</span>
+                j <span class="token operator">-=</span> <span class="token number">1</span>
 
-            res = str(s % 2) + res
-            carry = s // 2
-        if carry == 1:
-            return '1' + res
-        return res
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            res <span class="token operator">=</span> str<span class="token punctuation">(</span>s <span class="token operator">%</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">+</span> res
+            carry <span class="token operator">=</span> s <span class="token operator">//</span> <span class="token number">2</span>
+        <span class="token keyword">if</span> carry <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token string">'1'</span> <span class="token operator">+</span> res
+        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
 
             </div>

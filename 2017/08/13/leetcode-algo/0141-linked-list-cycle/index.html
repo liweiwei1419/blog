@@ -490,266 +490,257 @@
 <p>示例 1：</p>
 <pre><code>输入：head = [3,2,0,-4], pos = 1
 输出：true
-解释：链表中有一个环，其尾部连接到第二个节点。
-</code></pre><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png" alt="img"></p>
+解释：链表中有一个环，其尾部连接到第二个节点。</code></pre><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png" alt="img"></p>
 <p><strong>示例 2：</strong></p>
 <pre><code>输入：head = [1,2], pos = 0
 输出：true
-解释：链表中有一个环，其尾部连接到第一个节点。
-</code></pre><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png" alt="img"></p>
+解释：链表中有一个环，其尾部连接到第一个节点。</code></pre><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png" alt="img"></p>
 <p><strong>示例 3：</strong></p>
 <pre><code>输入：head = [1], pos = -1
 输出：false
-解释：链表中没有环。
-</code></pre><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png" alt="img"></p>
+解释：链表中没有环。</code></pre><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png" alt="img"></p>
 <p><strong>进阶：</strong></p>
 <p>你能用 <em>O(1)</em>（即，常量）内存解决此问题吗？</p>
 </blockquote>
 <h3 id="方法一：直接测试"><a href="#方法一：直接测试" class="headerlink" title="方法一：直接测试"></a>方法一：直接测试</h3><p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution4 {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution4</span> <span class="token punctuation">{</span>
 
-    public boolean hasCycle(ListNode head) {
-        // 特判
-        if (head == null || head.next == null) {
-            return false;
-        }
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 特判</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        ListNode curNode = head;
-        int count = 0;
-        while (curNode != null) {
-            curNode = curNode.next;
-            if (count == 10000){
-                return true;
-            }
-            count++;
-        }
-        return false;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        ListNode curNode <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>curNode <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            curNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>count <span class="token operator">==</span> <span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            count<span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="方法二：使用哈希表"><a href="#方法二：使用哈希表" class="headerlink" title="方法二：使用哈希表"></a>方法二：使用哈希表</h3><p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.HashSet;
-import java.util.Set;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashSet<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
 
-public class Solution2 {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution2</span> <span class="token punctuation">{</span>
 
-    public boolean hasCycle(ListNode head) {
-        // 特判
-        if (head == null || head.next == null) {
-            return false;
-        }
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 特判</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        Set<ListNode> hashSet = new HashSet<>();
+        Set<span class="token operator">&lt;</span>ListNode<span class="token operator">></span> hashSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        ListNode curNode = head;
-        while (curNode != null) {
-            if (hashSet.contains(curNode)) {
-                return true;
-            } else {
-                hashSet.add(curNode);
-            }
-            curNode = curNode.next;
-        }
-        return false;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        ListNode curNode <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>curNode <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>hashSet<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>curNode<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                hashSet<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>curNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            curNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python"># Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Definition for singly-linked list.</span>
+<span class="token comment" spellcheck="true"># class ListNode(object):</span>
+<span class="token comment" spellcheck="true">#     def __init__(self, x):</span>
+<span class="token comment" spellcheck="true">#         self.val = x</span>
+<span class="token comment" spellcheck="true">#         self.next = None</span>
 
 
-class Solution(object):
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
-    # 使用哈希表的方法查重肯定是可以的，但并不推荐
+    <span class="token comment" spellcheck="true"># 使用哈希表的方法查重肯定是可以的，但并不推荐</span>
 
-    def hasCycle(self, head):
-        """
+    <span class="token keyword">def</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type head: ListNode
         :rtype: bool
-        """
-        if head is None:
-            return False
-        s = set()
-        point = head
-        while point:
-            if point in s:
-                return True
-            else:
-                s.add(point)
-            point = point.next
-        return False
+        """</span>
+        <span class="token keyword">if</span> head <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        s <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        point <span class="token operator">=</span> head
+        <span class="token keyword">while</span> point<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> point <span class="token keyword">in</span> s<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">True</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                s<span class="token punctuation">.</span>add<span class="token punctuation">(</span>point<span class="token punctuation">)</span>
+            point <span class="token operator">=</span> point<span class="token punctuation">.</span>next
+        <span class="token keyword">return</span> <span class="token boolean">False</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="方法三：并查集思想"><a href="#方法三：并查集思想" class="headerlink" title="方法三：并查集思想"></a>方法三：并查集思想</h3><p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution3 {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution3</span> <span class="token punctuation">{</span>
 
-    // 并查集的思路
+    <span class="token comment" spellcheck="true">// 并查集的思路</span>
 
-    public boolean hasCycle(ListNode head) {
-        // 特判
-        if (head == null || head.next == null) {
-            return false;
-        }
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 特判</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        ListNode dummyNode = new ListNode(-1);
+        ListNode dummyNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        ListNode curNode = head;
-        while (curNode != null) {
-            ListNode nextNode = curNode.next;
+        ListNode curNode <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>curNode <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ListNode nextNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
 
-            if (curNode != dummyNode) {
-                curNode.next = dummyNode;
-            } else {
-                return true;
-            }
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>curNode <span class="token operator">!=</span> dummyNode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                curNode<span class="token punctuation">.</span>next <span class="token operator">=</span> dummyNode<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-            curNode = nextNode;
-        }
-        return false;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            curNode <span class="token operator">=</span> nextNode<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="方法四：快慢指针"><a href="#方法四：快慢指针" class="headerlink" title="方法四：快慢指针"></a>方法四：快慢指针</h3><p>1、慢指针一次走一步、快指针一次走两步；</p>
 <p>2、注意：快指针可以走的条件 <code>fast != null &amp;&amp; fast.next != null</code>。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class ListNode {
-    int val;
-    ListNode next;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
+    ListNode next<span class="token punctuation">;</span>
 
-    ListNode(int x) {
-        val = x;
-        next = null;
-    }
-}
+    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        val <span class="token operator">=</span> x<span class="token punctuation">;</span>
+        next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public boolean hasCycle(ListNode head) {
-        // 特判
-        if (head == null || head.next == null) {
-            return false;
-        }
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 特判</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        ListNode slow = head;
-        ListNode fast = head;
+        ListNode slow <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        ListNode fast <span class="token operator">=</span> head<span class="token punctuation">;</span>
 
-        // 慢指针一次走一步、快指针一次走两步
-        // 注意：快指针可以走的条件 fast != null && fast.next != null
+        <span class="token comment" spellcheck="true">// 慢指针一次走一步、快指针一次走两步</span>
+        <span class="token comment" spellcheck="true">// 注意：快指针可以走的条件 fast != null &amp;&amp; fast.next != null</span>
 
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-            if (slow == fast) {
-                return true;
-            }
-        }
-        return false;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>fast <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> fast<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>slow <span class="token operator">==</span> fast<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class ListNode {
-    int val;
-    ListNode next;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
+    ListNode next<span class="token punctuation">;</span>
 
-    ListNode(int x) {
-        val = x;
-        next = null;
-    }
-}
+    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        val <span class="token operator">=</span> x<span class="token punctuation">;</span>
+        next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 快慢指针
+    <span class="token comment" spellcheck="true">// 快慢指针</span>
 
-    public boolean hasCycle(ListNode head) {
-        // 特判
-        if (head == null || head.next == null) {
-            return false;
-        }
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 特判</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        ListNode slow = head;
-        ListNode fast = head;
+        ListNode slow <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        ListNode fast <span class="token operator">=</span> head<span class="token punctuation">;</span>
 
-        // 慢指针一次走一步、快指针一次走两步
-        // 注意：快指针可以走的条件 fast != null && fast.next != null
+        <span class="token comment" spellcheck="true">// 慢指针一次走一步、快指针一次走两步</span>
+        <span class="token comment" spellcheck="true">// 注意：快指针可以走的条件 fast != null &amp;&amp; fast.next != null</span>
 
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-            if (slow == fast) {
-                return true;
-            }
-        }
-        return false;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>fast <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> fast<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>slow <span class="token operator">==</span> fast<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
 
-# 思想：快慢指针（推荐）
+<span class="token comment" spellcheck="true"># 思想：快慢指针（推荐）</span>
 
-class Solution(object):
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
-    def hasCycle(self, head):
-        """
+    <span class="token keyword">def</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type head: ListNode
         :rtype: bool
-        """
-        if head is None or head.next is None:
-            return False
+        """</span>
+        <span class="token keyword">if</span> head <span class="token keyword">is</span> None <span class="token operator">or</span> head<span class="token punctuation">.</span>next <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
 
-        slow = head
-        # 快指针先走一步
-        fast = head.next
-        while slow != fast:
-            if fast is None or fast.next is None:
-                return False
-            slow = slow.next
-            fast = fast.next.next
-        return True
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        slow <span class="token operator">=</span> head
+        <span class="token comment" spellcheck="true"># 快指针先走一步</span>
+        fast <span class="token operator">=</span> head<span class="token punctuation">.</span>next
+        <span class="token keyword">while</span> slow <span class="token operator">!=</span> fast<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> fast <span class="token keyword">is</span> None <span class="token operator">or</span> fast<span class="token punctuation">.</span>next <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">False</span>
+            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next
+            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next
+        <span class="token keyword">return</span> <span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python"># Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Definition for singly-linked list.</span>
+<span class="token comment" spellcheck="true"># class ListNode(object):</span>
+<span class="token comment" spellcheck="true">#     def __init__(self, x):</span>
+<span class="token comment" spellcheck="true">#         self.val = x</span>
+<span class="token comment" spellcheck="true">#         self.next = None</span>
 
-class Solution(object):
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
-    # 这一版代码比较费解，不推荐
+    <span class="token comment" spellcheck="true"># 这一版代码比较费解，不推荐</span>
 
-    def hasCycle(self, head):
-        """
+    <span class="token keyword">def</span> <span class="token function">hasCycle</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type head: ListNode
         :rtype: bool
-        """
-        if head is None:
-            return False
-        slow = head
-        fast = head
-        # 快指针每走一步，都做了判断
-        while fast:
-            fast = fast.next
+        """</span>
+        <span class="token keyword">if</span> head <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> <span class="token boolean">False</span>
+        slow <span class="token operator">=</span> head
+        fast <span class="token operator">=</span> head
+        <span class="token comment" spellcheck="true"># 快指针每走一步，都做了判断</span>
+        <span class="token keyword">while</span> fast<span class="token punctuation">:</span>
+            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next
 
-            if fast:
-                fast = fast.next
-                slow = slow.next
-            else:
-                return False
-            if fast == slow:
-                return True
-        return False
+            <span class="token keyword">if</span> fast<span class="token punctuation">:</span>
+                fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next
+                slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">False</span>
+            <span class="token keyword">if</span> fast <span class="token operator">==</span> slow<span class="token punctuation">:</span>
+                <span class="token keyword">return</span> <span class="token boolean">True</span>
+        <span class="token keyword">return</span> <span class="token boolean">False</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>

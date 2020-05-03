@@ -499,8 +499,7 @@ Explanation:
   第一个和第三个 John 是同一个人，因为他们有共同的电子邮件 &quot;johnsmith@mail.com&quot;。 
   第二个 John 和 Mary 是不同的人，因为他们的电子邮件地址没有被其他帐户使用。
   我们可以以任何顺序返回这些列表，例如答案[[&#39;Mary&#39;，&#39;mary@mail.com&#39;]，[&#39;John&#39;，&#39;johnnybravo@mail.com&#39;]，
-  [&#39;John&#39;，&#39;john00@mail.com&#39;，&#39;john_newyork@mail.com&#39;，&#39;johnsmith@mail.com&#39;]]仍然会被接受。
-</code></pre><p><strong>注意：</strong></p>
+  [&#39;John&#39;，&#39;john00@mail.com&#39;，&#39;john_newyork@mail.com&#39;，&#39;johnsmith@mail.com&#39;]]仍然会被接受。</code></pre><p><strong>注意：</strong></p>
 <ul>
 <li><code>accounts</code>的长度将在<code>[1，1000]</code>的范围内。</li>
 <li><code>accounts[i]</code>的长度将在<code>[1，10]</code>的范围内。</li>
@@ -508,134 +507,133 @@ Explanation:
 </ul>
 </blockquote>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Collections<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashMap<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    private class UnionFind {
-        private int[] parent;
+    <span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind</span> <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span>
 
-        public UnionFind(int n) {
-            parent = new int[n];
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
+        <span class="token keyword">public</span> <span class="token function">UnionFind</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            parent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        public int find(int x) {
-            while (x != parent[x]) {
-                parent[x] = parent[parent[x]];
-                x = parent[x];
-            }
-            return x;
-        }
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">=</span> parent<span class="token punctuation">[</span>parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                x <span class="token operator">=</span> parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        public void union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-            if (rootX == rootY) {
-                return;
-            }
-            parent[rootX] = rootY;
-        }
-    }
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> rootX <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> rootY <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>rootX <span class="token operator">==</span> rootY<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            parent<span class="token punctuation">[</span>rootX<span class="token punctuation">]</span> <span class="token operator">=</span> rootY<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
 
-    public List<List<String>> accountsMerge(List<List<String>> accounts) {
-        int len = accounts.size();
+    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> <span class="token function">accountsMerge</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> accounts<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> accounts<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        List<List<String>> res = new ArrayList<>();
-        if (len == 0) {
-            return res;
-        }
+        List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        UnionFind unionFind = new UnionFind(len);
-        // 邮箱：用户的编号
-        Map<String, Integer> hashMap = new HashMap<>();
-        for (int i = 0; i < len; i++) {
-            // 拿到这个用户的名字和邮箱列表
-            List<String> account = accounts.get(i);
-            int currentSize = account.size();
+        UnionFind unionFind <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UnionFind</span><span class="token punctuation">(</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 邮箱：用户的编号</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Integer<span class="token operator">></span> hashMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 拿到这个用户的名字和邮箱列表</span>
+            List<span class="token operator">&lt;</span>String<span class="token operator">></span> account <span class="token operator">=</span> accounts<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> currentSize <span class="token operator">=</span> account<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            for (int j = 1; j < currentSize; j++) {
-                String email = account.get(j);
-                Integer personId = hashMap.get(email);
-                if (personId == null) {
-                    hashMap.put(email, i);
-                } else {
-                    unionFind.union(i, personId);
-                }
-            }
-        }
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> currentSize<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                String email <span class="token operator">=</span> account<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                Integer personId <span class="token operator">=</span> hashMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>email<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>personId <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    hashMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>email<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    unionFind<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> personId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        // 用户编号：邮件列表
-        Map<Integer, List<String>> emailList = new HashMap<>(len);
-        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
+        <span class="token comment" spellcheck="true">// 用户编号：邮件列表</span>
+        Map<span class="token operator">&lt;</span>Integer<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>String<span class="token operator">>></span> emailList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Map<span class="token punctuation">.</span>Entry<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Integer<span class="token operator">></span> entry <span class="token operator">:</span> hashMap<span class="token punctuation">.</span><span class="token function">entrySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-            String email = entry.getKey();
-            Integer personId = entry.getValue();
+            String email <span class="token operator">=</span> entry<span class="token punctuation">.</span><span class="token function">getKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Integer personId <span class="token operator">=</span> entry<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            // 找到这个人的代表元
-            int rootPerson = unionFind.find(personId);
-            List<String> rootEmailList = emailList.get(rootPerson);
+            <span class="token comment" spellcheck="true">// 找到这个人的代表元</span>
+            <span class="token keyword">int</span> rootPerson <span class="token operator">=</span> unionFind<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>personId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            List<span class="token operator">&lt;</span>String<span class="token operator">></span> rootEmailList <span class="token operator">=</span> emailList<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>rootPerson<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            if (rootEmailList == null) {
-                List<String> temp = new ArrayList<>();
-                temp.add(email);
-                emailList.put(rootPerson, temp);
-            } else {
-                rootEmailList.add(email);
-            }
-        }
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>rootEmailList <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                List<span class="token operator">&lt;</span>String<span class="token operator">></span> temp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                temp<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>email<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                emailList<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>rootPerson<span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                rootEmailList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>email<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        for (int personId : emailList.keySet()) {
-            List<String> temp = emailList.get(personId);
-            Collections.sort(temp);
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> personId <span class="token operator">:</span> emailList<span class="token punctuation">.</span><span class="token function">keySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            List<span class="token operator">&lt;</span>String<span class="token operator">></span> temp <span class="token operator">=</span> emailList<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>personId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Collections<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            List<String> account = new ArrayList<>();
-            account.add(accounts.get(personId).get(0));
-            account.addAll(temp);
-            res.add(account);
-        }
-        return res;
-    }
+            List<span class="token operator">&lt;</span>String<span class="token operator">></span> account <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            account<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>accounts<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>personId<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            account<span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>account<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        List<List<String>> accounts = new ArrayList<>();
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> accounts <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        List<String> account1 = new ArrayList<>();
-        account1.add("John");
-        account1.add("johnsmith@mail.com");
-        account1.add("john00@mail.com");
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> account1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account1<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"John"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account1<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"johnsmith@mail.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account1<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"john00@mail.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        List<String> account2 = new ArrayList<>();
-        account2.add("John");
-        account2.add("johnnybravo@mail.com");
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> account2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account2<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"John"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account2<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"johnnybravo@mail.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        List<String> account3 = new ArrayList<>();
-        account3.add("John");
-        account3.add("johnsmith@mail.com");
-        account3.add("john_newyork@mail.com");
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> account3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account3<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"John"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account3<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"johnsmith@mail.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account3<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"john_newyork@mail.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        List<String> account4 = new ArrayList<>();
-        account4.add("Mary");
-        account4.add("mary@mail.com");
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> account4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account4<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"Mary"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        account4<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"mary@mail.com"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        accounts.add(account1);
-        accounts.add(account2);
-        accounts.add(account3);
-        accounts.add(account4);
+        accounts<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>account1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        accounts<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>account2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        accounts<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>account3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        accounts<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>account4<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        Solution solution = new Solution();
-        List<List<String>> res = solution.accountsMerge(accounts);
-        System.out.println(res);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> res <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">accountsMerge</span><span class="token punctuation">(</span>accounts<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

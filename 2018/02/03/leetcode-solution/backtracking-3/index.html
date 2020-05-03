@@ -500,8 +500,7 @@
   &quot;(())()&quot;,
   &quot;()(())&quot;,
   &quot;()()()&quot;
-]
-</code></pre><p>这是一个很典型地使用回溯算法完成的问题，因为要完成一件事情（生成 n 对括号），并且是有效的括号。</p>
+]</code></pre><p>这是一个很典型地使用回溯算法完成的问题，因为要完成一件事情（生成 n 对括号），并且是有效的括号。</p>
 <p>这件事情可以有若干种做法，每一种做法有若干个步骤。并且要我们求出这若干种解法，这样的问题显然可以使用回溯算法解决。</p>
 <p>我们就拿示例 3 在草稿纸做一个计算。</p>
 <p>要得到一个符合条件的字符串，首先第 1 个字符一定是 <code>（</code> ，不可能是右括号；</p>
@@ -522,54 +521,53 @@
 <p>2、右括号还可以使用的个数；</p>
 <p>3、当前已经拼接出的字符串，可以理解为是一个路径变量</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.ArrayList;
-import java.util.List;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 做减法
+    <span class="token comment" spellcheck="true">// 做减法</span>
 
-    public List<String> generateParenthesis(int n) {
-        List<String> res = new ArrayList<>();
-        // 特判
-        if (n == 0) {
-            return res;
-        }
+    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">generateParenthesis</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 特判</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        // 执行深度优先遍历，搜索可能的结果
-        dfs("", n, n, res);
-        return res;
-    }
+        <span class="token comment" spellcheck="true">// 执行深度优先遍历，搜索可能的结果</span>
+        <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> n<span class="token punctuation">,</span> n<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    /**
+    <span class="token comment" spellcheck="true">/**
      * @param curStr 当前递归得到的结果
      * @param left   左括号还有几个可以使用
      * @param right  右括号还有几个可以使用
      * @param res    结果集
-     */
-    private void dfs(String curStr, int left, int right, List<String> res) {
-        // 因为每一次尝试，都使用新的字符串变量，所以无需回溯
-        // 在递归终止的时候，直接把它添加到结果集即可，注意与「力扣」第 46 题、第 39 题区分
-        if (left == 0 && right == 0) {
-            res.add(curStr);
-            return;
-        }
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span>String curStr<span class="token punctuation">,</span> <span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 因为每一次尝试，都使用新的字符串变量，所以无需回溯</span>
+        <span class="token comment" spellcheck="true">// 在递归终止的时候，直接把它添加到结果集即可，注意与「力扣」第 46 题、第 39 题区分</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>left <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> right <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>curStr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        // 剪枝（如图，左括号可以使用的个数严格大于右括号可以使用的个数，才剪枝，注意这个细节）
-        if (left > right) {
-            return;
-        }
+        <span class="token comment" spellcheck="true">// 剪枝（如图，左括号可以使用的个数严格大于右括号可以使用的个数，才剪枝，注意这个细节）</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>left <span class="token operator">></span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        if (left > 0) {
-            dfs(curStr + "(", left - 1, right, res);
-        }
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>left <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">dfs</span><span class="token punctuation">(</span>curStr <span class="token operator">+</span> <span class="token string">"("</span><span class="token punctuation">,</span> left <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        if (right > 0) {
-            dfs(curStr + ")", left, right - 1, res);
-        }
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>right <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">dfs</span><span class="token punctuation">(</span>curStr <span class="token operator">+</span> <span class="token string">")"</span><span class="token punctuation">,</span> left<span class="token punctuation">,</span> right <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这就是代码。</p>
 <p>我们会发现，这个代码有一点点神奇，它好像没有回溯的过程。但事实上，这个题回溯的过程并不明显。这是因为在 Java 语言里：<code>curStr + &quot;(&quot;</code> 这个语法生成了新的字符串对象，因此，在递归的每一个结点，其实都生成了新的字符串对象。因此，在递归终止的时候，我们直接将字符串添加到结果集中就好了。</p>
 <p>感兴趣的朋友，不妨使用 <code>StringBuilder</code> 字符序列这个类进行搜索，这样的操作就很像我们之前的搜索，就一定会有「撤销选择」和「状态重置」的操作。</p>

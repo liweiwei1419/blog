@@ -491,8 +491,7 @@
 <p>给定一个字符串 S 和一个字符串 T，请在 S 中找出包含 T 所有字母的最小子串。</p>
 <p><strong>示例：</strong></p>
 <pre><code>输入: S = &quot;ADOBECODEBANC&quot;, T = &quot;ABC&quot;
-输出: &quot;BANC&quot;
-</code></pre><p><strong>说明：</strong></p>
+输出: &quot;BANC&quot;</code></pre><p><strong>说明：</strong></p>
 <ul>
 <li>如果 S 中不存这样的子串，则返回空字符串 <code>&quot;&quot;</code>。</li>
 <li>如果 S 中存在这样的子串，我们保证它是唯一的答案。</li>
@@ -500,88 +499,87 @@
 </blockquote>
 <p>说明：这道题被 LeetCode 标记为「困难」。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.HashSet;
-import java.util.Set;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashSet<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 参考资料：https://blog.csdn.net/feliciafay/article/details/44535301
-    // 先复习第 438 题再做这题可能会好些
-    // 滑动窗口，这个问题有一些难
-    public String minWindow(String s, String t) {
-        int[] cntS = new int[256];
-        int[] cntT = new int[256];
+    <span class="token comment" spellcheck="true">// 参考资料：https://blog.csdn.net/feliciafay/article/details/44535301</span>
+    <span class="token comment" spellcheck="true">// 先复习第 438 题再做这题可能会好些</span>
+    <span class="token comment" spellcheck="true">// 滑动窗口，这个问题有一些难</span>
+    <span class="token keyword">public</span> String <span class="token function">minWindow</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> cntS <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> cntT <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-        Set<Character> set = new HashSet<>();
-        // cntT 赋值了以后，就成为了用于比对的对象，不更新
-        for (char ct : t.toCharArray()) {
-            cntT[ct]++;
-            set.add(ct);
-        }
+        Set<span class="token operator">&lt;</span>Character<span class="token operator">></span> set <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// cntT 赋值了以后，就成为了用于比对的对象，不更新</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">char</span> ct <span class="token operator">:</span> t<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            cntT<span class="token punctuation">[</span>ct<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+            set<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>ct<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        int minSub = s.length() + 1;
-        String res = "";
-        // 滑动窗口左边界
-        int left = 0;
-        // 滑动窗口右边界
-        int right = 0;
+        <span class="token keyword">int</span> minSub <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        String res <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 滑动窗口左边界</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 滑动窗口右边界</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-        // 逻辑：右边界进来的时候，数组 s 的次数都加 1
+        <span class="token comment" spellcheck="true">// 逻辑：右边界进来的时候，数组 s 的次数都加 1</span>
 
-        int count = 0;
-        while (right < s.length()) {
-            char rc = s.charAt(right);
-            if (!set.contains(rc)) {
-                // 不在字典里面，但是右边界同样要扩充，所以 right++
-                right++;
-                continue;
-            }
-            cntS[rc]++;
-            right++;
-            // 理解这里是关键：加上以后，小于等于，count 才 ++，
-            if (cntS[rc] <= cntT[rc]) {
-                // count++; 这件事情说明滑动窗口里面的有效字符，向目标字符又近了一步
-                count++;
-            }
+        <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>right <span class="token operator">&lt;</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">char</span> rc <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>set<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>rc<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 不在字典里面，但是右边界同样要扩充，所以 right++</span>
+                right<span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            cntS<span class="token punctuation">[</span>rc<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+            right<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 理解这里是关键：加上以后，小于等于，count 才 ++，</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>cntS<span class="token punctuation">[</span>rc<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> cntT<span class="token punctuation">[</span>rc<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// count++; 这件事情说明滑动窗口里面的有效字符，向目标字符又近了一步</span>
+                count<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-            // 下面这一段可以写得更精简一些，但是为了语义上的清晰，我就写得冗长一些
-            if (count == t.length()) {
-                // 接下来，考虑左边界移出滑动窗口
-                // 不在字典中，或者多了的时候，直接划掉就可以了
-                while (true) {
-                    char deleteChar = s.charAt(left);
-                    if (!set.contains(deleteChar)) {
-                        left++;
-                        continue;
-                    }
-                    if (cntS[deleteChar] > cntT[deleteChar]) {
-                        cntS[deleteChar]--;
-                        left++;
-                        continue;
-                    }
-                    break;
-                }
-                if (right - left < minSub) {
-                    minSub = right - left;
-                    res = s.substring(left, right);
-                }
-            }
-        }
-        if (minSub == s.length() + 1) {
-            return "";
-        }
-        return res;
-    }
+            <span class="token comment" spellcheck="true">// 下面这一段可以写得更精简一些，但是为了语义上的清晰，我就写得冗长一些</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>count <span class="token operator">==</span> t<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 接下来，考虑左边界移出滑动窗口</span>
+                <span class="token comment" spellcheck="true">// 不在字典中，或者多了的时候，直接划掉就可以了</span>
+                <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">char</span> deleteChar <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>set<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>deleteChar<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        left<span class="token operator">++</span><span class="token punctuation">;</span>
+                        <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>cntS<span class="token punctuation">[</span>deleteChar<span class="token punctuation">]</span> <span class="token operator">></span> cntT<span class="token punctuation">[</span>deleteChar<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        cntS<span class="token punctuation">[</span>deleteChar<span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
+                        left<span class="token operator">++</span><span class="token punctuation">;</span>
+                        <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left <span class="token operator">&lt;</span> minSub<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    minSub <span class="token operator">=</span> right <span class="token operator">-</span> left<span class="token punctuation">;</span>
+                    res <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>minSub <span class="token operator">==</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        String S = "ADOBECODEBANC";
-        String T = "ABC";
-        String minWindow = solution.minWindow(S, T);
-        System.out.println(minWindow);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String S <span class="token operator">=</span> <span class="token string">"ADOBECODEBANC"</span><span class="token punctuation">;</span>
+        String T <span class="token operator">=</span> <span class="token string">"ABC"</span><span class="token punctuation">;</span>
+        String minWindow <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">minWindow</span><span class="token punctuation">(</span>S<span class="token punctuation">,</span> T<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>minWindow<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>参考资料：<a href="https://blog.csdn.net/feliciafay/article/details/44535301" target="_blank" rel="noopener">https://blog.csdn.net/feliciafay/article/details/44535301</a></p>
 <p><a href="https://blog.csdn.net/u013115610/article/details/70257445" target="_blank" rel="noopener">https://blog.csdn.net/u013115610/article/details/70257445</a></p>
 <p>（本节完）</p>

@@ -509,37 +509,39 @@
 <p><img src="https://pic.leetcode-cn.com/2b7a4130111600cf615b5584b3cc7f863d289a9a7d43b90147c79f51f68a5aa6-876-1.png" alt="876-1.png"><br><img src="https://pic.leetcode-cn.com/5c3f88cc6b312b7193a6e071cef93ec5eb3070005af23cad22a11e10ea0aca3e-876-2.png" alt="876-2.png"></p>
 <p><strong>参考代码</strong>：</p>
 <p>Java 代码：</p>
-<p>```Java []<br>class ListNode {<br>    int val;<br>    ListNode next;</p>
-<pre><code>ListNode(int x) {
-    val = x;
-}
-</code></pre><p>}</p>
-<p>public class Solution {</p>
-<pre><code>public ListNode middleNode(ListNode head) {
-    if (head == null) {
-        return null;
-    }
-    ListNode slow = head;
-    ListNode fast = head;
+<pre class="line-numbers language-Java"><code class="language-Java">class ListNode {
+    int val;
+    ListNode next;
 
-    while (fast != null &amp;&amp; fast.next != null) {
-        slow = slow.next;
-        fast = fast.next.next;
+    ListNode(int x) {
+        val = x;
     }
-    return slow;
 }
-</code></pre><p>}</p>
-<pre><code>
-Python 代码：
 
-```Python []
-class ListNode:
+public class Solution {
+
+    public ListNode middleNode(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Python 代码：</p>
+<pre class="line-numbers language-Python"><code class="language-Python">class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
 
 class Solution:
-    def middleNode(self, head: ListNode) -&gt; ListNode:
+    def middleNode(self, head: ListNode) -> ListNode:
         if head is None:
             return None
 
@@ -549,8 +551,8 @@ class Solution:
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        return slow
-</code></pre>
+        return slow<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
             </div>
             <hr/>
 

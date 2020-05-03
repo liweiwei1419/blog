@@ -489,154 +489,146 @@
 <p> <strong>示例 1：</strong></p>
 <pre><code> 输入：&quot;/home/&quot;
  输出：&quot;/home&quot;
- 解释：注意，最后一个目录名后面没有斜杠。
-</code></pre><p> <strong>示例 2：</strong></p>
+ 解释：注意，最后一个目录名后面没有斜杠。</code></pre><p> <strong>示例 2：</strong></p>
 <pre><code> 输入：&quot;/../&quot;
  输出：&quot;/&quot;
- 解释：从根目录向上一级是不可行的，因为根是你可以到达的最高级。
-</code></pre><p> <strong>示例 3：</strong></p>
+ 解释：从根目录向上一级是不可行的，因为根是你可以到达的最高级。</code></pre><p> <strong>示例 3：</strong></p>
 <pre><code> 输入：&quot;/home//foo/&quot;
  输出：&quot;/home/foo&quot;
- 解释：在规范路径中，多个连续斜杠需要用一个斜杠替换。
-</code></pre><p> <strong>示例 4：</strong></p>
+ 解释：在规范路径中，多个连续斜杠需要用一个斜杠替换。</code></pre><p> <strong>示例 4：</strong></p>
 <pre><code> 输入：&quot;/a/./b/../../c/&quot;
- 输出：&quot;/c&quot;
-</code></pre><p> <strong>示例 5：</strong></p>
+ 输出：&quot;/c&quot;</code></pre><p> <strong>示例 5：</strong></p>
 <pre><code> 输入：&quot;/a/../../b/../c//.//&quot;
- 输出：&quot;/c&quot;
-</code></pre><p> <strong>示例 6：</strong></p>
+ 输出：&quot;/c&quot;</code></pre><p> <strong>示例 6：</strong></p>
 <pre><code> 输入：&quot;/a//b////c/d//././/..&quot;
- 输出：&quot;/a/b/c&quot;
-</code></pre></blockquote>
+ 输出：&quot;/a/b/c&quot;</code></pre></blockquote>
 <p>参考了如下的文章：<a href="http://blog.csdn.net/u012249528/article/details/46705867" target="_blank" rel="noopener">http://blog.csdn.net/u012249528/article/details/46705867</a></p>
 <p>Java 代码实现：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public String simplifyPath(String path) {
-        String result = "";
-        String[] pathList = path.split("/");
-        if (pathList.length == 0) {
-            return "/";
-        }
+    <span class="token keyword">public</span> String <span class="token function">simplifyPath</span><span class="token punctuation">(</span>String path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String result <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> pathList <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pathList<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"/"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        Stack<String> stack = new Stack<>();
-        for (String p : pathList) {
-            if ("".equals(p) || ".".equals(p)) {
-                continue;
-            }
-            if ("..".equals(p)) {
-                if (!stack.isEmpty()) {
-                    stack.pop();
-                }
-            } else { // 是正常的路径字符串的时候，入栈
-                stack.push(p);
-            }
-        }
-
-
-        // 现在考虑输出字符串
-        while (!stack.isEmpty()) {
-            result = "/" + stack.pop() + result;
-        }
-        if ("".equals(result)) {
-            result = "/";
-        }
-        return result;
-    }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-
-        String path1 = "/home/";
-        String result1 = solution.simplifyPath(path1);
-        System.out.println(result1);
+        Stack<span class="token operator">&lt;</span>String<span class="token operator">></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String p <span class="token operator">:</span> pathList<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"."</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">".."</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 是正常的路径字符串的时候，入栈</span>
+                stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
 
-        String path2 = "/a/./b/../../c/";
-        String result2 = solution.simplifyPath(path2);
-        System.out.println(result2);
+        <span class="token comment" spellcheck="true">// 现在考虑输出字符串</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result <span class="token operator">=</span> <span class="token string">"/"</span> <span class="token operator">+</span> stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> result<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result <span class="token operator">=</span> <span class="token string">"/"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String path1 <span class="token operator">=</span> <span class="token string">"/home/"</span><span class="token punctuation">;</span>
+        String result1 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>path1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result1<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-        String path3 = "/..";
-        String result3 = solution.simplifyPath(path3);
-        System.out.println(result3);
+        String path2 <span class="token operator">=</span> <span class="token string">"/a/./b/../../c/"</span><span class="token punctuation">;</span>
+        String result2 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>path2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result2<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        String path4 = "/..";
-        String result4 = solution.simplifyPath(path4);
-        System.out.println(result4);
 
-        String path5 = "/abc/def/.";
-        String result5 = solution.simplifyPath(path5);
-        System.out.println(result5);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        String path3 <span class="token operator">=</span> <span class="token string">"/.."</span><span class="token punctuation">;</span>
+        String result3 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>path3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String path4 <span class="token operator">=</span> <span class="token string">"/.."</span><span class="token punctuation">;</span>
+        String result4 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>path4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String path5 <span class="token operator">=</span> <span class="token string">"/abc/def/."</span><span class="token punctuation">;</span>
+        String result5 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>path5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <hr>
 <h3 id="LeetCode-第-71-题：Simplify-Path"><a href="#LeetCode-第-71-题：Simplify-Path" class="headerlink" title="LeetCode 第 71 题：Simplify Path"></a>LeetCode 第 71 题：Simplify Path</h3><p>传送门：<a href="https://leetcode.com/problems/simplify-path/description/。" target="_blank" rel="noopener">https://leetcode.com/problems/simplify-path/description/。</a></p>
 <p>第 2 种情况下，要求我们的程序能够有一定的容错处理的能力。</p>
 <p>我的解答参考了如下的文章：<br><a href="http://blog.csdn.net/u012249528/article/details/46705867" target="_blank" rel="noopener">http://blog.csdn.net/u012249528/article/details/46705867</a></p>
 <p>Java 代码实现：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    public String simplifyPath(String path) {
-        String result = "";
-        String[] pathList = path.split("/");
-        if (pathList.length == 0) {
-            return "/";
-        }
+    <span class="token keyword">public</span> String <span class="token function">simplifyPath</span><span class="token punctuation">(</span>String path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String result <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> pathList <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pathList<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"/"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        Stack<String> stack = new Stack<>();
-        for (String p : pathList) {
-            if ("".equals(p) || ".".equals(p)) {
-                continue;
-            }
-            if ("..".equals(p)) {
-                if (!stack.isEmpty()) {
-                    stack.pop();
-                }
-            } else { // 是正常的路径字符串的时候，入栈
-                stack.push(p);
-            }
-        }
-
-
-        // 现在考虑输出字符串
-        while (!stack.isEmpty()) {
-            result = "/" + stack.pop() + result;
-        }
-        if ("".equals(result)) {
-            result = "/";
-        }
-        return result;
-    }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-
-        String path1 = "/home/";
-        String result1 = solution.simplifyPath(path1);
-        System.out.println(result1);
+        Stack<span class="token operator">&lt;</span>String<span class="token operator">></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String p <span class="token operator">:</span> pathList<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"."</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">".."</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 是正常的路径字符串的时候，入栈</span>
+                stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
 
-        String path2 = "/a/./b/../../c/";
-        String result2 = solution.simplifyPath(path2);
-        System.out.println(result2);
+        <span class="token comment" spellcheck="true">// 现在考虑输出字符串</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result <span class="token operator">=</span> <span class="token string">"/"</span> <span class="token operator">+</span> stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> result<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result <span class="token operator">=</span> <span class="token string">"/"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String path1 <span class="token operator">=</span> <span class="token string">"/home/"</span><span class="token punctuation">;</span>
+        String result1 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>path1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result1<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-        String path3 = "/..";
-        String result3 = solution.simplifyPath(path3);
-        System.out.println(result3);
+        String path2 <span class="token operator">=</span> <span class="token string">"/a/./b/../../c/"</span><span class="token punctuation">;</span>
+        String result2 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>path2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result2<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        String path4 = "/..";
-        String result4 = solution.simplifyPath(path4);
-        System.out.println(result4);
 
-        String path5 = "/abc/def/.";
-        String result5 = solution.simplifyPath(path5);
-        System.out.println(result5);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        String path3 <span class="token operator">=</span> <span class="token string">"/.."</span><span class="token punctuation">;</span>
+        String result3 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>path3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String path4 <span class="token operator">=</span> <span class="token string">"/.."</span><span class="token punctuation">;</span>
+        String result4 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>path4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result4<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        String path5 <span class="token operator">=</span> <span class="token string">"/abc/def/."</span><span class="token punctuation">;</span>
+        String result5 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>path5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

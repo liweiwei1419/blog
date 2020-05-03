@@ -492,46 +492,45 @@
 <p>这种做法丢失了稳定性，如果是本题这种基本数据类型的话没有关系。如果是对象类型，就不能这么做了。</p>
 <p>保持稳定性的做法是：先对计数数组做前缀和，在第 2 步往回赋值的时候，根据原始输入数组的数据从后向前赋值，前缀和数组保存了每个元素存放的下标信息（这里没有说得太细，本来这一点就不重要，也不难理解）。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 计数排序
+    <span class="token comment" spellcheck="true">// 计数排序</span>
 
-    private static final int OFFSET = 50000;
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> OFFSET <span class="token operator">=</span> <span class="token number">50000</span><span class="token punctuation">;</span>
 
-    public int[] sortArray(int[] nums) {
-        int len = nums.length;
-        // 由于 -50000 <= A[i] <= 50000
-        // 因此"桶" 的大小为 50000 - (-50000) = 10_0000
-        // 并且设置偏移 OFFSET = 50000，目的是让每一个数都能够大于等于 0
-        // 这样就可以作为 count 数组的下标，查询这个数的计数
-        int size = 10_0000;
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">sortArray</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 由于 -50000 &lt;= A[i] &lt;= 50000</span>
+        <span class="token comment" spellcheck="true">// 因此"桶" 的大小为 50000 - (-50000) = 10_0000</span>
+        <span class="token comment" spellcheck="true">// 并且设置偏移 OFFSET = 50000，目的是让每一个数都能够大于等于 0</span>
+        <span class="token comment" spellcheck="true">// 这样就可以作为 count 数组的下标，查询这个数的计数</span>
+        <span class="token keyword">int</span> size <span class="token operator">=</span> 10_0000<span class="token punctuation">;</span>
 
-        // 计数数组
-        int[] count = new int[size];
-        // 计算计数数组
-        for (int num : nums) {
-            count[num + OFFSET]++;
-        }
+        <span class="token comment" spellcheck="true">// 计数数组</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> count <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 计算计数数组</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num <span class="token operator">:</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            count<span class="token punctuation">[</span>num <span class="token operator">+</span> OFFSET<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        // 把 count 数组变成前缀和数组
-        for (int i = 1; i < size; i++) {
-            count[i] += count[i - 1];
-        }
+        <span class="token comment" spellcheck="true">// 把 count 数组变成前缀和数组</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> size<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            count<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> count<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        // 先把原始数组赋值到一个临时数组里，然后回写数据
-        int[] temp = new int[len];
-        System.arraycopy(nums, 0, temp, 0, len);
+        <span class="token comment" spellcheck="true">// 先把原始数组赋值到一个临时数组里，然后回写数据</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> temp<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> len<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        // 为了保证稳定性，从后向前赋值
-        for (int i = len - 1; i >= 0; i--) {
-            int index = count[temp[i] + OFFSET] - 1;
-            nums[index] = temp[i];
-            count[temp[i] + OFFSET]--;
-        }
-        return nums;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token comment" spellcheck="true">// 为了保证稳定性，从后向前赋值</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> index <span class="token operator">=</span> count<span class="token punctuation">[</span>temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> OFFSET<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            nums<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            count<span class="token punctuation">[</span>temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> OFFSET<span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> nums<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析</strong>：（略，这部分内容不太重要，增加学习负担）</p>
 <p>（本节完）</p>
 

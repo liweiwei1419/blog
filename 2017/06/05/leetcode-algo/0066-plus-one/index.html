@@ -493,62 +493,58 @@
 <p>示例 1：</p>
 <pre><code>输入: [1,2,3]
 输出: [1,2,4]
-解释: 输入数组表示数字 123。
-</code></pre><p>示例 2：</p>
+解释: 输入数组表示数字 123。</code></pre><p>示例 2：</p>
 <pre><code>输入: [4,3,2,1]
 输出: [4,3,2,2]
-解释: 输入数组表示数字 4321。
-</code></pre></blockquote>
+解释: 输入数组表示数字 4321。</code></pre></blockquote>
 <p>思路：注意可以<strong>提前终止</strong>。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class Solution {
-    public int[] plusOne(int[] digits) {
-        int len = digits.length;
-        if (len == 0) {
-            return new int[0];
-        }
-        int carry = 1;
-        for (int i = len - 1; i >= 0; i--) {
-            int sum = digits[i] + carry;
-            digits[i] = sum % 10;
-            carry = sum / 10;
-            // 如果不产生进位，马上就可以返回了
-            if (carry == 0) {
-                return digits;
-            }
-        }
-        if (carry == 1) {
-            int[] res = new int[len + 1];
-            res[0] = 1;
-            for (int i = 1; i < len + 1; i++) {
-                res[i] = digits[i - 1];
-            }
-            return res;
-        }
-        return digits;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">plusOne</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> digits<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> digits<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> carry <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> sum <span class="token operator">=</span> digits<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+</span> carry<span class="token punctuation">;</span>
+            digits<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> sum <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>
+            carry <span class="token operator">=</span> sum <span class="token operator">/</span> <span class="token number">10</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 如果不产生进位，马上就可以返回了</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>carry <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> digits<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>carry <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            res<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                res<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> digits<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> digits<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
-    def plusOne(self, digits):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">plusOne</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> digits<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type digits: List[int]
         :rtype: List[int]
-        """
+        """</span>
 
-        n = len(digits)
-        if n == 0:
-            return None
-        # 从后向前
-        for index in range(n - 1, -1, -1):
-            if digits[index] < 9:
-                digits[index] += 1
-                return digits
-            else:
-                digits[index] = 0
-        return [1] + digits
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        n <span class="token operator">=</span> len<span class="token punctuation">(</span>digits<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> None
+        <span class="token comment" spellcheck="true"># 从后向前</span>
+        <span class="token keyword">for</span> index <span class="token keyword">in</span> range<span class="token punctuation">(</span>n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">if</span> digits<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">&lt;</span> <span class="token number">9</span><span class="token punctuation">:</span>
+                digits<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+                <span class="token keyword">return</span> digits
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                digits<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> digits<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
 
             </div>

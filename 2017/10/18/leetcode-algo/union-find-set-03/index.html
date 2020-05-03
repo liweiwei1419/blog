@@ -489,66 +489,65 @@
 <p>介绍得多，只是为了方便大家建立知识结构，真正我们只会使用一个版本的「并查集」。我们放在介绍完了以后再说。</p>
 </blockquote>
 <h3 id="并查集第-2-版：quick-union"><a href="#并查集第-2-版：quick-union" class="headerlink" title="并查集第 2 版：quick-union"></a>并查集第 2 版：quick-union</h3><p>我们不再使用 <code>id</code> 数组，而使用 <code>parent</code> 数组，parent 数组的定义是：<code>parent[i]</code> 表示索引为 <code>i</code> 的结点的父亲结点的索引，在这个定义下，<strong>根结点的父亲结点是自己</strong>。</p>
-<p><img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/根结点的父亲结点是自己.jpg" alt="高级数据结构：并查集-5" style="zoom:35%;" /></p>
+<img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/根结点的父亲结点是自己.jpg" alt="高级数据结构：并查集-5" style="zoom:35%;" />
+
 <p>此时查询结点 <code>p</code> 和结点 <code>q</code> 相连这件事情，就是我们分别追溯 <code>parent[p]</code> 和 <code>parent[q]</code> （可以看到这样的过程很像在一棵树中的操作），查询到 <code>parent[p]</code> 和 <code>parent[q]</code> 的根结点，如果根结点相同，那么它们就同属于一个集合。</p>
 <p>这样看来，<code>find(int p)</code> 好像费点劲，这也是我们接来下的几个并查集优化的方向，都是在 <code>find(int p)</code> 上做文章，但这保证了 <code>union(int p, int q)</code> 很快，我们只需把<strong>其中一个结点的父结点指向另一个结点的根结点</strong>（而谁的父结点指向谁的根结点，也是我们后几版并查集优化的方向），就完成了 <code>union(int p, int q)</code> 的操作。此时 <code>union(int p, int q)</code> 的操作只须要一行代码：</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">parent[pRoot] = qRoot;
-<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java">parent<span class="token punctuation">[</span>pRoot<span class="token punctuation">]</span> <span class="token operator">=</span> qRoot<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>初始化的时候，我们将每个元素都指向自己，此时表示这 $10$ 个结点互相之间没有连接关系。如下表所示：</p>
-<p><img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/开始时每个元素都指向自己.jpg" alt="高级数据结构：并查集-6"></p>
+<p><img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/%E5%BC%80%E5%A7%8B%E6%97%B6%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E9%83%BD%E6%8C%87%E5%90%91%E8%87%AA%E5%B7%B1.jpg" alt="高级数据结构：并查集-6"></p>
 <p>上面的数组表示的并查集如下。</p>
-<p><img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/开始时每个元素都指向自己示意图.jpg" alt="高级数据结构：并查集-7"><br>从正确性上来说，谁的根指向谁的根都是可以的。但是在实际运行的时候，我们发现，我们应该将层级较少的根指向层级较多的根，这样做是为了保证我们的并查集形成的树的高度不会增加，这样在 <code>find</code> 的时候，追溯的层数不会增加。我们在查找根的时候，应该使得查找的层数最少。</p>
+<p><img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/%E5%BC%80%E5%A7%8B%E6%97%B6%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E9%83%BD%E6%8C%87%E5%90%91%E8%87%AA%E5%B7%B1%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg" alt="高级数据结构：并查集-7"><br>从正确性上来说，谁的根指向谁的根都是可以的。但是在实际运行的时候，我们发现，我们应该将层级较少的根指向层级较多的根，这样做是为了保证我们的并查集形成的树的高度不会增加，这样在 <code>find</code> 的时候，追溯的层数不会增加。我们在查找根的时候，应该使得查找的层数最少。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class UnionFind2 implements IUnionFind {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind2</span> <span class="token keyword">implements</span> <span class="token class-name">IUnionFind</span> <span class="token punctuation">{</span>
 
-    private int[] parent; // 第 i 个元素存放它的父元素的索引
+    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 第 i 个元素存放它的父元素的索引</span>
 
-    private int count; // 连通分量的数量
+    <span class="token keyword">private</span> <span class="token keyword">int</span> count<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 连通分量的数量</span>
 
-    public UnionFind2(int n) {
-        this.count = n;
-        parent = new int[n];
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;
-        }
-    }
+    <span class="token keyword">public</span> <span class="token function">UnionFind2</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>count <span class="token operator">=</span> n<span class="token punctuation">;</span>
+        parent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public String versionName() {
-        return "并查集的第 2 个版本，基于 parent 数组，quick-union";
-    }
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">versionName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"并查集的第 2 个版本，基于 parent 数组，quick-union"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public int find(int p) {
-        // 跟随链接找到根结点
-        while (parent[p] != p) { // 只要不是根结点
-            p = parent[p];
-        }
-        return p;
-    }
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 跟随链接找到根结点</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">!=</span> p<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 只要不是根结点</span>
+            p <span class="token operator">=</span> parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> p<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public boolean connected(int p, int q) {
-        return find(p) == find(q);
-    }
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">connected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    @Override
-    public void union(int p, int q) {
-        int pRoot = find(p); // 将 p 归并与之相同的分量中
-        int qRoot = find(q); // 将 q 归并与之相同的分量中
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> pRoot <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 将 p 归并与之相同的分量中</span>
+        <span class="token keyword">int</span> qRoot <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 将 q 归并与之相同的分量中</span>
 
-        // 如果 p 和 q 已经在相同的分量之中，则什么都不做
-        if (pRoot == qRoot) {
-            return;
-        }
-        // 如果 parent[qRoot] = pRoot; 也是可以的，即将其中一个结点指向另一个结点
-        parent[pRoot] = qRoot;
-        // 每次 union 以后，连通分量减 1
-        count--;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token comment" spellcheck="true">// 如果 p 和 q 已经在相同的分量之中，则什么都不做</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>pRoot <span class="token operator">==</span> qRoot<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 如果 parent[qRoot] = pRoot; 也是可以的，即将其中一个结点指向另一个结点</span>
+        parent<span class="token punctuation">[</span>pRoot<span class="token punctuation">]</span> <span class="token operator">=</span> qRoot<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 每次 union 以后，连通分量减 1</span>
+        count<span class="token operator">--</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

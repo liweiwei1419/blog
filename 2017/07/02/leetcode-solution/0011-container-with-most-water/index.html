@@ -497,81 +497,79 @@
 <p>图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</p>
 <p><strong>示例:</strong></p>
 <pre><code>输入: [1,8,6,2,5,4,8,3,7]
-输出: 49
-</code></pre></blockquote>
+输出: 49</code></pre></blockquote>
 <p>思路：贪心算法，总是贪心先固定容器的宽度。根据木桶原理（盛水的高度由最短的那块木板决定），<strong>高的那块木板往里面走，只可能让盛水越来越少，但是短板往里面走，却有可能让盛水越来越多</strong>。  </p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def maxArea(self, height):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">maxArea</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> height<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type height: List[int]
         :rtype: int
-        """
-        l = 0
-        r = len(height) - 1
-        res = 0
-        while l < r:
-            min_h = min(height[l], height[r])
-            res = max(res, (r - l) * min_h)
-            if min_h == height[l]:
-                l += 1
-            else:
-                r -= 1
-        return res
+        """</span>
+        l <span class="token operator">=</span> <span class="token number">0</span>
+        r <span class="token operator">=</span> len<span class="token punctuation">(</span>height<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
+        res <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
+            min_h <span class="token operator">=</span> min<span class="token punctuation">(</span>height<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">,</span> height<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            res <span class="token operator">=</span> max<span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">*</span> min_h<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> min_h <span class="token operator">==</span> height<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                l <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                r <span class="token operator">-=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> res
 
 
-if __name__ == '__main__':
-    height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
-    solution = Solution()
-    result = solution.maxArea(height)
-    print(result)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    height <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">]</span>
+    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    result <span class="token operator">=</span> solution<span class="token punctuation">.</span>maxArea<span class="token punctuation">(</span>height<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 指针对撞、贪心思想
-    // 参考解答：https://www.cnblogs.com/zichi/p/5745992.html
+    <span class="token comment" spellcheck="true">// 指针对撞、贪心思想</span>
+    <span class="token comment" spellcheck="true">// 参考解答：https://www.cnblogs.com/zichi/p/5745992.html</span>
 
-    public int maxArea(int[] height) {
-        int len = height.length;
-        if (len < 2) {
-            // 0 或者 1 的时候，不能形成区间，所以不能形成容器
-            return 0;
-        }
-        int l = 0;
-        int r = len - 1;
-        int res = 0;
-        while (l < r) {
-            // 这里其实就是木桶原理，取决于最短的那根木板
-            // [1,2,3] 3 和 1 之间的长度就是 (3-1=)2
-            int area = (r - l) * Math.min(height[l], height[r]);
-            res = Math.max(res, area);
-            if (height[l] < height[r]) {
-                l++;
-            } else {
-                // height[l] >= height[r]
-                r--;
-            }
-        }
-        return res;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxArea</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> height<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> height<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 0 或者 1 的时候，不能形成区间，所以不能形成容器</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> r <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 这里其实就是木桶原理，取决于最短的那根木板</span>
+            <span class="token comment" spellcheck="true">// [1,2,3] 3 和 1 之间的长度就是 (3-1=)2</span>
+            <span class="token keyword">int</span> area <span class="token operator">=</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>height<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">,</span> height<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            res <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> area<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>height<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">&lt;</span> height<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                l<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// height[l] >= height[r]</span>
+                r<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
 
-    // 暴力解法，时间复杂度太高，我们应该使用指针对撞的方法
-    public int maxArea1(int[] height) {
-        int len = height.length;
-        if (len < 2) {
-            return 0;
-        }
-        int res = 0;
-        for (int i = 0; i < len - 1; i++) {
-            for (int j = i + 1; j < len; j++) {
-                res = Integer.max(res, Integer.min(height[i], height[j]) * (j - i));
-            }
-        }
-        return res;
-    }
-}
+    <span class="token comment" spellcheck="true">// 暴力解法，时间复杂度太高，我们应该使用指针对撞的方法</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxArea1</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> height<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> height<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                res <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> Integer<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>height<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> height<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>j <span class="token operator">-</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>参考资料：<a href="https://leetcode-cn.com/problems/container-with-most-water/solution/。" target="_blank" rel="noopener">https://leetcode-cn.com/problems/container-with-most-water/solution/。</a></p>
 <h3 id="Leetcode-第-11-题：盛最多水的容器"><a href="#Leetcode-第-11-题：盛最多水的容器" class="headerlink" title="Leetcode 第 11 题：盛最多水的容器"></a>Leetcode 第 11 题：<a href="https://leetcode-cn.com/problems/container-with-most-water" target="_blank" rel="noopener">盛最多水的容器</a></h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/container-with-most-water/description/" target="_blank" rel="noopener">11. Container With Most Water</a> ，中文网址：<a href="https://leetcode-cn.com/problems/container-with-most-water/description/" target="_blank" rel="noopener">11. 盛最多水的容器</a> 。</p>
@@ -582,82 +580,80 @@ if __name__ == '__main__':
 <p>图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</p>
 <p><strong>示例:</strong></p>
 <pre><code>输入: [1,8,6,2,5,4,8,3,7]
-输出: 49
-</code></pre></blockquote>
+输出: 49</code></pre></blockquote>
 <p>思路：贪心算法，总是贪心先固定容器的宽度。根据木桶原理（盛水的高度由最短的那块木板决定），高的那块木板往里面走，只可能让盛水越来越少，但是短板往里面走，却有可能让盛水越来越多。  </p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 指针对撞、贪心思想
-    // 参考解答：https://www.cnblogs.com/zichi/p/5745992.html
+    <span class="token comment" spellcheck="true">// 指针对撞、贪心思想</span>
+    <span class="token comment" spellcheck="true">// 参考解答：https://www.cnblogs.com/zichi/p/5745992.html</span>
 
-    public int maxArea(int[] height) {
-        int len = height.length;
-        if (len < 2) {
-            // 0 或者 1 的时候，不能形成区间，所以不能形成容器
-            return 0;
-        }
-        int l = 0;
-        int r = len - 1;
-        int res = 0;
-        while (l < r) {
-            // 这里其实就是木桶原理，取决于最短的那根木板
-            // [1,2,3] 3 和 1 之间的长度就是 (3-1=)2
-            int area = (r - l) * Math.min(height[l], height[r]);
-            res = Math.max(res, area);
-            if (height[l] < height[r]) {
-                l++;
-            } else {
-                // height[l] >= height[r]
-                r--;
-            }
-        }
-        return res;
-    }
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxArea</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> height<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> height<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 0 或者 1 的时候，不能形成区间，所以不能形成容器</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> r <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 这里其实就是木桶原理，取决于最短的那根木板</span>
+            <span class="token comment" spellcheck="true">// [1,2,3] 3 和 1 之间的长度就是 (3-1=)2</span>
+            <span class="token keyword">int</span> area <span class="token operator">=</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>height<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">,</span> height<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            res <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> area<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>height<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">&lt;</span> height<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                l<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// height[l] >= height[r]</span>
+                r<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
 
-    // 暴力解法，时间复杂度太高，我们应该使用指针对撞的方法
-    public int maxArea1(int[] height) {
-        int len = height.length;
-        if (len < 2) {
-            return 0;
-        }
-        int res = 0;
-        for (int i = 0; i < len - 1; i++) {
-            for (int j = i + 1; j < len; j++) {
-                res = Integer.max(res, Integer.min(height[i], height[j]) * (j - i));
-            }
-        }
-        return res;
-    }
-}
+    <span class="token comment" spellcheck="true">// 暴力解法，时间复杂度太高，我们应该使用指针对撞的方法</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxArea1</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> height<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> height<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                res <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> Integer<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>height<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> height<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>j <span class="token operator">-</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def maxArea(self, height):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">maxArea</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> height<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type height: List[int]
         :rtype: int
-        """
-        l = 0
-        r = len(height) - 1
-        res = 0
-        while l < r:
-            min_h = min(height[l], height[r])
-            res = max(res, (r - l) * min_h)
-            if min_h == height[l]:
-                l += 1
-            else:
-                r -= 1
-        return res
+        """</span>
+        l <span class="token operator">=</span> <span class="token number">0</span>
+        r <span class="token operator">=</span> len<span class="token punctuation">(</span>height<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
+        res <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
+            min_h <span class="token operator">=</span> min<span class="token punctuation">(</span>height<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">,</span> height<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            res <span class="token operator">=</span> max<span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">*</span> min_h<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> min_h <span class="token operator">==</span> height<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                l <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                r <span class="token operator">-=</span> <span class="token number">1</span>
+        <span class="token keyword">return</span> res
 
 
-if __name__ == '__main__':
-    height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
-    solution = Solution()
-    result = solution.maxArea(height)
-    print(result)
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    height <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">]</span>
+    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    result <span class="token operator">=</span> solution<span class="token punctuation">.</span>maxArea<span class="token punctuation">(</span>height<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>参考资料：<a href="https://leetcode-cn.com/problems/container-with-most-water/solution/。" target="_blank" rel="noopener">https://leetcode-cn.com/problems/container-with-most-water/solution/。</a></p>
 
             </div>

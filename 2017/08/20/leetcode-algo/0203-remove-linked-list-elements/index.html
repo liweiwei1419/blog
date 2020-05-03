@@ -489,98 +489,95 @@
 <p>删除链表中等于给定值 <strong>val</strong> 的所有节点。</p>
 <p><strong>示例</strong>：</p>
 <pre><code>输入: 1-&gt;2-&gt;6-&gt;3-&gt;4-&gt;5-&gt;6, val = 6
-输出: 1-&gt;2-&gt;3-&gt;4-&gt;5
-</code></pre></blockquote>
+输出: 1-&gt;2-&gt;3-&gt;4-&gt;5</code></pre></blockquote>
 <p>1、设计第 $1$ 个结点，因此需要设置虚拟头结点。</p>
 <p>2、两种方法：（1）递归；（2）穿针引线。</p>
 <h3 id="方法一：穿针引线"><a href="#方法一：穿针引线" class="headerlink" title="方法一：穿针引线"></a>方法一：穿针引线</h3><p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">class ListNode {
-    int val;
-    ListNode next;
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
+    ListNode next<span class="token punctuation">;</span>
 
-    ListNode(int x) {
-        val = x;
-    }
+    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        val <span class="token operator">=</span> x<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    // 下面，我们将 LeetCode 中的给出的链表的节点这个类进行一些扩展，方便我们的调试
-    // 1、给出一个数字数组，通过数组构建数字链表
+    <span class="token comment" spellcheck="true">// 下面，我们将 LeetCode 中的给出的链表的节点这个类进行一些扩展，方便我们的调试</span>
+    <span class="token comment" spellcheck="true">// 1、给出一个数字数组，通过数组构建数字链表</span>
 
-    public ListNode(int[] arr) {
-        if (arr == null || arr.length == 0) {
-            throw new IllegalArgumentException("arr can not be empty");
-        }
-        // 体会这里 this 指代了什么，其实就是 head
-        // 因为这是一个构造函数，所以也无须将 head 返回
-        this.val = arr[0];
-        ListNode cur = this;
-        for (int i = 1; i < arr.length; i++) {
-            cur.next = new ListNode(arr[i]);
-            cur = cur.next;
-        }
-    }
+    <span class="token keyword">public</span> <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>arr <span class="token operator">==</span> null <span class="token operator">||</span> arr<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"arr can not be empty"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 体会这里 this 指代了什么，其实就是 head</span>
+        <span class="token comment" spellcheck="true">// 因为这是一个构造函数，所以也无须将 head 返回</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>val <span class="token operator">=</span> arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        ListNode cur <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            cur<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    // 2、重写 toString() 方法，方便我们查看链表中的元素
+    <span class="token comment" spellcheck="true">// 2、重写 toString() 方法，方便我们查看链表中的元素</span>
 
-    @Override
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        // 还是要特别注意的是，理解这里 this 的用法
-        ListNode cur = this;
-        while (cur != null) {
-            s.append(cur.val).append(" -> ");
-            cur = cur.next;
-        }
-        s.append("NULL");
-        return s.toString();
-    }
-}
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        StringBuilder s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 还是要特别注意的是，理解这里 this 的用法</span>
+        ListNode cur <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>cur <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            s<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>cur<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">" -> "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        s<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"NULL"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-public class Solution {
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    // 穿针引线
+    <span class="token comment" spellcheck="true">// 穿针引线</span>
 
-    public ListNode removeElements(ListNode head, int val) {
-        ListNode dummyNode = new ListNode(-1);
-        dummyNode.next = head;
-        ListNode cur = dummyNode;
-        while (cur.next != null) {
-            if (cur.next.val == val) {
-                // 待删除的结点
-                ListNode deleteNode = cur.next;
-                cur.next = deleteNode.next;
-                deleteNode.next = null;
-            } else {
-                cur = cur.next;
-            }
-        }
-        return dummyNode.next;
-    }
+    <span class="token keyword">public</span> ListNode <span class="token function">removeElements</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ListNode dummyNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        dummyNode<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        ListNode cur <span class="token operator">=</span> dummyNode<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>cur<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val <span class="token operator">==</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 待删除的结点</span>
+                ListNode deleteNode <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+                cur<span class="token punctuation">.</span>next <span class="token operator">=</span> deleteNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+                deleteNode<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> dummyNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    public static void main(String[] args) {
-        int[] nums = {1, 2, 6, 3, 4, 5, 6};
-        ListNode head = new ListNode(nums);
-        Solution solution = new Solution();
-        solution.removeElements(head, 6);
-        System.out.println(head);
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        ListNode head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        solution<span class="token punctuation">.</span><span class="token function">removeElements</span><span class="token punctuation">(</span>head<span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="方法二：使用递归的方法"><a href="#方法二：使用递归的方法" class="headerlink" title="方法二：使用递归的方法"></a>方法二：使用递归的方法</h3><p>Python 代码：</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
 
-class Solution:
-    def removeElements(self, head, val):
-        if head is None:
-            return None
-        head.next = self.removeElements(head.next, val)
-        return head.next if head.val == val else head
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">removeElements</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> head <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> None
+        head<span class="token punctuation">.</span>next <span class="token operator">=</span> self<span class="token punctuation">.</span>removeElements<span class="token punctuation">(</span>head<span class="token punctuation">.</span>next<span class="token punctuation">,</span> val<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> head<span class="token punctuation">.</span>next <span class="token keyword">if</span> head<span class="token punctuation">.</span>val <span class="token operator">==</span> val <span class="token keyword">else</span> head<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>思路：先给出一个容易想到的解法，但是这个解法对于删除头结点的逻辑写得比较长。</p>
 <p>Java 代码：（代码比较冗长，没有意义，可以跳过不看，只要跟头结点有关的问题，要设置虚拟头结点就好了。）</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">/**
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
  * 基本思路：只要当前遍历的节点的下一个节点不为空
  * 把它拿出来比较一下目标值：
  * 如果和目标值相同，就（1）先把要删除的节点存一下。
@@ -591,97 +588,93 @@ class Solution:
  * @param head
  * @param value
  * @return
- */
-public ListNode removeElements(ListNode head, int value) {
+ */</span>
+<span class="token keyword">public</span> ListNode <span class="token function">removeElements</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-    // 这里陷阱很多，要特别注意测试用例为"要删除的节点值连续出现在链表表头的情况"
-    // 例如，待考察链表 {1, 1, 1, 2, 3, 4, 5} ，待删除的元素的值是 1 的情况
-    // 为了删除头结点，我们编写了很长的一段代码
-    while (head != null && head.val == value) {
-        ListNode delNode = head;
-        head = delNode.next;
-        delNode = null;
-    }
+    <span class="token comment" spellcheck="true">// 这里陷阱很多，要特别注意测试用例为"要删除的节点值连续出现在链表表头的情况"</span>
+    <span class="token comment" spellcheck="true">// 例如，待考察链表 {1, 1, 1, 2, 3, 4, 5} ，待删除的元素的值是 1 的情况</span>
+    <span class="token comment" spellcheck="true">// 为了删除头结点，我们编写了很长的一段代码</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>head <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> head<span class="token punctuation">.</span>val <span class="token operator">==</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ListNode delNode <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        head <span class="token operator">=</span> delNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        delNode <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    if (head == null) {
-        return null;
-    }
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    ListNode current = head;
-    while (current.next != null) {
-        if (current.next.val == value) {
-            ListNode delNode = current.next;
-            current.next = delNode.next;
-            delNode.next = null;
+    ListNode current <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>current<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>current<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val <span class="token operator">==</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ListNode delNode <span class="token operator">=</span> current<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            current<span class="token punctuation">.</span>next <span class="token operator">=</span> delNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            delNode<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
 
-        } else {
-            current = current.next;
-        }
-    }
-    return head;
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            current <span class="token operator">=</span> current<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>下面介绍一种设立链表的虚拟头结点的技巧，使得删除头结点的逻辑可以合并到删除非链表头结点的逻辑中。<br>思路很简单，就是在带考察的链表前面加上一个虚拟节点，使得原来的头结点不是头结点。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public ListNode removeElements(ListNode head, int value) {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> ListNode <span class="token function">removeElements</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-    ListNode dummyHead = new ListNode(0);
-    dummyHead.next = head;
-
-
-    ListNode current = dummyHead;
-    while (current.next != null) {
-        if (current.next.val == value) {
-            ListNode delNode = current.next;
-            current.next = delNode.next;
-            delNode = null;
+    ListNode dummyHead <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    dummyHead<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
 
 
-        } else {
-            current = current.next;
-        }
-    }
+    ListNode current <span class="token operator">=</span> dummyHead<span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>current<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>current<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val <span class="token operator">==</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ListNode delNode <span class="token operator">=</span> current<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            current<span class="token punctuation">.</span>next <span class="token operator">=</span> delNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+            delNode <span class="token operator">=</span> null<span class="token punctuation">;</span>
 
-    ListNode retNode = dummyHead.next;
-    dummyHead = null;
-    return retNode;
 
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            current <span class="token operator">=</span> current<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    ListNode retNode <span class="token operator">=</span> dummyHead<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    dummyHead <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> retNode<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>思路：</p>
 <p>1、使用虚拟头结点；</p>
 <p>2、<strong>掌握递归写法</strong>。</p>
 <p>重点：千万不要忘记，还有递归写法。</p>
 <p>Python 代码：使用递归，假设小一个规模的问题已经求解，然后处理原问题。</p>
-<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
-    def removeElements(self, head, val):
-        """
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">removeElements</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""
         :type head: ListNode
         :type val: int
         :rtype: ListNode
-        """
-        if head is None:
-            return None
-        head.next = self.removeElements(head.next, val)
-        return head.next if head.val == val else head
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        """</span>
+        <span class="token keyword">if</span> head <span class="token keyword">is</span> None<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> None
+        head<span class="token punctuation">.</span>next <span class="token operator">=</span> self<span class="token punctuation">.</span>removeElements<span class="token punctuation">(</span>head<span class="token punctuation">.</span>next<span class="token punctuation">,</span> val<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> head<span class="token punctuation">.</span>next <span class="token keyword">if</span> head<span class="token punctuation">.</span>val <span class="token operator">==</span> val <span class="token keyword">else</span> head<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-lang-java"><code class="language-lang-java">public ListNode removeElements(ListNode head, int val) {
-    // 首先处理递归到底的情况，直接返回 null
-    if (head == null) {
-        return head;
-    }
-    // 假设下一个结点开始的链表已经处理完了
-    ListNode res = removeElements(head.next, val);
-    // 再将头结点和除了头结点以外的链表部分合并考虑
-    if (head.val == val) {
-        return res;
-    } else {
-        head.next = res;
-        return head;
-    }
-}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> ListNode <span class="token function">removeElements</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 首先处理递归到底的情况，直接返回 null</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// 假设下一个结点开始的链表已经处理完了</span>
+    ListNode res <span class="token operator">=</span> <span class="token function">removeElements</span><span class="token punctuation">(</span>head<span class="token punctuation">.</span>next<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 再将头结点和除了头结点以外的链表部分合并考虑</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>head<span class="token punctuation">.</span>val <span class="token operator">==</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        head<span class="token punctuation">.</span>next <span class="token operator">=</span> res<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> head<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
