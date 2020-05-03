@@ -860,6 +860,33 @@
     </div>
 
     
+        <link rel="stylesheet" href="/leetcode-algo/libs/gitalk/gitalk.css">
+<link rel="stylesheet" href="/leetcode-algo/css/my-gitalk.css">
+
+<div class="card gitalk-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="gitalk-container" class="card-content"></div>
+</div>
+
+<script src="/leetcode-algo/libs/gitalk/gitalk.min.js"></script>
+<script>
+    let gitalk = new Gitalk({
+        clientID: '5a0689b99572e0b70f06',
+        clientSecret: 'cf79536d8100da4bed61de8baf26ae798e151d80',
+        repo: 'blog-article-sources',
+        owner: 'liweiwei1419',
+        admin: "liweiwei1419",
+        id: '2017-06-07T08-00-00',
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+
+    gitalk.render('gitalk-container');
+</script>
+
+    
 
     
 
