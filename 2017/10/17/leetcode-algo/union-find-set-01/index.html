@@ -489,68 +489,69 @@
 </li>
 </ul>
 <p>这一版「并查集」并不常用，仅作为了解。</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>并查集可以使用数组表示。这个数组我们命名为 <code>id</code> 。初始化的时候每一个元素的值都是不一样的。如果值一样的，表示是属于同一个集合内的元素。</p>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><p>并查集可以使用数组表示。这个数组我们命名为 <code>id</code> 。初始化的时候每一个元素的值都是不一样的。如果值一样的，表示是属于同一个集合内的元素。</p>
 <p>基于 <code>id</code> 的 quick-find 的思路：设置 <code>id</code> 数组，数组的每个元素是分量标识。</p>
 <p>从 quick-find 这个名字上看，我们这一版的实现，对于 <code>find(int p)</code> 这个操作来说是高效的，但对于 <code>union(int p, int q)</code> 这个操作是低效的，因为需要遍历整个并查集。<code>find(int p)</code> 这个操作的时间复杂度是 $O(1)$，而 <code>union(int p, int q)</code> 这个操作的时间复杂度是 $O(n)$，要全部遍历并查集中的元素，把其中一个分量标识的所有结点的编号更改为另一个一个分量标识。</p>
-<p>![高级数据结构：并查集-4](<a href="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/基于">https://liweiwei1419.gitee.io/images/algorithms/union-find-set/基于</a> id 并查集算法的例子.jpg)</p>
+<p><img src="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/基于 id 并查集算法的例子.jpg" alt="高级数据结构：并查集-4"></p>
 <p>例如上面的表格中，如果我们要将第 $1$ 行的 <code>0</code> 和 <code>1</code> 执行 <code>union(int p, int q)</code> 操作，有两种方式：</p>
 <p>第 1 种方式：把第 1 行的 <code>0</code>，<code>2</code>，<code>4</code>，<code>6</code>，<code>8</code> 的值全改成 <code>1</code>；</p>
 <p>第 2 种方式：把第 1 行的 <code>1</code>，<code>3</code>，<code>5</code>，<code>7</code>，<code>9</code> 的值全改成 0。</p>
 <p>可以看到，<code>union(int p, int q)</code> 的操作和问题的规模成正比，所以 quick-find 思想（基于 <code>id</code>）的 <code>union(int p, int q)</code> 操作时间复杂度是 $O(n)$。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind1</span> <span class="token keyword">implements</span> <span class="token class-name">IUnionFind</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class UnionFind1 implements IUnionFind {
 
-    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> id<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 分量 id</span>
+    private int[] id; // 分量 id
 
-    <span class="token keyword">private</span> <span class="token keyword">int</span> count<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 连通分量的数量</span>
+    private int count; // 连通分量的数量
 
-    <span class="token keyword">public</span> <span class="token function">UnionFind1</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>count <span class="token operator">=</span> n<span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 初始化分量 id 数组</span>
-        id <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            id<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    public UnionFind1(int n) {
+        this.count = n;
+        // 初始化分量 id 数组
+        id = new int[n];
+        for (int i = 0; i < n; i++) {
+            id[i] = i;
+        }
+    }
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> String <span class="token function">versionName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token string">"并查集的第 1 个版本，基于 id 数组，quick-find"</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    @Override
+    public String versionName() {
+        return "并查集的第 1 个版本，基于 id 数组，quick-find";
+    }
 
-    <span class="token comment" spellcheck="true">// 以常数时间复杂度，返回分量的标识符，与并查集的规模是无关的，这一步很快</span>
-    <span class="token comment" spellcheck="true">// 因此我们称这个版本的并查集是 quick-find</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> id<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    // 以常数时间复杂度，返回分量的标识符，与并查集的规模是无关的，这一步很快
+    // 因此我们称这个版本的并查集是 quick-find
+    @Override
+    public int find(int p) {
+        return id[p];
+    }
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">connected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    @Override
+    public boolean connected(int p, int q) {
+        return find(p) == find(q);
+    }
 
-    <span class="token comment" spellcheck="true">// 因为需要遍历数组中的全部元素，所以这个版本其实效率并不高</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> pid <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> qid <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    // 因为需要遍历数组中的全部元素，所以这个版本其实效率并不高
+    @Override
+    public void union(int p, int q) {
+        int pid = find(p);
+        int qid = find(q);
 
-        <span class="token comment" spellcheck="true">// 如果 p 和 q 已经在相同的分量之中，则什么都不做</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>pid <span class="token operator">==</span> qid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        // 如果 p 和 q 已经在相同的分量之中，则什么都不做
+        if (pid == qid) {
+            return;
+        }
 
-        <span class="token comment" spellcheck="true">// 将 p 的分量重新命名为 q 的名称</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> id<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">find</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> pid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                id<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> qid<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 每次 union 以后，连通分量减 1</span>
-        count<span class="token operator">--</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        // 将 p 的分量重新命名为 q 的名称
+        for (int i = 0; i < id.length; i++) {
+            if (find(i) == pid) {
+                id[i] = qid;
+            }
+        }
+        // 每次 union 以后，连通分量减 1
+        count--;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>使用数组 <code>id</code> 在进行 <code>union(int p, int q)</code> 的时候，要遍历整个数组中的结点，这种方式效率不高，因此，我们换一种思路：由于 <code>union(int p, int q)</code> 慢，所以我们就想办法让 <code>union(int p, int q)</code> 快起来。</p>
 
             </div>

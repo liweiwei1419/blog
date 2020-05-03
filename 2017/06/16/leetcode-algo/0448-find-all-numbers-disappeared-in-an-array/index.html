@@ -513,6 +513,7 @@
 <p>如果 <code>a ^ b = c</code> ，那么 <code>a ^ c = b</code> 与 <code>b ^ c = a</code> 同时成立，利用这一条，可以用于交换两个变量的值。</p>
 </blockquote>
 <p>于是，交换两个变量的值，例如 <code>a</code> 和 <code>b</code>，不使用第三个变量，有两种不同的方法：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -520,54 +521,57 @@
 <th>基于加减法</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>a = a ^ b</code><br><code>b = a ^ b</code><br><code>a = a ^ b</code></td>
 <td><code>a = a + b</code><br/><code>b = a - b</code><br/><code>a = a - b</code></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>我理解的方式就是自己在纸上写几个例子，并且记住这个结论。个人觉得“基于异或运算”交换两个变量的值好记一些，因为右边都一样，左边依次是 <code>a</code>、<code>b</code>、<code>a</code>。</p>
 <p><strong>参考代码 1</strong>：</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">class Solution:
-    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
-        size = len(nums)
+<p>```Python []<br>class Solution:<br>    def findDisappearedNumbers(self, nums: List[int]) -&gt; List[int]:<br>        size = len(nums)</p>
+<pre><code>    for i in range(size):
+        while nums[i] != i + 1:
+            if nums[i] != nums[nums[i] - 1]:
+                self.__swap(nums, i, nums[i] - 1)
+            else:
+                break
 
-        for i in range(size):
-            while nums[i] != i + 1:
-                if nums[i] != nums[nums[i] - 1]:
-                    self.__swap(nums, i, nums[i] - 1)
-                else:
-                    break
+    res = []
+    for i in range(size):
+        if nums[i] != i + 1:
+            res.append(i + 1)
+    return res
 
-        res = []
-        for i in range(size):
-            if nums[i] != i + 1:
-                res.append(i + 1)
-        return res
+def __swap(self, nums, index1, index2):
+    nums[index1] = nums[index1] ^ nums[index2]
+    nums[index2] = nums[index1] ^ nums[index2]
+    nums[index1] = nums[index1] ^ nums[index2]
+</code></pre><pre><code>
+Java 代码：
 
-    def __swap(self, nums, index1, index2):
-        nums[index1] = nums[index1] ^ nums[index2]
-        nums[index2] = nums[index1] ^ nums[index2]
-        nums[index1] = nums[index1] ^ nums[index2]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">import java.util.ArrayList;
+```Java []
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Solution {
 
-    public List<Integer> findDisappearedNumbers(int[] nums) {
+    public List&lt;Integer&gt; findDisappearedNumbers(int[] nums) {
         int len = nums.length;
 
-        for (int i = 0; i < len; i++) {
-            while (nums[i] != i + 1 && nums[nums[i] - 1] != nums[i]) {
+        for (int i = 0; i &lt; len; i++) {
+            while (nums[i] != i + 1 &amp;&amp; nums[nums[i] - 1] != nums[i]) {
                 swap(nums, i, nums[i] - 1);
             }
         }
 
-        // System.out.println("桶排序以后的数组：" + Arrays.toString(nums));
-        List<Integer> res = new ArrayList<>();
-        for (int i = 0; i < nums.length; i++) {
+        // System.out.println(&quot;桶排序以后的数组：&quot; + Arrays.toString(nums));
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; nums.length; i++) {
             if (nums[i] != i + 1) {
                 res.add(i + 1);
             }
@@ -581,8 +585,8 @@ public class Solution {
         nums[i] = nums[i] ^ nums[j];
     }
 
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>复杂度分析</strong>：</p>
+}
+</code></pre><p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N)$，这里 $N$ 是数组的长度。</li>
 <li>空间复杂度：$O(1)$，这里没有使用额外的空间。</li>
@@ -590,58 +594,56 @@ public class Solution {
 <p>说明：同样的思路和技巧，可以解决<a href="https://leetcode-cn.com/problems/first-missing-positive" target="_blank" rel="noopener">「力扣」第 41 题：缺失的第一个正数</a>。</p>
 <h3 id="方法二：位图（使用了-1-个额外空间，不符合题意，该方法仅作了解）"><a href="#方法二：位图（使用了-1-个额外空间，不符合题意，该方法仅作了解）" class="headerlink" title="方法二：位图（使用了 1 个额外空间，不符合题意，该方法仅作了解）"></a>方法二：位图（使用了 1 个额外空间，不符合题意，该方法仅作了解）</h3><p><strong>参考代码 2</strong>：</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">from typing import List
+<p>```Python []<br>from typing import List</p>
+<p>class Solution:<br>    def findDisappearedNumbers(self, nums: List[int]) -&gt; List[int]:<br>        size = len(nums)</p>
+<pre><code>    # 位图
+    map = 1 &lt;&lt; (size)
 
+    # 调试代码
+    # print(bin(map))
 
-class Solution:
-    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
-        size = len(nums)
-
-        # 位图
-        map = 1 << (size)
-
+    for num in nums:
+        map |= 1 &lt;&lt; (num - 1)
         # 调试代码
         # print(bin(map))
 
-        for num in nums:
-            map |= 1 << (num - 1)
-            # 调试代码
-            # print(bin(map))
+    res = []
 
-        res = []
+    for index in range(size):
+        if (map &gt;&gt; index) &amp; 1 == 0:
+            res.append(index + 1)
+    return res
+</code></pre><pre><code>
+Java 代码：
 
-        for index in range(size):
-            if (map >> index) & 1 == 0:
-                res.append(index + 1)
-        return res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">import java.util.ArrayList;
+```Java []
+import java.util.ArrayList;
 import java.util.List;
 
 public class Solution {
 
-    public List<Integer> findDisappearedNumbers(int[] nums) {
+    public List&lt;Integer&gt; findDisappearedNumbers(int[] nums) {
         int len = nums.length;
-        int map = 1 << len;
+        int map = 1 &lt;&lt; len;
 
         // 调试代码
         // System.out.println(Integer.toBinaryString(map));
         for (int num : nums) {
-            map |= 1 << (num - 1);
+            map |= 1 &lt;&lt; (num - 1);
             // 调试代码
             // System.out.println(Integer.toBinaryString(map));
         }
 
-        List<Integer> res = new ArrayList<>();
-        for (int i = 0; i < len; i++) {
-            if (((map >> i) & 1) == 0) {
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; len; i++) {
+            if (((map &gt;&gt; i) &amp; 1) == 0) {
                 res.add(i + 1);
             }
         }
         return res;
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>复杂度分析</strong>：</p>
+}
+</code></pre><p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N)$，这里 $N$ 是数组的长度。</li>
 <li>空间复杂度：$O(1)$，这里使用了 1 个额外的空间。</li>

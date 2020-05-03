@@ -489,7 +489,7 @@
 <p>注意:<br>你可以假设树中没有重复的元素。</p>
 <p>例如，给出</p>
 <p>前序遍历 preorder = [3,9,20,15,7]<br>中序遍历 inorder = [9,3,15,20,7]<br>返回如下的二叉树：</p>
-<p>   3<br>  / <br> 9  20<br>   /  <br>  15   7</p>
+<p>   3<br>  / \<br> 9  20<br>   /  \<br>  15   7</p>
 </blockquote>
 <h2 id="分治法（Python-代码、Java-代码）"><a href="#分治法（Python-代码、Java-代码）" class="headerlink" title="分治法（Python 代码、Java 代码）"></a>分治法（Python 代码、Java 代码）</h2><p><strong>思路分析</strong>：</p>
 <p>二叉树相关的很多问题的解决思路都有分治法的思想在里面。我们复习一下分治法的思想：<strong>把原问题拆解成若干个与原问题结构相同但规模更小的子问题，待子问题解决以后，原问题就得以解决</strong>，“归并排序”和“快速排序”都是分治法思想的应用，其中“归并排序”先无脑地“分”，在“合”的时候就麻烦一些；“快速排序”开始在 partition 上花了很多时间，即在“分”上使了很多劲，然后就递归处理下去就好了，没有在“合”上再花时间。</p>
@@ -499,37 +499,33 @@
 <p>这道题完成了以后可以顺便把 <a href="https://leetcode-cn.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/" target="_blank" rel="noopener">「力扣」 第 106 题：从中序与后序遍历序列构造二叉树</a>也一起做了，加油加油！</p>
 <p><strong>参考代码</strong>：</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">class TreeNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+<p>```Python []<br>class TreeNode(object):<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.left = None<br>        self.right = None</p>
+<p>class Solution(object):</p>
+<pre><code>def buildTree(self, preorder, inorder):
+    plen = len(preorder)
+    ilen = len(inorder)
+    return self.__helper(preorder, 0, plen - 1, inorder, 0, ilen - 1)
 
+def __helper(self, preorder, prel, prer,
+             inorder, inl, inr):
+    if prel &gt; prer:
+        return None
+    root_val = preorder[prel]
+    l = inl
+    while l &lt; inr and inorder[l] != root_val:
+        l += 1
+    # 走到这里 inorder[l] == root 为 True
+    root_node = TreeNode(root_val)
+    root_node.left = self.__helper(preorder, prel + 1, prel + l - inl,
+                                   inorder, inl, l - 1)
+    root_node.right = self.__helper(preorder, prel + l - inl + 1, prer,
+                                    inorder, l + 1, inr)
+    return root_node
+</code></pre><pre><code>
+Java 代码：
 
-class Solution(object):
-
-    def buildTree(self, preorder, inorder):
-        plen = len(preorder)
-        ilen = len(inorder)
-        return self.__helper(preorder, 0, plen - 1, inorder, 0, ilen - 1)
-
-    def __helper(self, preorder, prel, prer,
-                 inorder, inl, inr):
-        if prel > prer:
-            return None
-        root_val = preorder[prel]
-        l = inl
-        while l < inr and inorder[l] != root_val:
-            l += 1
-        # 走到这里 inorder[l] == root 为 True
-        root_node = TreeNode(root_val)
-        root_node.left = self.__helper(preorder, prel + 1, prel + l - inl,
-                                       inorder, inl, l - 1)
-        root_node.right = self.__helper(preorder, prel + l - inl + 1, prer,
-                                        inorder, l + 1, inr)
-        return root_node<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">class TreeNode {
+```Java []
+class TreeNode {
     int val;
     TreeNode left;
     TreeNode right;
@@ -558,12 +554,12 @@ public class Solution {
                             int preL, int preR,
                             int[] inorder,
                             int inL, int inR) {
-        if (preL > preR || inL > inR) {
+        if (preL &gt; preR || inL &gt; inR) {
             return null;
         }
         int rootVal = preorder[preL];
         int l = inL;
-        while (l <= inR && inorder[l] != rootVal) {
+        while (l &lt;= inR &amp;&amp; inorder[l] != rootVal) {
             l++;
         }
         TreeNode root = new TreeNode(rootVal);
@@ -571,8 +567,8 @@ public class Solution {
         root.right = helper(preorder, preL + l - inL + 1, preR, inorder, l + 1, inR);
         return root;
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>复杂度分析：</strong></p>
+}
+</code></pre><p><strong>复杂度分析：</strong></p>
 <ul>
 <li>时间复杂度：$O(N)$，这里 $N$ 是二叉树的结点个数。</li>
 <li>空间复杂度：$O(N)$。</li>

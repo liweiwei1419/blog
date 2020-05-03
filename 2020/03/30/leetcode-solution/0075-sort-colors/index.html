@@ -498,7 +498,8 @@
 <p>给定一个数组 <code>nums</code>，编写一个函数将所有 <code>0</code> 移动到数组的末尾，同时保持非零元素的相对顺序。</p>
 <p><strong>示例:</strong></p>
 <pre><code>输入: [0,1,0,3,12]
-输出: [1,3,12,0,0]</code></pre><p><strong>说明</strong>:</p>
+输出: [1,3,12,0,0]
+</code></pre><p><strong>说明</strong>:</p>
 <ol>
 <li>必须在原数组上操作，不能拷贝额外的数组。</li>
 <li>尽量减少操作次数。</li>
@@ -507,34 +508,35 @@
 <p>思路：循环过程中，保持 <code>[0, j)</code> 这个区间中的元素非零，遍历一次就能够达到题目的要求。</p>
 <p>时间复杂度：$O(n)$；空间复杂度：$O(1)$。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
 
-    <span class="token comment" spellcheck="true"># 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。</span>
-    <span class="token comment" spellcheck="true"># 快速排序的方法，最简单，最直接</span>
+    # 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
+    # 快速排序的方法，最简单，最直接
 
-    <span class="token keyword">def</span> <span class="token function">moveZeroes</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def moveZeroes(self, nums):
+        """
         :type nums: List[int]
         :rtype: void Do not return anything, modify nums in-place instead.
-        """</span>
+        """
 
-        <span class="token comment" spellcheck="true"># 循环不变量保持 [0, j） 保持都非 0，</span>
-        <span class="token comment" spellcheck="true"># [j, len-1] 为 0</span>
-        <span class="token comment" spellcheck="true"># j 表示下一个非零元素的位置</span>
-        j <span class="token operator">=</span> <span class="token number">0</span>
+        # 循环不变量保持 [0, j） 保持都非 0，
+        # [j, len-1] 为 0
+        # j 表示下一个非零元素的位置
+        j = 0
 
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># 遇到 0 放过，不是 0 的交换到前面去</span>
-            <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
-                j <span class="token operator">+=</span> <span class="token number">1</span>
+        for i in range(len(nums)):
+            # 遇到 0 放过，不是 0 的交换到前面去
+            if nums[i] != 0:
+                nums[j], nums[i] = nums[i], nums[j]
+                j += 1
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
-    s <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">12</span><span class="token punctuation">]</span>
-    s<span class="token punctuation">.</span>moveZeroes<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+if __name__ == "__main__":
+    s = Solution()
+    nums = [0, 1, 0, 3, 12]
+    s.moveZeroes(nums)
+    print(nums)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

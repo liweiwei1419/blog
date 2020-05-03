@@ -506,40 +506,39 @@
 <li>思路 2：在循环体内部排除元素：<code>while (left &lt; right)</code>。</li>
 </ul>
 </li>
-<li><p>全部使用<strong>左闭右闭</strong>区间，不建议使用左闭右开区间，反而使得问题变得复杂；</p>
-</li>
-<li><p><strong>不建议背模板</strong>，每一步都要清楚为什么这样写，不要跳步，更不能想当然。</p>
-</li>
+<li>全部使用<strong>左闭右闭</strong>区间，不建议使用左闭右开区间，反而使得问题变得复杂；</li>
+<li><strong>不建议背模板</strong>，每一步都要清楚为什么这样写，不要跳步，更不能想当然。</li>
 </ul>
 <h3 id="三、思路-1：在循环体内部查找元素（解决简单问题时有用）"><a href="#三、思路-1：在循环体内部查找元素（解决简单问题时有用）" class="headerlink" title="三、思路 1：在循环体内部查找元素（解决简单问题时有用）"></a>三、思路 1：在循环体内部查找元素（解决简单问题时有用）</h3><p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">class Solution {
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 特殊用例判断</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 在 [left, right] 区间里查找 target</span>
-        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> right <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;=</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 为了防止 left + right 整形溢出，写成如下形式</span>
-            <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    public int search(int[] nums, int target) {
+        // 特殊用例判断
+        int len = nums.length;
+        if (len == 0) {
+            return -1;
+        }
+        // 在 [left, right] 区间里查找 target
+        int left = 0;
+        int right = len - 1;
+        while (left <= right) {
+            // 为了防止 left + right 整形溢出，写成如下形式
+            int mid = left + (right - left) / 2;
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> mid<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">></span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 下一轮搜索区间：[left, mid - 1]</span>
-                right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 此时：nums[mid] &lt; target，下一轮搜索区间：[mid + 1, right]</span>
-                left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                // 下一轮搜索区间：[left, mid - 1]
+                right = mid - 1;
+            } else {
+                // 此时：nums[mid] < target，下一轮搜索区间：[mid + 1, right]
+                left = mid + 1;
+            }
+        }
+        return -1;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>说明：</p>
 <ul>
 <li><p>最简单的二分查找思路：在一个有序数组里查找目标元素。特别像以前电视「猜价格」上的猜价格游戏：运气好，一下子猜中，如果主持人说猜高了，下一步就应该往低了猜，如果主持人说猜低了，下一步就应该就往高了猜。这个思路把待搜索区间 <code>[left, right]</code> 分为 3 个部分：</p>
@@ -556,10 +555,8 @@
 <li>如果 <code>nums[mid] &gt; target</code> ，由于数组有序，<code>mid</code> 以及 <code>mid</code> 右边的所有元素都大于 <code>target</code>，目标元素可能在区间 <code>[left, mid - 1]</code> 里，因此设置 <code>right = mid - 1</code>。</li>
 </ul>
 </li>
-<li><p><strong>循环体内一定有 3 个分支，并且第 1 个分支一定用于退出循环，或者直接返回目标元素</strong>；</p>
-</li>
-<li><p>退出循环以后，<code>left</code> 和 <code>right</code> 的位置关系为 <code>[right, left]</code> ，返回 <code>left</code> 或者 <code>right</code> 需考虑清楚。</p>
-</li>
+<li><strong>循环体内一定有 3 个分支，并且第 1 个分支一定用于退出循环，或者直接返回目标元素</strong>；</li>
+<li>退出循环以后，<code>left</code> 和 <code>right</code> 的位置关系为 <code>[right, left]</code> ，返回 <code>left</code> 或者 <code>right</code> 需考虑清楚。</li>
 </ul>
 <p><strong>注意事项</strong>：</p>
 <ul>
@@ -577,37 +574,39 @@
 </blockquote>
 <p>根据中间数被分到左边还是右边，一共就以下两种写法。不能死记硬背，应该通过多练习，理解当看到 <code>left = mid</code> 的时候，将取中间数的取法改成上取整的原因。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 在区间 [left, right] 里查找目标元素</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 选择中间数时下取整</span>
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [mid + 1, right]</span>
-            left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [left, mid]</span>
-            right <span class="token operator">=</span> mid
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">// 退出循环的时候，程序只剩下一个元素没有看到，视情况，是否需要单独判断 left（或者 right）这个下标的元素是否符合题意</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public int search(int[] nums, int left, int right, int target) {
+    // 在区间 [left, right] 里查找目标元素
+    while (left < right) {
+        // 选择中间数时下取整
+        int mid = left + (right - left) / 2;
+        if (check(mid)) {
+            // 下一轮搜索区间是 [mid + 1, right]
+            left = mid + 1
+        } else {
+            // 下一轮搜索区间是 [left, mid]
+            right = mid
+        }
+    }
+    // 退出循环的时候，程序只剩下一个元素没有看到，视情况，是否需要单独判断 left（或者 right）这个下标的元素是否符合题意
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 在区间 [left, right] 里查找目标元素</span>
-    <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 选择中间数时上取整</span>
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">check</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [left, mid - 1]</span>
-            right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 下一轮搜索区间是 [mid, right]</span>
-            left <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-    <span class="token comment" spellcheck="true">// 退出循环的时候，程序只剩下一个元素没有看到，视情况，是否需要单独判断 left（或者 right）这个下标的元素是否符合题意</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public int search(int[] nums, int left, int right, int target) {
+    // 在区间 [left, right] 里查找目标元素
+    while (left < right) {
+        // 选择中间数时上取整
+        int mid = left + (right - left + 1) / 2;
+        if (check(mid)) {
+            // 下一轮搜索区间是 [left, mid - 1]
+            right = mid - 1;
+        } else {
+            // 下一轮搜索区间是 [mid, right]
+            left = mid;
+        }
+    }
+    // 退出循环的时候，程序只剩下一个元素没有看到，视情况，是否需要单独判断 left（或者 right）这个下标的元素是否符合题意
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>理解模板代码的要点：</p>
 <ul>
 <li>核心思想：虽然模板有两个，但是核心思想只有一个，那就是：把待搜索的目标元素放在最后判断，每一次循环排除掉不存在目标元素的区间，目的依然是确定下一轮搜索的区间；</li>
@@ -642,6 +641,7 @@
 </ul>
 <h3 id="六、练习"><a href="#六、练习" class="headerlink" title="六、练习"></a>六、练习</h3><p>「力扣」上的二分查找问题主要有以下这三类。这些练习题都可以使用两种二分查找法的思路比较轻松地写出来，并且得到一个不错的分数，大家加油！</p>
 <h4 id="1、在数组中查找符合条件的元素的下标"><a href="#1、在数组中查找符合条件的元素的下标" class="headerlink" title="1、在数组中查找符合条件的元素的下标"></a>1、在数组中查找符合条件的元素的下标</h4><p>一般而言这个数组是有序的，也可能是半有序的，但不大可能是无序的。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -649,7 +649,8 @@
 <th>提示与题解</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><a href="https://leetcode-cn.com/problems/binary-search/" target="_blank" rel="noopener">704. 二分查找</a></td>
 <td>二分查找的模板问题，使用本题解介绍的方法就要注意，需要「后处理」。</td>
 </tr>
@@ -693,15 +694,19 @@
 <td><a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/" target="_blank" rel="noopener">4. 寻找两个有序数组的中位数</a></td>
 <td>二分搜索中最难的问题之一，建议先弄清楚解题思路，<a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/he-bing-yi-hou-zhao-gui-bing-guo-cheng-zhong-zhao-/" target="_blank" rel="noopener">题解</a>。</td>
 </tr>
-</tbody></table>
-<h4 id="2、在一个有上下界的区间里搜索一个整数"><a href="#2、在一个有上下界的区间里搜索一个整数" class="headerlink" title="2、在一个有上下界的区间里搜索一个整数"></a>2、在一个有上下界的区间里搜索一个整数</h4><table>
+</tbody>
+</table>
+</div>
+<h4 id="2、在一个有上下界的区间里搜索一个整数"><a href="#2、在一个有上下界的区间里搜索一个整数" class="headerlink" title="2、在一个有上下界的区间里搜索一个整数"></a>2、在一个有上下界的区间里搜索一个整数</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>题目</th>
 <th>提示与题解</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><a href="https://leetcode-cn.com/problems/sqrtx/" target="_blank" rel="noopener">69. 平方根</a></td>
 <td>在一个整数范围里查找一个整数，也是二分查找法的应用场景，<a href="https://leetcode-cn.com/problems/sqrtx/solution/er-fen-cha-zhao-niu-dun-fa-python-dai-ma-by-liweiw/" target="_blank" rel="noopener">题解</a>。</td>
 </tr>
@@ -713,15 +718,19 @@
 <td><a href="https://leetcode-cn.com/problems/guess-number-higher-or-lower/" target="_blank" rel="noopener">374. 猜数字大小</a></td>
 <td><a href="https://leetcode-cn.com/problems/guess-number-higher-or-lower/solution/shi-fen-hao-yong-de-er-fen-cha-zhao-fa-mo-ban-pyth/" target="_blank" rel="noopener">题解</a></td>
 </tr>
-</tbody></table>
-<h4 id="3、判别条件是一个函数"><a href="#3、判别条件是一个函数" class="headerlink" title="3、判别条件是一个函数"></a>3、判别条件是一个函数</h4><table>
+</tbody>
+</table>
+</div>
+<h4 id="3、判别条件是一个函数"><a href="#3、判别条件是一个函数" class="headerlink" title="3、判别条件是一个函数"></a>3、判别条件是一个函数</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>题目</th>
 <th>提示与题解</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><a href="https://leetcode-cn.com/problems/first-bad-version/" target="_blank" rel="noopener">278. 第一个错误的版本</a></td>
 <td></td>
 </tr>
@@ -741,7 +750,9 @@
 <td><a href="https://leetcode-cn.com/problems/sum-of-mutated-array-closest-to-target/" target="_blank" rel="noopener">1300. 转变数组后最接近目标值的数组和</a></td>
 <td><a href="https://leetcode-cn.com/problems/sum-of-mutated-array-closest-to-target/solution/er-fen-cha-zhao-by-liweiwei1419-2/" target="_blank" rel="noopener">题解</a></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>（本节完）</p>
 
             </div>

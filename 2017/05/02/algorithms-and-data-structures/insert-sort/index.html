@@ -486,96 +486,98 @@
 <p><img src="http://liweiwei1419.gitee.io/visualgo/01-sorting/02-insertion-sort-01.png" alt="02-insertion-sort-01.png"></p>
 <p>图片来自「力扣」第 147 题：<a href="https://leetcode-cn.com/problems/insertion-sort-list/" target="_blank" rel="noopener">对链表进行插入排序</a>。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">sortArray</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 循环不变量：将 nums[i] 插入到区间 [0, i) 使之成为有序数组</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 先暂存这个元素，然后之前元素逐个后移，留出空位</span>
-            <span class="token keyword">int</span> temp <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> j <span class="token operator">=</span> i<span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// 注意边界 j > 0</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> nums<span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">></span> temp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-                j<span class="token operator">--</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> nums<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public int[] sortArray(int[] nums) {
+        int len = nums.length;
+        // 循环不变量：将 nums[i] 插入到区间 [0, i) 使之成为有序数组
+        for (int i = 1; i < len; i++) {
+            // 先暂存这个元素，然后之前元素逐个后移，留出空位
+            int temp = nums[i];
+            int j = i;
+            // 注意边界 j > 0
+            while (j > 0 && nums[j - 1] > temp) {
+                nums[j] = nums[j - 1];
+                j--;
+            }
+            nums[j] = temp;
+        }
+        return nums;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> sorting<span class="token punctuation">.</span>sorting_util <span class="token keyword">import</span> SortingUtil
-<span class="token keyword">from</span> sorting<span class="token punctuation">.</span>examples <span class="token keyword">import</span> GenerateRandomArrayStrategy
-<span class="token keyword">from</span> sorting<span class="token punctuation">.</span>examples <span class="token keyword">import</span> GenerateNearlySortedArrayStrategy
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">from sorting.sorting_util import SortingUtil
+from sorting.examples import GenerateRandomArrayStrategy
+from sorting.examples import GenerateNearlySortedArrayStrategy
 
-<span class="token keyword">from</span> sorting<span class="token punctuation">.</span>selecting_sort <span class="token keyword">import</span> SelectionSort
+from sorting.selecting_sort import SelectionSort
 
 
-<span class="token keyword">class</span> <span class="token class-name">InsertionSort</span><span class="token punctuation">:</span>
+class InsertionSort:
 
-    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token string">"插入排序"</span>
+    def __str__(self):
+        return "插入排序"
 
-    @SortingUtil<span class="token punctuation">.</span>cal_time
-    <span class="token keyword">def</span> <span class="token function">sort</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    @SortingUtil.cal_time
+    def sort(self, arr):
+        """
         插入排序第 1 版：相比选择排序而言，插入排序的内层循环可以提前终止。
         但是这个版本有个缺点，交换次数太多，每一次交换做了 3 次赋值。
-        """</span>
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>arr<span class="token punctuation">)</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 只要前面的比后面的“严格”大，就要交换它们的位置</span>
-                <span class="token keyword">if</span> arr<span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">></span> arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
-                <span class="token keyword">else</span><span class="token punctuation">:</span>
-                    <span class="token keyword">break</span>
+        """
+        size = len(arr)
+        for i in range(1, size):
+            for j in range(i, 0, -1):
+                # 只要前面的比后面的“严格”大，就要交换它们的位置
+                if arr[j - 1] > arr[j]:
+                    arr[j], arr[j - 1] = arr[j - 1], arr[j]
+                else:
+                    break
 
 
-<span class="token keyword">class</span> <span class="token class-name">InsertionSortOptimizer</span><span class="token punctuation">:</span>
+class InsertionSortOptimizer:
 
-    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">return</span> <span class="token string">"插入排序（优化）"</span>
+    def __str__(self):
+        return "插入排序（优化）"
 
-    @SortingUtil<span class="token punctuation">.</span>cal_time
-    <span class="token keyword">def</span> <span class="token function">sort</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>arr<span class="token punctuation">)</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># 每一轮先让这个元素去别的地方休息一下</span>
-            temp <span class="token operator">=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
-            <span class="token comment" spellcheck="true"># 从 i 的前一个元素开始看</span>
-            j <span class="token operator">=</span> i
-            <span class="token keyword">while</span> j <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">and</span> arr<span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">></span> temp<span class="token punctuation">:</span>
-                arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>j <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span>
-                j <span class="token operator">-=</span> <span class="token number">1</span>
-            <span class="token comment" spellcheck="true"># 因为已经看到索引 j 的值小于等于 temp 了</span>
-            <span class="token comment" spellcheck="true"># 因此空出来的位置是 j，要把 temp 放在这里</span>
-            arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> temp
+    @SortingUtil.cal_time
+    def sort(self, arr):
+        size = len(arr)
+        for i in range(1, size):
+            # 每一轮先让这个元素去别的地方休息一下
+            temp = arr[i]
+            # 从 i 的前一个元素开始看
+            j = i
+            while j > 0 and arr[j - 1] > temp:
+                arr[j] = arr[j - 1]
+                j -= 1
+            # 因为已经看到索引 j 的值小于等于 temp 了
+            # 因此空出来的位置是 j，要把 temp 放在这里
+            arr[j] = temp
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true"># 测试插入排序算法的正确性</span>
-    <span class="token comment" spellcheck="true"># SortingUtil.test_sorting_algorithm(InsertionSort(), GenerateRandomArrayStrategy(5000))</span>
+if __name__ == '__main__':
+    # 测试插入排序算法的正确性
+    # SortingUtil.test_sorting_algorithm(InsertionSort(), GenerateRandomArrayStrategy(5000))
 
-    <span class="token comment" spellcheck="true"># 比较插入排序算法与选择排序</span>
-    <span class="token comment" spellcheck="true"># SortingUtil.compare_sorting_algorithms(GenerateRandomArrayStrategy(5000),</span>
-    <span class="token comment" spellcheck="true">#                                        SelectionSort(),</span>
-    <span class="token comment" spellcheck="true">#                                        InsertionSort())</span>
+    # 比较插入排序算法与选择排序
+    # SortingUtil.compare_sorting_algorithms(GenerateRandomArrayStrategy(5000),
+    #                                        SelectionSort(),
+    #                                        InsertionSort())
 
-    <span class="token comment" spellcheck="true"># 验证插入排序算法对于几乎有序的数组，越有序越好</span>
-    SortingUtil<span class="token punctuation">.</span>test_sorting_algorithm<span class="token punctuation">(</span>InsertionSortOptimizer<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> GenerateRandomArrayStrategy<span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    # 验证插入排序算法对于几乎有序的数组，越有序越好
+    SortingUtil.test_sorting_algorithm(InsertionSortOptimizer(), GenerateRandomArrayStrategy(5000))
 
-    SortingUtil<span class="token punctuation">.</span>compare_sorting_algorithms<span class="token punctuation">(</span>GenerateRandomArrayStrategy<span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                           SelectionSort<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                           InsertionSort<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                           InsertionSortOptimizer<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    SortingUtil.compare_sorting_algorithms(GenerateRandomArrayStrategy(5000),
+                                           SelectionSort(),
+                                           InsertionSort(),
+                                           InsertionSortOptimizer())
 
-    SortingUtil<span class="token punctuation">.</span>compare_sorting_algorithms<span class="token punctuation">(</span>GenerateNearlySortedArrayStrategy<span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                           SelectionSort<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                           InsertionSort<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                                           InsertionSortOptimizer<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    SortingUtil.compare_sorting_algorithms(GenerateNearlySortedArrayStrategy(5000),
+                                           SelectionSort(),
+                                           InsertionSort(),
+                                           InsertionSortOptimizer())
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析</strong>：</p>
 <ul>
 <li><p>时间复杂度：$O(N^2)$，这里 $N$ 是数组的长度；</p>
@@ -893,12 +895,12 @@
                         <span class="chip bg-color">排序算法</span>
                     </a>
                     
-                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
-                        <span class="chip bg-color">递归</span>
-                    </a>
-                    
                     <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
                         <span class="chip bg-color">分治</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                        <span class="chip bg-color">递归</span>
                     </a>
                     
                 </div>

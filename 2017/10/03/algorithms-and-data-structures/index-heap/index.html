@@ -500,164 +500,178 @@
 <p>1、比较的时候使用 <code>data</code> 数组进行比较，交换的时候交换的是 <code>indexes</code> 数组的元素；</p>
 <p>2、<strong>比较的是 <code>data</code> 的数据，交换的是 <code>indexes</code> 的位置</strong>。</p>
 <p>下面，我们看一个例子，我们浪费一个元素的位置。下面这张表是数组原始的样子：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
 <th></th>
-<th align="left">0</th>
-<th align="left">1</th>
-<th align="left">2</th>
-<th align="left">3</th>
-<th align="left">4</th>
-<th align="left">5</th>
-<th align="left">6</th>
-<th align="left">7</th>
-<th align="left">8</th>
-<th align="left">9</th>
-<th align="left">10</th>
+<th style="text-align:left">0</th>
+<th style="text-align:left">1</th>
+<th style="text-align:left">2</th>
+<th style="text-align:left">3</th>
+<th style="text-align:left">4</th>
+<th style="text-align:left">5</th>
+<th style="text-align:left">6</th>
+<th style="text-align:left">7</th>
+<th style="text-align:left">8</th>
+<th style="text-align:left">9</th>
+<th style="text-align:left">10</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>indexes</code></td>
-<td align="left">（空着）</td>
-<td align="left">1</td>
-<td align="left">2</td>
-<td align="left">3</td>
-<td align="left">4</td>
-<td align="left">5</td>
-<td align="left">6</td>
-<td align="left">7</td>
-<td align="left">8</td>
-<td align="left">9</td>
-<td align="left">10</td>
+<td style="text-align:left">（空着）</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">6</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">9</td>
+<td style="text-align:left">10</td>
 </tr>
 <tr>
 <td><code>data</code></td>
-<td align="left">（空着）</td>
-<td align="left">15</td>
-<td align="left">17</td>
-<td align="left">19</td>
-<td align="left">13</td>
-<td align="left">22</td>
-<td align="left">16</td>
-<td align="left">28</td>
-<td align="left">30</td>
-<td align="left">41</td>
-<td align="left">62</td>
+<td style="text-align:left">（空着）</td>
+<td style="text-align:left">15</td>
+<td style="text-align:left">17</td>
+<td style="text-align:left">19</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">22</td>
+<td style="text-align:left">16</td>
+<td style="text-align:left">28</td>
+<td style="text-align:left">30</td>
+<td style="text-align:left">41</td>
+<td style="text-align:left">62</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p><code>heapify</code> 以后，<code>data</code> 元素不动，<strong>将 <code>indexes</code> 替换成它们代表的元素的值以后，就是一个最大堆</strong>：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">0</th>
-<th align="left">1</th>
-<th align="left">2</th>
-<th align="left">3</th>
-<th align="left">4</th>
-<th align="left">5</th>
-<th align="left">6</th>
-<th align="left">7</th>
-<th align="left">8</th>
-<th align="left">9</th>
-<th align="left">10</th>
+<th style="text-align:left">0</th>
+<th style="text-align:left">1</th>
+<th style="text-align:left">2</th>
+<th style="text-align:left">3</th>
+<th style="text-align:left">4</th>
+<th style="text-align:left">5</th>
+<th style="text-align:left">6</th>
+<th style="text-align:left">7</th>
+<th style="text-align:left">8</th>
+<th style="text-align:left">9</th>
+<th style="text-align:left">10</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left"><code>indexes</code></td>
-<td align="left">10</td>
-<td align="left">9</td>
-<td align="left">5</td>
-<td align="left">7</td>
-<td align="left">8</td>
-<td align="left">6</td>
-<td align="left">2</td>
-<td align="left">4</td>
-<td align="left">3</td>
-<td align="left">1</td>
+<tbody>
+<tr>
+<td style="text-align:left"><code>indexes</code></td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">9</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">6</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">1</td>
 </tr>
 <tr>
-<td align="left"><code>data</code></td>
-<td align="left">15</td>
-<td align="left">17</td>
-<td align="left">19</td>
-<td align="left">13</td>
-<td align="left">22</td>
-<td align="left">16</td>
-<td align="left">28</td>
-<td align="left">30</td>
-<td align="left">41</td>
-<td align="left">62</td>
+<td style="text-align:left"><code>data</code></td>
+<td style="text-align:left">15</td>
+<td style="text-align:left">17</td>
+<td style="text-align:left">19</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">22</td>
+<td style="text-align:left">16</td>
+<td style="text-align:left">28</td>
+<td style="text-align:left">30</td>
+<td style="text-align:left">41</td>
+<td style="text-align:left">62</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>说明：<code>indexes[1] = 10</code> ，表示 <code>data[10]</code> 在最大堆中的位置是 <code>1</code> ，抽象成一般情况就是：<code>indexes[x] = i</code> ，表示 <code>data[i]</code> 在最大堆中的位置是 <code>x</code> 。紧扣<strong>索引数组是堆有序</strong>这一点就不难理解了。</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/414598-3b1da05ed2133045.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="索引堆-1"></p>
 <p>我们可以通过对之前最大堆的数据结构的改造，修改成一个最大索引堆。首先修改构造函数，引入索引数组。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">IndexMaxHeap</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> capacity<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>data <span class="token operator">=</span> <span class="token punctuation">[</span>None <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>capacity <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-        <span class="token comment" spellcheck="true"># 初值设置为 0 ，表示该位置还没有放置元素</span>
-        self<span class="token punctuation">.</span>indexes <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>capacity <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-        self<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token number">0</span>
-        self<span class="token punctuation">.</span>capacity <span class="token operator">=</span> capacity<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class IndexMaxHeap:
+    def __init__(self, capacity):
+        self.data = [None for _ in range(capacity + 1)]
+        # 初值设置为 0 ，表示该位置还没有放置元素
+        self.indexes = [0 for _ in range(capacity + 1)]
+        self.count = 0
+        self.capacity = capacity
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其次修改  <code>insert</code> 方法：这里的 <code>insert</code> 虽然指定了索引，但是一定是在 <code>data</code> 数组的最后添加数据。我们插入一个元素的时候，同时要指定这个元素的索引 <code>i</code> ，这里要注意：传入的 <code>i</code> 对用户而言是从 $0$ 开始的，因此在底层发生操作之前，得先加 $1$。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 此时 insert 要给一个索引位置</span>
-<span class="token keyword">def</span> <span class="token function">insert</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> i<span class="token punctuation">,</span> item<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> self<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">></span> self<span class="token punctuation">.</span>capacity<span class="token punctuation">:</span>
-        <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'堆的容量不够了'</span><span class="token punctuation">)</span>
-        i <span class="token operator">+=</span> <span class="token number">1</span>
-        self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> item
-        <span class="token comment" spellcheck="true"># 这一步很关键，在内部索引数组的最后设置索引数组的索引</span>
-        self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>self<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> i
-        self<span class="token punctuation">.</span>count <span class="token operator">+=</span> <span class="token number">1</span>
-        self<span class="token punctuation">.</span>__shift_up<span class="token punctuation">(</span>self<span class="token punctuation">.</span>count<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python"># 此时 insert 要给一个索引位置
+def insert(self, i, item):
+    if self.count + 1 > self.capacity:
+        raise Exception('堆的容量不够了')
+        i += 1
+        self.data[i] = item
+        # 这一步很关键，在内部索引数组的最后设置索引数组的索引
+        self.indexes[self.count + 1] = i
+        self.count += 1
+        self.__shift_up(self.count)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>shift_up</code> 方法也要修改：这里就是我们上面说的那一点：<strong>比较的是 <code>data</code> 的数据，交换的是 <code>indexes</code> 的位置</strong>。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">__shift_up</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true"># 比较的时候，上面套一层 indexes，交换的是 indexes</span>
-    <span class="token keyword">while</span> k <span class="token operator">></span> <span class="token number">1</span> <span class="token operator">and</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k <span class="token operator">//</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k <span class="token operator">//</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k <span class="token operator">//</span> <span class="token number">2</span><span class="token punctuation">]</span>
-        k <span class="token operator">//=</span> <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">def __shift_up(self, k):
+    # 比较的时候，上面套一层 indexes，交换的是 indexes
+    while k > 1 and self.data[self.indexes[k // 2]] < self.data[self.indexes[k]]:
+        self.indexes[k // 2], self.indexes[k] = self.indexes[k], self.indexes[k // 2]
+        k //= 2
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>然后修改 <code>extract_max</code> 方法：</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">extract_max</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">if</span> self<span class="token punctuation">.</span>count <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-        <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'堆里没有可以取出的元素'</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 里面套一层 indexes</span>
-        ret <span class="token operator">=</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-        <span class="token comment" spellcheck="true"># 交换的是索引</span>
-        self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>self<span class="token punctuation">.</span>count<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>self<span class="token punctuation">.</span>count<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
-        self<span class="token punctuation">.</span>count <span class="token operator">-=</span> <span class="token number">1</span>
-        self<span class="token punctuation">.</span>__shift_down<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> ret<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">def extract_max(self):
+    if self.count == 0:
+        raise Exception('堆里没有可以取出的元素')
+        # 里面套一层 indexes
+        ret = self.data[self.indexes[1]]
+        # 交换的是索引
+        self.indexes[1], self.indexes[self.count] = self.indexes[self.count], self.indexes[1]
+        self.count -= 1
+        self.__shift_down(1)
+        return ret
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">__shift_down</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">while</span> <span class="token number">2</span> <span class="token operator">*</span> k <span class="token operator">&lt;=</span> self<span class="token punctuation">.</span>count<span class="token punctuation">:</span>
-        j <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> k
-        <span class="token comment" spellcheck="true"># 比较的是 data ，交换的是 indexes</span>
-        <span class="token keyword">if</span> j <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;=</span> self<span class="token punctuation">.</span>count <span class="token operator">and</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">></span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-            j <span class="token operator">=</span> j <span class="token operator">+</span> <span class="token number">1</span>
-            <span class="token keyword">if</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">>=</span> self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-                <span class="token keyword">break</span>
-                self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>k<span class="token punctuation">]</span>
-                k <span class="token operator">=</span> j<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">def __shift_down(self, k):
+    while 2 * k <= self.count:
+        j = 2 * k
+        # 比较的是 data ，交换的是 indexes
+        if j + 1 <= self.count and self.data[self.indexes[j + 1]] > self.data[self.indexes[j]]:
+            j = j + 1
+            if self.data[self.indexes[k]] >= self.data[self.indexes[j]]:
+                break
+                self.indexes[k], self.indexes[j] = self.indexes[j], self.indexes[k]
+                k = j
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>最后实现 <code>change</code> 方法：为了维持堆的性质，我们应当尝试向上挪一下 <code>shift up</code>，向下挪一下 <code>shift down</code>。关键在于找到用户认为的那个数据，在索引数组中是第几位，针对这个位置进行下沉和上移，即找到一个 <code>j</code> 满足：<code>indexes[j] = i</code>，<code>j</code> 表示 <code>data[i]</code> 在堆中的位置，之后 <code>shift up(j)</code>，然后 <code>shift down(j)</code>。还是紧扣那一点：比较的是 <code>data</code> ，交换的是  <code>indexes</code>。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">change</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> i<span class="token punctuation">,</span> new_item<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token comment" spellcheck="true"># 把用户视角改成内部索引</span>
-    i <span class="token operator">+=</span> <span class="token number">1</span>
-    self<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> new_item
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">def change(self, i, new_item):
+    # 把用户视角改成内部索引
+    i += 1
+    self.data[i] = new_item
 
-    <span class="token comment" spellcheck="true"># 重点：下面这一步是找原来数组中索引是 i 的元素</span>
-    <span class="token comment" spellcheck="true"># 在索引数组中的索引是几，这是一个唯一值，找到即返回</span>
-    <span class="token comment" spellcheck="true"># 优化：可以引入反向查找技术优化</span>
-    <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> self<span class="token punctuation">.</span>count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> self<span class="token punctuation">.</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> i<span class="token punctuation">:</span>
-            self<span class="token punctuation">.</span>__shift_down<span class="token punctuation">(</span>j<span class="token punctuation">)</span>
-            self<span class="token punctuation">.</span>__shift_up<span class="token punctuation">(</span>j<span class="token punctuation">)</span>
-            <span class="token keyword">return</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    # 重点：下面这一步是找原来数组中索引是 i 的元素
+    # 在索引数组中的索引是几，这是一个唯一值，找到即返回
+    # 优化：可以引入反向查找技术优化
+    for j in range(1, self.count + 1):
+        if self.indexes[j] == i:
+            self.__shift_down(j)
+            self.__shift_up(j)
+            return
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>说明： <code>change</code> 这个函数是可以进行优化的，通过引入反向查找数组来进行优化。反向查找的作用，就是帮助我们寻找原来索引的位置，在最大堆中是几。这个操作也叫“反向查找”，是一个基础且常见的技巧。</p>
 <h2 id="索引堆的优化：反向查找"><a href="#索引堆的优化：反向查找" class="headerlink" title="索引堆的优化：反向查找"></a>索引堆的优化：反向查找</h2><p>我们引入了反向查找表。这一节的内容和思想很重要，要多看。<code>reverse[i]</code> 表示索引 <code>i</code> 在 <code>indexes</code>（堆）中的位置。引入 <code>reveres</code> 数组的意义是，可以在执行 <code>change</code> 这个方法的时候，可以通过 $O(1)$ 时间复杂度查询到用户认为索引是 <code>i</code> 的元素，在索引数组组成的堆中的索引是几。</p>
 <p>注意：为 <code>reverse</code> 数组赋初始值，$0$ 有特殊的含义：<code>reverse[i] = 0</code> 表示 <code>data[i]</code> 未赋值。</p>
@@ -669,62 +683,66 @@
 <p>把  <code>reveres[j] = i</code> 代入  <code>indexes[i] = j</code> ，得 <code>indexes[reveres[j]] = j</code>。</p>
 <p>这也就是“反函数的反函数是自己”。利用上述两个性质可以实现反向查找。</p>
 <p>注意： <code>reveres</code> 数组的概念其实并不难理解，大家只要把 <code>reveres</code> 这个数组自己填一下就会非常清楚了。</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">0</th>
-<th align="left">1</th>
-<th align="left">2</th>
-<th align="left">3</th>
-<th align="left">4</th>
-<th align="left">5</th>
-<th align="left">6</th>
-<th align="left">7</th>
-<th align="left">8</th>
-<th align="left">9</th>
-<th align="left">10</th>
+<th style="text-align:left">0</th>
+<th style="text-align:left">1</th>
+<th style="text-align:left">2</th>
+<th style="text-align:left">3</th>
+<th style="text-align:left">4</th>
+<th style="text-align:left">5</th>
+<th style="text-align:left">6</th>
+<th style="text-align:left">7</th>
+<th style="text-align:left">8</th>
+<th style="text-align:left">9</th>
+<th style="text-align:left">10</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left"><code>data</code></td>
-<td align="left">15</td>
-<td align="left">17</td>
-<td align="left">19</td>
-<td align="left">13</td>
-<td align="left">22</td>
-<td align="left">16</td>
-<td align="left">28</td>
-<td align="left">30</td>
-<td align="left">41</td>
-<td align="left">62</td>
+<tbody>
+<tr>
+<td style="text-align:left"><code>data</code></td>
+<td style="text-align:left">15</td>
+<td style="text-align:left">17</td>
+<td style="text-align:left">19</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">22</td>
+<td style="text-align:left">16</td>
+<td style="text-align:left">28</td>
+<td style="text-align:left">30</td>
+<td style="text-align:left">41</td>
+<td style="text-align:left">62</td>
 </tr>
 <tr>
-<td align="left"><code>indexes</code></td>
-<td align="left">10</td>
-<td align="left">9</td>
-<td align="left">5</td>
-<td align="left">7</td>
-<td align="left">8</td>
-<td align="left">6</td>
-<td align="left">2</td>
-<td align="left">4</td>
-<td align="left">3</td>
-<td align="left">1</td>
+<td style="text-align:left"><code>indexes</code></td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">9</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">6</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">1</td>
 </tr>
 <tr>
-<td align="left"><code>reverse</code></td>
-<td align="left">10</td>
-<td align="left">7</td>
-<td align="left">9</td>
-<td align="left">8</td>
-<td align="left">3</td>
-<td align="left">6</td>
-<td align="left">4</td>
-<td align="left">5</td>
-<td align="left">2</td>
-<td align="left">1</td>
+<td style="text-align:left"><code>reverse</code></td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">9</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">6</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>说明：<code>indexes[1] = 10</code>，表示使用者认为的第 $10$ 号数据，在 <code>indexes</code> 数组中的索引是 $1$，故 <code>reverse[10] = 1</code>；</p>
 <p><code>indexes[2] = 9</code>，表示使用者认为的第 $9$ 号数据，在 <code>indexes</code> 数组中的索引是 $2$，故 <code>reverse[9] = 2</code>；</p>
 <p><code>indexes[3] = 5</code>，表示使用者认为的第 $5$ 号数据，在 <code>indexes</code> 数组中的索引是 $2$，故 <code>reverse[5] = 3</code>；</p>
@@ -750,88 +768,91 @@
 <h2 id="堆排序和-Heapify"><a href="#堆排序和-Heapify" class="headerlink" title="堆排序和 Heapify"></a>堆排序和 Heapify</h2><h3 id="什么是基础堆排序"><a href="#什么是基础堆排序" class="headerlink" title="什么是基础堆排序"></a>什么是基础堆排序</h3><p>我们的排序工作就描述如下：把待排序数组<strong>按顺序</strong>放入一个堆（入队），全部放入以后，然后再从堆中出队，每次出队的元素就是当前数组中最大的元素，于是我们可以倒着赋值回去，直到堆中没有元素（此时原始数组也被赋值“满”了）时，就能得到一个升序的数组。</p>
 <p>Java 代码：</p>
 <p>全部放入优先队列，再一个一个取出，倒着放即可：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.Arrays;
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HeapSort</span> <span class="token punctuation">{</span>
+public class HeapSort {
 
-    <span class="token comment" spellcheck="true">// 我们之前实现的 MaxHeap 这个数据结构，把它作为成员变量，利用它来完成排序</span>
-    <span class="token keyword">private</span> MaxHeap maxHeap<span class="token punctuation">;</span>
+    // 我们之前实现的 MaxHeap 这个数据结构，把它作为成员变量，利用它来完成排序
+    private MaxHeap maxHeap;
 
-    <span class="token keyword">public</span> <span class="token function">HeapSort</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>maxHeap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MaxHeap</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public HeapSort() {
+        this.maxHeap = new MaxHeap(20);
+    }
 
-    <span class="token keyword">public</span> <span class="token function">HeapSort</span><span class="token punctuation">(</span><span class="token keyword">int</span> capacity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>maxHeap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MaxHeap</span><span class="token punctuation">(</span>capacity<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public HeapSort(int capacity) {
+        this.maxHeap = new MaxHeap(capacity);
+    }
 
-    <span class="token comment" spellcheck="true">// 把数组中的元素先全部挨个 insert 到最大堆中</span>
-    <span class="token comment" spellcheck="true">// 然后在依次取出，因为每次取出的都是剩下的元素中的最大者</span>
-    <span class="token comment" spellcheck="true">// 因此应该倒着覆盖到原待排序数组</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> nums<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span>Integer item <span class="token operator">:</span> temp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            maxHeap<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>maxHeap<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            nums<span class="token punctuation">[</span>maxHeap<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> maxHeap<span class="token punctuation">.</span><span class="token function">extractMax</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    // 把数组中的元素先全部挨个 insert 到最大堆中
+    // 然后在依次取出，因为每次取出的都是剩下的元素中的最大者
+    // 因此应该倒着覆盖到原待排序数组
+    public void sort(int[] nums) {
+        int[] temp = nums.clone();
+        for (Integer item : temp) {
+            maxHeap.insert(item);
+        }
+        while (maxHeap.getSize() > 0) {
+            nums[maxHeap.getSize() - 1] = maxHeap.extractMax();
+        }
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        HeapSort heapSort <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HeapSort</span><span class="token punctuation">(</span>nums<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        heapSort<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public static void main(String[] args) {
+        int[] nums = {8, 1, 4, 6, 3, 2, 5, 9, 7};
+        HeapSort heapSort = new HeapSort(nums.length);
+        heapSort.sort(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="最大堆的第-3-个重要操作：heapify"><a href="#最大堆的第-3-个重要操作：heapify" class="headerlink" title="最大堆的第 3 个重要操作：heapify"></a>最大堆的第 3 个重要操作：heapify</h3><h4 id="什么是-heapify"><a href="#什么是-heapify" class="headerlink" title="什么是 heapify"></a>什么是 heapify</h4><p>在上一步“堆排序”中，我们注意到，有这样一个操作“把待排序数组<strong>按顺序</strong>放入一个堆（入队）”，这一步得一个接着一个按照顺序放入堆中，那么我们有没有一个神一样的操作，直接把一个数组丢给一个“堆”（此时还不能称为“堆”，只能说是把一个数组丢给一个堆的构造方法），让这个数组自行调整成一个最大堆，那么这个操作就叫 heapify。</p>
 <p>因此 heapify 就是尝试将一整个数组构建成一个堆的更好的方式，因为此时无需借助额外的空间就完成了最大堆的构建，并且我们只需对数组中一半的元素执行 shift down 就可以了。</p>
 <p>首先，我们直接把一个数组传到 MaxHeap 的<strong>构造方法</strong>里，<strong>通过从 length / 2 索引到索引 1 ，逐个执行 shift down 操作就使得了此时的数组成为了最大堆</strong>。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token function">MaxHeap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> length <span class="token operator">=</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-    data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>length <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        data<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    count <span class="token operator">=</span> length<span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">// heapify：通过从 length / 2 索引到索引 1 ，逐个执行 shift down 操作就使得了此时的数组成为了最大堆</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> length <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token function">shiftDown</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public MaxHeap(int[] arr) {
+    int length = arr.length;
+    data = new int[length + 1];
+    for (int i = 0; i < length; i++) {
+        data[i + 1] = arr[i];
+    }
+    count = length;
+    // heapify：通过从 length / 2 索引到索引 1 ，逐个执行 shift down 操作就使得了此时的数组成为了最大堆
+    for (int i = length / 2; i >= 1; i--) {
+        shiftDown(i);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注意：heapify 的操作只有 shift down。</p>
 <p>那么为什么没有 shift up 呢？我是这样认为的：shift up 是认为”上面”的元素可能不对，所以要将当前考虑的元素尝试上移。shift down 是认为”下面”的元素可能不对，所以要将当前考虑的元素直至根节点逐个尝试下移。</p>
 <p>heapify 后挨个取出来，倒着放回待排序数组就可以了。</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.Arrays;
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HeapSort2</span> <span class="token punctuation">{</span>
+public class HeapSort2 {
 
-    <span class="token keyword">private</span> MaxHeap maxHeap<span class="token punctuation">;</span>
+    private MaxHeap maxHeap;
 
-    <span class="token keyword">public</span> <span class="token function">HeapSort2</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>maxHeap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MaxHeap</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public HeapSort2(int[] arr) {
+        this.maxHeap = new MaxHeap(arr);
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>maxHeap<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            nums<span class="token punctuation">[</span>maxHeap<span class="token punctuation">.</span><span class="token function">getSize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> maxHeap<span class="token punctuation">.</span><span class="token function">extractMax</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    public void sort(int[] nums) {
+        while (maxHeap.getSize() > 0) {
+            nums[maxHeap.getSize() - 1] = maxHeap.extractMax();
+        }
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        HeapSort2 heapSort2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HeapSort2</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        heapSort2<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public static void main(String[] args) {
+        int[] nums = {8, 1, 4, 6, 3, 2, 5, 9, 7};
+        HeapSort2 heapSort2 = new HeapSort2(nums);
+        heapSort2.sort(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="原地堆排序"><a href="#原地堆排序" class="headerlink" title="原地堆排序"></a>原地堆排序</h3><h4 id="原地堆排序的基本思路"><a href="#原地堆排序的基本思路" class="headerlink" title="原地堆排序的基本思路"></a>原地堆排序的基本思路</h4><p>注意：在这一小节中，我们要转换一下脑筋，我们要使用原地堆排序，就是不想借助额外的空间，那么拿到的数组一定 0 号位置是有数值的，所以，我们要实现的算法必须基于 0 号位置存放元素来实现。</p>
 <p>我们在上一节也可以看到，我们将一个数组通过 heapify 即 shift down 的方式逐渐地整理成一个最大堆。</p>
 <p><strong>其实，原地堆排序这个想法是非常直观的，从 shift down 的操作我们就可以得到启发，堆中最大的那个元素在数组的 0 号索引位置，我们把它与此时数组中的最后一个元素交换，那么数组中最大的元素就放在了数组的末尾，此时再对数组的第一个元素执行 shift down，那么 shift down 操作都执行完以后，数组的第 1 个元素就存放了当前数组中的第 2 大的元素。</strong></p>
 <p>可能以上这样说，并不是很严谨，但我想思路已经说得很清楚了。</p>
-<p><img src="https://liweiwei1419.gitee.io/images/algorithms/%E5%8E%9F%E5%9C%B0%E5%A0%86%E6%8E%92%E5%BA%8F%E7%A4%BA%E6%84%8F%E5%9B%BE.jpg" alt=""></p>
+<p><img src="https://liweiwei1419.gitee.io/images/algorithms/原地堆排序示意图.jpg" alt=""></p>
 <h4 id="代码实现的注意事项"><a href="#代码实现的注意事项" class="headerlink" title="代码实现的注意事项"></a>代码实现的注意事项</h4><ul>
 <li><p>此时最大堆中数组的索引从 $0$ 开始计算。与之前索引从 $1$ 开始的最大堆实现比较，性质就发生了变化，但并不会不好找，我们可以自己在纸上画一个完全二叉树就可以很清晰地发现规律：${\rm parent}(i)=\cfrac{i-1}{2}$，${\rm left \quad child}(i) = 2 \times i +1$，${\rm right \quad child}(i) = 2 \times i +2$，最后一个非叶子结点的索引是：$\cfrac{count-1}{2}$；</p>
 </li>
@@ -841,65 +862,66 @@
 </li>
 </ul>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.Arrays;
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HeapSort3</span> <span class="token punctuation">{</span>
+public class HeapSort3 {
 
-    <span class="token comment" spellcheck="true">/**
+    /**
      * 原地堆排序的目标就是，不再借助 MaxHeap 这个数据结构进行排序，减少了空间复杂度
      * 注意：此时我们的数组索引从 0 开始定义(自己在纸上画一下图，就能清晰地明白算法实现的含义)
      *
      * @param arr 待排序数组
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> length <span class="token operator">=</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 首先 heapify：将一个无序的数组组成了一个最大堆，第 1 个元素就是最大值</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">shiftDown</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> length<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">swap</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token function">shiftDown</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+     */
+    public void sort(int[] arr) {
+        int length = arr.length;
+        // 首先 heapify：将一个无序的数组组成了一个最大堆，第 1 个元素就是最大值
+        for (int i = (length - 1) / 2; i >= 0; i--) {
+            shiftDown(arr, length, i);
+        }
+        for (int i = length - 1; i > 0; i--) {
+            swap(arr, 0, i);
+            shiftDown(arr, i, 0);
+        }
+    }
 
-    <span class="token comment" spellcheck="true">// 注意 shiftDown 不能复用我们上面写的，而设计成</span>
-    <span class="token comment" spellcheck="true">// 对 0 开始，end 为止，即将 arr 中 [0,end] 部分的数组元素视为"最大堆"</span>
-    <span class="token comment" spellcheck="true">// 对索引为 i 的元素进行 shift down 的操作</span>
-    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">shiftDown</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">,</span> <span class="token keyword">int</span> end<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 如果有右孩子的节点，并且右孩子节点比左孩子节点的值要大</span>
-        <span class="token comment" spellcheck="true">// 此时可以忽略左孩子节点的存在，拿右孩子节点的数值和自己比较</span>
-        <span class="token comment" spellcheck="true">// 只要它有左孩子，就不是叶子节点，就可能 shift down，注意：这里是小于号</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token number">2</span> <span class="token operator">*</span> i <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">2</span> <span class="token operator">*</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>k <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> end <span class="token operator">&amp;&amp;</span> arr<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">&lt;</span> arr<span class="token punctuation">[</span>k <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                k <span class="token operator">=</span> k <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> arr<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token function">swap</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span> i<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                i <span class="token operator">=</span> k<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 留意</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token keyword">break</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    // 注意 shiftDown 不能复用我们上面写的，而设计成
+    // 对 0 开始，end 为止，即将 arr 中 [0,end] 部分的数组元素视为"最大堆"
+    // 对索引为 i 的元素进行 shift down 的操作
+    private void shiftDown(int[] arr, int end, int i) {
+        // 如果有右孩子的节点，并且右孩子节点比左孩子节点的值要大
+        // 此时可以忽略左孩子节点的存在，拿右孩子节点的数值和自己比较
+        // 只要它有左孩子，就不是叶子节点，就可能 shift down，注意：这里是小于号
+        while (2 * i + 1 < end) {
+            int k = 2 * i + 1;
+            if (k + 1 < end && arr[k] < arr[k + 1]) {
+                k = k + 1;
+            }
+            if (arr[i] < arr[k]) {
+                swap(arr, i, k);
+                i = k; // 留意
+            } else {
+                break;
+            }
+        }
+    }
 
-    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">,</span> <span class="token keyword">int</span> index1<span class="token punctuation">,</span> <span class="token keyword">int</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>index1 <span class="token operator">==</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">int</span> temp <span class="token operator">=</span> arr<span class="token punctuation">[</span>index1<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        arr<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        arr<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    private void swap(int[] arr, int index1, int index2) {
+        if (index1 == index2) {
+            return;
+        }
+        int temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        HeapSort3 heapSort3 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HeapSort3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        heapSort3<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public static void main(String[] args) {
+        int[] nums = {8, 1, 4, 6, 3, 2, 5, 9, 7};
+        HeapSort3 heapSort3 = new HeapSort3();
+        heapSort3.sort(nums);
+        System.out.println(Arrays.toString(nums));
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="索引堆"><a href="#索引堆" class="headerlink" title="索引堆"></a>索引堆</h3><h4 id="为什么要引入索引堆这个数据结构？-1"><a href="#为什么要引入索引堆这个数据结构？-1" class="headerlink" title="为什么要引入索引堆这个数据结构？"></a>为什么要引入索引堆这个数据结构？</h4><p>在堆的一些操作过程中，不论是 insert 还是 extractMax 方法，都涉及了一些元素的交换操作，<strong>交换数组中的元素的位置，在一些场景下性能消耗很大</strong>。因此，我们可以在堆的内部实现一个索引数组，通过索引可以找到我们真正存放在数组中的元素，而索引所代表数据构成一个最大堆。这就是我们要引入索引堆的原因。</p>
 <p>我们举一个可能不是很贴切的生活中的例子，我们要给一组学生按照身高进行排序，我们不用把他们全部喊出来让他们从矮到高排好，我们只要让他们报上自己的身高，在纸上做他们身高的比较就可以了。</p>
 <p>我还想到一点：现在我们都进入了移动支付时代，我们购买物品不需要把真真实实的钱给商家，这种操作就很像我们引入索引堆的操作，我们通过1、自己账户上的钱减少2、商家用户账上的钱增多，这种方式实现了转账，给我们的生活带来了巨大的方便。一手交钱一首交货的时代已经不存在了，我们只会看到快递小哥把货送到你家，而不会有快递小哥把你的钱寄给卖家。相信很多人像我一样，出门带的现金已经很少很少了，甚至有些时候，我们出门根本可以不带钱。</p>
@@ -913,6 +935,7 @@
 <ul>
 <li>索引堆要支持的操作： 在实现的时候，<strong>要注意 insert(i,item) 的实现，不是任意位置的 i都可以 insert 的，一般有两种情况：1、insert 到使用者所认为的优先队列的尾部；2、insert 到刚刚出队的那个元素的位置，因为那个位置的数据“已经没有了”，这一点要好好体会</strong>。</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -920,7 +943,8 @@
 <th>将位于 indexes 数组中的索引为 k 的元素逐个上移。</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>shiftDown(int k)</td>
 <td>将位于 indexes 数组中的索引为 k 的元素逐个下。</td>
 </tr>
@@ -944,19 +968,22 @@
 <td>change(int i,int item)</td>
 <td>修改索引为 i 的数据的“优先级”。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>【多说两句】关于索引堆中的索引和数据</p>
 <p><a href="https://coding.imooc.com/learn/questiondetail/4945.html" target="_blank" rel="noopener">https://coding.imooc.com/learn/questiondetail/4945.html</a></p>
 <h3 id="索引堆的优化"><a href="#索引堆的优化" class="headerlink" title="索引堆的优化"></a>索引堆的优化</h3><h4 id="索引堆的优化方法"><a href="#索引堆的优化方法" class="headerlink" title="索引堆的优化方法"></a>索引堆的优化方法</h4><p>我们想找一找在使用者认为的优先队列中指定索引的数据，在我们的 indexes 数组中，排在第几位，我们使用了遍历，这种做法效率是不高的。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> count<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>indexes<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 找到了 j</span>
-        <span class="token function">shiftDown</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">shiftUp</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">for (int j = 1; j <= count; j++) {
+    if (indexes[j] == i) {
+        // 找到了 j
+        shiftDown(j);
+        shiftUp(j);
+        return;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我们可以通过引入一个反向查找数组，实现反向查找 indexes 数组中，值为 i 的那个元素排在了 indexes 的第几位，通过对 reverse 数组的维护，就使得我们对反向查找这件事情的时间复杂度降到了 $O(1)$。</p>
 <ul>
 <li><code>reverse[i]</code> 表示索引 i 在 indexes（堆）中的位置。引入 reveres 数组的意义是，可以在执行 change 这个方法的时候，使用 <code>O(1)</code> 这个时间复杂度，直接找到。</li>
@@ -967,62 +994,66 @@
 <ul>
 <li>reveres 数组的概念其实并不难理解，大家只要把 reveres 这个数组自己填一下就会非常清楚了。</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
-<th align="left">0</th>
-<th align="left">1</th>
-<th align="left">2</th>
-<th align="left">3</th>
-<th align="left">4</th>
-<th align="left">5</th>
-<th align="left">6</th>
-<th align="left">7</th>
-<th align="left">8</th>
-<th align="left">9</th>
-<th align="left">10</th>
+<th style="text-align:left">0</th>
+<th style="text-align:left">1</th>
+<th style="text-align:left">2</th>
+<th style="text-align:left">3</th>
+<th style="text-align:left">4</th>
+<th style="text-align:left">5</th>
+<th style="text-align:left">6</th>
+<th style="text-align:left">7</th>
+<th style="text-align:left">8</th>
+<th style="text-align:left">9</th>
+<th style="text-align:left">10</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">data</td>
-<td align="left">15</td>
-<td align="left">17</td>
-<td align="left">19</td>
-<td align="left">13</td>
-<td align="left">22</td>
-<td align="left">16</td>
-<td align="left">28</td>
-<td align="left">30</td>
-<td align="left">41</td>
-<td align="left">62</td>
+<tbody>
+<tr>
+<td style="text-align:left">data</td>
+<td style="text-align:left">15</td>
+<td style="text-align:left">17</td>
+<td style="text-align:left">19</td>
+<td style="text-align:left">13</td>
+<td style="text-align:left">22</td>
+<td style="text-align:left">16</td>
+<td style="text-align:left">28</td>
+<td style="text-align:left">30</td>
+<td style="text-align:left">41</td>
+<td style="text-align:left">62</td>
 </tr>
 <tr>
-<td align="left">indexes</td>
-<td align="left">10</td>
-<td align="left">9</td>
-<td align="left">5</td>
-<td align="left">7</td>
-<td align="left">8</td>
-<td align="left">6</td>
-<td align="left">2</td>
-<td align="left">4</td>
-<td align="left">3</td>
-<td align="left">1</td>
+<td style="text-align:left">indexes</td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">9</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">6</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">1</td>
 </tr>
 <tr>
-<td align="left">reverse</td>
-<td align="left">10</td>
-<td align="left">7</td>
-<td align="left">9</td>
-<td align="left">8</td>
-<td align="left">3</td>
-<td align="left">6</td>
-<td align="left">4</td>
-<td align="left">5</td>
-<td align="left">2</td>
-<td align="left">1</td>
+<td style="text-align:left">reverse</td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">9</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">6</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">1</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>怎么看这张表：</p>
 <p>indexes[1] = 10，表示使用者认为的第 10 号数据，排在了优先队列的第 1 位，即 10 这个数字在 indexes 数组中的索引是 1，故 revers[10] = 1；</p>
 <p>indexes[2] = 9，表示使用者认为的第 9 号数据，排在了优先队列的第 9 位，即 9 这个数字在 indexes 数组中的索引是 2，故 revers[9] = 2；</p>

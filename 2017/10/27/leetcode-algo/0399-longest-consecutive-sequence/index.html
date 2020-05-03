@@ -494,7 +494,8 @@
 <p>基于上述例子，输入如下：</p>
 <pre><code>equations(方程式) = [ [&quot;a&quot;, &quot;b&quot;], [&quot;b&quot;, &quot;c&quot;] ],
 values(方程式结果) = [2.0, 3.0],
-queries(问题方程式) = [ [&quot;a&quot;, &quot;c&quot;], [&quot;b&quot;, &quot;a&quot;], [&quot;a&quot;, &quot;e&quot;], [&quot;a&quot;, &quot;a&quot;], [&quot;x&quot;, &quot;x&quot;] ]. </code></pre><p>输入总是有效的。你可以假设除法运算中不会出现除数为0的情况，且不存在任何矛盾的结果。</p>
+queries(问题方程式) = [ [&quot;a&quot;, &quot;c&quot;], [&quot;b&quot;, &quot;a&quot;], [&quot;a&quot;, &quot;e&quot;], [&quot;a&quot;, &quot;a&quot;], [&quot;x&quot;, &quot;x&quot;] ].
+</code></pre><p>输入总是有效的。你可以假设除法运算中不会出现除数为0的情况，且不存在任何矛盾的结果。</p>
 </blockquote>
 <p>思路：这道题别看题目很长，但是表达意思是很简单的。给出一些关系式，让我们根据这些关系式，求出题目问的两个变量的结果。</p>
 <ul>
@@ -503,130 +504,131 @@ queries(问题方程式) = [ [&quot;a&quot;, &quot;c&quot;], [&quot;b&quot;, &qu
 </ul>
 <p><img src="https://tva1.sinaimg.cn/large/006tNbRwly1gamygdg8icj315m0lsq5j.jpg" alt="image-20200106171023029"></p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashMap<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+public class Solution {
 
-    <span class="token comment" spellcheck="true">// 使用并查集，带权值的并查集</span>
+    // 使用并查集，带权值的并查集
 
-    <span class="token keyword">class</span> <span class="token class-name">Pair</span> <span class="token punctuation">{</span>
-        <span class="token keyword">private</span> String str<span class="token punctuation">;</span>
-        <span class="token keyword">private</span> <span class="token keyword">double</span> val<span class="token punctuation">;</span>
+    class Pair {
+        private String str;
+        private double val;
 
-        <span class="token keyword">public</span> <span class="token function">Pair</span><span class="token punctuation">(</span>String str<span class="token punctuation">,</span> <span class="token keyword">double</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">this</span><span class="token punctuation">.</span>str <span class="token operator">=</span> str<span class="token punctuation">;</span>
-            <span class="token keyword">this</span><span class="token punctuation">.</span>val <span class="token operator">=</span> val<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        public Pair(String str, double val) {
+            this.str = str;
+            this.val = val;
+        }
 
-        <span class="token annotation punctuation">@Override</span>
-        <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token string">"Pair{"</span> <span class="token operator">+</span>
-                    <span class="token string">"str='"</span> <span class="token operator">+</span> str <span class="token operator">+</span> <span class="token string">'\''</span> <span class="token operator">+</span>
-                    <span class="token string">", val="</span> <span class="token operator">+</span> val <span class="token operator">+</span>
-                    <span class="token string">'}'</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+        @Override
+        public String toString() {
+            return "Pair{" +
+                    "str='" + str + '\'' +
+                    ", val=" + val +
+                    '}';
+        }
+    }
 
-    <span class="token keyword">class</span> <span class="token class-name">UnionFind</span> <span class="token punctuation">{</span>
-        <span class="token keyword">private</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Pair<span class="token operator">></span> parent<span class="token punctuation">;</span>
+    class UnionFind {
+        private Map<String, Pair> parent;
 
-        <span class="token keyword">public</span> <span class="token function">UnionFind</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            parent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        public UnionFind() {
+            parent = new HashMap<>();
+        }
 
-        <span class="token comment" spellcheck="true">/**
+        /**
          * 返回根结点的 Pair 对象
          *
          * @param A
          * @return
-         */</span>
-        <span class="token keyword">private</span> Pair <span class="token function">find</span><span class="token punctuation">(</span>String A<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>A<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>parent<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">.</span>str<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 如果不是根结点，继续找父结点</span>
-                Pair p <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>parent<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">.</span>str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         */
+        private Pair find(String A) {
+            if (!A.equals(parent.get(A).str)) {
+                // 如果不是根结点，继续找父结点
+                Pair p = find(parent.get(A).str);
 
-                <span class="token comment" spellcheck="true">// 把 A 的父结点直线 p ，这是路径压缩</span>
-                parent<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">.</span>str <span class="token operator">=</span> p<span class="token punctuation">.</span>str<span class="token punctuation">;</span>
-                parent<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">.</span>val <span class="token operator">*=</span> p<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
+                // 把 A 的父结点直线 p ，这是路径压缩
+                parent.get(A).str = p.str;
+                parent.get(A).val *= p.val;
+            }
 
-            <span class="token keyword">return</span> parent<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+            return parent.get(A);
+        }
 
-        <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span>String A<span class="token punctuation">,</span> String B<span class="token punctuation">,</span> <span class="token keyword">double</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>parent<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>parent<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>B<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                parent<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>A<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Pair</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                parent<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Pair</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> <span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">return</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
+        private void union(String A, String B, double val) {
+            if (!parent.containsKey(A) && !parent.containsKey(B)) {
+                parent.put(A, new Pair(B, val));
+                parent.put(B, new Pair(B, 1.0));
+                return;
+            }
 
-            <span class="token comment" spellcheck="true">// 如果 A 是独立的，就把 A 指向 B</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>parent<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                parent<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>A<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Pair</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">return</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
+            // 如果 A 是独立的，就把 A 指向 B
+            if (!parent.containsKey(A)) {
+                parent.put(A, new Pair(B, val));
+                return;
+            }
 
-            <span class="token comment" spellcheck="true">// 如果 B 是独立的，就把 B 指向 A</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>parent<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>B<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                parent<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>B<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Pair</span><span class="token punctuation">(</span>A<span class="token punctuation">,</span> <span class="token number">1.0</span> <span class="token operator">/</span> val<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">return</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
+            // 如果 B 是独立的，就把 B 指向 A
+            if (!parent.containsKey(B)) {
+                parent.put(B, new Pair(A, 1.0 / val));
+                return;
+            }
 
-            <span class="token comment" spellcheck="true">// 走到这里就是 A 和 B 在一个集合里的情况</span>
+            // 走到这里就是 A 和 B 在一个集合里的情况
 
-            Pair rootA <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>A<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            Pair rootB <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>B<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Pair rootA = find(A);
+            Pair rootB = find(B);
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>rootA <span class="token operator">!=</span> rootB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                rootA<span class="token punctuation">.</span>str <span class="token operator">=</span> rootB<span class="token punctuation">.</span>str<span class="token punctuation">;</span>
-                rootA<span class="token punctuation">.</span>val <span class="token operator">*=</span> <span class="token punctuation">(</span>val <span class="token operator">*</span> rootB<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-
-    <span class="token keyword">public</span> <span class="token keyword">double</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">calcEquation</span><span class="token punctuation">(</span>List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> equations<span class="token punctuation">,</span> <span class="token keyword">double</span><span class="token punctuation">[</span><span class="token punctuation">]</span> values<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> queries<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> equationsSize <span class="token operator">=</span> equations<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        UnionFind unionFind <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UnionFind</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> equationsSize<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            String A <span class="token operator">=</span> equations<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            String B <span class="token operator">=</span> equations<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">double</span> k <span class="token operator">=</span> values<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            unionFind<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span>A<span class="token punctuation">,</span> B<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+            if (rootA != rootB) {
+                rootA.str = rootB.str;
+                rootA.val *= (val * rootB.val);
+            }
+        }
+    }
 
 
-        <span class="token keyword">int</span> len <span class="token operator">=</span> queries<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">double</span><span class="token punctuation">[</span><span class="token punctuation">]</span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">double</span><span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        int equationsSize = equations.size();
+        UnionFind unionFind = new UnionFind();
 
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            String X <span class="token operator">=</span> queries<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            String Y <span class="token operator">=</span> queries<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>unionFind<span class="token punctuation">.</span>parent<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>X<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span>unionFind<span class="token punctuation">.</span>parent<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>Y<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                res<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1.0</span><span class="token punctuation">;</span>
-                <span class="token keyword">continue</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
+        for (int i = 0; i < equationsSize; i++) {
+            String A = equations.get(i).get(0);
+            String B = equations.get(i).get(1);
+            double k = values[i];
+            unionFind.union(A, B, k);
+        }
 
 
-            Pair rootX <span class="token operator">=</span> unionFind<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>X<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            Pair rootY <span class="token operator">=</span> unionFind<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>Y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        int len = queries.size();
+        double[] res = new double[len];
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>rootX<span class="token punctuation">.</span>str<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>rootY<span class="token punctuation">.</span>str<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                res<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1.0</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                res<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> rootX<span class="token punctuation">.</span>val <span class="token operator">/</span> rootY<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        for (int i = 0; i < len; i++) {
+            String X = queries.get(i).get(0);
+            String Y = queries.get(i).get(1);
 
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            if (!unionFind.parent.containsKey(X) || !unionFind.parent.containsKey(Y)) {
+                res[i] = -1.0;
+                continue;
+            }
+
+
+            Pair rootX = unionFind.find(X);
+            Pair rootY = unionFind.find(Y);
+
+            if (!rootX.str.equals(rootY.str)) {
+                res[i] = -1.0;
+            } else {
+                res[i] = rootX.val / rootY.val;
+            }
+        }
+        return res;
+    }
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这是一类经典的带权值的并查集问题，事实上，并查集问题是算法竞赛中的常客，我们学习并查集，主要理解它的思想和应用即可。太难的问题，我个人觉得如果只是应付面试，争取更好的工作机会，我个人觉得暂时没有必要一定要把很难的问题做出来。</p>
 
             </div>

@@ -493,14 +493,16 @@
 <p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_example_1.png" alt="img"></p>
 <pre><code>输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3
 输出：Reference of the node with value = 8
-输入解释：相交节点的值为 8 （注意，如果两个列表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,0,1,8,4,5]。在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。</code></pre><p><strong>示例 2：</strong></p>
+输入解释：相交节点的值为 8 （注意，如果两个列表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,0,1,8,4,5]。在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。
+</code></pre><p><strong>示例 2：</strong></p>
 <p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_example_2.png" alt="img"></p>
 <p><strong>示例 3：</strong></p>
 <p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_example_3.png" alt="img"></p>
 <pre><code>输入：intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
 输出：null
 输入解释：从各自的表头开始算起，链表 A 为 [2,6,4]，链表 B 为 [1,5]。由于这两个链表不相交，所以 intersectVal 必须为 0，而 skipA 和 skipB 可以是任意值。
-解释：这两个链表不相交，因此返回 null。</code></pre><p><strong>注意：</strong></p>
+解释：这两个链表不相交，因此返回 null。
+</code></pre><p><strong>注意：</strong></p>
 <ul>
 <li>如果两个链表没有交点，返回 null.</li>
 <li>在返回结果后，两个链表仍须保持原有的结构。</li>
@@ -510,108 +512,111 @@
 </blockquote>
 <p>这一节我们再来看一个比较常见的问题：相交链表。这道题是力扣上第 160 号问题，要我们编写一个程序，找到两个单链表相交的起始节点。</p>
 <h3 id="方法一：使用哈希表（空间复杂度不符合要求）"><a href="#方法一：使用哈希表（空间复杂度不符合要求）" class="headerlink" title="方法一：使用哈希表（空间复杂度不符合要求）"></a>方法一：使用哈希表（空间复杂度不符合要求）</h3><p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashSet<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.HashSet;
+import java.util.Set;
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+public class Solution {
 
-    <span class="token keyword">public</span> ListNode <span class="token function">getIntersectionNode</span><span class="token punctuation">(</span>ListNode headA<span class="token punctuation">,</span> ListNode headB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Set<span class="token operator">&lt;</span>ListNode<span class="token operator">></span> hashSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        Set<ListNode> hashSet = new HashSet<>();
 
-        ListNode curNode <span class="token operator">=</span> headA<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>curNode <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            hashSet<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>curNode<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            curNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        ListNode curNode = headA;
+        while (curNode != null) {
+            hashSet.add(curNode);
+            curNode = curNode.next;
+        }
 
-        curNode <span class="token operator">=</span> headB<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>curNode <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>hashSet<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>curNode<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                <span class="token keyword">return</span> curNode<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            curNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        curNode = headB;
+        while (curNode != null) {
+            if(hashSet.contains(curNode)){
+                return curNode;
+            }
+            curNode = curNode.next;
+        }
+        return null;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="方法二-：需要先遍历得到两个链表的长度"><a href="#方法二-：需要先遍历得到两个链表的长度" class="headerlink" title="方法二 ：需要先遍历得到两个链表的长度"></a>方法二 ：需要先遍历得到两个链表的长度</h3><p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
-    ListNode next<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">class ListNode {
+    int val;
+    ListNode next;
 
-    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        val <span class="token operator">=</span> x<span class="token punctuation">;</span>
-        next <span class="token operator">=</span> null<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    ListNode(int x) {
+        val = x;
+        next = null;
+    }
+}
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> ListNode <span class="token function">getIntersectionNode</span><span class="token punctuation">(</span>ListNode headA<span class="token punctuation">,</span> ListNode headB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 特判</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>headA <span class="token operator">==</span> null <span class="token operator">||</span> headB <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        // 特判
+        if (headA == null || headB == null) {
+            return null;
+        }
 
-        <span class="token keyword">int</span> aLen <span class="token operator">=</span> <span class="token function">getLenOfListNode</span><span class="token punctuation">(</span>headA<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> bLen <span class="token operator">=</span> <span class="token function">getLenOfListNode</span><span class="token punctuation">(</span>headB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        int aLen = getLenOfListNode(headA);
+        int bLen = getLenOfListNode(headB);
 
-        <span class="token comment" spellcheck="true">// 总是让 A 链表是短链表</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>aLen <span class="token operator">></span> bLen<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            ListNode temp <span class="token operator">=</span> headA<span class="token punctuation">;</span>
-            headA <span class="token operator">=</span> headB<span class="token punctuation">;</span>
-            headB <span class="token operator">=</span> temp<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        // 总是让 A 链表是短链表
+        if (aLen > bLen) {
+            ListNode temp = headA;
+            headA = headB;
+            headB = temp;
+        }
 
-        <span class="token comment" spellcheck="true">// 注意：这里要取绝对值</span>
-        <span class="token keyword">int</span> distance <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>aLen <span class="token operator">-</span> bLen<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> distance<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            headB <span class="token operator">=</span> headB<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        // 注意：这里要取绝对值
+        int distance = Math.abs(aLen - bLen);
+        for (int i = 0; i < distance; i++) {
+            headB = headB.next;
+        }
 
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>headA <span class="token operator">!=</span> headB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            headA <span class="token operator">=</span> headA<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            headB <span class="token operator">=</span> headB<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> headA<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        while (headA != headB) {
+            headA = headA.next;
+            headB = headB.next;
+        }
+        return headA;
+    }
 
-    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">getLenOfListNode</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>head <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            head <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            len<span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> len<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    private int getLenOfListNode(ListNode head) {
+        int len = 0;
+        while (head != null) {
+            head = head.next;
+            len++;
+        }
+        return len;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="方法三：让-A、B-链表等长"><a href="#方法三：让-A、B-链表等长" class="headerlink" title="方法三：让 A、B 链表等长"></a>方法三：让 A、B 链表等长</h3><p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
 
-    <span class="token keyword">public</span> ListNode <span class="token function">getIntersectionNode</span><span class="token punctuation">(</span>ListNode headA<span class="token punctuation">,</span> ListNode headB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 特判</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>headA <span class="token operator">==</span> null <span class="token operator">||</span> headB <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        // 特判
+        if (headA == null || headB == null) {
+            return null;
+        }
 
-        ListNode head1 <span class="token operator">=</span> headA<span class="token punctuation">;</span>
-        ListNode head2 <span class="token operator">=</span> headB<span class="token punctuation">;</span>
+        ListNode head1 = headA;
+        ListNode head2 = headB;
 
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>head1 <span class="token operator">!=</span> head2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>head1 <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                head1 <span class="token operator">=</span> head1<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                head1 <span class="token operator">=</span> headB<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
+        while (head1 != head2) {
+            if (head1 != null) {
+                head1 = head1.next;
+            } else {
+                head1 = headB;
+            }
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>head2 <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                head2 <span class="token operator">=</span> head2<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                head2 <span class="token operator">=</span> headA<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> head1<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            if (head2 != null) {
+                head2 = head2.next;
+            } else {
+                head2 = headA;
+            }
+        }
+        return head1;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

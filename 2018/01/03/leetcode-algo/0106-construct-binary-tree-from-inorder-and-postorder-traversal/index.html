@@ -489,7 +489,8 @@
 <p>注意:<br>你可以假设树中没有重复的元素。</p>
 <p>例如，给出</p>
 <p>中序遍历 inorder = [9,3,15,20,7]<br>后序遍历 postorder = [9,15,7,20,3]<br>返回如下的二叉树：</p>
-<pre><code>3</code></pre><p>   / <br>  9  20<br>    /  <br>   15   7</p>
+<pre><code>3
+</code></pre><p>   / \<br>  9  20<br>    /  \<br>   15   7</p>
 </blockquote>
 <h2 id="分治法（Python、Java）"><a href="#分治法（Python、Java）" class="headerlink" title="分治法（Python、Java）"></a>分治法（Python、Java）</h2><p><strong>思路分析</strong>：</p>
 <p>二叉树相关的很多问题的解决思路都有分治法的思想在里面。</p>
@@ -505,35 +506,27 @@
 <h3 id="方法一：在递归方法中，传入数组的拷贝（了解，不推荐）"><a href="#方法一：在递归方法中，传入数组的拷贝（了解，不推荐）" class="headerlink" title="方法一：在递归方法中，传入数组的拷贝（了解，不推荐）"></a>方法一：在递归方法中，传入数组的拷贝（了解，不推荐）</h3><p>该方法在计算索引的时候会稍微容易一些。</p>
 <p><strong>参考代码 1</strong>：</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">from typing import List
+<p>```Python []<br>from typing import List</p>
+<p>class TreeNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.left = None<br>        self.right = None</p>
+<p>class Solution:<br>    def buildTree(self, inorder: List[int], postorder: List[int]) -&gt; TreeNode:<br>        assert len(inorder) == len(postorder)</p>
+<pre><code>    if len(inorder) == 0:
+        return None
+    if len(inorder) == 1:
+        # 这里要返回结点，而不是返回具体的数
+        return TreeNode(inorder[0])
+    # 后序遍历的最后一个结点就是根结点
+    root = TreeNode(postorder[-1])
+    # 在中序遍历中找到根结点的索引，得到左右子树的一个划分
+    pos = inorder.index(postorder[-1])
+    # 这里的列表切片使用的是复制值，使用了一些空间，因此空间复杂度是 O(N)
+    root.left = self.buildTree(inorder[:pos], postorder[:pos])
+    root.right = self.buildTree(inorder[pos + 1:], postorder[pos:-1])
+    return root
+</code></pre><pre><code>
+Java 代码：
 
-
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
-
-
-class Solution:
-    def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
-        assert len(inorder) == len(postorder)
-
-        if len(inorder) == 0:
-            return None
-        if len(inorder) == 1:
-            # 这里要返回结点，而不是返回具体的数
-            return TreeNode(inorder[0])
-        # 后序遍历的最后一个结点就是根结点
-        root = TreeNode(postorder[-1])
-        # 在中序遍历中找到根结点的索引，得到左右子树的一个划分
-        pos = inorder.index(postorder[-1])
-        # 这里的列表切片使用的是复制值，使用了一些空间，因此空间复杂度是 O(N)
-        root.left = self.buildTree(inorder[:pos], postorder[:pos])
-        root.right = self.buildTree(inorder[pos + 1:], postorder[pos:-1])
-        return root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">import java.util.Arrays;
+```Java []
+import java.util.Arrays;
 
 class TreeNode {
     int val;
@@ -569,7 +562,7 @@ public class Solution {
         int rootVal = postorder[postlen - 1];
         // 在中序遍历中找到根结点的索引，得到左右子树的一个划分
         int dividePoint = 0;
-        for (int i = 0; i < inlen; i++) {
+        for (int i = 0; i &lt; inlen; i++) {
             if (inorder[i] == rootVal) {
                 dividePoint = i;
                 break;
@@ -584,8 +577,8 @@ public class Solution {
         rootNode.right = buildTree(Arrays.copyOfRange(inorder, dividePoint + 1, inlen), Arrays.copyOfRange(postorder, dividePoint, postlen - 1));
         return rootNode;
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>复杂度分析：</strong></p>
+}
+</code></pre><p><strong>复杂度分析：</strong></p>
 <ul>
 <li>时间复杂度：$O(N \log N)$，这里 $N$ 是二叉树的结点个数，算法中每个结点都会被看到一次，是线性级别的，递归的深度是对数级别的，因此时间复杂度是 $O(N \log N)$。</li>
 <li>空间复杂度：$O(N)$，构造一棵树需要 $N$ 个结点（待讨论）。</li>
@@ -593,47 +586,41 @@ public class Solution {
 <h3 id="方法二：在递归方法中，传入子数组的边界索引"><a href="#方法二：在递归方法中，传入子数组的边界索引" class="headerlink" title="方法二：在递归方法中，传入子数组的边界索引"></a>方法二：在递归方法中，传入子数组的边界索引</h3><p><strong>注意</strong>：在递归方法中，有一个数组的边界索引，得通过计算得到，计算的依据是递归方法传入的“中序遍历数组”（的子数组）和“后序遍历数组”（的子数组）的长度是一样的。我的办法是解方程计算未知数，哈哈，傻呼呼的。具体需要计算哪个参数我在下面的代码中已经注明了。</p>
 <p><strong>参考代码 2</strong>：</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">from typing import List
+<p>```Python []<br>from typing import List</p>
+<p>class TreeNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.left = None<br>        self.right = None</p>
+<p>class Solution:</p>
+<pre><code>def __init__(self):
+    self.inorder = None
+    self.postorder = None
 
+def buildTree(self, inorder: List[int], postorder: List[int]) -&gt; TreeNode:
+    assert len(inorder) == len(postorder)
+    size = len(inorder)
 
-class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+    self.inorder = inorder
+    self.postorder = postorder
+    return self.__dfs(0, size - 1, 0, size - 1)
 
+def __dfs(self, in_l, in_r, post_l, post_r):
+    if in_l &gt; in_r or post_l &gt; post_r:
+        return None
 
-class Solution:
+    val = self.postorder[post_r]
+    # 后序遍历的最后一个结点就是根结点
+    root = TreeNode(val)
+    # 在中序遍历中找到根结点的索引，得到左右子树的一个划分
+    pos = self.inorder.index(val)
 
-    def __init__(self):
-        self.inorder = None
-        self.postorder = None
+    # 注意：第 4 个参数是计算出来的，依据：两边区间长度相等
+    root.left = self.__dfs(in_l, pos - 1, post_l, pos - 1 - in_l + post_l)
+    # 注意：第 3 个参数是计算出来的，依据：两边区间长度相等
+    root.right = self.__dfs(pos + 1, in_r, post_r - in_r + pos, post_r - 1)
+    return root
+</code></pre><pre><code>
+Java 代码：
 
-    def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
-        assert len(inorder) == len(postorder)
-        size = len(inorder)
-
-        self.inorder = inorder
-        self.postorder = postorder
-        return self.__dfs(0, size - 1, 0, size - 1)
-
-    def __dfs(self, in_l, in_r, post_l, post_r):
-        if in_l > in_r or post_l > post_r:
-            return None
-
-        val = self.postorder[post_r]
-        # 后序遍历的最后一个结点就是根结点
-        root = TreeNode(val)
-        # 在中序遍历中找到根结点的索引，得到左右子树的一个划分
-        pos = self.inorder.index(val)
-
-        # 注意：第 4 个参数是计算出来的，依据：两边区间长度相等
-        root.left = self.__dfs(in_l, pos - 1, post_l, pos - 1 - in_l + post_l)
-        # 注意：第 3 个参数是计算出来的，依据：两边区间长度相等
-        root.right = self.__dfs(pos + 1, in_r, post_r - in_r + pos, post_r - 1)
-        return root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">class TreeNode {
+```Java []
+class TreeNode {
     int val;
     TreeNode left;
     TreeNode right;
@@ -658,13 +645,13 @@ public class Solution {
 
 
     private TreeNode dfs(int inl, int inr, int postl, int postr) {
-        if (inl > inr || postl > postr) {
+        if (inl &gt; inr || postl &gt; postr) {
             return null;
         }
 
         int val = postorder[postr];
         int k = 0;
-        for (int i = inl; i < inr + 1; i++) {
+        for (int i = inl; i &lt; inr + 1; i++) {
             if (inorder[i] == val) {
                 k = i;
                 break;
@@ -688,8 +675,8 @@ public class Solution {
         TreeNode res = solution.buildTree(inorder, postorder);
         System.out.println(res);
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>复杂度分析：</strong></p>
+}
+</code></pre><p><strong>复杂度分析：</strong></p>
 <ul>
 <li>时间复杂度：$O(N \log N)$，这里 $N$ 是二叉树的结点个数，算法中每个结点都会被看到一次，是线性级别的，递归的深度是对数级别的，因此时间复杂度是 $O(N \log N)$。</li>
 <li>空间复杂度：$O(N)$，构造一棵树需要 $N$ 个结点（待讨论）。</li>

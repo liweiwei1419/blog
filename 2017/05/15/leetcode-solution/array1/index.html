@@ -496,10 +496,12 @@
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: nums = [-1,0,3,5,9,12], target = 9
 输出: 4
-解释: 9 出现在 nums 中并且下标为 4</code></pre><p><strong>示例 2:</strong></p>
+解释: 9 出现在 nums 中并且下标为 4
+</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: nums = [-1,0,3,5,9,12], target = 2
 输出: -1
-解释: 2 不存在 nums 中因此返回 -1</code></pre><p><strong>提示：</strong></p>
+解释: 2 不存在 nums 中因此返回 -1
+</code></pre><p><strong>提示：</strong></p>
 <ol>
 <li>你可以假设 <code>nums</code> 中的所有元素是不重复的。</li>
 <li><code>n</code> 将在 <code>[1, 10000]</code>之间。</li>
@@ -515,36 +517,37 @@
 </ul>
 <p>根据 <code>mid</code> 元素与目标元素的值的大小关系，如果 <code>nums[mid]</code> 恰好等于 <code>target</code> 直接返回。否则根据不等关系，<strong>确定下一轮搜索的区间</strong>。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">search</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+    public int search(int[] nums, int target) {
+        int len = nums.length;
+        if (len == 0) {
+            return -1;
+        }
 
-        <span class="token comment" spellcheck="true">// 在 [left, right] 范围里查找目标元素</span>
-        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> right <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        // 在 [left, right] 范围里查找目标元素
+        int left = 0;
+        int right = len - 1;
 
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;=</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>left <span class="token operator">+</span> right<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> mid<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 由数组的有序性可知，mid 以及 mid 的左边都小等于 target</span>
-                <span class="token comment" spellcheck="true">// 下一轮搜索的范围是 [mid + 1, right]</span>
-                left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 此时 target &lt; nums[mid]</span>
-                <span class="token comment" spellcheck="true">// 由数组的有序性可知，mid 以及 mid 的右边边都小等于 target</span>
-                <span class="token comment" spellcheck="true">// 下一轮搜索的范围是 [left, mid - 1]</span>
-                right <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] < target) {
+                // 由数组的有序性可知，mid 以及 mid 的左边都小等于 target
+                // 下一轮搜索的范围是 [mid + 1, right]
+                left = mid + 1;
+            } else {
+                // 此时 target < nums[mid]
+                // 由数组的有序性可知，mid 以及 mid 的右边边都小等于 target
+                // 下一轮搜索的范围是 [left, mid - 1]
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>「力扣」上有些二分题用这种思路做，<strong>有的时候往往会顺带思考很多问题，增加了出错率</strong>，例如：</p>
 <ul>
 <li>返回 <code>left</code> 还是 <code>right</code>；</li>
@@ -916,12 +919,12 @@
                         <span class="chip bg-color">排序算法</span>
                     </a>
                     
-                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
-                        <span class="chip bg-color">递归</span>
-                    </a>
-                    
                     <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
                         <span class="chip bg-color">分治</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                        <span class="chip bg-color">递归</span>
                     </a>
                     
                     <a href="/leetcode-algo/tags/partition/">

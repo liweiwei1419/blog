@@ -499,86 +499,92 @@
 <p><strong>示例:</strong></p>
 <pre><code>输入: numbers = [2, 7, 11, 15], target = 9
 输出: [1,2]
-解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。</code></pre></blockquote>
+解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。
+</code></pre></blockquote>
 <p>分析：看到有序，第 1 想到“二分查找”，但是我们这题，用“指针对撞”更合适。当然用哈希表也是可以的，不过哈希表的方法没有用到数组的有序性。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">twoSum</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> numbers<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def twoSum(self, numbers, target):
+        """
         :type numbers: List[int]
         :type target: int
         :rtype: List[int]
-        """</span>
-        <span class="token comment" spellcheck="true"># 有序数组，index1 必须小于 index2，用指针对撞是最合适的</span>
+        """
+        # 有序数组，index1 必须小于 index2，用指针对撞是最合适的
 
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>numbers<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> size <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        l <span class="token operator">=</span> <span class="token number">0</span>
-        r <span class="token operator">=</span> size <span class="token operator">-</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> numbers<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">+</span> numbers<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">==</span> target<span class="token punctuation">:</span>
-                <span class="token keyword">return</span> <span class="token punctuation">[</span>l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span>
-            <span class="token keyword">elif</span> numbers<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">+</span> numbers<span class="token punctuation">[</span>r<span class="token punctuation">]</span> <span class="token operator">&lt;</span> target<span class="token punctuation">:</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                r <span class="token operator">-=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        size = len(numbers)
+        if size < 2:
+            return []
+        l = 0
+        r = size - 1
+        while l < r:
+            if numbers[l] + numbers[r] == target:
+                return [l + 1, r + 1]
+            elif numbers[l] + numbers[r] < target:
+                l += 1
+            else:
+                r -= 1
+        return []
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">twoSum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> numbers<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> numbers<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> r <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> sum <span class="token operator">=</span> numbers<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">+</span> numbers<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int len = numbers.length;
+        int l = 0;
+        int r = len - 1;
+        while (l < r) {
+            int sum = numbers[l] + numbers[r];
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>sum <span class="token operator">></span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                r<span class="token operator">--</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>sum <span class="token operator">&lt;</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                l<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-                res<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                res<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">throw</span>  <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"输入数据有误"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            if (sum > target) {
+                r--;
+            } else if (sum < target) {
+                l++;
+            } else {
+                int[] res = new int[2];
+                res[0] = l + 1;
+                res[1] = r + 1;
+                return res;
+            }
+        }
+        throw  new IllegalArgumentException("输入数据有误");
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="练习1：Leetcode-第-125-题：验证回文串"><a href="#练习1：Leetcode-第-125-题：验证回文串" class="headerlink" title="练习1：Leetcode 第 125 题：验证回文串"></a>练习1：Leetcode 第 125 题：<a href="https://leetcode-cn.com/problems/valid-palindrome" target="_blank" rel="noopener">验证回文串</a></h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/valid-palindrome/description/" target="_blank" rel="noopener">125. Valid Palindrome</a> ，中文网址：<a href="https://leetcode-cn.com/problems/valid-palindrome/description/" target="_blank" rel="noopener">125. 验证回文串</a> 。</p>
 <blockquote>
 <p>给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。</p>
 <p><strong>说明：</strong>本题中，我们将空字符串定义为有效的回文串。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: &quot;A man, a plan, a canal: Panama&quot;
-输出: true</code></pre><p><strong>示例 2:</strong></p>
+输出: true
+</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: &quot;race a car&quot;
-输出: false</code></pre></blockquote>
+输出: false
+</code></pre></blockquote>
 <p>Python 代码：注意编码的细节</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
+    def isPalindrome(self, s):
+        """
         :type s: str
         :rtype: bool
-        """</span>
-        left <span class="token operator">=</span> <span class="token number">0</span>
-        right <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> left <span class="token operator">&lt;</span> right<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> <span class="token operator">not</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">.</span>isalnum<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                left <span class="token operator">+=</span> <span class="token number">1</span>
-                <span class="token keyword">continue</span>
-            <span class="token keyword">if</span> <span class="token operator">not</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">.</span>isalnum<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                right <span class="token operator">-=</span> <span class="token number">1</span>
-                <span class="token keyword">continue</span>
+        """
+        left = 0
+        right = len(s) - 1
+        while left < right:
+            if not s[left].isalnum():
+                left += 1
+                continue
+            if not s[right].isalnum():
+                right -= 1
+                continue
 
-            <span class="token keyword">if</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">return</span> <span class="token boolean">False</span>
+            if s[left].lower() != s[right].lower():
+                return False
 
-            left <span class="token operator">+=</span> <span class="token number">1</span>
-            right <span class="token operator">-=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> <span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            left += 1
+            right -= 1
+        return True
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="练习2：Leetcode-第-344-题：反转字符串"><a href="#练习2：Leetcode-第-344-题：反转字符串" class="headerlink" title="练习2：Leetcode 第 344 题：反转字符串"></a>练习2：Leetcode 第 344 题：<a href="https://leetcode-cn.com/problems/reverse-string" target="_blank" rel="noopener">反转字符串</a></h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/reverse-string/description/" target="_blank" rel="noopener">344. Reverse String</a> ，中文网址：<a href="https://leetcode-cn.com/problems/reverse-string/description/" target="_blank" rel="noopener">344. 反转字符串</a> 。</p>
 <blockquote>
 <p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 <code>char[]</code> 的形式给出。</p>
@@ -586,60 +592,65 @@
 <p>你可以假设数组中的所有字符都是 <a href="https://baike.baidu.com/item/ASCII" target="_blank" rel="noopener">ASCII</a> 码表中的可打印字符。</p>
 <p><strong>示例 1：</strong></p>
 <pre><code>输入：[&quot;h&quot;,&quot;e&quot;,&quot;l&quot;,&quot;l&quot;,&quot;o&quot;]
-输出：[&quot;o&quot;,&quot;l&quot;,&quot;l&quot;,&quot;e&quot;,&quot;h&quot;]</code></pre><p><strong>示例 2：</strong></p>
+输出：[&quot;o&quot;,&quot;l&quot;,&quot;l&quot;,&quot;e&quot;,&quot;h&quot;]
+</code></pre><p><strong>示例 2：</strong></p>
 <pre><code>输入：[&quot;H&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;h&quot;]
-输出：[&quot;h&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;H&quot;]</code></pre></blockquote>
+输出：[&quot;h&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;H&quot;]
+</code></pre></blockquote>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
 
-    <span class="token keyword">def</span> <span class="token function">reverseString</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def reverseString(self, s):
+        """
         :type s: str
         :rtype: str
-        """</span>
-        <span class="token keyword">if</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> s
+        """
+        if len(s) < 2:
+            return s
 
-        left <span class="token operator">=</span> <span class="token number">0</span>
-        right <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-        l <span class="token operator">=</span> list<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 重合在一个就没有交换的必要了，因此是 left &lt; right</span>
-        <span class="token keyword">while</span> left <span class="token operator">&lt;</span> right<span class="token punctuation">:</span>
-            l<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">,</span> l<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">=</span> l<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">,</span> l<span class="token punctuation">[</span>left<span class="token punctuation">]</span>
-            left <span class="token operator">+=</span> <span class="token number">1</span>
-            right <span class="token operator">-=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>l<span class="token punctuation">)</span>
+        left = 0
+        right = len(s) - 1
+        l = list(s)
+        # 重合在一个就没有交换的必要了，因此是 left < right
+        while left < right:
+            l[left], l[right] = l[right], l[left]
+            left += 1
+            right -= 1
+        return ''.join(l)
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="练习3：Leetcode-第-345-题：反转字符串中的元音字母"><a href="#练习3：Leetcode-第-345-题：反转字符串中的元音字母" class="headerlink" title="练习3：Leetcode 第 345 题：反转字符串中的元音字母"></a>练习3：Leetcode 第 345 题：<a href="https://leetcode-cn.com/problems/reverse-vowels-of-a-string" target="_blank" rel="noopener">反转字符串中的元音字母</a></h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/reverse-vowels-of-a-string/description/" target="_blank" rel="noopener">345. Reverse Vowels of a String</a> ，中文网址：<a href="https://leetcode-cn.com/problems/reverse-vowels-of-a-string/description/" target="_blank" rel="noopener">345. 反转字符串中的元音字母</a> 。</p>
 <blockquote>
 <p>编写一个函数，以字符串作为输入，反转该字符串中的元音字母。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: &quot;hello&quot;
-输出: &quot;holle&quot;</code></pre><p><strong>示例 2:</strong></p>
+输出: &quot;holle&quot;
+</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: &quot;leetcode&quot;
-输出: &quot;leotcede&quot;</code></pre><p><strong>说明:</strong><br>元音字母不包含字母”y”。</p>
+输出: &quot;leotcede&quot;
+</code></pre><p><strong>说明:</strong><br>元音字母不包含字母”y”。</p>
 </blockquote>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">reverseVowels</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
+    def reverseVowels(self, s):
+        """
         :type s: str
         :rtype: str
-        """</span>
-        vowels <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'e'</span><span class="token punctuation">,</span> <span class="token string">'i'</span><span class="token punctuation">,</span> <span class="token string">'o'</span><span class="token punctuation">,</span> <span class="token string">'u'</span><span class="token punctuation">,</span> <span class="token string">'A'</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">,</span> <span class="token string">'I'</span><span class="token punctuation">,</span> <span class="token string">'O'</span><span class="token punctuation">,</span> <span class="token string">'U'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        s <span class="token operator">=</span> list<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        left <span class="token operator">=</span> <span class="token number">0</span>
-        right <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> left <span class="token operator">&lt;</span> right<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">not</span> <span class="token keyword">in</span> vowels<span class="token punctuation">:</span>
-                left <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">elif</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">not</span> <span class="token keyword">in</span> vowels<span class="token punctuation">:</span>
-                right <span class="token operator">-=</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                s<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">,</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">=</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">,</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span>
-                left <span class="token operator">+=</span> <span class="token number">1</span>
-                right <span class="token operator">-=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        """
+        vowels = set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'])
+        s = list(s)
+        left = 0
+        right = len(s) - 1
+        while left < right:
+            if s[left] not in vowels:
+                left += 1
+            elif s[right] not in vowels:
+                right -= 1
+            else:
+                s[left], s[right] = s[right], s[left]
+                left += 1
+                right -= 1
+        return ''.join(s)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="练习4：Leetcode-第-11-题：盛最多水的容器"><a href="#练习4：Leetcode-第-11-题：盛最多水的容器" class="headerlink" title="练习4：Leetcode 第 11 题：盛最多水的容器"></a>练习4：Leetcode 第 11 题：<a href="https://leetcode-cn.com/problems/container-with-most-water" target="_blank" rel="noopener">盛最多水的容器</a></h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/container-with-most-water/description/" target="_blank" rel="noopener">11. Container With Most Water</a> ，中文网址：<a href="https://leetcode-cn.com/problems/container-with-most-water/description/" target="_blank" rel="noopener">11. 盛最多水的容器</a> 。</p>
 <blockquote>
 <p>给定 <em>n</em> 个非负整数 <em>a</em>1，<em>a</em>2，…，<em>a</em>n，每个数代表坐标中的一个点 (<em>i</em>, <em>ai</em>) 。在坐标内画 <em>n</em> 条垂直线，垂直线 <em>i</em> 的两个端点分别为 (<em>i</em>, <em>ai</em>) 和 (<em>i</em>, 0)。找出其中的两条线，使得它们与 <em>x</em> 轴共同构成的容器可以容纳最多的水。</p>
@@ -648,79 +659,81 @@
 <p>图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</p>
 <p><strong>示例:</strong></p>
 <pre><code>输入: [1,8,6,2,5,4,8,3,7]
-输出: 49</code></pre></blockquote>
+输出: 49
+</code></pre></blockquote>
 <p>思路：贪心算法，总是贪心先固定容器的宽度。根据木桶原理（盛水的高度由最短的那块木板决定），<strong>高的那块木板往里面走，只可能让盛水越来越少，但是短板往里面走，却有可能让盛水越来越多</strong>。  </p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">maxArea</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> height<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def maxArea(self, height):
+        """
         :type height: List[int]
         :rtype: int
-        """</span>
-        l <span class="token operator">=</span> <span class="token number">0</span>
-        r <span class="token operator">=</span> len<span class="token punctuation">(</span>height<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-        res <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
-            min_h <span class="token operator">=</span> min<span class="token punctuation">(</span>height<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">,</span> height<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">)</span>
-            res <span class="token operator">=</span> max<span class="token punctuation">(</span>res<span class="token punctuation">,</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">*</span> min_h<span class="token punctuation">)</span>
-            <span class="token keyword">if</span> min_h <span class="token operator">==</span> height<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">:</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                r <span class="token operator">-=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> res
+        """
+        l = 0
+        r = len(height) - 1
+        res = 0
+        while l < r:
+            min_h = min(height[l], height[r])
+            res = max(res, (r - l) * min_h)
+            if min_h == height[l]:
+                l += 1
+            else:
+                r -= 1
+        return res
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    height <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">]</span>
-    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    result <span class="token operator">=</span> solution<span class="token punctuation">.</span>maxArea<span class="token punctuation">(</span>height<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+if __name__ == '__main__':
+    height = [1, 8, 6, 2, 5, 4, 8, 3, 7]
+    solution = Solution()
+    result = solution.maxArea(height)
+    print(result)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
 
-    <span class="token comment" spellcheck="true">// 指针对撞、贪心思想</span>
-    <span class="token comment" spellcheck="true">// 参考解答：https://www.cnblogs.com/zichi/p/5745992.html</span>
+    // 指针对撞、贪心思想
+    // 参考解答：https://www.cnblogs.com/zichi/p/5745992.html
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxArea</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> height<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> height<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 0 或者 1 的时候，不能形成区间，所以不能形成容器</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> r <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 这里其实就是木桶原理，取决于最短的那根木板</span>
-            <span class="token comment" spellcheck="true">// [1,2,3] 3 和 1 之间的长度就是 (3-1=)2</span>
-            <span class="token keyword">int</span> area <span class="token operator">=</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">*</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>height<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">,</span> height<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            res <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> area<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>height<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">&lt;</span> height<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                l<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// height[l] >= height[r]</span>
-                r<span class="token operator">--</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public int maxArea(int[] height) {
+        int len = height.length;
+        if (len < 2) {
+            // 0 或者 1 的时候，不能形成区间，所以不能形成容器
+            return 0;
+        }
+        int l = 0;
+        int r = len - 1;
+        int res = 0;
+        while (l < r) {
+            // 这里其实就是木桶原理，取决于最短的那根木板
+            // [1,2,3] 3 和 1 之间的长度就是 (3-1=)2
+            int area = (r - l) * Math.min(height[l], height[r]);
+            res = Math.max(res, area);
+            if (height[l] < height[r]) {
+                l++;
+            } else {
+                // height[l] >= height[r]
+                r--;
+            }
+        }
+        return res;
+    }
 
 
-    <span class="token comment" spellcheck="true">// 暴力解法，时间复杂度太高，我们应该使用指针对撞的方法</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maxArea1</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> height<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> height<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                res <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> Integer<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>height<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> height<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>j <span class="token operator">-</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    // 暴力解法，时间复杂度太高，我们应该使用指针对撞的方法
+    public int maxArea1(int[] height) {
+        int len = height.length;
+        if (len < 2) {
+            return 0;
+        }
+        int res = 0;
+        for (int i = 0; i < len - 1; i++) {
+            for (int j = i + 1; j < len; j++) {
+                res = Integer.max(res, Integer.min(height[i], height[j]) * (j - i));
+            }
+        }
+        return res;
+    }
+}
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>参考资料：<a href="https://leetcode-cn.com/problems/container-with-most-water/solution/。" target="_blank" rel="noopener">https://leetcode-cn.com/problems/container-with-most-water/solution/。</a></p>
 <p>（本节完）</p>

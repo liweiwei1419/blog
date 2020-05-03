@@ -502,7 +502,8 @@ s: &quot;cbaebabacd&quot; p: &quot;abc&quot;
 
 解释:
 起始索引等于 0 的子串是 &quot;cba&quot;, 它是 &quot;abc&quot; 的字母异位词。
-起始索引等于 6 的子串是 &quot;bac&quot;, 它是 &quot;abc&quot; 的字母异位词。</code></pre><p> <strong>示例 2:</strong></p>
+起始索引等于 6 的子串是 &quot;bac&quot;, 它是 &quot;abc&quot; 的字母异位词。
+</code></pre><p> <strong>示例 2:</strong></p>
 <pre><code>输入:
 s: &quot;abab&quot; p: &quot;ab&quot;
 
@@ -512,184 +513,188 @@ s: &quot;abab&quot; p: &quot;ab&quot;
 解释:
 起始索引等于 0 的子串是 &quot;ab&quot;, 它是 &quot;ab&quot; 的字母异位词。
 起始索引等于 1 的子串是 &quot;ba&quot;, 它是 &quot;ab&quot; 的字母异位词。
-起始索引等于 2 的子串是 &quot;ab&quot;, 它是 &quot;ab&quot; 的字母异位词。</code></pre></blockquote>
+起始索引等于 2 的子串是 &quot;ab&quot;, 它是 &quot;ab&quot; 的字母异位词。
+</code></pre></blockquote>
 <p>说明：这是一道使用<strong>滑动窗口</strong>解决的典型问题。虽然标记为简单，但是也不好做。</p>
 <p>思路1：滑动窗口的右边界划过的时候，map 对应的次数减少，左边界划过的时候，map 对应的次数增加。设置一个 distance 变量，表示二者的差距。</p>
 <p>Python 代码：在理解的基础上，记住这个解法</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">findAnagrams</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def findAnagrams(self, s, p):
+        """
         :type s: str
         :type p: str 模式串
         :rtype: List[int]
-        """</span>
+        """
 
-        <span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
-        hash <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>int<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 滑动窗口的长度</span>
-        plen <span class="token operator">=</span> len<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 预处理</span>
-        <span class="token keyword">for</span> alpha <span class="token keyword">in</span> p<span class="token punctuation">:</span>
-            hash<span class="token punctuation">[</span>alpha<span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token comment" spellcheck="true"># 滑动窗口的左边界</span>
-        l <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token comment" spellcheck="true"># 滑动窗口的右边界</span>
-        r <span class="token operator">=</span> <span class="token number">0</span>
+        from collections import defaultdict
+        hash = defaultdict(int)
+        # 滑动窗口的长度
+        plen = len(p)
+        # 预处理
+        for alpha in p:
+            hash[alpha] += 1
+        # 滑动窗口的左边界
+        l = 0
+        # 滑动窗口的右边界
+        r = 0
 
-        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        <span class="token comment" spellcheck="true"># 可以认为是两者的差距</span>
-        distance <span class="token operator">=</span> plen
+        res = []
+        # 可以认为是两者的差距
+        distance = plen
 
-        <span class="token keyword">while</span> r <span class="token operator">&lt;</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> hash<span class="token punctuation">[</span>s<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
-                distance <span class="token operator">-=</span> <span class="token number">1</span>
-            hash<span class="token punctuation">[</span>s<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
-            r <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">if</span> distance <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>l<span class="token punctuation">)</span>
-            <span class="token keyword">if</span> r <span class="token operator">-</span> l <span class="token operator">==</span> plen<span class="token punctuation">:</span>
-                <span class="token keyword">if</span> hash<span class="token punctuation">[</span>s<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                    distance <span class="token operator">+=</span> <span class="token number">1</span>
+        while r < len(s):
+            if hash[s[r]] > 0:
+                distance -= 1
+            hash[s[r]] -= 1
+            r += 1
+            if distance == 0:
+                res.append(l)
+            if r - l == plen:
+                if hash[s[l]] >= 0:
+                    distance += 1
 
-                hash<span class="token punctuation">[</span>s<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> res
+                hash[s[l]] += 1
+                l += 1
+        return res
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    s <span class="token operator">=</span> <span class="token string">"cbaebabacd"</span>
-    p <span class="token operator">=</span> <span class="token string">"abc"</span>
-    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    result <span class="token operator">=</span> solution<span class="token punctuation">.</span>findAnagrams<span class="token punctuation">(</span>s<span class="token punctuation">,</span> p<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+if __name__ == '__main__':
+    s = "cbaebabacd"
+    p = "abc"
+    solution = Solution()
+    result = solution.findAnagrams(s, p)
+    print(result)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>思路2：（参考）给 p 做字母频率统计，扫过以后，全部一样，就表示找到一个字母异位词。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">findAnagrams</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def findAnagrams(self, s, p):
+        """
         :type s: str
         :type p: str
         :rtype: List[int]
-        """</span>
+        """
 
-        plen <span class="token operator">=</span> len<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
-        slen <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+        plen = len(p)
+        slen = len(s)
 
-        scnt <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">26</span>
-        pcnt <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">26</span>
+        scnt = [0] * 26
+        pcnt = [0] * 26
 
-        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        <span class="token keyword">for</span> alpha <span class="token keyword">in</span> p<span class="token punctuation">:</span>
-            pcnt<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>alpha<span class="token punctuation">)</span> <span class="token operator">-</span> ord<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+        res = []
+        for alpha in p:
+            pcnt[ord(alpha) - ord('a')] += 1
 
-        <span class="token keyword">for</span> end <span class="token keyword">in</span> range<span class="token punctuation">(</span>slen<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> end <span class="token operator">>=</span> plen<span class="token punctuation">:</span>
-                scnt<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>end <span class="token operator">-</span> plen<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> ord<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
-            scnt<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>end<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> ord<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">if</span> scnt <span class="token operator">==</span> pcnt<span class="token punctuation">:</span>
-                res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>end <span class="token operator">-</span> plen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> res
+        for end in range(slen):
+            if end >= plen:
+                scnt[ord(s[end - plen]) - ord('a')] -= 1
+            scnt[ord(s[end]) - ord('a')] += 1
+            if scnt == pcnt:
+                res.append(end - plen + 1)
+        return res
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    s <span class="token operator">=</span> <span class="token string">"cbaebabacd"</span>
-    p <span class="token operator">=</span> <span class="token string">"abc"</span>
-    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    result <span class="token operator">=</span> solution<span class="token punctuation">.</span>findAnagrams<span class="token punctuation">(</span>s<span class="token punctuation">,</span> p<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+if __name__ == '__main__':
+    s = "cbaebabacd"
+    p = "abc"
+    solution = Solution()
+    result = solution.findAnagrams(s, p)
+    print(result)
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：与上一版代码等价</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">findAnagrams</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def findAnagrams(self, s, p):
+        """
         :type s: str
         :type p: str
         :rtype: List[int]
-        """</span>
+        """
 
-        <span class="token comment" spellcheck="true"># 滑动窗口的大小</span>
-        plen <span class="token operator">=</span> len<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
-        slen <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+        # 滑动窗口的大小
+        plen = len(p)
+        slen = len(s)
 
-        scnt <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">26</span>
-        pcnt <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">26</span>
+        scnt = [0] * 26
+        pcnt = [0] * 26
 
-        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        <span class="token keyword">for</span> alpha <span class="token keyword">in</span> p<span class="token punctuation">:</span>
-            pcnt<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>alpha<span class="token punctuation">)</span> <span class="token operator">-</span> ord<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
+        res = []
+        for alpha in p:
+            pcnt[ord(alpha) - ord('a')] += 1
 
-        <span class="token keyword">for</span> end <span class="token keyword">in</span> range<span class="token punctuation">(</span>slen<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            scnt<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>end<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> ord<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">if</span> end <span class="token operator">>=</span> plen <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">:</span>
-                <span class="token keyword">if</span> scnt <span class="token operator">==</span> pcnt<span class="token punctuation">:</span>
-                    res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>end <span class="token operator">-</span> plen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-                scnt<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>end <span class="token operator">-</span> plen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span> ord<span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        for end in range(slen):
+            scnt[ord(s[end]) - ord('a')] += 1
+            if end >= plen - 1:
+                if scnt == pcnt:
+                    res.append(end - plen + 1)
+                scnt[ord(s[end - plen + 1]) - ord('a')] -= 1
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.ArrayList;
+import java.util.List;
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution5</span> <span class="token punctuation">{</span>
+public class Solution5 {
 
-    <span class="token comment" spellcheck="true">// 这种解法从语义上更好理解一些</span>
+    // 这种解法从语义上更好理解一些
 
-    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> <span class="token function">findAnagrams</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> res = new ArrayList<>();
 
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> cntp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">26</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> cnts <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">26</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        int[] cntp = new int[26];
+        int[] cnts = new int[26];
 
-        <span class="token keyword">int</span> plen <span class="token operator">=</span> p<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> slen <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        int plen = p.length();
+        int slen = s.length();
 
-        <span class="token comment" spellcheck="true">// 数组 cntp 在预处理以后是不会</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> plen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            cntp<span class="token punctuation">[</span>p<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        // 数组 cntp 在预处理以后是不会
+        for (int i = 0; i < plen; i++) {
+            cntp[p.charAt(i) - 'a']++;
+        }
 
-        <span class="token comment" spellcheck="true">// 数 0 的个数</span>
-        <span class="token keyword">int</span> same <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">26</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>cntp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                same<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
+        // 数 0 的个数
+        int same = 0;
+        for (int i = 0; i < 26; i++) {
+            if (cntp[i] == 0) {
+                same++;
+            }
+        }
 
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> slen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 右边界进来的时候全部加 1</span>
-            <span class="token keyword">char</span> curChar <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            cnts<span class="token punctuation">[</span>curChar <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>cnts<span class="token punctuation">[</span>curChar <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span> <span class="token operator">==</span> cntp<span class="token punctuation">[</span>curChar <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 右边界进来的时候，正好相等，则两个数组相同的数量加 1</span>
-                same<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>cnts<span class="token punctuation">[</span>curChar <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span> <span class="token operator">==</span> cntp<span class="token punctuation">[</span>curChar <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 右边界进来的时候，s 数组比 p 数组相应位置多 1，也就是说，二者不等，所以相同的数量减 1</span>
-                same<span class="token operator">--</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
+        for (int i = 0; i < slen; i++) {
+            // 右边界进来的时候全部加 1
+            char curChar = s.charAt(i);
+            cnts[curChar - 'a']++;
+            if (cnts[curChar - 'a'] == cntp[curChar - 'a']) {
+                // 右边界进来的时候，正好相等，则两个数组相同的数量加 1
+                same++;
+            } else if (cnts[curChar - 'a'] == cntp[curChar - 'a'] + 1) {
+                // 右边界进来的时候，s 数组比 p 数组相应位置多 1，也就是说，二者不等，所以相同的数量减 1
+                same--;
+            }
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">>=</span> plen<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 计算左边界</span>
-                <span class="token keyword">int</span> deleteIndex <span class="token operator">=</span> i <span class="token operator">-</span> plen<span class="token punctuation">;</span>
-                <span class="token keyword">char</span> deleteChar <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>deleteIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">// 左边界出来的时候，全部减 1</span>
-                cnts<span class="token punctuation">[</span>deleteChar <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>cnts<span class="token punctuation">[</span>deleteChar <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span> <span class="token operator">==</span> cntp<span class="token punctuation">[</span>deleteChar <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    <span class="token comment" spellcheck="true">// 滑出去以后相等，所以加 1</span>
-                    same<span class="token operator">++</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>cnts<span class="token punctuation">[</span>deleteChar <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span> <span class="token operator">==</span> cntp<span class="token punctuation">[</span>deleteChar <span class="token operator">-</span> <span class="token string">'a'</span><span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    <span class="token comment" spellcheck="true">// 滑出去以后，比数组 p 少 1，所以减 1</span>
-                    same<span class="token operator">--</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
+            if (i >= plen) {
+                // 计算左边界
+                int deleteIndex = i - plen;
+                char deleteChar = s.charAt(deleteIndex);
+                // 左边界出来的时候，全部减 1
+                cnts[deleteChar - 'a']--;
+                if (cnts[deleteChar - 'a'] == cntp[deleteChar - 'a']) {
+                    // 滑出去以后相等，所以加 1
+                    same++;
+                } else if (cnts[deleteChar - 'a'] == cntp[deleteChar - 'a'] - 1) {
+                    // 滑出去以后，比数组 p 少 1，所以减 1
+                    same--;
+                }
+            }
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>same <span class="token operator">==</span> <span class="token number">26</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>i <span class="token operator">-</span> plen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+            if (same == 26) {
+                res.add(i - plen + 1);
+            }
+        }
+        return res;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
             </div>
             <hr/>
 

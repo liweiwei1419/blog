@@ -502,106 +502,87 @@
 <p>1、<code>nums[mid] &gt; nums[right]</code>：例子：<code>[7, 8, 9, 10, 1, 2]</code>，<code>mid</code> 肯定不是最小；</p>
 <p>2、否则，<code>nums[mid] &lt; nums[right]</code>：例子：<code>[8, 9, 1, 2, 3, 4, 5, 6]</code>，此时 <code>mid</code> 有可能是最小。</p>
 <p><strong>参考代码 1</strong>：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">from typing import List
-
-
-class Solution:
-    def findMin(self, nums: List[int]) -> int:
-        size = len(nums)
-        if size == 0:
-            raise Exception('程序出错')
-        if size == 1:
-            return nums[0]
-        left = 0
-        right = size - 1
-        while left < right:
-            # mid = left + (right - left) // 2
-            mid = (left + right) >> 1
-            # [7, 8, 1, 2, 3, 4, 5, 6]
-            if nums[mid] > nums[right]:
-                # [3, 4, 5, 6, 7, 8, 1, 2]
-                # 此时 mid 肯定不是最小元素
-                left = mid + 1
-            else:
-                # mid 有可能是最小元素，所以，不能排除它
-                assert nums[mid] < nums[right]
-                right = mid
-        # 一定存在最小元素，因此无需再做判断
-        return nums[left]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
+<p>```Python []<br>from typing import List</p>
+<p>class Solution:<br>    def findMin(self, nums: List[int]) -&gt; int:<br>        size = len(nums)<br>        if size == 0:<br>            raise Exception(‘程序出错’)<br>        if size == 1:<br>            return nums[0]<br>        left = 0<br>        right = size - 1<br>        while left &lt; right:</p>
+<pre><code>        # mid = left + (right - left) // 2
+        mid = (left + right) &gt;&gt; 1
+        # [7, 8, 1, 2, 3, 4, 5, 6]
+        if nums[mid] &gt; nums[right]:
+            # [3, 4, 5, 6, 7, 8, 1, 2]
+            # 此时 mid 肯定不是最小元素
+            left = mid + 1
+        else:
+            # mid 有可能是最小元素，所以，不能排除它
+            assert nums[mid] &lt; nums[right]
+            right = mid
+    # 一定存在最小元素，因此无需再做判断
+    return nums[left]
+</code></pre><pre><code>```Java []
+public class Solution {
 
     public int findMin(int[] nums) {
         int len = nums.length;
         if (len == 0) {
-            throw new IllegalArgumentException("数组为空，无最小元素");
+            throw new IllegalArgumentException(&quot;数组为空，无最小元素&quot;);
         }
         int left = 0;
         int right = len - 1;
-        while (left < right) {
+        while (left &lt; right) {
             // int mid = left + (right - left) / 2;
-            int mid = (left + right) >>> 1;
-            if (nums[mid] > nums[right]) {
+            int mid = (left + right) &gt;&gt;&gt; 1;
+            if (nums[mid] &gt; nums[right]) {
                 left = mid + 1;
             } else {
                 // 因为题目中说：你可以假设数组中不存在重复元素。
-                // 此时一定有 nums[mid] < nums[right]
+                // 此时一定有 nums[mid] &lt; nums[right]
                 right = mid;
             }
         }
         // 一定存在最小元素，因此无需再做判断
         return nums[left];
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="方法二：分治法"><a href="#方法二：分治法" class="headerlink" title="方法二：分治法"></a>方法二：分治法</h3><p>分治法同样适用于 LeetCode 第 154 题。</p>
+}
+</code></pre><h3 id="方法二：分治法"><a href="#方法二：分治法" class="headerlink" title="方法二：分治法"></a>方法二：分治法</h3><p>分治法同样适用于 LeetCode 第 154 题。</p>
 <p><strong>参考代码 2</strong>：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">from typing import List
-
-
-class Solution:
-    def findMin(self, nums: List[int]) -> int:
-        size = len(nums)
-        if size == 0:
-            raise Exception('程序出错')
-        if size == 1:
-            return nums[0]
-        return self.__findMin(nums, 0, size - 1)
-
-    def __findMin(self, nums, left, right):
-        if left == right:
-            return nums[left]
-        if left + 1 == right:
-            return min(nums[left], nums[right])
-        # mid = left + (right - left) // 2
-        mid = (left + right) >> 1
-        return min(self.__findMin(nums, left, mid),
-                   self.__findMin(nums, mid + 1, right))<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
+<p>```Python []<br>from typing import List</p>
+<p>class Solution:<br>    def findMin(self, nums: List[int]) -&gt; int:<br>        size = len(nums)<br>        if size == 0:<br>            raise Exception(‘程序出错’)<br>        if size == 1:<br>            return nums[0]<br>        return self.__findMin(nums, 0, size - 1)</p>
+<pre><code>def __findMin(self, nums, left, right):
+    if left == right:
+        return nums[left]
+    if left + 1 == right:
+        return min(nums[left], nums[right])
+    # mid = left + (right - left) // 2
+    mid = (left + right) &gt;&gt; 1
+    return min(self.__findMin(nums, left, mid),
+               self.__findMin(nums, mid + 1, right))
+</code></pre><pre><code>```Java []
+public class Solution {
 
     // 虽然可以通过，但是时间复杂度是 O(n)
 
     public int findMin(int[] nums) {
         int len = nums.length;
         if (len == 0) {
-            throw new IllegalArgumentException("数组为空");
+            throw new IllegalArgumentException(&quot;数组为空&quot;);
         }
         return findMin(nums, 0, len - 1);
     }
 
     private int findMin(int[] nums, int left, int right) {
         // 思考：这个临界条件是为什么?
-        // 或者写成 left + 1 >= right
+        // 或者写成 left + 1 &gt;= right
         if (left == right || left + 1 == right) {
             return Math.min(nums[left], nums[right]);
         }
         // int mid = left + (right - left) / 2;
-        int mid = (left + right) >>> 1;
+        int mid = (left + right) &gt;&gt;&gt; 1;
         // 8 9 1 2 3 4 5 6 7
-        if (nums[mid] < nums[right]) {
+        if (nums[mid] &lt; nums[right]) {
             // 右边是顺序数组
             return Math.min(findMin(nums, left, mid - 1), nums[mid]);
         } else {
             // 左边是顺序数组
-            // nums[mid] > nums[right]
+            // nums[mid] &gt; nums[right]
             // 3 4 5 6 7 8 1 2
             return Math.min(nums[left], findMin(nums, mid + 1, right));
         }
@@ -614,8 +595,8 @@ class Solution:
         System.out.println(solution2Min);
     }
 
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>（本节完）</p>
+}
+</code></pre><p>（本节完）</p>
 
             </div>
             <hr/>

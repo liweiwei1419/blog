@@ -493,38 +493,40 @@
 /   \
 2     3         &lt;---
 \     \
-5     4       &lt;---</code></pre></blockquote>
+5     4       &lt;---
+</code></pre></blockquote>
 <p>分析：1、深度优先遍历；2、层序遍历（2种写法，本质上其实一样）。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 199. 二叉树的右视图</span>
-<span class="token comment" spellcheck="true"># 给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。</span>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python"># 199. 二叉树的右视图
+# 给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
 
-<span class="token keyword">class</span> <span class="token class-name">TreeNode</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
-        self<span class="token punctuation">.</span>left <span class="token operator">=</span> None
-        self<span class="token punctuation">.</span>right <span class="token operator">=</span> None
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 
-<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+class Solution:
 
-    <span class="token keyword">def</span> <span class="token function">rightSideView</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> root<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def rightSideView(self, root):
+        """
         :type root: TreeNode
         :rtype: List[int]
-        """</span>
+        """
 
-        <span class="token keyword">def</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> res<span class="token punctuation">,</span> depth<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> node <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-                <span class="token keyword">return</span>
-            <span class="token keyword">if</span> len<span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token operator">==</span> depth<span class="token punctuation">:</span>
-                res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>node<span class="token punctuation">.</span>val<span class="token punctuation">)</span>
-            dfs<span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">,</span> res<span class="token punctuation">,</span> depth <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            dfs<span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">,</span> res<span class="token punctuation">,</span> depth <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        def dfs(node, res, depth):
+            if node is None:
+                return
+            if len(res) == depth:
+                res.append(node.val)
+            dfs(node.right, res, depth + 1)
+            dfs(node.left, res, depth + 1)
 
-        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        dfs<span class="token punctuation">(</span>root<span class="token punctuation">,</span> res<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        res = []
+        dfs(root, res, 0)
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
 
             </div>

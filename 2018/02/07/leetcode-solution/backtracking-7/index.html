@@ -513,7 +513,8 @@
   &quot;...Q&quot;,
   &quot;.Q..&quot;]
 ]
-解释: 4 皇后问题存在两个不同的解法。</code></pre><p><strong>分析</strong>：以 4 皇后问题为例，它的「搜索」过程如下，大家完全可以在纸上模拟下面这个过程：</p>
+解释: 4 皇后问题存在两个不同的解法。
+</code></pre><p><strong>分析</strong>：以 4 皇后问题为例，它的「搜索」过程如下，大家完全可以在纸上模拟下面这个过程：</p>
 <p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMubGVldGNvZGUtY24uY29tLzlkNDNkMDM4OTc4NDY1YmMxZjM1ZTA4OGRlNGNiOGI4ZDI2MDEyOWRiMzM1MTAzNjMxN2EyMjQ2ZTEyMTI0N2YtMDA1MS5naWY" alt="0051.gif">{:width=500}<br>搜索问题的解决策略是画递归树。还以 4 皇后问题为例，画出的递归树如下。</p>
 <p>以下假定给棋盘的每一行从左到右标记为 $1$、$2$、$3$、$4$：</p>
 <p><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly9waWMubGVldGNvZGUtY24uY29tL2E4ODI2MzkxMTY2MmYxOTJmM2YwNWIxNGU5NDg3MzEwZGU4YjVmMGE3MzM3NjE1Nzk0N2UzN2QwYTAwNDAxOGEtaW1hZ2UucG5n?x-oss-process=image/format,png" alt="image.png"><br>{:align=center}</p>
@@ -532,80 +533,81 @@
 <li>写对了「哈希表」以后，说明我们的思路是没有问题的，然后再写「数组」作为状态，最后写「位图」作为「状态」 。</li>
 </ul>
 <p>得到一个符合要求的 「全排列」以后，生成棋盘的代码就很简单了。</p>
-<p>*<em>参考代码 *</em>：使用哈希表分别记录「列占用情况」 、 「主对角线占用情况」 、 「副对角线占用情况」。 </p>
+<p><strong>参考代码 </strong>：使用哈希表分别记录「列占用情况」 、 「主对角线占用情况」 、 「副对角线占用情况」。 </p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashSet<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
-<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Stack<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.Stack;
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+public class Solution {
 
-    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> <span class="token function">solveNQueens</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> res = new ArrayList<>();
+        if (n == 0) {
+            return res;
+        }
 
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        int[] nums = new int[n];
+        for (int i = 0; i < n; i++) {
+            nums[i] = i;
+        }
 
-        <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span> col <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">boolean</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span> master <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">boolean</span><span class="token punctuation">[</span><span class="token number">2</span> <span class="token operator">*</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span> slave <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">boolean</span><span class="token punctuation">[</span><span class="token number">2</span> <span class="token operator">*</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        Stack<span class="token operator">&lt;</span>Integer<span class="token operator">></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        boolean[] col = new boolean[n];
+        boolean[] master = new boolean[2 * n - 1];
+        boolean[] slave = new boolean[2 * n - 1];
+        Stack<Integer> stack = new Stack<>();
 
-        <span class="token function">backtrack</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> n<span class="token punctuation">,</span> col<span class="token punctuation">,</span> master<span class="token punctuation">,</span> slave<span class="token punctuation">,</span> stack<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        backtrack(nums, 0, n, col, master, slave, stack, res);
+        return res;
+    }
 
-    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">backtrack</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> row<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">,</span>
-                           <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span> col<span class="token punctuation">,</span>
-                           <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span> master<span class="token punctuation">,</span>
-                           <span class="token keyword">boolean</span><span class="token punctuation">[</span><span class="token punctuation">]</span> slave<span class="token punctuation">,</span>
-                           Stack<span class="token operator">&lt;</span>Integer<span class="token operator">></span> stack<span class="token punctuation">,</span>
-                           List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    private void backtrack(int[] nums, int row, int n,
+                           boolean[] col,
+                           boolean[] master,
+                           boolean[] slave,
+                           Stack<Integer> stack,
+                           List<List<String>> res) {
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>row <span class="token operator">==</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            List<span class="token operator">&lt;</span>String<span class="token operator">></span> board <span class="token operator">=</span> <span class="token function">convert2board</span><span class="token punctuation">(</span>stack<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>board<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        if (row == n) {
+            List<String> board = convert2board(stack, n);
+            res.add(board);
+            return;
+        }
 
-        <span class="token comment" spellcheck="true">// 针对每一列，尝试是否可以放置</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>col<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>master<span class="token punctuation">[</span>row <span class="token operator">+</span> i<span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>slave<span class="token punctuation">[</span>row <span class="token operator">-</span> i <span class="token operator">+</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                stack<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                col<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-                master<span class="token punctuation">[</span>row <span class="token operator">+</span> i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-                slave<span class="token punctuation">[</span>row <span class="token operator">-</span> i <span class="token operator">+</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        // 针对每一列，尝试是否可以放置
+        for (int i = 0; i < n; i++) {
+            if (!col[i] && !master[row + i] && !slave[row - i + n - 1]) {
+                stack.add(nums[i]);
+                col[i] = true;
+                master[row + i] = true;
+                slave[row - i + n - 1] = true;
 
-                <span class="token function">backtrack</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> row <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> n<span class="token punctuation">,</span> col<span class="token punctuation">,</span> master<span class="token punctuation">,</span> slave<span class="token punctuation">,</span> stack<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                backtrack(nums, row + 1, n, col, master, slave, stack, res);
 
-                slave<span class="token punctuation">[</span>row <span class="token operator">-</span> i <span class="token operator">+</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-                master<span class="token punctuation">[</span>row <span class="token operator">+</span> i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-                col<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-                stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+                slave[row - i + n - 1] = false;
+                master[row + i] = false;
+                col[i] = false;
+                stack.pop();
+            }
+        }
+    }
 
-    <span class="token keyword">private</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">convert2board</span><span class="token punctuation">(</span>Stack<span class="token operator">&lt;</span>Integer<span class="token operator">></span> stack<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        List<span class="token operator">&lt;</span>String<span class="token operator">></span> board <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span>Integer num <span class="token operator">:</span> stack<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            StringBuilder stringBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                stringBuilder<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            stringBuilder<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>num<span class="token punctuation">,</span> num <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"Q"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            board<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>stringBuilder<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> board<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    private List<String> convert2board(Stack<Integer> stack, int n) {
+        List<String> board = new ArrayList<>();
+        for (Integer num : stack) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < n; i++) {
+                stringBuilder.append(".");
+            }
+            stringBuilder.replace(num, num + 1, "Q");
+            board.add(stringBuilder.toString());
+        }
+        return board;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>「回溯问题」应用于游戏，一般都比较难，大家可以根据自己的实际情况酌情选择相关的练习来做。</p>
 <h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>1、「力扣」第 52 题：<a href="https://leetcode-cn.com/problems/n-queens-ii/" target="_blank" rel="noopener">N皇后 II</a>；</p>
 <p>2、「力扣」第 37 题：<a href="https://leetcode-cn.com/problems/sudoku-solver/" target="_blank" rel="noopener">解数独</a>；</p>

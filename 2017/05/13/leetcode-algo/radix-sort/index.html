@@ -444,12 +444,12 @@
                                 <span class="chip bg-color">排序算法</span>
                             </a>
                         
-                            <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
-                                <span class="chip bg-color">递归</span>
-                            </a>
-                        
                             <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
                                 <span class="chip bg-color">分治</span>
+                            </a>
+                        
+                            <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                                <span class="chip bg-color">递归</span>
                             </a>
                         
                             <a href="/leetcode-algo/tags/partition/">
@@ -500,106 +500,107 @@
 </li>
 </ul>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
 
-    <span class="token comment" spellcheck="true">// 基数排序：低位优先</span>
+    // 基数排序：低位优先
 
-    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> OFFSET <span class="token operator">=</span> <span class="token number">50000</span><span class="token punctuation">;</span>
+    private static final int OFFSET = 50000;
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">sortArray</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    public int[] sortArray(int[] nums) {
+        int len = nums.length;
 
-        <span class="token comment" spellcheck="true">// 预处理，让所有的数都大于等于 0，这样才可以使用基数排序</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> OFFSET<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        // 预处理，让所有的数都大于等于 0，这样才可以使用基数排序
+        for (int i = 0; i < len; i++) {
+            nums[i] += OFFSET;
+        }
 
-        <span class="token comment" spellcheck="true">// 第 1 步：找出最大的数字</span>
-        <span class="token keyword">int</span> max <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num <span class="token operator">:</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>num <span class="token operator">></span> max<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                max <span class="token operator">=</span> num<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
+        // 第 1 步：找出最大的数字
+        int max = nums[0];
+        for (int num : nums) {
+            if (num > max) {
+                max = num;
+            }
+        }
 
-        <span class="token comment" spellcheck="true">// 第 2 步：计算出最大的数字有几位，这个数值决定了我们要将整个数组看几遍</span>
-        <span class="token keyword">int</span> maxLen <span class="token operator">=</span> <span class="token function">getMaxLen</span><span class="token punctuation">(</span>max<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        // 第 2 步：计算出最大的数字有几位，这个数值决定了我们要将整个数组看几遍
+        int maxLen = getMaxLen(max);
 
-        <span class="token comment" spellcheck="true">// 计数排序需要使用的计数数组和临时数组</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> count <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        // 计数排序需要使用的计数数组和临时数组
+        int[] count = new int[10];
+        int[] temp = new int[len];
 
-        <span class="token comment" spellcheck="true">// 表征关键字的量：除数</span>
-        <span class="token comment" spellcheck="true">// 1 表示按照个位关键字排序</span>
-        <span class="token comment" spellcheck="true">// 10 表示按照十位关键字排序</span>
-        <span class="token comment" spellcheck="true">// 100 表示按照百位关键字排序</span>
-        <span class="token comment" spellcheck="true">// 1000 表示按照千位关键字排序</span>
-        <span class="token keyword">int</span> divisor <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 有几位数，外层循环就得执行几次</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> maxLen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        // 表征关键字的量：除数
+        // 1 表示按照个位关键字排序
+        // 10 表示按照十位关键字排序
+        // 100 表示按照百位关键字排序
+        // 1000 表示按照千位关键字排序
+        int divisor = 1;
+        // 有几位数，外层循环就得执行几次
+        for (int i = 0; i < maxLen; i++) {
 
-            <span class="token comment" spellcheck="true">// 每一步都使用计数排序，保证排序结果是稳定的</span>
-            <span class="token comment" spellcheck="true">// 这一步需要额外空间保存结果集，因此把结果保存在 temp 中</span>
-            <span class="token function">countingSort</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> divisor<span class="token punctuation">,</span> len<span class="token punctuation">,</span> count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            // 每一步都使用计数排序，保证排序结果是稳定的
+            // 这一步需要额外空间保存结果集，因此把结果保存在 temp 中
+            countingSort(nums, temp, divisor, len, count);
 
-            <span class="token comment" spellcheck="true">// 交换 nums 和 temp 的引用，下一轮还是按照 nums 做计数排序</span>
-            <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> t <span class="token operator">=</span> nums<span class="token punctuation">;</span>
-            nums <span class="token operator">=</span> temp<span class="token punctuation">;</span>
-            temp <span class="token operator">=</span> t<span class="token punctuation">;</span>
+            // 交换 nums 和 temp 的引用，下一轮还是按照 nums 做计数排序
+            int[] t = nums;
+            nums = temp;
+            temp = t;
 
-            <span class="token comment" spellcheck="true">// divisor 自增，表示采用低位优先的基数排序</span>
-            divisor <span class="token operator">*=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+            // divisor 自增，表示采用低位优先的基数排序
+            divisor *= 10;
+        }
 
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            res<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> OFFSET<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        int[] res = new int[len];
+        for (int i = 0; i < len; i++) {
+            res[i] = nums[i] - OFFSET;
+        }
+        return res;
+    }
 
-    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">countingSort</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> res<span class="token punctuation">,</span> <span class="token keyword">int</span> divisor<span class="token punctuation">,</span> <span class="token keyword">int</span> len<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> count<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 1、计算计数数组</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 计算数位上的数是几，先取个位，再十位、百位</span>
-            <span class="token keyword">int</span> remainder <span class="token operator">=</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">/</span> divisor<span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>
-            count<span class="token punctuation">[</span>remainder<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+    private void countingSort(int[] nums, int[] res, int divisor, int len, int[] count) {
+        // 1、计算计数数组
+        for (int i = 0; i < len; i++) {
+            // 计算数位上的数是几，先取个位，再十位、百位
+            int remainder = (nums[i] / divisor) % 10;
+            count[remainder]++;
+        }
 
-        <span class="token comment" spellcheck="true">// 2、变成前缀和数组</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            count<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">+=</span> count<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        // 2、变成前缀和数组
+        for (int i = 1; i < 10; i++) {
+            count[i] += count[i - 1];
+        }
 
-        <span class="token comment" spellcheck="true">// 3、从后向前赋值</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> remainder <span class="token operator">=</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">/</span> divisor<span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">10</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> index <span class="token operator">=</span> count<span class="token punctuation">[</span>remainder<span class="token punctuation">]</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            res<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            count<span class="token punctuation">[</span>remainder<span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        // 3、从后向前赋值
+        for (int i = len - 1; i >= 0; i--) {
+            int remainder = (nums[i] / divisor) % 10;
+            int index = count[remainder] - 1;
+            res[index] = nums[i];
+            count[remainder]--;
+        }
 
-        <span class="token comment" spellcheck="true">// 4、count 数组需要设置为 0 ，以免干扰下一次排序使用</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            count<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+        // 4、count 数组需要设置为 0 ，以免干扰下一次排序使用
+        for (int i = 0; i < 10; i++) {
+            count[i] = 0;
+        }
+    }
 
-    <span class="token comment" spellcheck="true">/**
+    /**
      * 获取一个整数的最大位数
      *
      * @param num
      * @return
-     */</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">getMaxLen</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> maxLen <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>num <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            num <span class="token operator">/=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-            maxLen<span class="token operator">++</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> maxLen<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+     */
+    private int getMaxLen(int num) {
+        int maxLen = 0;
+        while (num > 0) {
+            num /= 10;
+            maxLen++;
+        }
+        return maxLen;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析</strong>：（略，这部分内容不太重要，增加学习负担）</p>
 <p>（本节完）</p>
 
@@ -672,12 +673,12 @@
                                     <span class="chip bg-color">排序算法</span>
                                 </a>
                             
-                                <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
-                                    <span class="chip bg-color">递归</span>
-                                </a>
-                            
                                 <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
                                     <span class="chip bg-color">分治</span>
+                                </a>
+                            
+                                <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                                    <span class="chip bg-color">递归</span>
                                 </a>
                             
                                 <a href="/leetcode-algo/tags/partition/">
@@ -918,12 +919,12 @@
                         <span class="chip bg-color">排序算法</span>
                     </a>
                     
-                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
-                        <span class="chip bg-color">递归</span>
-                    </a>
-                    
                     <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB/">
                         <span class="chip bg-color">分治</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                        <span class="chip bg-color">递归</span>
                     </a>
                     
                     <a href="/leetcode-algo/tags/partition/">

@@ -495,64 +495,70 @@
 <p><strong>说明：</strong>本题中，我们将空字符串定义为有效的回文串。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: &quot;A man, a plan, a canal: Panama&quot;
-输出: true</code></pre><p><strong>示例 2:</strong></p>
+输出: true
+</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: &quot;race a car&quot;
-输出: false</code></pre></blockquote>
+输出: false
+</code></pre></blockquote>
 <p>Python 代码：注意编码的细节</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
+    def isPalindrome(self, s):
+        """
         :type s: str
         :rtype: bool
-        """</span>
-        left <span class="token operator">=</span> <span class="token number">0</span>
-        right <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> left <span class="token operator">&lt;</span> right<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> <span class="token operator">not</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">.</span>isalnum<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                left <span class="token operator">+=</span> <span class="token number">1</span>
-                <span class="token keyword">continue</span>
-            <span class="token keyword">if</span> <span class="token operator">not</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">.</span>isalnum<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                right <span class="token operator">-=</span> <span class="token number">1</span>
-                <span class="token keyword">continue</span>
+        """
+        left = 0
+        right = len(s) - 1
+        while left < right:
+            if not s[left].isalnum():
+                left += 1
+                continue
+            if not s[right].isalnum():
+                right -= 1
+                continue
 
-            <span class="token keyword">if</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">return</span> <span class="token boolean">False</span>
+            if s[left].lower() != s[right].lower():
+                return False
 
-            left <span class="token operator">+=</span> <span class="token number">1</span>
-            right <span class="token operator">-=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> <span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            left += 1
+            right -= 1
+        return True
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="Leetcode-第-125-题：验证回文串"><a href="#Leetcode-第-125-题：验证回文串" class="headerlink" title="Leetcode 第 125 题：验证回文串"></a>Leetcode 第 125 题：验证回文串</h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/valid-palindrome/description/" target="_blank" rel="noopener">125. Valid Palindrome</a> ，中文网址：<a href="https://leetcode-cn.com/problems/valid-palindrome/description/" target="_blank" rel="noopener">125. 验证回文串</a> 。</p>
 <blockquote>
 <p>给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。</p>
 <p><strong>说明：</strong>本题中，我们将空字符串定义为有效的回文串。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: &quot;A man, a plan, a canal: Panama&quot;
-输出: true</code></pre><p><strong>示例 2:</strong></p>
+输出: true
+</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: &quot;race a car&quot;
-输出: false</code></pre></blockquote>
+输出: false
+</code></pre></blockquote>
 <p>Python 代码：注意一写编码的细节</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
+    def isPalindrome(self, s):
+        """
         :type s: str
         :rtype: bool
-        """</span>
-        left <span class="token operator">=</span> <span class="token number">0</span>
-        right <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> left <span class="token operator">&lt;</span> right<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> <span class="token operator">not</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">.</span>isalnum<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                left <span class="token operator">+=</span> <span class="token number">1</span>
-                <span class="token keyword">continue</span>
-            <span class="token keyword">if</span> <span class="token operator">not</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">.</span>isalnum<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                right <span class="token operator">-=</span> <span class="token number">1</span>
-                <span class="token keyword">continue</span>
+        """
+        left = 0
+        right = len(s) - 1
+        while left < right:
+            if not s[left].isalnum():
+                left += 1
+                continue
+            if not s[right].isalnum():
+                right -= 1
+                continue
 
-            <span class="token keyword">if</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">return</span> <span class="token boolean">False</span>
+            if s[left].lower() != s[right].lower():
+                return False
 
-            left <span class="token operator">+=</span> <span class="token number">1</span>
-            right <span class="token operator">-=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> <span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            left += 1
+            right -= 1
+        return True
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

@@ -487,7 +487,7 @@
 <blockquote>
 <p>给定一个二叉树，返回它的中序 遍历。</p>
 <p>示例:</p>
-<p>输入: [1,null,2,3]<br>  1<br>   <br>    2<br>   /<br>  3</p>
+<p>输入: [1,null,2,3]<br>  1<br>   \<br>    2<br>   /<br>  3</p>
 <p>输出: [1,3,2]<br>进阶: 递归算法很简单，你可以通过迭代算法完成吗？</p>
 </blockquote>
 <h3 id="模拟系统栈完成非递归中序遍历，同理可以完成非递归的前序遍历和后序遍历（Python-代码、Java-代码）"><a href="#模拟系统栈完成非递归中序遍历，同理可以完成非递归的前序遍历和后序遍历（Python-代码、Java-代码）" class="headerlink" title="模拟系统栈完成非递归中序遍历，同理可以完成非递归的前序遍历和后序遍历（Python 代码、Java 代码）"></a>模拟系统栈完成非递归中序遍历，同理可以完成非递归的前序遍历和后序遍历（Python 代码、Java 代码）</h3><h3 id="方法：模拟系统栈"><a href="#方法：模拟系统栈" class="headerlink" title="方法：模拟系统栈"></a>方法：模拟系统栈</h3><p>模拟系统栈的方法其实并不难理解，就是在栈中放入结点的同时，<strong>同时传入一个指令，这个指令可以有 2 个含义</strong>：</p>
@@ -497,37 +497,33 @@
 <p><strong>模拟系统栈的好处</strong>：稍微改动一下代码，就可以完成非递归的前序遍历和后序遍历。</p>
 <p><strong>参考代码</strong>：</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+<p>```Python []<br>class TreeNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.left = None<br>        self.right = None</p>
+<p>class Solution:</p>
+<pre><code>def inorderTraversal(self, root: TreeNode) -&gt; List[int]:
+    if not root:
+        return []
+    # 1 表示递归处理
+    stack = [(1, root)]
+    res = []
+    while stack:
+        command, node = stack.pop()
+        if command == 0:
+            # 0 表示当前马上执行将结点的值添加到结果集中
+            res.append(node.val)
+        else:
+            # 关键在这里：因为是模拟系统栈，应该把中序遍历的顺序倒过来写
+            # 调整一下顺序就可以完成前序遍历和后序遍历
+            if node.right:
+                stack.append((1, node.right))
+            stack.append((0, node))
+            if node.left:
+                stack.append((1, node.left))
+    return res
+</code></pre><pre><code>
+Java 代码：
 
-
-class Solution:
-
-    def inorderTraversal(self, root: TreeNode) -> List[int]:
-        if not root:
-            return []
-        # 1 表示递归处理
-        stack = [(1, root)]
-        res = []
-        while stack:
-            command, node = stack.pop()
-            if command == 0:
-                # 0 表示当前马上执行将结点的值添加到结果集中
-                res.append(node.val)
-            else:
-                # 关键在这里：因为是模拟系统栈，应该把中序遍历的顺序倒过来写
-                # 调整一下顺序就可以完成前序遍历和后序遍历
-                if node.right:
-                    stack.append((1, node.right))
-                stack.append((0, node))
-                if node.left:
-                    stack.append((1, node.left))
-        return res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">import java.util.ArrayList;
+```Java []
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -559,12 +555,12 @@ public class Solution {
         }
     }
 
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<>();
+    public List&lt;Integer&gt; inorderTraversal(TreeNode root) {
+        List&lt;Integer&gt; res = new ArrayList&lt;&gt;();
         if (root == null) {
             return res;
         }
-        Stack<Command> stack = new Stack<>();
+        Stack&lt;Command&gt; stack = new Stack&lt;&gt;();
         stack.add(new Command(Action.GO, root));
         while (!stack.isEmpty()) {
             Command command = stack.pop();
@@ -585,8 +581,8 @@ public class Solution {
         }
         return res;
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
+}
+</code></pre><hr>
 <h3 id="LeetCode-第-94-题：94-二叉树的中序遍历"><a href="#LeetCode-第-94-题：94-二叉树的中序遍历" class="headerlink" title="LeetCode 第 94 题：94. 二叉树的中序遍历"></a>LeetCode 第 94 题：<a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener">94. 二叉树的中序遍历</a></h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/binary-tree-inorder-traversal/description/" target="_blank" rel="noopener">94. Binary Tree Inorder Traversal</a> ，中文网址：<a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/description/" target="_blank" rel="noopener">94. 二叉树的中序遍历</a> 。</p>
 <blockquote>
 <p>给定一个二叉树，返回它的<em>中序</em> 遍历。</p>
@@ -598,34 +594,36 @@ public class Solution {
  /
 3
 
-输出: [1,3,2]</code></pre><p><strong>进阶:</strong> 递归算法很简单，你可以通过迭代算法完成吗？</p>
+输出: [1,3,2]
+</code></pre><p><strong>进阶:</strong> 递归算法很简单，你可以通过迭代算法完成吗？</p>
 </blockquote>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">TreeNode</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
-        self<span class="token punctuation">.</span>left <span class="token operator">=</span> None
-        self<span class="token punctuation">.</span>right <span class="token operator">=</span> None
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 
-<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">inorderTraversal</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> root<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> <span class="token operator">not</span> root<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        stack <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> root<span class="token punctuation">)</span><span class="token punctuation">]</span>
-        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        <span class="token keyword">while</span> stack<span class="token punctuation">:</span>
-            command<span class="token punctuation">,</span> node <span class="token operator">=</span> stack<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
-            <span class="token keyword">if</span> command <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>node<span class="token punctuation">.</span>val<span class="token punctuation">)</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                <span class="token keyword">if</span> node<span class="token punctuation">.</span>right<span class="token punctuation">:</span>
-                    stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> node<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">)</span>
-                stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">)</span>
-                <span class="token keyword">if</span> node<span class="token punctuation">.</span>left<span class="token punctuation">:</span>
-                    stack<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> node<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+class Solution:
+    def inorderTraversal(self, root):
+        if not root:
+            return []
+        stack = [(1, root)]
+        res = []
+        while stack:
+            command, node = stack.pop()
+            if command == 0:
+                res.append(node.val)
+            else:
+                if node.right:
+                    stack.append((1, node.right))
+                stack.append((0, node))
+                if node.left:
+                    stack.append((1, node.left))
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
             </div>
             <hr/>
 

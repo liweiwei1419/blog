@@ -509,32 +509,34 @@
 <p>在编码的过程中要注意数组下标越界的问题。</p>
 <p><strong>参考代码</strong>：</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">class Solution:
-    def searchMatrix(self, matrix, target):
-        # 特判
-        rows = len(matrix)
-        if rows == 0:
-            return False
+<p>```Python []<br>class Solution:<br>    def searchMatrix(self, matrix, target):</p>
+<pre><code>    # 特判
+    rows = len(matrix)
+    if rows == 0:
+        return False
 
-        cols = len(matrix[0])
-        if cols == 0:
-            return False
+    cols = len(matrix[0])
+    if cols == 0:
+        return False
 
-        # 起点：左下角
-        x = rows - 1
-        y = 0
-        # 不越界的条件是：行大于等于 0，列小于等于 cols - 1
+    # 起点：左下角
+    x = rows - 1
+    y = 0
+    # 不越界的条件是：行大于等于 0，列小于等于 cols - 1
 
-        while x >= 0 and y < cols:
-            if matrix[x][y] > target:
-                x -= 1
-            elif matrix[x][y] < target:
-                y += 1
-            else:
-                return True
-        return False<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
+    while x &gt;= 0 and y &lt; cols:
+        if matrix[x][y] &gt; target:
+            x -= 1
+        elif matrix[x][y] &lt; target:
+            y += 1
+        else:
+            return True
+    return False
+</code></pre><pre><code>
+Java 代码：
+
+```Java []
+public class Solution {
 
     public boolean searchMatrix(int[][] matrix, int target) {
         int rows = matrix.length;
@@ -551,12 +553,12 @@
         int x = rows - 1;
         int y = 0;
         // 不越界的条件是：行大于等于 0，列小于等于 cols - 1
-        while (x >= 0 && y < cols) {
+        while (x &gt;= 0 &amp;&amp; y &lt; cols) {
             // 打开注释，可以用于调试的代码
-            // System.out.println("沿途走过的数字：" + matrix[x][y]);
-            if (matrix[x][y] > target) {
+            // System.out.println(&quot;沿途走过的数字：&quot; + matrix[x][y]);
+            if (matrix[x][y] &gt; target) {
                 x--;
-            } else if (matrix[x][y] < target) {
+            } else if (matrix[x][y] &lt; target) {
                 y++;
             } else {
                 return true;
@@ -578,8 +580,8 @@
         boolean searchMatrix = solution3.searchMatrix(matrix, target);
         System.out.println(searchMatrix);
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>复杂度分析</strong>：</p>
+}
+</code></pre><p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(M + N)$，$M$ 是这个矩阵的行数，$N$ 是这个矩阵的列数，我们看到，这种算法是“不回头”的，至多走 $M + N$ 步就能搜索到目标数值，或者判定目标数值在矩阵中不存子啊。</li>
 <li>空间复杂度：$O(1)，算法使用了常数个变量$。</li>
@@ -591,31 +593,31 @@
 <p>如果当前数比目标元素大，当前列就不可能存在目标值，“指针”就向左移一格（纵坐标减 $1$）；<br>如果当前数比目标元素小，当前行就不可能存在目标值，“指针”就向下移一格（横坐标加 $1$）。</p>
 <p>在编码的过程中同样要注意数组下标越界的问题。</p>
 <p><strong>参考代码</strong>：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">class Solution:
-    def searchMatrix(self, matrix, target):
-        # 特判
-        rows = len(matrix)
-        if rows == 0:
-            return False
+<p>```Python []<br>class Solution:<br>    def searchMatrix(self, matrix, target):</p>
+<pre><code>    # 特判
+    rows = len(matrix)
+    if rows == 0:
+        return False
 
-        cols = len(matrix[0])
-        if cols == 0:
-            return False
+    cols = len(matrix[0])
+    if cols == 0:
+        return False
 
-        # 起点：右上
-        x = 0
-        y = cols -1
+    # 起点：右上
+    x = 0
+    y = cols -1
 
-        # 不越界的条件是：行小于等于 rows - 1，列大于等于 0
-        while x < rows and y >= 0:
-            if matrix[x][y] > target:
-                y -= 1
-            elif matrix[x][y] < target:
-                x += 1
-            else:
-                return True
-        return False<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
+    # 不越界的条件是：行小于等于 rows - 1，列大于等于 0
+    while x &lt; rows and y &gt;= 0:
+        if matrix[x][y] &gt; target:
+            y -= 1
+        elif matrix[x][y] &lt; target:
+            x += 1
+        else:
+            return True
+    return False
+</code></pre><pre><code>```Java []
+public class Solution {
 
 
     public boolean searchMatrix(int[][] matrix, int target) {
@@ -634,12 +636,12 @@
         int y = cols - 1;
 
         // 不越界的条件是：行小于等于 rows - 1，列大于等于 0
-        while (x < rows && y >= 0) {
+        while (x &lt; rows &amp;&amp; y &gt;= 0) {
             // 打开注释，可以用于调试的代码
-            // System.out.println("沿途走过的数字：" + matrix[x][y]);
-            if (matrix[x][y] > target) {
+            // System.out.println(&quot;沿途走过的数字：&quot; + matrix[x][y]);
+            if (matrix[x][y] &gt; target) {
                 y--;
-            } else if (matrix[x][y] < target) {
+            } else if (matrix[x][y] &lt; target) {
                 x++;
             } else {
                 return true;
@@ -661,8 +663,8 @@
         boolean searchMatrix = solution2.searchMatrix(matrix, target);
         System.out.println(searchMatrix);
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>复杂度分析</strong>：</p>
+}
+</code></pre><p><strong>复杂度分析</strong>：</p>
 <p>（同上）。</p>
 <p>说明：这个搜索的过程也可以使用二分查找法加快，时间复杂度收缩到 $O(\log M + long N) = O(\log MN)$，但是在编码的时候会稍显麻烦，还要考虑一些边界条件，我就不展示自己写的又臭又长的代码了。如果大家有更优雅的写法，欢迎分享出来。</p>
 
@@ -946,8 +948,10 @@
                             「力扣」第 315 题：计算右侧小于当前元素的个数
 
 
+
 题目地址
 题解
+
 
 
 
@@ -955,7 +959,9 @@ LeetCode 第 315 题：计算右侧小于当前元素的个数
 归并排序 + 索引数组（Python 代码、Java 代码）
 
 
-归并排序（索引数组）如果有学习过一
+
+
+归并排序（索引数组）如果有
                         
                     </div>
                     <div class="publish-info">

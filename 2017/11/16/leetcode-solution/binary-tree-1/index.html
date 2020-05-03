@@ -494,48 +494,51 @@
 <h3 id="从二叉树的角度看递归"><a href="#从二叉树的角度看递归" class="headerlink" title="从二叉树的角度看递归"></a>从二叉树的角度看递归</h3><p>二叉树天然具有递归的性质。二叉树的定义就是用二叉树定义二叉树。对于二叉树的定义来说，应该补充一点：空是一棵二叉树。</p>
 <p>下面，我们来观察一个二叉树的前序遍历的递归方法。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">preorder</span><span class="token punctuation">(</span>TreeNode node<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>node <span class="token operator">!=</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">preorder</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token function">preorder</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> 
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public void preorder(TreeNode node){
+    if(node != null){
+        System.out.print(node.val);
+        preorder(node.left);
+        preorder(node.right);
+    } 
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>注意：这里 <code>System.out.print(node.val);</code> 这一行代码表示“处理这个结点的逻辑”。</p>
 <p>在这里，我们先强调编写递归函数的第 1 个注意事项：首先明确这个函数要表达的任务（逻辑），明确参数的定义和返回值的意义。</p>
 <p>接下来，我们将上面的代码改造一下。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">preorder</span><span class="token punctuation">(</span>TreeNode node<span class="token punctuation">)</span><span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public void preorder(TreeNode node){
 
-    <span class="token comment" spellcheck="true">// 先写递归终止条件</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>node <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> 
+    // 先写递归终止条件
+    if(node == null){
+        return;
+    } 
 
-    <span class="token comment" spellcheck="true">// 再写递归过程</span>
-    System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">preorder</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token function">preorder</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    // 再写递归过程
+    System.out.print(node.val);
+    preorder(node.left);
+    preorder(node.right);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其实这样的写法更像递归结构，因为对于我们定义的每一个递归函数来说，应该包含下面两个部分：1、<strong>递归终止条件</strong>；2、设立<strong>递归过程</strong>，定义清楚函数的语义。</p>
 <p>这就是我们编写一个递归函数应该注意的第 2 件事情。</p>
 <p>接下来，我们再看一个方法：在一个二叉树中查看是否存在一个键值。写这个递归方法的步骤：想想（1）递归终止条件是什么？（2）递归过程是什么？参数 Node node 是什么意思？我们这里定义的参数 Node 对象，是在以 node 为根结点的二叉树中寻找指定的 key。于是，我们的逻辑是：如果 node 本身不是我们要找的结点的话，我们继续在 node 的左孩子和右孩子中继续查找。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">contain</span><span class="token punctuation">(</span>Node node<span class="token punctuation">,</span> <span class="token keyword">int</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 首先我们要处理递归到底的情况</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public boolean contain(Node node, int key) {
+    // 首先我们要处理递归到底的情况
+    if (node == null) {
+        return false;
+    }
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">==</span> node<span class="token punctuation">.</span>key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> 
+    if (key == node.key) {
+        return true;
+    } 
 
-    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">contain</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">,</span> key<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">contain</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">,</span> key<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> 
-    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    if (contain(node.left, key) || contain(node.right, key) {
+        return true;
+    } 
+    return false;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>那么，我们可以再想想如何释放以 Node 为根结点的二叉树？</p>
 
             </div>

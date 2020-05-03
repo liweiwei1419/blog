@@ -492,9 +492,11 @@
 <p>请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。</p>
 <p>示例 1:</p>
 <pre><code>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL
-输出: 1-&gt;3-&gt;5-&gt;2-&gt;4-&gt;NULL</code></pre><p>示例 2:</p>
+输出: 1-&gt;3-&gt;5-&gt;2-&gt;4-&gt;NULL
+</code></pre><p>示例 2:</p>
 <pre><code>输入: 2-&gt;1-&gt;3-&gt;5-&gt;6-&gt;4-&gt;7-&gt;NULL 
-输出: 2-&gt;3-&gt;6-&gt;7-&gt;1-&gt;5-&gt;4-&gt;NULL</code></pre><p>说明：</p>
+输出: 2-&gt;3-&gt;6-&gt;7-&gt;1-&gt;5-&gt;4-&gt;NULL
+</code></pre><p>说明：</p>
 <ul>
 <li>应当保持奇数节点和偶数节点的相对顺序。</li>
 <li>链表的第一个节点视为奇数节点，第二个节点视为偶数节点，以此类推。</li>
@@ -507,38 +509,39 @@
 </ul>
 <p><img src="https://liweiwei1419.github.io/images/leetcode-solution/328-1.jpg" alt="LeetCode 第 328 题：奇数（Odd）偶数（Even）链表"></p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
-        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 
-<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">oddEvenList</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+class Solution:
+    def oddEvenList(self, head):
+        """
         :type head: ListNode
         :rtype: ListNode
-        """</span>
+        """
 
-        <span class="token keyword">if</span> head <span class="token keyword">is</span> None <span class="token operator">or</span> head<span class="token punctuation">.</span>next <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> head
+        if head is None or head.next is None:
+            return head
 
-        <span class="token comment" spellcheck="true"># odd 奇数</span>
-        odd_head <span class="token operator">=</span> head
-        even_head <span class="token operator">=</span> head<span class="token punctuation">.</span>next
+        # odd 奇数
+        odd_head = head
+        even_head = head.next
 
-        odd_cur <span class="token operator">=</span> odd_head
-        even_cur <span class="token operator">=</span> even_head
+        odd_cur = odd_head
+        even_cur = even_head
 
-        <span class="token keyword">while</span> even_cur <span class="token operator">and</span> even_cur<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
-            odd_cur<span class="token punctuation">.</span>next <span class="token operator">=</span> odd_cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next
-            even_cur<span class="token punctuation">.</span>next <span class="token operator">=</span> even_cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next
+        while even_cur and even_cur.next:
+            odd_cur.next = odd_cur.next.next
+            even_cur.next = even_cur.next.next
 
-            odd_cur <span class="token operator">=</span> odd_cur<span class="token punctuation">.</span>next
-            even_cur <span class="token operator">=</span> even_cur<span class="token punctuation">.</span>next
+            odd_cur = odd_cur.next
+            even_cur = even_cur.next
 
-        odd_cur<span class="token punctuation">.</span>next <span class="token operator">=</span> even_head
-        <span class="token keyword">return</span> odd_head<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        odd_cur.next = even_head
+        return odd_head
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>我还写过一个题解在<a href="https://liweiwei1419.github.io/leetcode-solution/leetcode-0328-odd-even-linked-list/" target="_blank" rel="noopener">这里</a>，可以参考一下。</p>
 
             </div>
@@ -820,14 +823,13 @@
                         
                             「力扣」第 445 题：两数相加 II（中等）
 英文网址：445. Add Two Numbers II  ；
-
 中文网址：445. 两数相加 II ；
 
 题解地址
 
 
 
-给定两个非空链表来代表两个非负整数。数字最高位位于链表开始位置。它们
+给定两个非空链表来代表两个非负整数。数字最高位位于链表开始位置。它们的
                         
                     </div>
                     <div class="publish-info">

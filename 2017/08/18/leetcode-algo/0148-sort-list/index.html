@@ -491,135 +491,115 @@
 </blockquote>
 <h2 id="自底向上的“归并排序”（Java-代码）"><a href="#自底向上的“归并排序”（Java-代码）" class="headerlink" title="自底向上的“归并排序”（Java 代码）"></a>自底向上的“归并排序”（Java 代码）</h2><p>这个方法比较 tricky，可能编码上还有优化的空间，大家看一看就好了。</p>
 <p>（温馨提示：下面的幻灯片中，有几页上有较多的文字，可能需要您停留一下，可以点击右下角的后退 “|◀” 或者前进 “▶|” 按钮控制幻灯片的播放。）</p>
-<p><img src="https://pic.leetcode-cn.com/5dde7ef2dbf5dfc6ba492967ad90ae47c8b69912c933c6ff7fdd1b193df79a3a-148-1.png" alt="148-1.png">),<img src="https://pic.leetcode-cn.com/c346cb3c15ca1573ad84812ebc7414ea15f603a77eaec8da8e65b49406d57c9b-148-2.png" alt="148-2.png">),<img src="https://pic.leetcode-cn.com/6cba91ad06d27ba535ab7f5479ded87728ab6a443dbc6180aa999ca7205d2398-148-3.png" alt="148-3.png">),<img src="https://pic.leetcode-cn.com/191596efb354dc1a20d5c2cc074a5849afd30a4524e2ebdc1f52453657cb5f8f-148-4.png" alt="148-4.png">),<img src="https://pic.leetcode-cn.com/c31c4944662863515d3c8b2ba480c6d3d66edb1250514aa918afbf538a69bfc1-148-5.png" alt="148-5.png">),<img src="https://pic.leetcode-cn.com/41707f28feeec83b718eb3402135d4184f90f4069372dbf54f6da5b86ad3376f-148-6.png" alt="148-6.png">),<img src="https://pic.leetcode-cn.com/855652a477f968df5f59eaf66d6c61388d0e36abd5298d96d6bb02f1b0f49707-148-7.png" alt="148-7.png">),<img src="https://pic.leetcode-cn.com/177b1e7f1e186062f06eb54abaa1a9a0c89899901d25f6ae851cb2cb47a15f19-148-8.png" alt="148-8.png">),<img src="https://pic.leetcode-cn.com/261d0c730ba13d41aed5ea6b690c8b44a6d05d0de6f219f000c5df68ae5b43d6-148-9.png" alt="148-9.png">),<img src="https://pic.leetcode-cn.com/d6eefcc333bd3362c60f32808b7fab93eec20c1c65cee6930d2c7cf0cae38748-148-10.png" alt="148-10.png">),<img src="https://pic.leetcode-cn.com/c65fa18c769b01844170815abb245dc85a8d348924466cd301ce75b3dc888b09-148-11.png" alt="148-11.png">),<img src="https://pic.leetcode-cn.com/05cfa4d484aabc6b57598602b5d0653784646b9c928b48fd5f19b36ea62b20d6-148-12.png" alt="148-12.png">),<img src="https://pic.leetcode-cn.com/5ab524c4b1cdd9eded4c53d25c50b6dbd17c7ae9d070ec99eaed95afa12d0b39-148-13.png" alt="148-13.png">),<img src="https://pic.leetcode-cn.com/849c0c08926d27356efd734be87f73e7a8dd86d8b4e74d6962962228652a685f-148-14.png" alt="148-14.png">),<img src="https://pic.leetcode-cn.com/92858f3f9669b8c2f278029b715e2d467307a8a4fec93f67733d17b2676442c8-148-15.png" alt="148-15.png">),<img src="https://pic.leetcode-cn.com/75ab2a5b498b86c2d99d753d3da59d324c4b183edadbea6f93e7af100da427b0-148-16.png" alt="148-16.png">),<img src="https://pic.leetcode-cn.com/26a88cb6fab5285cc5e9b06d32e3e73e8b2b0b6eeadbb45b50d86a406701cf5c-148-17.png" alt="148-17.png">),<img src="https://pic.leetcode-cn.com/6291f1d052621a96ef6d5ce0b4cb9a8c8f8cb48c766bcb7d0ffa9c0836a9ac6f-148-18.png" alt="148-18.png">),<img src="https://pic.leetcode-cn.com/61fcc46a226ec29242dc14238e4a6495b48c5e9f4def7aafa79527dc6235f518-148-19.png" alt="148-19.png">),<img src="https://pic.leetcode-cn.com/c965e5623aa846259a16dfb32a6eeb7be72412568efcc8791e49d26bd470ef66-148-20.png" alt="148-20.png">),<img src="https://pic.leetcode-cn.com/af5ea17697e91188bb270ad6e1112a80f7fa92ad9e9fa7aaaef6055696ad77b7-148-21.png" alt="148-21.png">),<img src="https://pic.leetcode-cn.com/58c1457d8f202fd3010b2761482645da71ac98b30d60844fcd1f596d2c470d7e-148-22.png" alt="148-22.png">),<img src="https://pic.leetcode-cn.com/cd5b0ceec9624717db1290db4d1c426e7ba1e86ad1c24134a813dcc5221f9e08-148-23.png" alt="148-23.png">),<img src="https://pic.leetcode-cn.com/a2dc861706e5193ecfa52a5c28dc8032b1d0a48c8ad065d362e130bd2b9cc65e-148-24.png" alt="148-24.png"></p>
+<p><img src="https://pic.leetcode-cn.com/5dde7ef2dbf5dfc6ba492967ad90ae47c8b69912c933c6ff7fdd1b193df79a3a-148-1.png" alt="148-1.png">,<img src="https://pic.leetcode-cn.com/c346cb3c15ca1573ad84812ebc7414ea15f603a77eaec8da8e65b49406d57c9b-148-2.png" alt="148-2.png">,<img src="https://pic.leetcode-cn.com/6cba91ad06d27ba535ab7f5479ded87728ab6a443dbc6180aa999ca7205d2398-148-3.png" alt="148-3.png">,<img src="https://pic.leetcode-cn.com/191596efb354dc1a20d5c2cc074a5849afd30a4524e2ebdc1f52453657cb5f8f-148-4.png" alt="148-4.png">,<img src="https://pic.leetcode-cn.com/c31c4944662863515d3c8b2ba480c6d3d66edb1250514aa918afbf538a69bfc1-148-5.png" alt="148-5.png">,<img src="https://pic.leetcode-cn.com/41707f28feeec83b718eb3402135d4184f90f4069372dbf54f6da5b86ad3376f-148-6.png" alt="148-6.png">,<img src="https://pic.leetcode-cn.com/855652a477f968df5f59eaf66d6c61388d0e36abd5298d96d6bb02f1b0f49707-148-7.png" alt="148-7.png">,<img src="https://pic.leetcode-cn.com/177b1e7f1e186062f06eb54abaa1a9a0c89899901d25f6ae851cb2cb47a15f19-148-8.png" alt="148-8.png">,<img src="https://pic.leetcode-cn.com/261d0c730ba13d41aed5ea6b690c8b44a6d05d0de6f219f000c5df68ae5b43d6-148-9.png" alt="148-9.png">,<img src="https://pic.leetcode-cn.com/d6eefcc333bd3362c60f32808b7fab93eec20c1c65cee6930d2c7cf0cae38748-148-10.png" alt="148-10.png">,<img src="https://pic.leetcode-cn.com/c65fa18c769b01844170815abb245dc85a8d348924466cd301ce75b3dc888b09-148-11.png" alt="148-11.png">,<img src="https://pic.leetcode-cn.com/05cfa4d484aabc6b57598602b5d0653784646b9c928b48fd5f19b36ea62b20d6-148-12.png" alt="148-12.png">,<img src="https://pic.leetcode-cn.com/5ab524c4b1cdd9eded4c53d25c50b6dbd17c7ae9d070ec99eaed95afa12d0b39-148-13.png" alt="148-13.png">,<img src="https://pic.leetcode-cn.com/849c0c08926d27356efd734be87f73e7a8dd86d8b4e74d6962962228652a685f-148-14.png" alt="148-14.png">,<img src="https://pic.leetcode-cn.com/92858f3f9669b8c2f278029b715e2d467307a8a4fec93f67733d17b2676442c8-148-15.png" alt="148-15.png">,<img src="https://pic.leetcode-cn.com/75ab2a5b498b86c2d99d753d3da59d324c4b183edadbea6f93e7af100da427b0-148-16.png" alt="148-16.png">,<img src="https://pic.leetcode-cn.com/26a88cb6fab5285cc5e9b06d32e3e73e8b2b0b6eeadbb45b50d86a406701cf5c-148-17.png" alt="148-17.png">,<img src="https://pic.leetcode-cn.com/6291f1d052621a96ef6d5ce0b4cb9a8c8f8cb48c766bcb7d0ffa9c0836a9ac6f-148-18.png" alt="148-18.png">,<img src="https://pic.leetcode-cn.com/61fcc46a226ec29242dc14238e4a6495b48c5e9f4def7aafa79527dc6235f518-148-19.png" alt="148-19.png">,<img src="https://pic.leetcode-cn.com/c965e5623aa846259a16dfb32a6eeb7be72412568efcc8791e49d26bd470ef66-148-20.png" alt="148-20.png">,<img src="https://pic.leetcode-cn.com/af5ea17697e91188bb270ad6e1112a80f7fa92ad9e9fa7aaaef6055696ad77b7-148-21.png" alt="148-21.png">,<img src="https://pic.leetcode-cn.com/58c1457d8f202fd3010b2761482645da71ac98b30d60844fcd1f596d2c470d7e-148-22.png" alt="148-22.png">,<img src="https://pic.leetcode-cn.com/cd5b0ceec9624717db1290db4d1c426e7ba1e86ad1c24134a813dcc5221f9e08-148-23.png" alt="148-23.png">,<img src="https://pic.leetcode-cn.com/a2dc861706e5193ecfa52a5c28dc8032b1d0a48c8ad065d362e130bd2b9cc65e-148-24.png" alt="148-24.png"></p>
 <p><strong>参考代码</strong>：</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">/**
- * 自下而上进行归并
- *
- * @author liwei
- */
-public class Solution2 {
-
-    public ListNode sortList(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
-        }
-        // 这里设置 64 ，是一个绰绰有余的数字，可以满足结点数量为 2^64 这么多的单链表的排序
-        ListNode[] counter = new ListNode[64];
-        ListNode curNode = head;
-        // 遍历到的最大的 counter 数组的索引
-        int maxIndex = 0;
-        while (curNode != null) {
-            // 先把当前元素暂存起来，马上我们就要把它放到 counter 数组合适的位置上
-            ListNode carryNode = curNode;
-            // curNode 指针马上后移，方便下次处理
-            curNode = curNode.next;
-            // 拿出的节点就和原来的链表没有关系了，我们在 counter 数组中完成排序，所以要切断它和原链表的关系
-            carryNode.next = null;
-            // 尝试从 counter 数组 0 号索引开始放置
-            int i = 0;
-            // 只要非空当前位置非空，就进行一次 merge，merge 以后尝试放到下一格，如果下一格非空就继续合并
-            // 合并以后再尝试放到下一格，直到下一格为空，直接放在那个为空的下一格就好
-            while (counter[i] != null) {
-                ListNode newMergeNode = mergeOfTwoSortedListNode(carryNode, counter[i]);
-                counter[i] = null;
-                i++;
-                carryNode = newMergeNode;
-            }
-            // 遇到了空，就把 carryNode 放在数组的这个位置上
-            counter[i] = carryNode;
-            // 记录最多使用到 counter 数组的第几位，最后合并的时候要用上
-            if (i > maxIndex) {
-                maxIndex = i;
-            }
-        }
-        // 遍历整个 count 数组，将它们全部归并，这个操作就和归并 n 个有序单链表是一样的了，我们这里采用两两归并
-        // 还可以采用 LeetCode 第 23 题的办法完成这一步
-        // 参考：https://liweiwei1419.github.io/leetcode-solution/leetcode-0023-merge-k-sorted-lists/
-        ListNode res = null;
-        for (int i = 0; i <= maxIndex; i++) {
-            if (counter[i] != null) {
-                res = mergeOfTwoSortedListNode(res, counter[i]);
-            }
-        }
-        return res;
-    }
-
-    /**
-     * 归并两个已经排好序的单链表，是我们非常熟悉的操作了，可以递归完成，也可以穿针引线，这里我们递归完成
-     *
-     * @param l1 顺序存放的单链表1
-     * @param l2 顺序存放的单链表2
-     * @return 合并以后的单链表
-     */
-    private ListNode mergeOfTwoSortedListNode(ListNode l1, ListNode l2) {
-        if (l1 == null) {
-            return l2;
-        }
-        if (l2 == null) {
-            return l1;
-        }
-        if (l1.val < l2.val) {
-            l1.next = mergeOfTwoSortedListNode(l1.next, l2);
-            return l1;
-        } else {
-            l2.next = mergeOfTwoSortedListNode(l1, l2.next);
-            return l2;
-        }
-    }
-
-    public static void main(String[] args) {
-        int[] nums = new int[]{9, 8, 2, 7, 6, 5, 4, 3, 1};
-        ListNode head = new ListNode(nums);
-        Solution2 solution2 = new Solution2();
-        ListNode sortList = solution2.sortList(head);
-        System.out.println(sortList);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>```Java []<br>/**</p>
+<ul>
+<li>自下而上进行归并<br>*</li>
+<li><p>@author liwei<br>*/<br>public class Solution2 {</p>
+<p> public ListNode sortList(ListNode head) {</p>
+<pre><code> if (head == null || head.next == null) {
+     return head;
+ }
+ // 这里设置 64 ，是一个绰绰有余的数字，可以满足结点数量为 2^64 这么多的单链表的排序
+ ListNode[] counter = new ListNode[64];
+ ListNode curNode = head;
+ // 遍历到的最大的 counter 数组的索引
+ int maxIndex = 0;
+ while (curNode != null) {
+     // 先把当前元素暂存起来，马上我们就要把它放到 counter 数组合适的位置上
+     ListNode carryNode = curNode;
+     // curNode 指针马上后移，方便下次处理
+     curNode = curNode.next;
+     // 拿出的节点就和原来的链表没有关系了，我们在 counter 数组中完成排序，所以要切断它和原链表的关系
+     carryNode.next = null;
+     // 尝试从 counter 数组 0 号索引开始放置
+     int i = 0;
+     // 只要非空当前位置非空，就进行一次 merge，merge 以后尝试放到下一格，如果下一格非空就继续合并
+     // 合并以后再尝试放到下一格，直到下一格为空，直接放在那个为空的下一格就好
+     while (counter[i] != null) {
+         ListNode newMergeNode = mergeOfTwoSortedListNode(carryNode, counter[i]);
+         counter[i] = null;
+         i++;
+         carryNode = newMergeNode;
+     }
+     // 遇到了空，就把 carryNode 放在数组的这个位置上
+     counter[i] = carryNode;
+     // 记录最多使用到 counter 数组的第几位，最后合并的时候要用上
+     if (i &gt; maxIndex) {
+         maxIndex = i;
+     }
+ }
+ // 遍历整个 count 数组，将它们全部归并，这个操作就和归并 n 个有序单链表是一样的了，我们这里采用两两归并
+ // 还可以采用 LeetCode 第 23 题的办法完成这一步
+ // 参考：https://liweiwei1419.github.io/leetcode-solution/leetcode-0023-merge-k-sorted-lists/
+ ListNode res = null;
+ for (int i = 0; i &lt;= maxIndex; i++) {
+     if (counter[i] != null) {
+         res = mergeOfTwoSortedListNode(res, counter[i]);
+     }
+ }
+ return res;
+</code></pre><p> }</p>
+<p> /**</p>
+<ul>
+<li>归并两个已经排好序的单链表，是我们非常熟悉的操作了，可以递归完成，也可以穿针引线，这里我们递归完成<br>*</li>
+<li>@param l1 顺序存放的单链表1</li>
+<li>@param l2 顺序存放的单链表2</li>
+<li><p>@return 合并以后的单链表<br>*/<br>private ListNode mergeOfTwoSortedListNode(ListNode l1, ListNode l2) {<br> if (l1 == null) {</p>
+<pre><code> return l2;
+</code></pre><p> }<br> if (l2 == null) {</p>
+<pre><code> return l1;
+</code></pre><p> }<br> if (l1.val &lt; l2.val) {</p>
+<pre><code> l1.next = mergeOfTwoSortedListNode(l1.next, l2);
+ return l1;
+</code></pre><p> } else {</p>
+<pre><code> l2.next = mergeOfTwoSortedListNode(l1, l2.next);
+ return l2;
+</code></pre><p> }<br>}</p>
+<p>public static void main(String[] args) {<br> int[] nums = new int[]{9, 8, 2, 7, 6, 5, 4, 3, 1};<br> ListNode head = new ListNode(nums);<br> Solution2 solution2 = new Solution2();<br> ListNode sortList = solution2.sortList(head);<br> System.out.println(sortList);<br>}<br>}<br>```</p>
+</li>
+</ul>
+</li>
+</ul>
 <p>下面补充“自顶向下”的“归并排序”的写法，注意 3 种写法的不同之处。</p>
 <p>Python 代码 1：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">class ListNode:
-    def __init__(self, x):
-        self.val = x
-        self.next = None
+<p>```Python []<br>class ListNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.next = None</p>
+<p>class Solution:<br>    def sortList(self, head: ListNode) -&gt; ListNode:<br>        if head is None or head.next is None:<br>            return head</p>
+<pre><code>    # 找到中点
+    slow = head
+    fast = head
+    # 使用这种方式，当结点个数为 2 个时候，slow 在左结点
+    # 不会导致死循环
+    while fast.next and fast.next.next:
+        slow = slow.next
+        fast = fast.next.next
+    head2 = slow.next
+    slow.next = None
 
+    lnode = self.sortList(head)
+    rnode = self.sortList(head2)
 
-class Solution:
-    def sortList(self, head: ListNode) -> ListNode:
-        if head is None or head.next is None:
-            return head
+    return self.__merge_two_sorted_list(lnode, rnode)
 
-        # 找到中点
-        slow = head
-        fast = head
-        # 使用这种方式，当结点个数为 2 个时候，slow 在左结点
-        # 不会导致死循环
-        while fast.next and fast.next.next:
-            slow = slow.next
-            fast = fast.next.next
-        head2 = slow.next
-        slow.next = None
+def __merge_two_sorted_list(self, head1, head2):
+    if head1 is None:
+        return head2
+    if head2 is None:
+        return head1
 
-        lnode = self.sortList(head)
-        rnode = self.sortList(head2)
+    if head1.val &lt; head2.val:
+        head1.next = self.__merge_two_sorted_list(head1.next, head2)
+        return head1
+    else:
+        head2.next = self.__merge_two_sorted_list(head1, head2.next)
+        return head2
+</code></pre><pre><code>
+Python 代码 2：
 
-        return self.__merge_two_sorted_list(lnode, rnode)
-
-    def __merge_two_sorted_list(self, head1, head2):
-        if head1 is None:
-            return head2
-        if head2 is None:
-            return head1
-
-        if head1.val < head2.val:
-            head1.next = self.__merge_two_sorted_list(head1.next, head2)
-            return head1
-        else:
-            head2.next = self.__merge_two_sorted_list(head1, head2.next)
-            return head2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Python 代码 2：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">class ListNode:
+```Python []
+class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
@@ -628,7 +608,7 @@ class Solution:
 # 这里有个小陷阱，如果遇到问题，不要着急，代码调试就好了
 
 class Solution:
-    def sortList(self, head: ListNode) -> ListNode:
+    def sortList(self, head: ListNode) -&gt; ListNode:
         if head is None or head.next is None:
             return head
         # 找到中点
@@ -653,7 +633,7 @@ class Solution:
         if head2 is None:
             return head1
 
-        if head1.val < head2.val:
+        if head1.val &lt; head2.val:
             head1.next = self.__merge_two_sorted_list(head1.next, head2)
             return head1
         else:
@@ -672,21 +652,250 @@ def create_node_list(arr):
 
 def print_node_list(head):
     while head:
-        print(head.val, '->', end=' ')
+        print(head.val, &#39;-&gt;&#39;, end=&#39; &#39;)
         head = head.next
-    print('NULL')
+    print(&#39;NULL&#39;)
 
 
-if __name__ == '__main__':
+if __name__ == &#39;__main__&#39;:
     arr = [4, 2, 1, 3]
     head = create_node_list(arr)
     print_node_list(head)
 
     solution = Solution()
     result = solution.sortList(head)
-    print_node_list(result)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Python 代码 3：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">class ListNode:
+    print_node_list(result)
+</code></pre><p>Python 代码 3：</p>
+<p>```Python []<br>class ListNode:<br>    def <strong>init</strong>(self, x):<br>        self.val = x<br>        self.next = None</p>
+<h1 id="这里有个小陷阱，如果遇到问题，不要着急，代码调试就好了"><a href="#这里有个小陷阱，如果遇到问题，不要着急，代码调试就好了" class="headerlink" title="这里有个小陷阱，如果遇到问题，不要着急，代码调试就好了"></a>这里有个小陷阱，如果遇到问题，不要着急，代码调试就好了</h1><p>class Solution:<br>    def sortList(self, head: ListNode) -&gt; ListNode:<br>        if head is None or head.next is None:<br>            return head</p>
+<pre><code>    # 玄机在这里，如果非要用 while fast and fast.next:
+    # 让快指针先走一步，以避免死循环
+    slow = head
+    fast = head.next
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+
+    new_head = slow.next
+    slow.next = None
+
+    lnode = self.sortList(head)
+    rnode = self.sortList(new_head)
+    return self.__merge_two_sorted_list(lnode, rnode)
+
+def __merge_two_sorted_list(self, head1, head2):
+    if head1 is None:
+        return head2
+    if head2 is None:
+        return head1
+
+    if head1.val &lt; head2.val:
+        head1.next = self.__merge_two_sorted_list(head1.next, head2)
+        return head1
+    else:
+        head2.next = self.__merge_two_sorted_list(head1, head2.next)
+        return head2
+</code></pre><p>def create_node_list(arr):<br>    head = ListNode(arr[0])<br>    cur = head<br>    for i in range(1, len(arr)):<br>        cur.next = ListNode(arr[i])<br>        cur = cur.next<br>    return head</p>
+<p>def print_node_list(head):<br>    while head:<br>        print(head.val, ‘-&gt;’, end=’ ‘)<br>        head = head.next<br>    print(‘NULL’)</p>
+<p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    arr = [4, 2, 1, 3]<br>    head = create_node_list(arr)<br>    print_node_list(head)</p>
+<pre><code>solution = Solution()
+result = solution.sortList(head)
+print_node_list(result)
+</code></pre><pre><code>
+
+</code></pre><p>class ListNode {<br>    int val;<br>    ListNode next;</p>
+<pre><code>ListNode(int x) {
+    val = x;
+}
+
+ListNode(int[] nums) {
+    ListNode currNode = this;
+    currNode.val = nums[0];
+    for (int i = 1; i &lt; nums.length; i++) {
+        currNode.next = new ListNode(nums[i]);
+        currNode = currNode.next;
+    }
+}
+
+@Override
+public String toString() {
+    ListNode currNode = this;
+    StringBuilder s = new StringBuilder();
+    while (currNode != null) {
+        s.append(currNode.val);
+        s.append(&quot; -&gt; &quot;);
+        currNode = currNode.next;
+    }
+    s.append(&quot;NULL&quot;);
+    return s.toString();
+}
+</code></pre><p>}</p>
+<pre><code>
+
+
+
+
+伪代码
+</code></pre><p>current = dummy.next;<br>tail = dummy;<br>for (step = 1; step &lt; length; step *= 2) {<br>    while (current) {<br>        // left-&gt;@-&gt;@-&gt;@-&gt;@-&gt;@-&gt;@-&gt;null<br>        left = current;</p>
+<pre><code>    // left-&gt;@-&gt;@-&gt;null   right-&gt;@-&gt;@-&gt;@-&gt;@-&gt;null
+    right = cut(current, step); // 将 current 切掉前 step 个头切下来。
+
+    // left-&gt;@-&gt;@-&gt;null   right-&gt;@-&gt;@-&gt;null   current-&gt;@-&gt;@-&gt;null
+    current = cut(right, step); // 将 right 切掉前 step 个头切下来。
+
+    // dummy.next -&gt; @-&gt;@-&gt;@-&gt;@-&gt;null，最后一个节点是 tail，始终记录
+    //                        ^
+    //                        tail
+    tail.next = merge(left, right);
+    while (tail-&gt;next) tail = tail-&gt;next; // 保持 tail 为尾部
+}
+</code></pre><p>}</p>
+<pre><code>
+作者：ivan_allen
+链接：https://leetcode-cn.com/problems/two-sum/solution/148-pai-xu-lian-biao-bottom-to-up-o1-kong-jian-by-/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+好了，下面是比较正式的代码。
+</code></pre><p>class Solution {<br>public:<br>    ListNode<em> sortList(ListNode</em> head) {<br>        ListNode dummyHead(0);<br>        dummyHead.next = head;<br>        auto p = head;<br>        int length = 0;<br>        while (p) {<br>            ++length;<br>            p = p-&gt;next;<br>        }</p>
+<pre><code>    for (int size = 1; size &lt; length; size &lt;&lt;= 1) {
+        auto cur = dummyHead.next;
+        auto tail = &amp;dummyHead;
+
+        while (cur) {
+            auto left = cur;
+            auto right = cut(left, size); // left-&gt;@-&gt;@ right-&gt;@-&gt;@-&gt;@...
+            cur = cut(right, size); // left-&gt;@-&gt;@ right-&gt;@-&gt;@  cur-&gt;@-&gt;...
+
+            tail-&gt;next = merge(left, right);
+            while (tail-&gt;next) {
+                tail = tail-&gt;next;
+            }
+        }
+    }
+    return dummyHead.next;
+}
+
+ListNode* cut(ListNode* head, int n) {
+    auto p = head;
+    while (--n &amp;&amp; p) {
+        p = p-&gt;next;
+    }
+
+    if (!p) return nullptr;
+
+    auto next = p-&gt;next;
+    p-&gt;next = nullptr;
+    return next;
+}
+
+ListNode* merge(ListNode* l1, ListNode* l2) {
+    ListNode dummyHead(0);
+    auto p = &amp;dummyHead;
+    while (l1 &amp;&amp; l2) {
+        if (l1-&gt;val &lt; l2-&gt;val) {
+            p-&gt;next = l1;
+            p = l1;
+            l1 = l1-&gt;next;       
+        } else {
+            p-&gt;next = l2;
+            p = l2;
+            l2 = l2-&gt;next;
+        }
+    }
+    p-&gt;next = l1 ? l1 : l2;
+    return dummyHead.next;
+}
+</code></pre><p>};</p>
+<pre><code>
+作者：ivan_allen
+链接：https://leetcode-cn.com/problems/two-sum/solution/148-pai-xu-lian-biao-bottom-to-up-o1-kong-jian-by-/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+
+
+
+### 练习3：LeetCode 第 148 题：单链表的排序，使用归并排序
+
+传送门：英文网址：[148. Sort List](https://leetcode.com/problems/sort-list/description/) ，中文网址：[148. 排序链表](https://leetcode-cn.com/problems/sort-list/description/) 。
+
+&gt; 在 *O*(*n* log *n*) 时间复杂度和常数级空间复杂度下，对链表进行排序。
+&gt;
+&gt; **示例 1:**
+&gt;
+&gt;
+</code></pre><blockquote>
+<p>输入: 4-&gt;2-&gt;1-&gt;3<br>输出: 1-&gt;2-&gt;3-&gt;4</p>
+<pre><code>
+**示例 2:**
+</code></pre><p>输入: -1-&gt;5-&gt;3-&gt;4-&gt;0<br>输出: -1-&gt;0-&gt;3-&gt;4-&gt;5<br>```</p>
+</blockquote>
+<p>写一个排序算法，用 $O(n\log n)$ 的时间复杂度为一个链表进行排序。</p>
+<p>对于单链表而言，归并排序是一个不错的选择。</p>
+<p>思路1：自顶向下的归并排序。</p>
+<p>注意1：特别注意下面这么一段：</p>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">while fast.next and fast.next.next:
+    slow = slow.next
+    fast = fast.next.next
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>说明：</p>
+<ul>
+<li>这个方法走到这里，因为有前面的特判，所以至少得有 $2$ 个结点，才可以排序。而<strong>取中点的操作，只有在“下个结点”和“下下结点”</strong>都存在的时候，才能这么做；</li>
+<li>看看这个循环的循环体就明白了。</li>
+</ul>
+<p>注意2：找到中间结点以后，记得把链表“从中切断”，这是符合逻辑的。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def sortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+
+        if head is None or head.next is None:
+            return head
+
+        # 找到中点
+
+        slow = head
+        fast = head
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+        head2 = slow.next
+        slow.next = None
+
+        lnode = self.sortList(head)
+        rnode = self.sortList(head2)
+
+        return self.__merge_two_sorted_list(lnode, rnode)
+
+    def __merge_two_sorted_list(self, head1, head2):
+        if head1 is None:
+            return head2
+        if head2 is None:
+            return head1
+
+        if head1.val < head2.val:
+            head1.next = self.__merge_two_sorted_list(head1.next, head2)
+            return head1
+        else:
+            head2.next = self.__merge_two_sorted_list(head1, head2.next)
+            return head2
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>另一种写法：</p>
+<p>特别注意，如果是</p>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">while fast and fast.next:
+    p = slow
+    slow = slow.next
+    fast = fast.next.next
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这种取法，<strong>遇到两个结点的时候，slow 会向前走一步，但是截断得在 slow 结点之前，否则会进入死循环，按照我说的，画一个两个结点的链表就很清楚了</strong>。</p>
+<p>遇到死循环的时候，不要着急，还有耐心 debug，分析代码运行流程，很多时候问题就迎刃而解了。</p>
+<p>Python 代码：</p>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python"># Definition for singly-linked list.
+class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
@@ -695,22 +904,32 @@ if __name__ == '__main__':
 # 这里有个小陷阱，如果遇到问题，不要着急，代码调试就好了
 
 class Solution:
-    def sortList(self, head: ListNode) -> ListNode:
+    def sortList(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+
         if head is None or head.next is None:
             return head
-        # 玄机在这里，如果非要用 while fast and fast.next:
-        # 让快指针先走一步，以避免死循环
+
+        # 找到中点
+
         slow = head
-        fast = head.next
+        fast = head
         while fast and fast.next:
+            p = slow
             slow = slow.next
             fast = fast.next.next
 
-        new_head = slow.next
-        slow.next = None
+        p.next = None
+
+        # print_node_list(head)
+        # print_node_list(head2)
 
         lnode = self.sortList(head)
-        rnode = self.sortList(new_head)
+        rnode = self.sortList(slow)
+
         return self.__merge_two_sorted_list(lnode, rnode)
 
     def __merge_two_sorted_list(self, head1, head2):
@@ -750,263 +969,8 @@ if __name__ == '__main__':
 
     solution = Solution()
     result = solution.sortList(head)
-    print_node_list(result)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre><code>class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-        val = x;
-    }
-
-    ListNode(int[] nums) {
-        ListNode currNode = this;
-        currNode.val = nums[0];
-        for (int i = 1; i &lt; nums.length; i++) {
-            currNode.next = new ListNode(nums[i]);
-            currNode = currNode.next;
-        }
-    }
-
-    @Override
-    public String toString() {
-        ListNode currNode = this;
-        StringBuilder s = new StringBuilder();
-        while (currNode != null) {
-            s.append(currNode.val);
-            s.append(&quot; -&gt; &quot;);
-            currNode = currNode.next;
-        }
-        s.append(&quot;NULL&quot;);
-        return s.toString();
-    }
-}</code></pre><p>伪代码</p>
-<pre><code>current = dummy.next;
-tail = dummy;
-for (step = 1; step &lt; length; step *= 2) {
-    while (current) {
-        // left-&gt;@-&gt;@-&gt;@-&gt;@-&gt;@-&gt;@-&gt;null
-        left = current;
-
-        // left-&gt;@-&gt;@-&gt;null   right-&gt;@-&gt;@-&gt;@-&gt;@-&gt;null
-        right = cut(current, step); // 将 current 切掉前 step 个头切下来。
-
-        // left-&gt;@-&gt;@-&gt;null   right-&gt;@-&gt;@-&gt;null   current-&gt;@-&gt;@-&gt;null
-        current = cut(right, step); // 将 right 切掉前 step 个头切下来。
-
-        // dummy.next -&gt; @-&gt;@-&gt;@-&gt;@-&gt;null，最后一个节点是 tail，始终记录
-        //                        ^
-        //                        tail
-        tail.next = merge(left, right);
-        while (tail-&gt;next) tail = tail-&gt;next; // 保持 tail 为尾部
-    }
-}</code></pre><p>作者：ivan_allen<br>链接：<a href="https://leetcode-cn.com/problems/two-sum/solution/148-pai-xu-lian-biao-bottom-to-up-o1-kong-jian-by-/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/two-sum/solution/148-pai-xu-lian-biao-bottom-to-up-o1-kong-jian-by-/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<p>好了，下面是比较正式的代码。</p>
-<pre><code>class Solution {
-public:
-    ListNode* sortList(ListNode* head) {
-        ListNode dummyHead(0);
-        dummyHead.next = head;
-        auto p = head;
-        int length = 0;
-        while (p) {
-            ++length;
-            p = p-&gt;next;
-        }
-
-        for (int size = 1; size &lt; length; size &lt;&lt;= 1) {
-            auto cur = dummyHead.next;
-            auto tail = &amp;dummyHead;
-
-            while (cur) {
-                auto left = cur;
-                auto right = cut(left, size); // left-&gt;@-&gt;@ right-&gt;@-&gt;@-&gt;@...
-                cur = cut(right, size); // left-&gt;@-&gt;@ right-&gt;@-&gt;@  cur-&gt;@-&gt;...
-
-                tail-&gt;next = merge(left, right);
-                while (tail-&gt;next) {
-                    tail = tail-&gt;next;
-                }
-            }
-        }
-        return dummyHead.next;
-    }
-
-    ListNode* cut(ListNode* head, int n) {
-        auto p = head;
-        while (--n &amp;&amp; p) {
-            p = p-&gt;next;
-        }
-
-        if (!p) return nullptr;
-
-        auto next = p-&gt;next;
-        p-&gt;next = nullptr;
-        return next;
-    }
-
-    ListNode* merge(ListNode* l1, ListNode* l2) {
-        ListNode dummyHead(0);
-        auto p = &amp;dummyHead;
-        while (l1 &amp;&amp; l2) {
-            if (l1-&gt;val &lt; l2-&gt;val) {
-                p-&gt;next = l1;
-                p = l1;
-                l1 = l1-&gt;next;       
-            } else {
-                p-&gt;next = l2;
-                p = l2;
-                l2 = l2-&gt;next;
-            }
-        }
-        p-&gt;next = l1 ? l1 : l2;
-        return dummyHead.next;
-    }
-};</code></pre><p>作者：ivan_allen<br>链接：<a href="https://leetcode-cn.com/problems/two-sum/solution/148-pai-xu-lian-biao-bottom-to-up-o1-kong-jian-by-/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/two-sum/solution/148-pai-xu-lian-biao-bottom-to-up-o1-kong-jian-by-/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<h3 id="练习3：LeetCode-第-148-题：单链表的排序，使用归并排序"><a href="#练习3：LeetCode-第-148-题：单链表的排序，使用归并排序" class="headerlink" title="练习3：LeetCode 第 148 题：单链表的排序，使用归并排序"></a>练习3：LeetCode 第 148 题：单链表的排序，使用归并排序</h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/sort-list/description/" target="_blank" rel="noopener">148. Sort List</a> ，中文网址：<a href="https://leetcode-cn.com/problems/sort-list/description/" target="_blank" rel="noopener">148. 排序链表</a> 。</p>
-<blockquote>
-<p>在 <em>O</em>(<em>n</em> log <em>n</em>) 时间复杂度和常数级空间复杂度下，对链表进行排序。</p>
-<p><strong>示例 1:</strong></p>
-<pre><code>输入: 4-&gt;2-&gt;1-&gt;3
-输出: 1-&gt;2-&gt;3-&gt;4</code></pre><p><strong>示例 2:</strong></p>
-<pre><code>输入: -1-&gt;5-&gt;3-&gt;4-&gt;0
-输出: -1-&gt;0-&gt;3-&gt;4-&gt;5</code></pre></blockquote>
-<p>写一个排序算法，用 $O(n\log n)$ 的时间复杂度为一个链表进行排序。</p>
-<p>对于单链表而言，归并排序是一个不错的选择。</p>
-<p>思路1：自顶向下的归并排序。</p>
-<p>注意1：特别注意下面这么一段：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">while</span> fast<span class="token punctuation">.</span>next <span class="token operator">and</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
-    slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next
-    fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p>说明：</p>
-<ul>
-<li>这个方法走到这里，因为有前面的特判，所以至少得有 $2$ 个结点，才可以排序。而<strong>取中点的操作，只有在“下个结点”和“下下结点”</strong>都存在的时候，才能这么做；</li>
-<li>看看这个循环的循环体就明白了。</li>
-</ul>
-<p>注意2：找到中间结点以后，记得把链表“从中切断”，这是符合逻辑的。</p>
-<p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">sortList</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        :type head: ListNode
-        :rtype: ListNode
-        """</span>
-
-        <span class="token keyword">if</span> head <span class="token keyword">is</span> None <span class="token operator">or</span> head<span class="token punctuation">.</span>next <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> head
-
-        <span class="token comment" spellcheck="true"># 找到中点</span>
-
-        slow <span class="token operator">=</span> head
-        fast <span class="token operator">=</span> head
-        <span class="token keyword">while</span> fast<span class="token punctuation">.</span>next <span class="token operator">and</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
-            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next
-            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next
-        head2 <span class="token operator">=</span> slow<span class="token punctuation">.</span>next
-        slow<span class="token punctuation">.</span>next <span class="token operator">=</span> None
-
-        lnode <span class="token operator">=</span> self<span class="token punctuation">.</span>sortList<span class="token punctuation">(</span>head<span class="token punctuation">)</span>
-        rnode <span class="token operator">=</span> self<span class="token punctuation">.</span>sortList<span class="token punctuation">(</span>head2<span class="token punctuation">)</span>
-
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>__merge_two_sorted_list<span class="token punctuation">(</span>lnode<span class="token punctuation">,</span> rnode<span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">__merge_two_sorted_list</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head1<span class="token punctuation">,</span> head2<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> head1 <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> head2
-        <span class="token keyword">if</span> head2 <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> head1
-
-        <span class="token keyword">if</span> head1<span class="token punctuation">.</span>val <span class="token operator">&lt;</span> head2<span class="token punctuation">.</span>val<span class="token punctuation">:</span>
-            head1<span class="token punctuation">.</span>next <span class="token operator">=</span> self<span class="token punctuation">.</span>__merge_two_sorted_list<span class="token punctuation">(</span>head1<span class="token punctuation">.</span>next<span class="token punctuation">,</span> head2<span class="token punctuation">)</span>
-            <span class="token keyword">return</span> head1
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            head2<span class="token punctuation">.</span>next <span class="token operator">=</span> self<span class="token punctuation">.</span>__merge_two_sorted_list<span class="token punctuation">(</span>head1<span class="token punctuation">,</span> head2<span class="token punctuation">.</span>next<span class="token punctuation">)</span>
-            <span class="token keyword">return</span> head2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>另一种写法：</p>
-<p>特别注意，如果是</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">while</span> fast <span class="token operator">and</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
-    p <span class="token operator">=</span> slow
-    slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next
-    fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这种取法，<strong>遇到两个结点的时候，slow 会向前走一步，但是截断得在 slow 结点之前，否则会进入死循环，按照我说的，画一个两个结点的链表就很清楚了</strong>。</p>
-<p>遇到死循环的时候，不要着急，还有耐心 debug，分析代码运行流程，很多时候问题就迎刃而解了。</p>
-<p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Definition for singly-linked list.</span>
-<span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
-        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
-
-
-<span class="token comment" spellcheck="true"># 这里有个小陷阱，如果遇到问题，不要着急，代码调试就好了</span>
-
-<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">sortList</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        :type head: ListNode
-        :rtype: ListNode
-        """</span>
-
-        <span class="token keyword">if</span> head <span class="token keyword">is</span> None <span class="token operator">or</span> head<span class="token punctuation">.</span>next <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> head
-
-        <span class="token comment" spellcheck="true"># 找到中点</span>
-
-        slow <span class="token operator">=</span> head
-        fast <span class="token operator">=</span> head
-        <span class="token keyword">while</span> fast <span class="token operator">and</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
-            p <span class="token operator">=</span> slow
-            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next
-            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next
-
-        p<span class="token punctuation">.</span>next <span class="token operator">=</span> None
-
-        <span class="token comment" spellcheck="true"># print_node_list(head)</span>
-        <span class="token comment" spellcheck="true"># print_node_list(head2)</span>
-
-        lnode <span class="token operator">=</span> self<span class="token punctuation">.</span>sortList<span class="token punctuation">(</span>head<span class="token punctuation">)</span>
-        rnode <span class="token operator">=</span> self<span class="token punctuation">.</span>sortList<span class="token punctuation">(</span>slow<span class="token punctuation">)</span>
-
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>__merge_two_sorted_list<span class="token punctuation">(</span>lnode<span class="token punctuation">,</span> rnode<span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">__merge_two_sorted_list</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head1<span class="token punctuation">,</span> head2<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> head1 <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> head2
-        <span class="token keyword">if</span> head2 <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> head1
-
-        <span class="token keyword">if</span> head1<span class="token punctuation">.</span>val <span class="token operator">&lt;</span> head2<span class="token punctuation">.</span>val<span class="token punctuation">:</span>
-            head1<span class="token punctuation">.</span>next <span class="token operator">=</span> self<span class="token punctuation">.</span>__merge_two_sorted_list<span class="token punctuation">(</span>head1<span class="token punctuation">.</span>next<span class="token punctuation">,</span> head2<span class="token punctuation">)</span>
-            <span class="token keyword">return</span> head1
-        <span class="token keyword">else</span><span class="token punctuation">:</span>
-            head2<span class="token punctuation">.</span>next <span class="token operator">=</span> self<span class="token punctuation">.</span>__merge_two_sorted_list<span class="token punctuation">(</span>head1<span class="token punctuation">,</span> head2<span class="token punctuation">.</span>next<span class="token punctuation">)</span>
-            <span class="token keyword">return</span> head2
-
-
-<span class="token keyword">def</span> <span class="token function">create_node_list</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    head <span class="token operator">=</span> ListNode<span class="token punctuation">(</span>arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-    cur <span class="token operator">=</span> head
-    <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> len<span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-        cur<span class="token punctuation">.</span>next <span class="token operator">=</span> ListNode<span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
-        cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next
-    <span class="token keyword">return</span> head
-
-
-<span class="token keyword">def</span> <span class="token function">print_node_list</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">while</span> head<span class="token punctuation">:</span>
-        <span class="token keyword">print</span><span class="token punctuation">(</span>head<span class="token punctuation">.</span>val<span class="token punctuation">,</span> <span class="token string">'->'</span><span class="token punctuation">,</span> end<span class="token operator">=</span><span class="token string">' '</span><span class="token punctuation">)</span>
-        head <span class="token operator">=</span> head<span class="token punctuation">.</span>next
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'NULL'</span><span class="token punctuation">)</span>
-
-
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
-    head <span class="token operator">=</span> create_node_list<span class="token punctuation">(</span>arr<span class="token punctuation">)</span>
-    print_node_list<span class="token punctuation">(</span>head<span class="token punctuation">)</span>
-
-    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    result <span class="token operator">=</span> solution<span class="token punctuation">.</span>sortList<span class="token punctuation">(</span>head<span class="token punctuation">)</span>
-    print_node_list<span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    print_node_list(result)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>思路2：自底向上的归并排序。</p>
 <p>我以前写了一个示意图，可以点<a href="https://liweiwei1419.github.io/leetcode-solution/leetcode-0148-sort-list/" target="_blank" rel="noopener">这里</a>看，思想还是很简单的。</p>
 <p>（本节完）</p>

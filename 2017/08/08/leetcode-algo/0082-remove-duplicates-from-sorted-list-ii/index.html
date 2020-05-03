@@ -487,151 +487,155 @@
 <p>给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中 没有重复出现 的数字。</p>
 <p>示例 1:</p>
 <pre><code>输入: 1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5
-输出: 1-&gt;2-&gt;5</code></pre><p>示例 2:</p>
+输出: 1-&gt;2-&gt;5
+</code></pre><p>示例 2:</p>
 <pre><code>输入: 1-&gt;1-&gt;1-&gt;2-&gt;3
-输出: 2-&gt;3</code></pre></blockquote>
+输出: 2-&gt;3
+</code></pre></blockquote>
 <h3 id="方法一：穿针引线"><a href="#方法一：穿针引线" class="headerlink" title="方法一：穿针引线"></a>方法一：穿针引线</h3><p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
-    ListNode next<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">class ListNode {
+    int val;
+    ListNode next;
 
-    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        val <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    ListNode(int x) {
+        val = x;
+    }
 
-    <span class="token keyword">public</span> <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>nums <span class="token operator">==</span> null <span class="token operator">||</span> nums<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"arr can not be empty"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>val <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        ListNode curr <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            curr<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            curr <span class="token operator">=</span> curr<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    public ListNode(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            throw new IllegalArgumentException("arr can not be empty");
+        }
+        this.val = nums[0];
+        ListNode curr = this;
+        for (int i = 1; i < nums.length; i++) {
+            curr.next = new ListNode(nums[i]);
+            curr = curr.next;
+        }
+    }
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        StringBuilder s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        ListNode cur <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>cur <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            s<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>cur<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            s<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">" -> "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        s<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"NULL"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        ListNode cur = this;
+        while (cur != null) {
+            s.append(cur.val);
+            s.append(" -> ");
+            cur = cur.next;
+        }
+        s.append("NULL");
+        return s.toString();
+    }
+}
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+public class Solution {
 
-    <span class="token keyword">public</span> ListNode <span class="token function">deleteDuplicates</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 只要涉及头结点的操作，设置虚拟头结点避免对链表第 1 个结点的分类讨论</span>
-        ListNode dummyNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        dummyNode<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        ListNode curNode <span class="token operator">=</span> dummyNode<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>curNode<span class="token punctuation">.</span>next <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 如果接连两个结点的 val 相等，至少要把它们都删掉</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>curNode<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val <span class="token operator">==</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 要删除的起点至少应该是当前判断相同的结点的第 2 个</span>
-                ListNode delNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">// 如果后面还有相同的结点，delNode 后移一位，即 delNode 应该是指向相同的结点的最后一个</span>
-                <span class="token keyword">while</span> <span class="token punctuation">(</span>delNode<span class="token punctuation">.</span>next <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> delNode<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val <span class="token operator">==</span> delNode<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    delNode <span class="token operator">=</span> delNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-                curNode<span class="token punctuation">.</span>next <span class="token operator">=</span> delNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-                delNode<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                curNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> dummyNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        // 只要涉及头结点的操作，设置虚拟头结点避免对链表第 1 个结点的分类讨论
+        ListNode dummyNode = new ListNode(-1);
+        dummyNode.next = head;
+        ListNode curNode = dummyNode;
+        while (curNode.next != null && curNode.next.next != null) {
+            // 如果接连两个结点的 val 相等，至少要把它们都删掉
+            if (curNode.next.val == curNode.next.next.val) {
+                // 要删除的起点至少应该是当前判断相同的结点的第 2 个
+                ListNode delNode = curNode.next.next;
+                // 如果后面还有相同的结点，delNode 后移一位，即 delNode 应该是指向相同的结点的最后一个
+                while (delNode.next != null && delNode.next.val == delNode.val) {
+                    delNode = delNode.next;
+                }
+                curNode.next = delNode.next;
+                delNode.next = null;
+            } else {
+                curNode = curNode.next;
+            }
+        }
+        return dummyNode.next;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>关键：要两个两个一起判断。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution2</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution2 {
 
-    <span class="token keyword">public</span> ListNode <span class="token function">deleteDuplicates</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> null<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+    public ListNode deleteDuplicates(ListNode head) {
+        if (head == null) {
+            return null;
+        }
 
-        <span class="token comment" spellcheck="true">// 这里我们要清楚，例如 1 1 2 3 ,头结点也是有可能被删除的，所以要设置虚拟头结点</span>
-        <span class="token comment" spellcheck="true">// 只要涉及头结点的操作，我们都设立虚拟头结点</span>
-        ListNode dummyNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        dummyNode<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        // 这里我们要清楚，例如 1 1 2 3 ,头结点也是有可能被删除的，所以要设置虚拟头结点
+        // 只要涉及头结点的操作，我们都设立虚拟头结点
+        ListNode dummyNode = new ListNode(-1);
+        dummyNode.next = head;
 
-        ListNode curNode <span class="token operator">=</span> dummyNode<span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 题目要求的删除结点这个操作是站在被删除结点前面的</span>
-        <span class="token comment" spellcheck="true">// 所以循环可以继续的条件应该这样写</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>curNode<span class="token punctuation">.</span>next <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 如果接连两个结点的 val 相等，至少要把它们都删掉</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>curNode<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val <span class="token operator">==</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 要删除的起点至少应该是当前判断相同的结点的第 2 个</span>
-                ListNode delNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-                <span class="token comment" spellcheck="true">// 如果后面还有相同的结点，delNode 后移一位，即 delNode 应该是指向相同的结点的最后一个</span>
-                <span class="token comment" spellcheck="true">// 注意：这里得用循环，例如： 1 2 2 2 2 2 2 2 2 3 3 3</span>
-                <span class="token comment" spellcheck="true">// 得让 delNode 结点挪到最后一个 2 上</span>
-                <span class="token keyword">while</span> <span class="token punctuation">(</span>delNode<span class="token punctuation">.</span>next <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> delNode<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val <span class="token operator">==</span> delNode<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    delNode <span class="token operator">=</span> delNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
+        ListNode curNode = dummyNode;
+        // 题目要求的删除结点这个操作是站在被删除结点前面的
+        // 所以循环可以继续的条件应该这样写
+        while (curNode.next != null && curNode.next.next != null) {
+            // 如果接连两个结点的 val 相等，至少要把它们都删掉
+            if (curNode.next.val == curNode.next.next.val) {
+                // 要删除的起点至少应该是当前判断相同的结点的第 2 个
+                ListNode delNode = curNode.next.next;
+                // 如果后面还有相同的结点，delNode 后移一位，即 delNode 应该是指向相同的结点的最后一个
+                // 注意：这里得用循环，例如： 1 2 2 2 2 2 2 2 2 3 3 3
+                // 得让 delNode 结点挪到最后一个 2 上
+                while (delNode.next != null && delNode.next.val == delNode.val) {
+                    delNode = delNode.next;
+                }
 
-                <span class="token comment" spellcheck="true">// 接下来把有重复的链表段删除就可以了</span>
-                <span class="token comment" spellcheck="true">// 1        2   2   2         3</span>
-                <span class="token comment" spellcheck="true">// curNode          delNode</span>
-                curNode<span class="token punctuation">.</span>next <span class="token operator">=</span> delNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-                delNode<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 否则向前走一步</span>
-                curNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> dummyNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+                // 接下来把有重复的链表段删除就可以了
+                // 1        2   2   2         3
+                // curNode          delNode
+                curNode.next = delNode.next;
+                delNode.next = null;
+            } else {
+                // 否则向前走一步
+                curNode = curNode.next;
+            }
+        }
+        return dummyNode.next;
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        ListNode head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        Solution2 solution2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        ListNode deleteDuplicates <span class="token operator">=</span> solution2<span class="token punctuation">.</span><span class="token function">deleteDuplicates</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>deleteDuplicates<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    public static void main(String[] args) {
+        int[] nums = {1, 1, 1, 2, 3, 3, 4, 4, 5, 6, 7, 8, 8, 8, 9};
+        ListNode head = new ListNode(nums);
+        Solution2 solution2 = new Solution2();
+        ListNode deleteDuplicates = solution2.deleteDuplicates(head);
+        System.out.println(deleteDuplicates);
+    }
+}
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">deleteDuplicates</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def deleteDuplicates(self, head):
+        """
         :type head: ListNode
         :rtype: ListNode
-        """</span>
+        """
 
-        <span class="token keyword">if</span> head <span class="token keyword">is</span> None <span class="token operator">or</span> head<span class="token punctuation">.</span>next <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> head
+        if head is None or head.next is None:
+            return head
 
-        dummy <span class="token operator">=</span> ListNode<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
-        dummy<span class="token punctuation">.</span>next <span class="token operator">=</span> head
-        cur <span class="token operator">=</span> dummy
+        dummy = ListNode(-1)
+        dummy.next = head
+        cur = dummy
 
-        <span class="token keyword">while</span> cur<span class="token punctuation">.</span>next <span class="token operator">and</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val <span class="token operator">==</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val<span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 继续往后看，有没有相等的元素</span>
-                <span class="token comment" spellcheck="true"># del_node 至少删掉它</span>
-                del_node <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next
-                <span class="token keyword">while</span> del_node<span class="token punctuation">.</span>next <span class="token operator">and</span> del_node<span class="token punctuation">.</span>val <span class="token operator">==</span> del_node<span class="token punctuation">.</span>next<span class="token punctuation">.</span>val<span class="token punctuation">:</span>
-                    del_node <span class="token operator">=</span> del_node<span class="token punctuation">.</span>next
-                <span class="token comment" spellcheck="true"># 开始删除操作</span>
-                cur<span class="token punctuation">.</span>next <span class="token operator">=</span> del_node<span class="token punctuation">.</span>next
-                del_node<span class="token punctuation">.</span>next <span class="token operator">=</span> None
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next
-        <span class="token keyword">return</span> dummy<span class="token punctuation">.</span>next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        while cur.next and cur.next.next:
+            if cur.next.val == cur.next.next.val:
+                # 继续往后看，有没有相等的元素
+                # del_node 至少删掉它
+                del_node = cur.next.next
+                while del_node.next and del_node.val == del_node.next.val:
+                    del_node = del_node.next
+                # 开始删除操作
+                cur.next = del_node.next
+                del_node.next = None
+            else:
+                cur = cur.next
+        return dummy.next
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>

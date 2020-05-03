@@ -497,36 +497,39 @@
 <p>输入一个数组，求出这个数组中的逆序对的总数。</p>
 <h4 id="样例"><a href="#样例" class="headerlink" title="样例"></a>样例</h4><pre><code>输入：[1,2,3,4,5,6,0]
 
-输出：6</code></pre></blockquote>
+输出：6
+</code></pre></blockquote>
 <h4 id="方法一：根据定义"><a href="#方法一：根据定义" class="headerlink" title="方法一：根据定义"></a>方法一：根据定义</h4><p>首先我们应该想到，使用定义计算逆序数，时间复杂度是：$O(n^2)$。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">reversePairs</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> cnt <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    cnt<span class="token operator">++</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> cnt<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public int reversePairs(int[] nums) {
+        int cnt = 0;
+        int len = nums.length;
+        for (int i = 0; i < len - 1; i++) {
+            for (int j = i + 1; j < len; j++) {
+                if (nums[i] > nums[j]) {
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">inversePairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-        res <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    res <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
+    def inversePairs(self, nums):
+        l = len(nums)
+        if l < 2:
+            return 0
+        res = 0
+        for i in range(0, l - 1):
+            for j in range(i + 1, l):
+                if nums[i] > nums[j]:
+                    res += 1
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="方法二：分治算法（借助归并排序）"><a href="#方法二：分治算法（借助归并排序）" class="headerlink" title="方法二：分治算法（借助归并排序）"></a>方法二：分治算法（借助归并排序）</h4><p>这种思路虽然很直接，但编写出错的概率就很低了，在没有在线评测系统的时候，它可以作为一个「正确的」参考答案，用以检验我们自己编写的算法是否正确。</p>
 <p>思路2：借助归并排序的分治思想，时间复杂度为 $O(n \log n)$。</p>
 <p>分析：例如：前有序数组：$[2,3,5,8]$，后有序数组：$[4,6,7,12]$。</p>
@@ -541,25 +544,25 @@
 <p>第 8 步，$12$ 出列，此时“前有序数组”为空。</p>
 <p>因此，我们只需要在<strong>“前有序数组”非空，且“后有序数组”中有元素出列的时候，即上面的第 3、5、6 步计算“逆序对”就可以了</strong>。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">reversePairs</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    public int reversePairs(int[] nums) {
+        int len = nums.length;
 
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        if (len < 2) {
+            return 0;
+        }
 
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> copy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            copy<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        int[] copy = new int[len];
+        for (int i = 0; i < len; i++) {
+            copy[i] = nums[i];
+        }
 
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> <span class="token function">reversePairs</span><span class="token punctuation">(</span>copy<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        int[] temp = new int[len];
+        return reversePairs(copy, 0, len - 1, temp);
+    }
 
-    <span class="token comment" spellcheck="true">/**
+    /**
      * nums[left..right] 计算逆序对个数并且排序
      *
      * @param nums
@@ -567,26 +570,26 @@
      * @param right
      * @param temp
      * @return
-     */</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">reversePairs</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>left <span class="token operator">==</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+     */
+    private int reversePairs(int[] nums, int left, int right, int[] temp) {
+        if (left == right) {
+            return 0;
+        }
 
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> leftPairs <span class="token operator">=</span> <span class="token function">reversePairs</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> rightPairs <span class="token operator">=</span> <span class="token function">reversePairs</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        int mid = left + (right - left) / 2;
+        int leftPairs = reversePairs(nums, left, mid, temp);
+        int rightPairs = reversePairs(nums, mid + 1, right, temp);
 
-        <span class="token comment" spellcheck="true">// 如果整个数组已经有序，则无需合并，注意这里使用小于等于</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> leftPairs <span class="token operator">+</span> rightPairs<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+        // 如果整个数组已经有序，则无需合并，注意这里使用小于等于
+        if (nums[mid] <= nums[mid + 1]) {
+            return leftPairs + rightPairs;
+        }
 
-        <span class="token keyword">int</span> crossPairs <span class="token operator">=</span> <span class="token function">mergeAndCount</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> right<span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> leftPairs <span class="token operator">+</span> rightPairs <span class="token operator">+</span> crossPairs<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        int crossPairs = mergeAndCount(nums, left, mid, right, temp);
+        return leftPairs + rightPairs + crossPairs;
+    }
 
-    <span class="token comment" spellcheck="true">/**
+    /**
      * nums[left..mid] 有序，nums[mid + 1..right] 有序
      *
      * @param nums
@@ -595,129 +598,131 @@
      * @param right
      * @param temp
      * @return
-     */</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">mergeAndCount</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> left<span class="token punctuation">,</span> <span class="token keyword">int</span> mid<span class="token punctuation">,</span> <span class="token keyword">int</span> right<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> temp<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> left<span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> right<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+     */
+    private int mergeAndCount(int[] nums, int left, int mid, int right, int[] temp) {
+        for (int i = left; i <= right; i++) {
+            temp[i] = nums[i];
+        }
 
-        <span class="token keyword">int</span> i <span class="token operator">=</span> left<span class="token punctuation">;</span>
-        <span class="token keyword">int</span> j <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        int i = left;
+        int j = mid + 1;
 
-        <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> k <span class="token operator">=</span> left<span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> right<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 有下标访问，得先判断是否越界</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                j<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>j <span class="token operator">==</span> right <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                i<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 注意：这里是 &lt;= ，写成 &lt; 就不对，请思考原因</span>
-                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                i<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                j<span class="token operator">++</span><span class="token punctuation">;</span>
+        int count = 0;
+        for (int k = left; k <= right; k++) {
+            // 有下标访问，得先判断是否越界
+            if (i == mid + 1) {
+                nums[k] = temp[j];
+                j++;
+            } else if (j == right + 1) {
+                nums[k] = temp[i];
+                i++;
+            } else if (temp[i] <= temp[j]) {
+                // 注意：这里是 <= ，写成 < 就不对，请思考原因
+                nums[k] = temp[i];
+                i++;
+            } else {
+                nums[k] = temp[j];
+                j++;
 
-                <span class="token comment" spellcheck="true">// 在 j 指向的元素归并回去的时候，计算逆序对的个数，只多了这一行代码</span>
-                count <span class="token operator">+=</span> <span class="token punctuation">(</span>mid <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> count<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+                // 在 j 指向的元素归并回去的时候，计算逆序对的个数，只多了这一行代码
+                count += (mid - i + 1);
+            }
+        }
+        return count;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">inversePairs1</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-        res <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">if</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    res <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> res
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
+    def inversePairs1(self, nums):
+        l = len(nums)
+        if l < 2:
+            return 0
+        res = 0
+        for i in range(0, l - 1):
+            for j in range(i + 1, l):
+                if nums[i] > nums[j]:
+                    res += 1
+        return res
 
-    <span class="token keyword">def</span> <span class="token function">inversePairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def inversePairs(self, nums):
+        """
         :type nums: List[int]
         :rtype: int
-        """</span>
+        """
 
-        l <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-        temp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">]</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>count_inversion_pairs<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
+        l = len(nums)
+        if l < 2:
+            return 0
+        temp = [0 for _ in range(l)]
+        return self.count_inversion_pairs(nums, 0, l - 1, temp)
 
-    <span class="token keyword">def</span> <span class="token function">count_inversion_pairs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def count_inversion_pairs(self, nums, l, r, temp):
+        """
         在数组 nums 的区间 [l,r] 统计逆序对
         :param nums:
         :param l: 待统计数组的左边界，可以取到
         :param r: 待统计数组的右边界，可以取到
         :param temp:
         :return:
-        """</span>
-        <span class="token comment" spellcheck="true"># 极端情况下，就是只有 1 个元素的时候</span>
-        <span class="token keyword">if</span> l <span class="token operator">==</span> r<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-        mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
-        left_pairs <span class="token operator">=</span> self<span class="token punctuation">.</span>count_inversion_pairs<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
-        right_pairs <span class="token operator">=</span> self<span class="token punctuation">.</span>count_inversion_pairs<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
+        """
+        # 极端情况下，就是只有 1 个元素的时候
+        if l == r:
+            return 0
+        mid = l + (r - l) // 2
+        left_pairs = self.count_inversion_pairs(nums, l, mid, temp)
+        right_pairs = self.count_inversion_pairs(nums, mid + 1, r, temp)
 
-        merge_pairs <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token comment" spellcheck="true"># 代码走到这里的时候，</span>
-        <span class="token comment" spellcheck="true"># [l, mid] 已经完成了排序并且计算好逆序对</span>
-        <span class="token comment" spellcheck="true"># [mid + 1, r] 已经完成了排序并且计算好逆序对</span>
-        <span class="token comment" spellcheck="true"># 如果 nums[mid] &lt;= nums[mid + 1]，此时就不存在逆序对</span>
-        <span class="token comment" spellcheck="true"># 当 nums[mid] > nums[mid + 1] 的时候，就要继续计算逆序对</span>
-        <span class="token keyword">if</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># 在归并的过程中计算逆序对</span>
-            merge_pairs <span class="token operator">=</span> self<span class="token punctuation">.</span>merge_and_count<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 走到这里有 nums[mid] &lt;= nums[mid + 1] 成立，已经是顺序结构</span>
-        <span class="token keyword">return</span> left_pairs <span class="token operator">+</span> right_pairs <span class="token operator">+</span> merge_pairs
+        merge_pairs = 0
+        # 代码走到这里的时候，
+        # [l, mid] 已经完成了排序并且计算好逆序对
+        # [mid + 1, r] 已经完成了排序并且计算好逆序对
+        # 如果 nums[mid] <= nums[mid + 1]，此时就不存在逆序对
+        # 当 nums[mid] > nums[mid + 1] 的时候，就要继续计算逆序对
+        if nums[mid] > nums[mid + 1]:
+            # 在归并的过程中计算逆序对
+            merge_pairs = self.merge_and_count(nums, l, mid, r, temp)
+        # 走到这里有 nums[mid] <= nums[mid + 1] 成立，已经是顺序结构
+        return left_pairs + right_pairs + merge_pairs
 
-    <span class="token keyword">def</span> <span class="token function">merge_and_count</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> l<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> r<span class="token punctuation">,</span> temp<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def merge_and_count(self, nums, l, mid, r, temp):
+        """
         前：[2,3,5,8]，后：[4,6,7,12]
         我们只需要在后面数组元素出列的时候，数一数前面这个数组还剩下多少个数字，
         因为"前"数组和"后"数组都有序，
         因此，"前"数组剩下的元素个数 mid - i + 1 就是与"后"数组元素出列的这个元素构成的逆序对个数
 
-        """</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">,</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
-        i <span class="token operator">=</span> l
-        j <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
-        res <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token keyword">for</span> k <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">,</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> i <span class="token operator">></span> mid<span class="token punctuation">:</span>
-                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
-                j <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">elif</span> j <span class="token operator">></span> r<span class="token punctuation">:</span>
-                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
-                i <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">elif</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 不统计逆序对，只做排序</span>
-                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
-                i <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                <span class="token keyword">assert</span> temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
-                nums<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
-                j <span class="token operator">+=</span> <span class="token number">1</span>
-                <span class="token comment" spellcheck="true"># 快就快在这里，一次可以数出一个区间的个数的逆序对</span>
-                <span class="token comment" spellcheck="true"># 例：[7,8,9][4,6,9]，4 与 7 以及 7 前面所有的数都构成逆序对</span>
-                res <span class="token operator">+=</span> <span class="token punctuation">(</span>mid <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        """
+        for i in range(l, r + 1):
+            temp[i] = nums[i]
+        i = l
+        j = mid + 1
+        res = 0
+        for k in range(l, r + 1):
+            if i > mid:
+                nums[k] = temp[j]
+                j += 1
+            elif j > r:
+                nums[k] = temp[i]
+                i += 1
+            elif temp[i] <= temp[j]:
+                # 不统计逆序对，只做排序
+                nums[k] = temp[i]
+                i += 1
+            else:
+                assert temp[i] > temp[j]
+                nums[k] = temp[j]
+                j += 1
+                # 快就快在这里，一次可以数出一个区间的个数的逆序对
+                # 例：[7,8,9][4,6,9]，4 与 7 以及 7 前面所有的数都构成逆序对
+                res += (mid - i + 1)
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>说明：归并两个有序数组的时候，我们要借助额外的辅助空间，为此可以全局使用一个和原始数组等长的辅助数组，否则每一次进入 <code>merge</code> 函数都要 new 新数组，开销很大。</p>
 <p>上述解法的缺点是修改了原始数组，排序完成以后，逆序数就计算出来了。为此：1、我们可以引入一个索引数组；2、或者直接拷贝一个原始数组，这样就不用修改原始数组了。</p>
 <h3 id="例2：「力扣」第-315-题：计算右侧小于当前元素的个数"><a href="#例2：「力扣」第-315-题：计算右侧小于当前元素的个数" class="headerlink" title="例2：「力扣」第 315 题：计算右侧小于当前元素的个数"></a>例2：「力扣」第 315 题：计算右侧小于当前元素的个数</h3><p>传送门：<a href="https://leetcode-cn.com/problems/count-of-smaller-numbers-after-self/" target="_blank" rel="noopener">315. 计算右侧小于当前元素的个数</a>。</p>
 <blockquote>
-<p>给定一个整数数组 <em>nums<em>，按要求返回一个新数组 *counts</em>。数组 *counts</em> 有该性质： <code>counts[i]</code> 的值是  <code>nums[i]</code> 右侧小于 <code>nums[i]</code> 的元素的数量。</p>
+<p>给定一个整数数组 <em>nums</em>，按要求返回一个新数组 <em>counts</em>。数组 <em>counts</em> 有该性质： <code>counts[i]</code> 的值是  <code>nums[i]</code> 右侧小于 <code>nums[i]</code> 的元素的数量。</p>
 <p><strong>示例:</strong></p>
 <pre><code>输入: [5,2,6,1]
 输出: [2,1,1,0] 
@@ -725,119 +730,121 @@
 5 的右侧有 2 个更小的元素 (2 和 1).
 2 的右侧仅有 1 个更小的元素 (1).
 6 的右侧有 1 个更小的元素 (1).
-1 的右侧有 0 个更小的元素.</code></pre></blockquote>
+1 的右侧有 0 个更小的元素.
+</code></pre></blockquote>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">countSmaller</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def countSmaller(self, nums):
+        """
         :type nums: List[int]
         :rtype: List[int]
-        """</span>
+        """
 
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
-        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+        size = len(nums)
+        if size == 0:
+            return []
+        if size == 1:
+            return [0]
 
-        temp <span class="token operator">=</span> <span class="token punctuation">[</span>None <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">]</span>
-        indexes <span class="token operator">=</span> <span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">]</span>
-        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>size<span class="token punctuation">)</span><span class="token punctuation">]</span>
+        temp = [None for _ in range(size)]
+        indexes = [i for i in range(size)]
+        res = [0 for _ in range(size)]
 
-        self<span class="token punctuation">.</span>__helper<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
-        <span class="token keyword">return</span> res
+        self.__helper(nums, 0, size - 1, temp, indexes, res)
+        return res
 
-    <span class="token keyword">def</span> <span class="token function">__helper</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> left <span class="token operator">==</span> right<span class="token punctuation">:</span>
-            <span class="token keyword">return</span>
-        mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
+    def __helper(self, nums, left, right, temp, indexes, res):
+        if left == right:
+            return
+        mid = left + (right - left) // 2
 
-        <span class="token comment" spellcheck="true"># 计算一下左边</span>
-        self<span class="token punctuation">.</span>__helper<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 计算一下右边</span>
-        self<span class="token punctuation">.</span>__helper<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+        # 计算一下左边
+        self.__helper(nums, left, mid, temp, indexes, res)
+        # 计算一下右边
+        self.__helper(nums, mid + 1, right, temp, indexes, res)
 
-        <span class="token keyword">if</span> nums<span class="token punctuation">[</span>indexes<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>indexes<span class="token punctuation">[</span>mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span>
-        self<span class="token punctuation">.</span>__sort_and_count_smaller<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> right<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+        if nums[indexes[mid]] <= nums[indexes[mid + 1]]:
+            return
+        self.__sort_and_count_smaller(nums, left, mid, right, temp, indexes, res)
 
-    <span class="token keyword">def</span> <span class="token function">__sort_and_count_smaller</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> right<span class="token punctuation">,</span> temp<span class="token punctuation">,</span> indexes<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># [left,mid] 前有序数组</span>
-        <span class="token comment" spellcheck="true"># [mid+1,right] 后有序数组</span>
+    def __sort_and_count_smaller(self, nums, left, mid, right, temp, indexes, res):
+        # [left,mid] 前有序数组
+        # [mid+1,right] 后有序数组
 
-        <span class="token comment" spellcheck="true"># 先拷贝，再合并</span>
+        # 先拷贝，再合并
 
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>left<span class="token punctuation">,</span> right <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            temp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+        for i in range(left, right + 1):
+            temp[i] = indexes[i]
 
-        l <span class="token operator">=</span> left
-        r <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>left<span class="token punctuation">,</span> right <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> l <span class="token operator">></span> mid<span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># l 用完，就拼命使用 r</span>
-                <span class="token comment" spellcheck="true"># [1,2,3,4] [5,6,7,8]</span>
-                indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>r<span class="token punctuation">]</span>
-                r <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">elif</span> r <span class="token operator">></span> right<span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># r 用完，就拼命使用 l</span>
-                <span class="token comment" spellcheck="true"># [6,7,8,9] [1,2,3,4]</span>
-                indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>l<span class="token punctuation">]</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-                <span class="token comment" spellcheck="true"># 注意：此时前面剩下的数，比后面所有的数都大</span>
-                res<span class="token punctuation">[</span>indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> mid<span class="token punctuation">)</span>
-            <span class="token keyword">elif</span> nums<span class="token punctuation">[</span>temp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;=</span> nums<span class="token punctuation">[</span>temp<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># [3,5,7,9] [4,6,8,10]</span>
-                indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>l<span class="token punctuation">]</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-                <span class="token comment" spellcheck="true"># 注意：</span>
-                res<span class="token punctuation">[</span>indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                <span class="token keyword">assert</span> nums<span class="token punctuation">[</span>temp<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">></span> nums<span class="token punctuation">[</span>temp<span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">]</span>
-                <span class="token comment" spellcheck="true"># 上面两种情况只在其中一种统计就可以了</span>
-                <span class="token comment" spellcheck="true"># [3,5,7,9] [4,6,8,10]</span>
-                indexes<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">[</span>r<span class="token punctuation">]</span>
-                r <span class="token operator">+=</span> <span class="token number">1</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        l = left
+        r = mid + 1
+        for i in range(left, right + 1):
+            if l > mid:
+                # l 用完，就拼命使用 r
+                # [1,2,3,4] [5,6,7,8]
+                indexes[i] = temp[r]
+                r += 1
+            elif r > right:
+                # r 用完，就拼命使用 l
+                # [6,7,8,9] [1,2,3,4]
+                indexes[i] = temp[l]
+                l += 1
+                # 注意：此时前面剩下的数，比后面所有的数都大
+                res[indexes[i]] += (right - mid)
+            elif nums[temp[l]] <= nums[temp[r]]:
+                # [3,5,7,9] [4,6,8,10]
+                indexes[i] = temp[l]
+                l += 1
+                # 注意：
+                res[indexes[i]] += (r - mid - 1)
+            else:
+                assert nums[temp[l]] > nums[temp[r]]
+                # 上面两种情况只在其中一种统计就可以了
+                # [3,5,7,9] [4,6,8,10]
+                indexes[i] = temp[r]
+                r += 1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>说明：这里用到了一个索引数组 <code>indeses</code>，是一个常见的技巧。比如我们交换数组的元素成本很大的时候，可以使用索引数组，交换索引成本很低。这一点，在我们以后介绍索引堆的时候还会用到。</p>
 <h3 id="例3：「力扣」第-53-题：最大子序和"><a href="#例3：「力扣」第-53-题：最大子序和" class="headerlink" title="例3：「力扣」第 53 题：最大子序和"></a>例3：「力扣」第 53 题：最大子序和</h3><ul>
 <li><p>中文网址：<a href="https://leetcode-cn.com/problems/maximum-subarray/description/" target="_blank" rel="noopener">53. 最大子序和</a> ；</p>
 </li>
 <li><p>英文网址：<a href="https://leetcode.com/problems/maximum-subarray/description/" target="_blank" rel="noopener">53. Maximum Subarray</a> ；</p>
 </li>
-<li><p>题解链接：<a href="https://leetcode-cn.com/problems/maximum-subarray/solution/dong-tai-gui-hua-fen-zhi-fa-python-dai-ma-java-dai/" target="_blank" rel="noopener">动态规划、分治法</a>。</p>
-</li>
+<li>题解链接：<a href="https://leetcode-cn.com/problems/maximum-subarray/solution/dong-tai-gui-hua-fen-zhi-fa-python-dai-ma-java-dai/" target="_blank" rel="noopener">动态规划、分治法</a>。</li>
 </ul>
 <blockquote>
 <p>给定一个整数数组 <code>nums</code> ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
 <p><strong>示例:</strong></p>
 <pre><code>输入: [-2,1,-3,4,-1,2,1,-5,4],
 输出: 6
-解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。</code></pre><p><strong>进阶:</strong></p>
+解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+</code></pre><p><strong>进阶:</strong></p>
 <p>如果你已经实现复杂度为 O(<em>n</em>) 的解法，尝试使用更为精妙的分治法求解。</p>
 </blockquote>
 <p>分析：这道题其实最先应该想到使用动态规划，使用分治有点“小题大作”，我们不妨把分治解法看做一个例题。</p>
 <p>分治的时候，要注意一点，不重不漏。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">maxSubArray</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
+    def maxSubArray(self, nums):
+        """
         :type nums: List[int]
         :rtype: int
-        """</span>
-        n <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>__max_sub_array<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        """
+        n = len(nums)
+        if n == 0:
+            return 0
+        return self.__max_sub_array(nums, 0, n - 1)
 
-    <span class="token keyword">def</span> <span class="token function">__max_sub_array</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token keyword">if</span> left <span class="token operator">==</span> right<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span>
-        mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
-        <span class="token keyword">return</span> max<span class="token punctuation">(</span>self<span class="token punctuation">.</span>__max_sub_array<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">)</span><span class="token punctuation">,</span>
-                   self<span class="token punctuation">.</span>__max_sub_array<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">,</span>
-                   self<span class="token punctuation">.</span>__max_cross_array<span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    def __max_sub_array(self, nums, left, right):
+        if left == right:
+            return nums[left]
+        mid = left + (right - left) // 2
+        return max(self.__max_sub_array(nums, left, mid),
+                   self.__max_sub_array(nums, mid + 1, right),
+                   self.__max_cross_array(nums, left, mid, right))
 
-    <span class="token keyword">def</span> <span class="token function">__max_cross_array</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> mid<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+    def __max_cross_array(self, nums, left, mid, right):
+        """
         一定包含 nums[mid] 元素的最大连续子数组的和
         思路是看看左边扩散到底，得到一个最大数
         右边扩散到底得到一个最大数
@@ -845,31 +852,32 @@
         :param mid:
         :param right:
         :return:
-        """</span>
-        ls <span class="token operator">=</span> <span class="token number">0</span>
-        j <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span>
-        s1 <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token keyword">while</span> j <span class="token operator">>=</span> left<span class="token punctuation">:</span>
-            s1 <span class="token operator">+=</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
-            ls <span class="token operator">=</span> max<span class="token punctuation">(</span>ls<span class="token punctuation">,</span> s1<span class="token punctuation">)</span>
-            j <span class="token operator">-=</span> <span class="token number">1</span>
+        """
+        ls = 0
+        j = mid - 1
+        s1 = 0
+        while j >= left:
+            s1 += nums[j]
+            ls = max(ls, s1)
+            j -= 1
 
-        rs <span class="token operator">=</span> <span class="token number">0</span>
-        j <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
-        s2 <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token keyword">while</span> j <span class="token operator">&lt;=</span> right<span class="token punctuation">:</span>
-            s2 <span class="token operator">+=</span> nums<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
-            rs <span class="token operator">=</span> max<span class="token punctuation">(</span>rs<span class="token punctuation">,</span> s2<span class="token punctuation">)</span>
-            j <span class="token operator">+=</span> <span class="token number">1</span>
+        rs = 0
+        j = mid + 1
+        s2 = 0
+        while j <= right:
+            s2 += nums[j]
+            rs = max(rs, s2)
+            j += 1
 
-        <span class="token keyword">return</span> ls <span class="token operator">+</span> nums<span class="token punctuation">[</span>mid<span class="token punctuation">]</span> <span class="token operator">+</span> rs
+        return ls + nums[mid] + rs
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    s <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    nums <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
-    result <span class="token operator">=</span> s<span class="token punctuation">.</span>maxSubArray<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+if __name__ == '__main__':
+    s = Solution()
+    nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+    result = s.maxSubArray(nums)
+    print(result)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
 
             </div>
@@ -1182,12 +1190,12 @@
                         <span class="chip bg-color">排序算法</span>
                     </a>
                     
-                    <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">分治算法</span>
-                    </a>
-                    
                     <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
                         <span class="chip bg-color">递归</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">分治算法</span>
                     </a>
                     
                     <a href="/leetcode-algo/tags/partition/">
@@ -1248,12 +1256,12 @@ public class Solution {
                         <span class="chip bg-color">排序算法</span>
                     </a>
                     
-                    <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">分治算法</span>
-                    </a>
-                    
                     <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
                         <span class="chip bg-color">递归</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">分治算法</span>
                     </a>
                     
                 </div>

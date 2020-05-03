@@ -525,200 +525,202 @@
 <p>下面给出的参考代码包括了抽象类（接口）和我的简单实现类，还有一些调试的代码。</p>
 <p><strong>参考代码</strong>：</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">/**
  * // This is MountainArray's API interface.
  * // You should not implement it, or speculate about its implementation
- */</span>
+ */
 
-<span class="token keyword">interface</span> <span class="token class-name">MountainArray</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+interface MountainArray {
+    public int get(int index);
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+    public int length();
+}
 
 
-<span class="token keyword">class</span> <span class="token class-name">MountainArrayImpl</span> <span class="token keyword">implements</span> <span class="token class-name">MountainArray</span> <span class="token punctuation">{</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">;</span>
-    <span class="token keyword">private</span> <span class="token keyword">int</span> size<span class="token punctuation">;</span>
+class MountainArrayImpl implements MountainArray {
+    private int[] arr;
+    private int size;
 
-    <span class="token keyword">public</span> <span class="token function">MountainArrayImpl</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>arr <span class="token operator">=</span> arr<span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>size <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public MountainArrayImpl(int[] arr) {
+        this.arr = arr;
+        this.size = this.arr.length;
+    }
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>arr<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    @Override
+    public int get(int index) {
+        return this.arr[index];
+    }
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>size<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    @Override
+    public int length() {
+        return this.size;
+    }
 
-<span class="token punctuation">}</span>
+}
 
-<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+class Solution {
 
-    <span class="token comment" spellcheck="true">// 特别注意：3 个辅助方法的分支出奇地一样，因此选中位数均选左中位数，才不会发生死循环</span>
+    // 特别注意：3 个辅助方法的分支出奇地一样，因此选中位数均选左中位数，才不会发生死循环
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">findInMountainArray</span><span class="token punctuation">(</span><span class="token keyword">int</span> target<span class="token punctuation">,</span> MountainArray mountainArr<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> size <span class="token operator">=</span> mountainArr<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 步骤 1：先找到山顶元素所在的索引</span>
-        <span class="token keyword">int</span> mountaintop <span class="token operator">=</span> <span class="token function">findMountaintop</span><span class="token punctuation">(</span>mountainArr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 步骤 2：在前有序且升序数组中找 target 所在的索引</span>
-        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token function">findFromSortedArr</span><span class="token punctuation">(</span>mountainArr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> mountaintop<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>res <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 步骤 3：如果步骤 2 找不到，就在后有序且降序数组中找 target 所在的索引</span>
-        <span class="token keyword">return</span> <span class="token function">findFromInversedArr</span><span class="token punctuation">(</span>mountainArr<span class="token punctuation">,</span> mountaintop <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public int findInMountainArray(int target, MountainArray mountainArr) {
+        int size = mountainArr.length();
+        // 步骤 1：先找到山顶元素所在的索引
+        int mountaintop = findMountaintop(mountainArr, 0, size - 1);
+        // 步骤 2：在前有序且升序数组中找 target 所在的索引
+        int res = findFromSortedArr(mountainArr, 0, mountaintop, target);
+        if (res != -1) {
+            return res;
+        }
+        // 步骤 3：如果步骤 2 找不到，就在后有序且降序数组中找 target 所在的索引
+        return findFromInversedArr(mountainArr, mountaintop + 1, size - 1, target);
+    }
 
-    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">findMountaintop</span><span class="token punctuation">(</span>MountainArray mountainArr<span class="token punctuation">,</span> <span class="token keyword">int</span> l<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 返回山顶元素</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// 取左中位数，因为进入循环，数组一定至少有 2 个元素</span>
-            <span class="token comment" spellcheck="true">// 因此，左中位数一定有右边元素，数组下标不会发生越界</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>mountainArr<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span> <span class="token operator">&lt;</span> mountainArr<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 如果当前的数比右边的数小，它一定不是山顶</span>
-                l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                r <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 根据题意，山顶元素一定存在，因此退出 while 循环的时候，不用再单独作判断</span>
-        <span class="token keyword">return</span> l<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    private int findMountaintop(MountainArray mountainArr, int l, int r) {
+        // 返回山顶元素
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            // 取左中位数，因为进入循环，数组一定至少有 2 个元素
+            // 因此，左中位数一定有右边元素，数组下标不会发生越界
+            if (mountainArr.get(mid) < mountainArr.get(mid + 1)) {
+                // 如果当前的数比右边的数小，它一定不是山顶
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
+        }
+        // 根据题意，山顶元素一定存在，因此退出 while 循环的时候，不用再单独作判断
+        return l;
+    }
 
-    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">findFromSortedArr</span><span class="token punctuation">(</span>MountainArray mountainArr<span class="token punctuation">,</span> <span class="token keyword">int</span> l<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 在前有序且升序数组中找 target 所在的索引</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>mountainArr<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span> <span class="token operator">&lt;</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                r <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
+    private int findFromSortedArr(MountainArray mountainArr, int l, int r, int target) {
+        // 在前有序且升序数组中找 target 所在的索引
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            if (mountainArr.get(mid) < target) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
 
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 因为不确定区间收缩成 1个数以后，这个数是不是要找的数，因此单独做一次判断</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>mountainArr<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> l<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        }
+        // 因为不确定区间收缩成 1个数以后，这个数是不是要找的数，因此单独做一次判断
+        if (mountainArr.get(l) == target) {
+            return l;
+        }
+        return -1;
+    }
 
-    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">findFromInversedArr</span><span class="token punctuation">(</span>MountainArray mountainArr<span class="token punctuation">,</span> <span class="token keyword">int</span> l<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 在后有序且降序数组中找 target 所在的索引</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// 与 findFromSortedArr 方法不同的地方仅仅在于由原来的小于号改成大于好</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>mountainArr<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>mid<span class="token punctuation">)</span> <span class="token operator">></span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                r <span class="token operator">=</span> mid<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
+    private int findFromInversedArr(MountainArray mountainArr, int l, int r, int target) {
+        // 在后有序且降序数组中找 target 所在的索引
+        while (l < r) {
+            int mid = l + (r - l) / 2;
+            // 与 findFromSortedArr 方法不同的地方仅仅在于由原来的小于号改成大于好
+            if (mountainArr.get(mid) > target) {
+                l = mid + 1;
+            } else {
+                r = mid;
+            }
 
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 因为不确定区间收缩成 1个数以后，这个数是不是要找的数，因此单独做一次判断</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>mountainArr<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token operator">==</span> target<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> l<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        }
+        // 因为不确定区间收缩成 1个数以后，这个数是不是要找的数，因此单独做一次判断
+        if (mountainArr.get(l) == target) {
+            return l;
+        }
+        return -1;
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> target <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-        MountainArray mountainArray <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MountainArrayImpl</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4, 5, 3, 1};
+        int target = 3;
+        MountainArray mountainArray = new MountainArrayImpl(arr);
 
-        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> res <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">findInMountainArray</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> mountainArray<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        Solution solution = new Solution();
+        int res = solution.findInMountainArray(target, mountainArray);
+        System.out.println(res);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># </span><span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python"># """
 # This is MountainArray's API interface.
 # You should not implement it, or speculate about its implementation
-# """</span>
-<span class="token keyword">class</span> <span class="token class-name">MountainArray</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>arr <span class="token operator">=</span> arr
-        self<span class="token punctuation">.</span>size <span class="token operator">=</span> len<span class="token punctuation">(</span>arr<span class="token punctuation">)</span>
+# """
+class MountainArray:
+    def __init__(self, arr):
+        self.arr = arr
+        self.size = len(arr)
 
-    <span class="token keyword">def</span> <span class="token function">get</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> index<span class="token punctuation">:</span> int<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> int<span class="token punctuation">:</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>arr<span class="token punctuation">[</span>index<span class="token punctuation">]</span>
+    def get(self, index: int) -> int:
+        return self.arr[index]
 
-    <span class="token keyword">def</span> <span class="token function">length</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> int<span class="token punctuation">:</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>size
-
-
-<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-
-    <span class="token comment" spellcheck="true"># 特别注意：3 个辅助方法的分支出奇地一样，因此选中位数均选左中位数，才不会发生死循环</span>
-
-    <span class="token keyword">def</span> <span class="token function">findInMountainArray</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> target<span class="token punctuation">:</span> int<span class="token punctuation">,</span> mountain_arr<span class="token punctuation">:</span> <span class="token string">'MountainArray'</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> int<span class="token punctuation">:</span>
-        size <span class="token operator">=</span> mountain_arr<span class="token punctuation">.</span>length<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 步骤 1：先找到山顶元素所在的索引</span>
-        mountaintop <span class="token operator">=</span> self<span class="token punctuation">.</span>__find_mountaintop<span class="token punctuation">(</span>mountain_arr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 步骤 2：在前有序且升序数组中找 target 所在的索引</span>
-        res <span class="token operator">=</span> self<span class="token punctuation">.</span>__find_from_sorted_arr<span class="token punctuation">(</span>mountain_arr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> mountaintop<span class="token punctuation">,</span> target<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> res <span class="token operator">!=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> res
-        <span class="token comment" spellcheck="true"># 步骤 3：如果步骤 2 找不到，就在后有序且降序数组中找 target 所在的索引</span>
-        <span class="token keyword">return</span> self<span class="token punctuation">.</span>__find_from_inversed_arr<span class="token punctuation">(</span>mountain_arr<span class="token punctuation">,</span> mountaintop <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> target<span class="token punctuation">)</span>
-
-    <span class="token keyword">def</span> <span class="token function">__find_mountaintop</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> mountain_arr<span class="token punctuation">:</span> <span class="token string">'MountainArray'</span><span class="token punctuation">,</span> l<span class="token punctuation">:</span> int<span class="token punctuation">,</span> r<span class="token punctuation">:</span> int<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 返回山顶元素</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
-            mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
-            <span class="token comment" spellcheck="true"># 取左中位数，因为进入循环，数组一定至少有 2 个元素</span>
-            <span class="token comment" spellcheck="true"># 因此，左中位数一定有右边元素，数组下标不会发生越界</span>
-            <span class="token keyword">if</span> mountain_arr<span class="token punctuation">.</span>get<span class="token punctuation">(</span>mid<span class="token punctuation">)</span> <span class="token operator">&lt;</span> mountain_arr<span class="token punctuation">.</span>get<span class="token punctuation">(</span>mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 如果当前的数比右边的数小，它一定不是山顶</span>
-                l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                r <span class="token operator">=</span> mid
-        <span class="token comment" spellcheck="true"># 根据题意，山顶元素一定存在，因此退出 while 循环的时候，不用再单独作判断</span>
-        <span class="token keyword">return</span> l
-
-    <span class="token keyword">def</span> <span class="token function">__find_from_sorted_arr</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> mountain_arr<span class="token punctuation">:</span> <span class="token string">'MountainArray'</span><span class="token punctuation">,</span> l<span class="token punctuation">:</span> int<span class="token punctuation">,</span> r<span class="token punctuation">:</span> int<span class="token punctuation">,</span> target<span class="token punctuation">:</span> int<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 在前有序且升序数组中找 target 所在的索引</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
-            mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
-            <span class="token keyword">if</span> mountain_arr<span class="token punctuation">.</span>get<span class="token punctuation">(</span>mid<span class="token punctuation">)</span> <span class="token operator">&lt;</span> target<span class="token punctuation">:</span>
-                l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                r <span class="token operator">=</span> mid
-        <span class="token comment" spellcheck="true"># 因为不确定区间收缩成 1 个数以后，这个数是不是要找的数，因此单独做一次判断</span>
-        <span class="token keyword">if</span> mountain_arr<span class="token punctuation">.</span>get<span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token operator">==</span> target<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> l
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
-
-    <span class="token keyword">def</span> <span class="token function">__find_from_inversed_arr</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> mountain_arr<span class="token punctuation">:</span> <span class="token string">'MountainArray'</span><span class="token punctuation">,</span> l<span class="token punctuation">:</span> int<span class="token punctuation">,</span> r<span class="token punctuation">:</span> int<span class="token punctuation">,</span> target<span class="token punctuation">:</span> int<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 在后有序且降序数组中找 target 所在的索引</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> r<span class="token punctuation">:</span>
-            mid <span class="token operator">=</span> l <span class="token operator">+</span> <span class="token punctuation">(</span>r <span class="token operator">-</span> l<span class="token punctuation">)</span> <span class="token operator">//</span> <span class="token number">2</span>
-            <span class="token comment" spellcheck="true"># 与 __find_from_sorted_arr 方法不同的地方仅仅在于由原来的小于号改成大于号</span>
-            <span class="token keyword">if</span> mountain_arr<span class="token punctuation">.</span>get<span class="token punctuation">(</span>mid<span class="token punctuation">)</span> <span class="token operator">></span> target<span class="token punctuation">:</span>
-                l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                r <span class="token operator">=</span> mid
-        <span class="token keyword">if</span> mountain_arr<span class="token punctuation">.</span>get<span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token operator">==</span> target<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> l
-        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+    def length(self) -> int:
+        return self.size
 
 
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span>
-    mountain_array <span class="token operator">=</span> MountainArray<span class="token punctuation">(</span>arr<span class="token punctuation">)</span>
-    target <span class="token operator">=</span> <span class="token number">3</span>
-    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    res <span class="token operator">=</span> solution<span class="token punctuation">.</span>findInMountainArray<span class="token punctuation">(</span>target<span class="token punctuation">,</span> mountain_array<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'res'</span><span class="token punctuation">,</span> res<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+class Solution:
+
+    # 特别注意：3 个辅助方法的分支出奇地一样，因此选中位数均选左中位数，才不会发生死循环
+
+    def findInMountainArray(self, target: int, mountain_arr: 'MountainArray') -> int:
+        size = mountain_arr.length()
+        # 步骤 1：先找到山顶元素所在的索引
+        mountaintop = self.__find_mountaintop(mountain_arr, 0, size - 1)
+        # 步骤 2：在前有序且升序数组中找 target 所在的索引
+        res = self.__find_from_sorted_arr(mountain_arr, 0, mountaintop, target)
+        if res != -1:
+            return res
+        # 步骤 3：如果步骤 2 找不到，就在后有序且降序数组中找 target 所在的索引
+        return self.__find_from_inversed_arr(mountain_arr, mountaintop + 1, size - 1, target)
+
+    def __find_mountaintop(self, mountain_arr: 'MountainArray', l: int, r: int):
+        # 返回山顶元素
+        while l < r:
+            mid = l + (r - l) // 2
+            # 取左中位数，因为进入循环，数组一定至少有 2 个元素
+            # 因此，左中位数一定有右边元素，数组下标不会发生越界
+            if mountain_arr.get(mid) < mountain_arr.get(mid + 1):
+                # 如果当前的数比右边的数小，它一定不是山顶
+                l = mid + 1
+            else:
+                r = mid
+        # 根据题意，山顶元素一定存在，因此退出 while 循环的时候，不用再单独作判断
+        return l
+
+    def __find_from_sorted_arr(self, mountain_arr: 'MountainArray', l: int, r: int, target: int):
+        # 在前有序且升序数组中找 target 所在的索引
+        while l < r:
+            mid = l + (r - l) // 2
+            if mountain_arr.get(mid) < target:
+                l = mid + 1
+            else:
+                r = mid
+        # 因为不确定区间收缩成 1 个数以后，这个数是不是要找的数，因此单独做一次判断
+        if mountain_arr.get(l) == target:
+            return l
+        return -1
+
+    def __find_from_inversed_arr(self, mountain_arr: 'MountainArray', l: int, r: int, target: int):
+        # 在后有序且降序数组中找 target 所在的索引
+        while l < r:
+            mid = l + (r - l) // 2
+            # 与 __find_from_sorted_arr 方法不同的地方仅仅在于由原来的小于号改成大于号
+            if mountain_arr.get(mid) > target:
+                l = mid + 1
+            else:
+                r = mid
+        if mountain_arr.get(l) == target:
+            return l
+        return -1
+
+
+if __name__ == '__main__':
+    arr = [1, 2, 3, 4, 5, 3, 1]
+    mountain_array = MountainArray(arr)
+    target = 3
+    solution = Solution()
+    res = solution.findInMountainArray(target, mountain_array)
+    print('res', res)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析：</strong></p>
 <ul>
 <li>时间复杂度：$O(\log N)$，二分查找法的时间复杂度是对数级别的，这里使用了 $3$ 次二分查找法，是常数倍数，因此可以忽略这个常数系数。</li>

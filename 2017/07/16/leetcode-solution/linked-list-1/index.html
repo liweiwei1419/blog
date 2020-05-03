@@ -492,60 +492,62 @@
 <p>反转一个单链表。</p>
 <p><strong>示例:</strong></p>
 <pre><code>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL
-输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</code></pre><p><strong>进阶:</strong><br>你可以迭代或递归地反转链表。你能否用两种方法解决这道题？</p>
+输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL
+</code></pre><p><strong>进阶:</strong><br>你可以迭代或递归地反转链表。你能否用两种方法解决这道题？</p>
 </blockquote>
 <p>分析：分析这道问题的时候写的草稿。</p>
 <p><img src="https://liweiwei1419.gitee.io/images/leetcode-solution/206-1.jpg" alt="LeetCode 第 206 题：反转链表"></p>
 <p>题目的要求是节点是不动的，而应该改变的是节点的 next 指针的方向。而不应该是去修改链表的值，使得这个新的链表看起来是反向的。指针变化的过程其实并不复杂，关键是我们把图画出来，需要多少个临时变量，指针变化过程也就一目了然了。我们可以看到，reverseList 的参数是一个 ListNode 类型的对象，即对象的头结点。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">/**
  * Definition for singly-linked list.
  * public class ListNode {
  * int val;
  * ListNode next;
  * ListNode(int x) { val = x; }
  * }
- */</span>
+ */
 
-<span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
+class ListNode {
 
-    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
-    ListNode next<span class="token punctuation">;</span>
+    int val;
+    ListNode next;
 
-    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        val <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    ListNode(int x) {
+        val = x;
+    }
+}
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+public class Solution {
 
-    <span class="token comment" spellcheck="true">/**
+    /**
      * 1、结合自己画的图并不难写出逻辑，把图画出来，迭代的思路就已经有了
      * 2、借助三个指针：pre、current、next 完成链表的反转
      * 3、
      * @param head
      * @return
-     */</span>
-    <span class="token keyword">public</span> ListNode <span class="token function">reverseList</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 初始化上一个指针</span>
-        ListNode pre <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 初始化当前指针</span>
-        ListNode current <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>current <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 第 1 步：先把 next 存起来，下一轮迭代要用到</span>
-            ListNode next <span class="token operator">=</span> current<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// 第 2 步：实现当前节点的 next 指针的反转</span>
-            current<span class="token punctuation">.</span>next <span class="token operator">=</span> pre<span class="token punctuation">;</span>
+     */
+    public ListNode reverseList(ListNode head) {
+        // 初始化上一个指针
+        ListNode pre = null;
+        // 初始化当前指针
+        ListNode current = head;
+        while (current != null) {
+            // 第 1 步：先把 next 存起来，下一轮迭代要用到
+            ListNode next = current.next;
+            // 第 2 步：实现当前节点的 next 指针的反转
+            current.next = pre;
 
-            <span class="token comment" spellcheck="true">// 第 3 步：重新定义下一轮迭代的循环变量</span>
-            pre <span class="token operator">=</span> current<span class="token punctuation">;</span>
-            current <span class="token operator">=</span> next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 遍历完成以后，原来的最后一个节点就成为了 pre</span>
-        <span class="token comment" spellcheck="true">// 这个 pre 就是反转以后的新的链表的头指针</span>
-        <span class="token keyword">return</span> pre<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            // 第 3 步：重新定义下一轮迭代的循环变量
+            pre = current;
+            current = next;
+        }
+        // 遍历完成以后，原来的最后一个节点就成为了 pre
+        // 这个 pre 就是反转以后的新的链表的头指针
+        return pre;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>看看代码是不是很简单。这个解法的时间复杂度是 $O(n)$，因为它仅仅遍历了一次链表，空间复杂度是$O(1)$，因为这里仅仅使用了有限个的“指针”，帮助我们完成了链表的反转操作。</p>
 <p>补充：如果不使用“穿针引线”，还可以用递归完成。</p>
 <h3 id="练习1：「力扣」第-92-题：反转从位置-m-到-n-的链表，k-个组进行一次反转"><a href="#练习1：「力扣」第-92-题：反转从位置-m-到-n-的链表，k-个组进行一次反转" class="headerlink" title="练习1：「力扣」第 92 题：反转从位置 m 到 n 的链表，k 个组进行一次反转"></a>练习1：「力扣」第 92 题：反转从位置 m 到 n 的链表，k 个组进行一次反转</h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/reverse-linked-list-ii/description/" target="_blank" rel="noopener">92. Reverse Linked List II</a>  ，中文网址：<a href="https://leetcode-cn.com/problems/reverse-linked-list-ii/description/" target="_blank" rel="noopener">92. 反转链表 II</a>  。</p>
@@ -553,89 +555,93 @@
 <p>反转一个单链表。</p>
 <p><strong>示例:</strong></p>
 <pre><code>输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL
-输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</code></pre><p><strong>进阶:</strong><br>你可以迭代或递归地反转链表。你能否用两种方法解决这道题？</p>
+输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL
+</code></pre><p><strong>进阶:</strong><br>你可以迭代或递归地反转链表。你能否用两种方法解决这道题？</p>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/414598-f83685e15724a1d7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/600" alt="LeetCode 第 92 题：反转从位置 m 到 n 的链表，k 个组进行一次反转-1"></p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
-    ListNode next<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">class ListNode {
+    int val;
+    ListNode next;
 
-    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        val <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    ListNode(int x) {
+        val = x;
+    }
+}
 
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> ListNode <span class="token function">reverseBetween</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> m<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token comment" spellcheck="true">// 创建一个虚拟的结点（dummy）</span>
-        ListNode dummy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        dummy<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
+public class Solution {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        // 创建一个虚拟的结点（dummy）
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
 
-        ListNode pre <span class="token operator">=</span> dummy<span class="token punctuation">;</span>
-        <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        ListNode pre = dummy;
+        int k = 0;
 
-        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">++</span>k <span class="token operator">&lt;</span> m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>pre <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                pre <span class="token operator">=</span> pre<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
+        while (++k < m) {
+            if (pre != null) {
+                pre = pre.next;
+            }
+        }
 
-        <span class="token comment" spellcheck="true">// tail 是尾巴的意思</span>
-        ListNode tail <span class="token operator">=</span> pre<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">++</span>k <span class="token operator">&lt;=</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            ListNode temp <span class="token operator">=</span> pre<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        // tail 是尾巴的意思
+        ListNode tail = pre.next;
+        while (++k <= n) {
+            ListNode temp = pre.next;
 
-            pre<span class="token punctuation">.</span>next <span class="token operator">=</span> tail<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            tail<span class="token punctuation">.</span>next <span class="token operator">=</span> tail<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            pre<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next <span class="token operator">=</span> temp<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> dummy<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span> 
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            pre.next = tail.next;
+            tail.next = tail.next.next;
+            pre.next.next = temp;
+        }
+        return dummy.next;
+    } 
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution2</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution2 {
 
-    <span class="token keyword">public</span> ListNode <span class="token function">reverseBetween</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> m<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        ListNode dummy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        dummy<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        ListNode pre <span class="token operator">=</span> dummy<span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// pre 指针向后移动</span>
-            pre <span class="token operator">=</span> pre<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// System.out.println(pre.val);</span>
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode pre = dummy;
+        for (int i = 0; i < m - 1; i++) {
+            // pre 指针向后移动
+            pre = pre.next;
+        }
+        // System.out.println(pre.val);
 
-        ListNode p <span class="token operator">=</span> pre<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        ListNode curNode<span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token operator">-</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            curNode <span class="token operator">=</span> p<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            p<span class="token punctuation">.</span>next <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            curNode<span class="token punctuation">.</span>next <span class="token operator">=</span> pre<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            pre<span class="token punctuation">.</span>next <span class="token operator">=</span> curNode<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> dummy<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        ListNode p = pre.next;
+        ListNode curNode;
+        for (int i = 0; i < n - m; i++) {
+            curNode = p.next;
+            p.next = curNode.next;
+            curNode.next = pre.next;
+            pre.next = curNode;
+        }
+        return dummy.next;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> ListNode <span class="token function">reverseBetween</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">,</span> <span class="token keyword">int</span> m<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 设置 dummyNode 是这一类问题的一般做法</span>
-    ListNode dummyNode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    dummyNode<span class="token punctuation">.</span>next <span class="token operator">=</span> head<span class="token punctuation">;</span>
-    ListNode pre <span class="token operator">=</span> dummyNode<span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> m <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        pre <span class="token operator">=</span> pre<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    ListNode cur <span class="token operator">=</span> pre<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-    ListNode next<span class="token punctuation">;</span>
-    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n <span class="token operator">-</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        next <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        cur<span class="token punctuation">.</span>next <span class="token operator">=</span> next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        next<span class="token punctuation">.</span>next <span class="token operator">=</span> pre<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        pre<span class="token punctuation">.</span>next <span class="token operator">=</span> next<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-    <span class="token keyword">return</span> dummyNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public ListNode reverseBetween(ListNode head, int m, int n) {
+    // 设置 dummyNode 是这一类问题的一般做法
+    ListNode dummyNode = new ListNode(-1);
+    dummyNode.next = head;
+    ListNode pre = dummyNode;
+    for (int i = 0; i < m - 1; i++) {
+        pre = pre.next;
+    }
+    ListNode cur = pre.next;
+    ListNode next;
+    for (int i = 0; i < n - m; i++) {
+        next = cur.next;
+        cur.next = next.next;
+        next.next = pre.next;
+        pre.next = next;
+    }
+    return dummyNode.next;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>另一种解法：来自“小吴”的动图，比较自然，但是代码写起来不够简洁。</p>
 <p>图示：</p>
 <p><img src="https://liweiwei1419.gitee.io/images/leetcode-solution/0092.gif" alt="LeetCode 第 92 题：反转从位置 m 到 n 的链表，k 个组进行一次反转-2"></p>

@@ -487,41 +487,43 @@
 <p><strong>示例：</strong></p>
 <pre><code>给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 和 n = 2.
 
-当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.</code></pre><p><strong>说明：</strong></p>
+当删除了倒数第二个节点后，链表变为 1-&gt;2-&gt;3-&gt;5.
+</code></pre><p><strong>说明：</strong></p>
 <p>给定的 <em>n</em> 保证是有效的。</p>
 <p><strong>进阶：</strong></p>
 <p>你能尝试使用一趟扫描实现吗？</p>
 </blockquote>
 <p>思路：使用快慢指针。其实只要掌握了如何找到距离末尾 $n$ 个元素的位置，就很容易了。还要注意的就是边界值的选取，其实往往我们认为的值与正确值无非就是 $+1$ 或者 $-1$ ，为了避免粗心出错，我们可以拿一个具体的例子。另外，涉及链表头结点的操作，一般都会引入虚拟结点，以减少讨论的可能，这是一个常见的技巧。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Definition for singly-linked list.</span>
-<span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
-        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
+<pre class="line-numbers language-lang-python"><code class="language-lang-python"># Definition for singly-linked list.
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 
-<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">findKthToTail</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> pListHead<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+class Solution(object):
+    def findKthToTail(self, pListHead, k):
+        """
         :type pListHead: ListNode
         :type k: int
         :rtype: ListNode
-        """</span>
-        <span class="token keyword">if</span> pListHead <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-            <span class="token keyword">return</span> None
-        fast <span class="token operator">=</span> pListHead
-        <span class="token comment" spellcheck="true"># 要注意的临界点1：</span>
-        <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next
-            <span class="token keyword">if</span> fast <span class="token keyword">is</span> None<span class="token punctuation">:</span>
-                <span class="token keyword">return</span> None
-        slow <span class="token operator">=</span> pListHead
-        <span class="token comment" spellcheck="true"># 要注意的临界点2：</span>
-        <span class="token keyword">while</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
-            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next
-            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next
-        <span class="token keyword">return</span> slow<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        """
+        if pListHead is None:
+            return None
+        fast = pListHead
+        # 要注意的临界点1：
+        for _ in range(k - 1):
+            fast = fast.next
+            if fast is None:
+                return None
+        slow = pListHead
+        # 要注意的临界点2：
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+        return slow
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="练习1：「力扣」第-61-题：旋转链表"><a href="#练习1：「力扣」第-61-题：旋转链表" class="headerlink" title="练习1：「力扣」第 61 题：旋转链表"></a>练习1：「力扣」第 61 题：<a href="https://leetcode-cn.com/problems/rotate-list" target="_blank" rel="noopener">旋转链表</a></h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/rotate-list/description/" target="_blank" rel="noopener">61. Rotate List</a> ，中文网址：<a href="https://leetcode-cn.com/problems/rotate-list/description/" target="_blank" rel="noopener">61. 旋转链表</a> 。</p>
 <blockquote>
 <p>给定一个链表，旋转链表，将链表每个结点向右移动 <em>k</em> 个位置，其中 <em>k</em> 是非负数。</p>
@@ -530,275 +532,283 @@
 输出: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL
 解释:
 向右旋转 1 步: 5-&gt;1-&gt;2-&gt;3-&gt;4-&gt;NULL
-向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL</code></pre><p><strong>示例 2:</strong></p>
+向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL
+</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: 0-&gt;1-&gt;2-&gt;NULL, k = 4
 输出: 2-&gt;0-&gt;1-&gt;NULL
 解释:
 向右旋转 1 步: 2-&gt;0-&gt;1-&gt;NULL
 向右旋转 2 步: 1-&gt;2-&gt;0-&gt;NULL
 向右旋转 3 步: 0-&gt;1-&gt;2-&gt;NULL
-向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL</code></pre></blockquote>
+向右旋转 4 步: 2-&gt;0-&gt;1-&gt;NULL
+</code></pre></blockquote>
 <p>思路：问题本身不难，但是要处理一些细节。</p>
 <p>1、一定要先求出链表的总长度；</p>
 <p>2、求得总长度的时候，顺便标记好末尾结点，并且把末尾结点的 next 指针指到头结点去，形成环，否则容易出现空指针异常；</p>
 <p>3、到底多少 pre 指针还要走多少步，举 1 到 2 个具体的例子带进去就知道了。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># Definition for singly-linked list.</span>
-<span class="token keyword">class</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        self<span class="token punctuation">.</span>val <span class="token operator">=</span> x
-        self<span class="token punctuation">.</span>next <span class="token operator">=</span> None
+<pre class="line-numbers language-lang-python"><code class="language-lang-python"># Definition for singly-linked list.
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 
-<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">rotateRight</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> head<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+class Solution(object):
+    def rotateRight(self, head, k):
+        """
         :type head: ListNode
         :type k: int
         :rtype: ListNode
-        """</span>
-        <span class="token keyword">if</span> head <span class="token keyword">is</span> None <span class="token operator">or</span> k <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> head
+        """
+        if head is None or k <= 0:
+            return head
 
-        <span class="token comment" spellcheck="true"># 先看链表有多少元素</span>
-        node <span class="token operator">=</span> head
-        <span class="token comment" spellcheck="true"># 先数这个链表的长度</span>
-        counter <span class="token operator">=</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> node<span class="token punctuation">.</span>next<span class="token punctuation">:</span>
-            node <span class="token operator">=</span> node<span class="token punctuation">.</span>next
-            counter <span class="token operator">+=</span> <span class="token number">1</span>
+        # 先看链表有多少元素
+        node = head
+        # 先数这个链表的长度
+        counter = 1
+        while node.next:
+            node = node.next
+            counter += 1
 
-        node<span class="token punctuation">.</span>next <span class="token operator">=</span> head
-        k <span class="token operator">=</span> k <span class="token operator">%</span> counter
-        node <span class="token operator">=</span> head
-        <span class="token comment" spellcheck="true"># counter - k - 1 可以取一些极端的例子找到规律</span>
-        <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>counter <span class="token operator">-</span> k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
-            node <span class="token operator">=</span> node<span class="token punctuation">.</span>next
-        new_head <span class="token operator">=</span> node<span class="token punctuation">.</span>next
-        node<span class="token punctuation">.</span>next <span class="token operator">=</span> None
-        <span class="token keyword">return</span> new_head
+        node.next = head
+        k = k % counter
+        node = head
+        # counter - k - 1 可以取一些极端的例子找到规律
+        for _ in range(counter - k - 1):
+            node = node.next
+        new_head = node.next
+        node.next = None
+        return new_head
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="练习2：「力扣」第-143-题：重排链表"><a href="#练习2：「力扣」第-143-题：重排链表" class="headerlink" title="练习2：「力扣」第 143 题：重排链表"></a>练习2：「力扣」第 143 题：<a href="https://leetcode-cn.com/problems/reorder-list" target="_blank" rel="noopener">重排链表</a></h3><p>传送门：<a href="https://leetcode-cn.com/problems/reorder-list/" target="_blank" rel="noopener">143. 重排链表</a>。</p>
 <blockquote>
-<p>给定一个单链表 <em>L</em>：<em>L</em>0→<em>L</em>1→…→<em>L**n</em>-1→<em>L</em>n ，<br>将其重新排列后变为： <em>L</em>0→<em>L<strong>n<em>→</em>L<em>1→</em>L</strong>n</em>-1→<em>L</em>2→<em>L**n</em>-2→…</p>
+<p>给定一个单链表 <em>L</em>：<em>L</em>0→<em>L</em>1→…→<em>L**n</em>-1→<em>L</em>n ，<br>将其重新排列后变为： <em>L</em>0→<em>L**n</em>→<em>L</em>1→<em>L**n</em>-1→<em>L</em>2→<em>L**n</em>-2→…</p>
 <p>你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</p>
 <p><strong>示例 1:</strong></p>
-<pre><code>给定链表 1-&gt;2-&gt;3-&gt;4, 重新排列为 1-&gt;4-&gt;2-&gt;3.</code></pre><p><strong>示例 2:</strong></p>
-<pre><code>给定链表 1-&gt;2-&gt;3-&gt;4-&gt;5, 重新排列为 1-&gt;5-&gt;2-&gt;4-&gt;3.</code></pre></blockquote>
+<pre><code>给定链表 1-&gt;2-&gt;3-&gt;4, 重新排列为 1-&gt;4-&gt;2-&gt;3.
+</code></pre><p><strong>示例 2:</strong></p>
+<pre><code>给定链表 1-&gt;2-&gt;3-&gt;4-&gt;5, 重新排列为 1-&gt;5-&gt;2-&gt;4-&gt;3.
+</code></pre></blockquote>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">/**
  * @author liwei
  * @date 18/7/5 上午9:36
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution2</span> <span class="token punctuation">{</span>
+ */
+public class Solution2 {
 
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">reorderList</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        ListNode slow <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        ListNode fast <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>fast<span class="token punctuation">.</span>next <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        ListNode anotherHead <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 步骤1：从中间截断链表</span>
-        slow<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 步骤2：反转链表的后半截</span>
-        ListNode reverseList <span class="token operator">=</span> <span class="token function">reverseList</span><span class="token punctuation">(</span>anotherHead<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 步骤3：合并两个链表</span>
-        <span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token function">mergeTwoList</span><span class="token punctuation">(</span>head<span class="token punctuation">,</span> reverseList<span class="token punctuation">,</span> k<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        ListNode anotherHead = slow.next;
+        // 步骤1：从中间截断链表
+        slow.next = null;
+        // 步骤2：反转链表的后半截
+        ListNode reverseList = reverseList(anotherHead);
+        // 步骤3：合并两个链表
+        int k = 0;
+        mergeTwoList(head, reverseList, k);
+    }
 
-    <span class="token keyword">private</span> ListNode <span class="token function">mergeTwoList</span><span class="token punctuation">(</span>ListNode head1<span class="token punctuation">,</span> ListNode head2<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>head1 <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> head2<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>head2 <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> head1<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// k % 2 == 0</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>k <span class="token operator">&amp;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            head1<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token function">mergeTwoList</span><span class="token punctuation">(</span>head1<span class="token punctuation">.</span>next<span class="token punctuation">,</span> head2<span class="token punctuation">,</span> <span class="token operator">++</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> head1<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            head2<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token function">mergeTwoList</span><span class="token punctuation">(</span>head1<span class="token punctuation">,</span> head2<span class="token punctuation">.</span>next<span class="token punctuation">,</span> <span class="token operator">++</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">return</span> head2<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    private ListNode mergeTwoList(ListNode head1, ListNode head2, int k) {
+        if (head1 == null) {
+            return head2;
+        }
+        if (head2 == null) {
+            return head1;
+        }
+        // k % 2 == 0
+        if ((k & 1) == 0) {
+            head1.next = mergeTwoList(head1.next, head2, ++k);
+            return head1;
+        } else {
+            head2.next = mergeTwoList(head1, head2.next, ++k);
+            return head2;
+        }
+    }
 
-    <span class="token keyword">private</span> ListNode <span class="token function">reverseList</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        ListNode preNode <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        ListNode curNode <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>curNode <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            ListNode nextNode <span class="token operator">=</span> curNode<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            curNode<span class="token punctuation">.</span>next <span class="token operator">=</span> preNode<span class="token punctuation">;</span>
-            preNode <span class="token operator">=</span> curNode<span class="token punctuation">;</span>
-            curNode <span class="token operator">=</span> nextNode<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> preNode<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    private ListNode reverseList(ListNode head) {
+        ListNode preNode = null;
+        ListNode curNode = head;
+        while (curNode != null) {
+            ListNode nextNode = curNode.next;
+            curNode.next = preNode;
+            preNode = curNode;
+            curNode = nextNode;
+        }
+        return preNode;
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        Solution2 solution2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        ListNode head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        solution2<span class="token punctuation">.</span><span class="token function">reorderList</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 3, 4, 5};
+        Solution2 solution2 = new Solution2();
+        ListNode head = new ListNode(nums);
+        solution2.reorderList(head);
+        System.out.println(head);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="练习3：「力扣」第-234-题：回文链表"><a href="#练习3：「力扣」第-234-题：回文链表" class="headerlink" title="练习3：「力扣」第 234 题：回文链表"></a>练习3：「力扣」第 234 题：<a href="https://leetcode-cn.com/problems/palindrome-linked-list" target="_blank" rel="noopener">回文链表</a></h3><p>传送门：<a href="https://leetcode-cn.com/problems/palindrome-linked-list/" target="_blank" rel="noopener">234. 回文链表</a>。</p>
 <blockquote>
 <p>请判断一个链表是否为回文链表。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: 1-&gt;2
-输出: false</code></pre><p><strong>示例 2:</strong></p>
+输出: false
+</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: 1-&gt;2-&gt;2-&gt;1
-输出: true</code></pre><p><strong>进阶：</strong><br>你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？</p>
+输出: true
+</code></pre><p><strong>进阶：</strong><br>你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？</p>
 </blockquote>
 <p>求解关键：找到链表中间位置的结点，做一些相关的处理。特别要注意的是，不管哪种方法，都要对一些细节问题仔细考虑，可以举出具体的例子，画图帮助编码实现。</p>
 <p>思路1：从中间位置开始反转链表，逐个比较。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java">
-<span class="token keyword">class</span> <span class="token class-name">ListNode</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
-    ListNode next<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">
+class ListNode {
+    int val;
+    ListNode next;
 
-    <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        val <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    ListNode(int x) {
+        val = x;
+    }
 
-    <span class="token keyword">public</span> <span class="token function">ListNode</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>nums <span class="token operator">==</span> null <span class="token operator">||</span> nums<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalArgumentException</span><span class="token punctuation">(</span><span class="token string">"arr can not be empty"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>val <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        ListNode curr <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            curr<span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            curr <span class="token operator">=</span> curr<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    public ListNode(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            throw new IllegalArgumentException("arr can not be empty");
+        }
+        this.val = nums[0];
+        ListNode curr = this;
+        for (int i = 1; i < nums.length; i++) {
+            curr.next = new ListNode(nums[i]);
+            curr = curr.next;
+        }
+    }
 
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> String <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        StringBuilder s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        ListNode cur <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>cur <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            s<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>cur<span class="token punctuation">.</span>val <span class="token operator">+</span> <span class="token string">" -> "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            cur <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        s<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"NULL"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        ListNode cur = this;
+        while (cur != null) {
+            s.append(cur.val + " -> ");
+            cur = cur.next;
+        }
+        s.append("NULL");
+        return s.toString();
+    }
+}
 
 
-<span class="token comment" spellcheck="true">/**
+/**
  * https://leetcode-cn.com/problems/palindrome-linked-list/description/
  *
  * @author liwei
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+ */
+public class Solution {
 
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        ListNode slow <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        ListNode fast <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>fast<span class="token punctuation">.</span>next <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// slow 的下一个就是新链表，反转它</span>
-        ListNode cur <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        slow<span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        ListNode pre <span class="token operator">=</span> null<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>cur <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            ListNode next <span class="token operator">=</span> cur<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            cur<span class="token punctuation">.</span>next <span class="token operator">=</span> pre<span class="token punctuation">;</span>
-            pre <span class="token operator">=</span> cur<span class="token punctuation">;</span>
-            cur <span class="token operator">=</span> next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 此时 pre 成为新链表开头</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>head <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> pre <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>head<span class="token punctuation">.</span>val <span class="token operator">!=</span> pre<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            head <span class="token operator">=</span> head<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            pre <span class="token operator">=</span> pre<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        // slow 的下一个就是新链表，反转它
+        ListNode cur = slow.next;
+        slow.next = null;
+        ListNode pre = null;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        // 此时 pre 成为新链表开头
+        while (head != null && pre != null) {
+            if (head.val != pre.val) {
+                return false;
+            }
+            head = head.next;
+            pre = pre.next;
+        }
+        return true;
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        ListNode head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">boolean</span> palindrome <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">isPalindrome</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>palindrome<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 0, 2, 1};
+        Solution solution = new Solution();
+        ListNode head = new ListNode(nums);
+        boolean palindrome = solution.isPalindrome(head);
+        System.out.println(palindrome);
+    }
+}
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>思路2：在寻找链表中间结点的过程中，慢结点向前遍历的时候，把遍历到的值放入一个栈中。</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Stack<span class="token punctuation">;</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">import java.util.Stack;
 
-<span class="token comment" spellcheck="true">/**
+/**
  * @author liwei
- */</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution2</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// 分清楚奇数和偶数结点两种情况，不反转链表，借助栈完成回文链表的判断</span>
-    <span class="token comment" spellcheck="true">//      slow</span>
-    <span class="token comment" spellcheck="true">// 1，2，3，4，5</span>
+ */
+public class Solution2 {
+    // 分清楚奇数和偶数结点两种情况，不反转链表，借助栈完成回文链表的判断
+    //      slow
+    // 1，2，3，4，5
 
-    <span class="token comment" spellcheck="true">//   slow</span>
-    <span class="token comment" spellcheck="true">// 1，2，3，4</span>
+    //   slow
+    // 1，2，3，4
 
-    <span class="token comment" spellcheck="true">/**
+    /**
      * @param head
      * @return
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>head <span class="token operator">==</span> null <span class="token operator">||</span> head<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
+     */
+    public boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
 
-        Stack<span class="token operator">&lt;</span>Integer<span class="token operator">></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        ListNode fast <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        ListNode slow <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        stack<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>slow<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Stack<Integer> stack = new Stack<>();
+        ListNode fast = head;
+        ListNode slow = head;
+        stack.add(slow.val);
 
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>fast<span class="token punctuation">.</span>next <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            fast <span class="token operator">=</span> fast<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-            stack<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>slow<span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>fast<span class="token punctuation">.</span>next <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 链表有奇数个结点</span>
-            stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>slow <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> slow<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            slow <span class="token operator">=</span> slow<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            stack.add(slow.val);
+        }
+        if (fast.next == null) {
+            // 链表有奇数个结点
+            stack.pop();
+        }
+        slow = slow.next;
+        while (slow != null) {
+            if (stack.pop() != slow.val) {
+                return false;
+            }
+            slow = slow.next;
+        }
+        return true;
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Solution2 solution2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        ListNode head <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ListNode</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">boolean</span> palindrome <span class="token operator">=</span> solution2<span class="token punctuation">.</span><span class="token function">isPalindrome</span><span class="token punctuation">(</span>head<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>palindrome<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public static void main(String[] args) {
+        Solution2 solution2 = new Solution2();
+        int[] nums = {1, 2, 3, 2, 1};
+        ListNode head = new ListNode(nums);
+        boolean palindrome = solution2.isPalindrome(head);
+        System.out.println(palindrome);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
 
             </div>

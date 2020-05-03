@@ -503,16 +503,20 @@
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: &quot;abcabcbb&quot;
 输出: 3 
-解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</code></pre><p><strong>示例 2:</strong></p>
+解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。
+</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: &quot;bbbbb&quot;
 输出: 1
-解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。</code></pre><p><strong>示例 3:</strong></p>
+解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。
+</code></pre><p><strong>示例 3:</strong></p>
 <pre><code>输入: &quot;pwwkew&quot;
 输出: 3
 解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。
-  请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</code></pre></blockquote>
+  请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。
+</code></pre></blockquote>
 <h3 id="方法一：哈希表-隔板法（好几种写法）"><a href="#方法一：哈希表-隔板法（好几种写法）" class="headerlink" title="方法一：哈希表 + 隔板法（好几种写法）"></a>方法一：哈希表 + 隔板法（好几种写法）</h3><p>判断一个元素有没有出现过，使用哈希表是最自然的想法。</p>
 <p>以下面的例子进行说明：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -524,7 +528,8 @@
 <th>$c$</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>$0$</td>
 <td>$1$</td>
 <td>$2$</td>
@@ -532,7 +537,9 @@
 <td>$4$</td>
 <td>$5$</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>判断连续区间内是否出现重复元素，可以使用 <code>set</code>，又要存储位置，所以使用 <code>dict</code>。</p>
 <ul>
 <li>到索引为 $3$ 的时候，出现重复，我们可以在 $a$ 的<strong>下一个位置</strong>插一个“小木板”，表示从这个“小木板”到当前位置没有重复。如果出现重复的索引在“小木板”之前，例如到索引 $4$ 的时候，此时“小木板”在索引 $2$ 处，两个 $d$ 之间已经有了两个 $a$ ，可以无视这种情况。</li>
@@ -540,152 +547,158 @@
 <p>Python 代码1：（推荐写法）</p>
 <p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fzjqewk2p3j312r0u0gns.jpg" alt="image-20190117021730626"></p>
 <p>等价的写法：（我的练习）</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
 
-    <span class="token keyword">def</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        map <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        max_len <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token comment" spellcheck="true"># 可以认为是标定的起始</span>
-        pointer <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token keyword">for</span> index<span class="token punctuation">,</span> c <span class="token keyword">in</span> enumerate<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> c <span class="token keyword">in</span> map<span class="token punctuation">:</span>
-                pointer <span class="token operator">=</span> max<span class="token punctuation">(</span>pointer<span class="token punctuation">,</span> map<span class="token punctuation">[</span>c<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            max_len <span class="token operator">=</span> max<span class="token punctuation">(</span>max_len<span class="token punctuation">,</span> index <span class="token operator">-</span> pointer <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token comment" spellcheck="true"># 每次遍历都更新当前遍历到的字母的位置</span>
-            map<span class="token punctuation">[</span>c<span class="token punctuation">]</span> <span class="token operator">=</span> index
-        <span class="token keyword">return</span> max_len<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    def lengthOfLongestSubstring(self, s):
+        map = dict()
+        max_len = 0
+        # 可以认为是标定的起始
+        pointer = 0
+        for index, c in enumerate(s):
+            if c in map:
+                pointer = max(pointer, map[c] + 1)
+            max_len = max(max_len, index - pointer + 1)
+            # 每次遍历都更新当前遍历到的字母的位置
+            map[c] = index
+        return max_len
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>需要注意的一点是：只有重复出现的位置大于等于隔板位置的时候，才要更新，更新的位置是当前位置 + 1。即只要出现重复，隔板就向后移动一位，然后每一轮都计算当前与隔板的距离。</p>
 <p>Python 代码2：（不如上面的代码语义清晰）</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 特判</span>
-        l <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> l
-        <span class="token comment" spellcheck="true"># 隔板法</span>
-        <span class="token comment" spellcheck="true"># key:字符，val 出现的索引</span>
-        map <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        point <span class="token operator">=</span> <span class="token number">0</span>
-        res <span class="token operator">=</span> <span class="token number">1</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># 关键1：map[s[i]] >= point，等于是可以的</span>
-            <span class="token keyword">if</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">in</span> map <span class="token operator">and</span> map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">>=</span> point<span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 先把隔板向后移动一位</span>
-                point <span class="token operator">=</span> map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span>
-            <span class="token comment" spellcheck="true"># 然后记录最长不重复子串的长度</span>
-            res <span class="token operator">=</span> max<span class="token punctuation">(</span>res<span class="token punctuation">,</span> i <span class="token operator">-</span> point <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token comment" spellcheck="true"># 关键2：无论如何都更新位置</span>
-            map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> i
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def lengthOfLongestSubstring(self, s):
+        # 特判
+        l = len(s)
+        if l < 2:
+            return l
+        # 隔板法
+        # key:字符，val 出现的索引
+        map = dict()
+        point = 0
+        res = 1
+        for i in range(l):
+            # 关键1：map[s[i]] >= point，等于是可以的
+            if s[i] in map and map[s[i]] >= point:
+                # 先把隔板向后移动一位
+                point = map[s[i]] + 1
+            # 然后记录最长不重复子串的长度
+            res = max(res, i - point + 1)
+            # 关键2：无论如何都更新位置
+            map[s[i]] = i
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>等价的写法：（我的练习）</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
         :type s: str
         :rtype: int
-        """</span>
-        l <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> l <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> l
+        """
+        l = len(s)
+        if l <= 1:
+            return l
 
-        point <span class="token operator">=</span> <span class="token number">0</span>
-        map <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        result <span class="token operator">=</span> <span class="token number">0</span>
+        point = 0
+        map = dict()
+        result = 0
 
-        <span class="token keyword">for</span> index<span class="token punctuation">,</span> alpha <span class="token keyword">in</span> enumerate<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> alpha <span class="token keyword">in</span> map <span class="token operator">and</span> map<span class="token punctuation">[</span>alpha<span class="token punctuation">]</span> <span class="token operator">>=</span> point<span class="token punctuation">:</span>
-                point <span class="token operator">=</span> map<span class="token punctuation">[</span>alpha<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span>
-            <span class="token comment" spellcheck="true"># 每次要做两件事：1、计算无重复子串长度</span>
-            result <span class="token operator">=</span> max<span class="token punctuation">(</span>result<span class="token punctuation">,</span> index <span class="token operator">-</span> point <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token comment" spellcheck="true"># 2、更新索引</span>
-            map<span class="token punctuation">[</span>alpha<span class="token punctuation">]</span> <span class="token operator">=</span> index
-        <span class="token keyword">return</span> result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        for index, alpha in enumerate(s):
+            if alpha in map and map[alpha] >= point:
+                point = map[alpha] + 1
+            # 每次要做两件事：1、计算无重复子串长度
+            result = max(result, index - point + 1)
+            # 2、更新索引
+            map[alpha] = index
+        return result
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="方法二：动态规划"><a href="#方法二：动态规划" class="headerlink" title="方法二：动态规划"></a>方法二：动态规划</h3><p>dp[i]：以 <code>s[i]</code> 结尾的最长不重复子串，这个状态的设置与最长上升子序列、最大连续子数组是一样的。</p>
 <p>下面考虑 <code>dp[i]</code> 和 <code>dp[i - 1]</code> 之间的关系。关键在于 <code>dp [i - 1]</code> 与距离出现相同字符的时候，两个相同字符的距离的比较。</p>
 <p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fzjqexh1ftj30w40kcjwg.jpg" alt="image-20190110155039515"></p>
 <p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fzjqexypvdj30u00vjq7o.jpg" alt="image-20190117145651932"></p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 特判</span>
-        l <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> l
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def lengthOfLongestSubstring(self, s):
+        # 特判
+        l = len(s)
+        if l < 2:
+            return l
 
-        <span class="token comment" spellcheck="true"># dp[i] 表示以 s[i] 结尾的最长不重复子串的长度</span>
-        <span class="token comment" spellcheck="true"># 因为自己肯定是不重复子串，所以初始值设置为 1</span>
-        dp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">]</span>
-        map <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        map<span class="token punctuation">[</span>s<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">in</span> map<span class="token punctuation">:</span>
-                <span class="token keyword">if</span> i <span class="token operator">-</span> map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">></span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span>
-                <span class="token keyword">else</span><span class="token punctuation">:</span>
-                    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">-</span> map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span>
-            <span class="token comment" spellcheck="true"># 设置字符与索引键值对</span>
-            map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> i
-        <span class="token comment" spellcheck="true"># 最后拉通看一遍最大值</span>
-        <span class="token keyword">return</span> max<span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        # dp[i] 表示以 s[i] 结尾的最长不重复子串的长度
+        # 因为自己肯定是不重复子串，所以初始值设置为 1
+        dp = [1 for _ in range(l)]
+        map = dict()
+        map[s[0]] = 0
+        for i in range(1, l):
+            if s[i] in map:
+                if i - map[s[i]] > dp[i - 1]:
+                    dp[i] = dp[i - 1] + 1
+                else:
+                    dp[i] = i - map[s[i]]
+            else:
+                dp[i] = dp[i - 1] + 1
+            # 设置字符与索引键值对
+            map[s[i]] = i
+        # 最后拉通看一遍最大值
+        return max(dp)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="解法3：滑动窗口、双指针"><a href="#解法3：滑动窗口、双指针" class="headerlink" title="解法3：滑动窗口、双指针"></a>解法3：滑动窗口、双指针</h3><p>Python 代码：推荐写法</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 滑动窗口的做法</span>
-<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 特判</span>
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> size <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> size
+<pre class="line-numbers language-lang-python"><code class="language-lang-python"># 滑动窗口的做法
+class Solution:
+    def lengthOfLongestSubstring(self, s):
+        # 特判
+        size = len(s)
+        if size < 2:
+            return size
 
-        l <span class="token operator">=</span> <span class="token number">0</span>
-        r <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+        l = 0
+        r = -1
 
-        counter <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        counter = [0 for _ in range(256)]
 
-        res <span class="token operator">=</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> size<span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># 尝试走一步，如果可以走，就计算</span>
-            <span class="token keyword">if</span> r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> size <span class="token operator">and</span> counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 表示没有重复元素，r 可以加 1</span>
-                counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
-                r <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 有重复元素，左边就要减 1</span>
-                counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-            res <span class="token operator">=</span> max<span class="token punctuation">(</span>res<span class="token punctuation">,</span> r <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        res = 1
+        while l < size:
+            # 尝试走一步，如果可以走，就计算
+            if r + 1 < size and counter[ord(s[r + 1])] == 0:
+                # 表示没有重复元素，r 可以加 1
+                counter[ord(s[r + 1])] += 1
+                r += 1
+            else:
+                # 有重复元素，左边就要减 1
+                counter[ord(s[l])] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：滑动窗口写法2</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token comment" spellcheck="true"># 特判</span>
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> size <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> size
-        l <span class="token operator">=</span> <span class="token number">0</span>
-        r <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
-        counter <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def lengthOfLongestSubstring(self, s):
+        # 特判
+        size = len(s)
+        if size < 2:
+            return size
+        l = 0
+        r = -1
+        counter = [0 for _ in range(256)]
 
-        res <span class="token operator">=</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> size<span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># 首先"右指针"不断向右边尝试，走到出现重复的最右边</span>
-            <span class="token keyword">while</span> r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> size <span class="token operator">and</span> counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 表示没有重复元素，r 可以加 1</span>
-                counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
-                r <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token comment" spellcheck="true"># 此时，记录不重复子串是"左指针"固定时候最长</span>
-            res <span class="token operator">=</span> max<span class="token punctuation">(</span>res<span class="token punctuation">,</span> r <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token comment" spellcheck="true"># 考虑移动"左指针"</span>
-            <span class="token comment" spellcheck="true"># 此时 s[r+1] 就是已经扫过的区间里重复的元素，要把它剔除出去</span>
-            <span class="token keyword">while</span> r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> size <span class="token operator">and</span> s<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">!=</span> s<span class="token punctuation">[</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 有重复元素，左边就要减 1</span>
-                counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token comment" spellcheck="true"># 出了上一个循环以后，还要再把左指针向右移动一格，否则右指针不能向右移动</span>
-            counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
-            l <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        res = 1
+        while l < size:
+            # 首先"右指针"不断向右边尝试，走到出现重复的最右边
+            while r + 1 < size and counter[ord(s[r + 1])] == 0:
+                # 表示没有重复元素，r 可以加 1
+                counter[ord(s[r + 1])] += 1
+                r += 1
+            # 此时，记录不重复子串是"左指针"固定时候最长
+            res = max(res, r - l + 1)
+            # 考虑移动"左指针"
+            # 此时 s[r+1] 就是已经扫过的区间里重复的元素，要把它剔除出去
+            while r + 1 < size and s[l] != s[r + 1]:
+                # 有重复元素，左边就要减 1
+                counter[ord(s[l])] -= 1
+                l += 1
+            # 出了上一个循环以后，还要再把左指针向右移动一格，否则右指针不能向右移动
+            counter[ord(s[l])] -= 1
+            l += 1
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
 <hr>
 <h2 id="「力扣」第-3-题：无重复字符的最长子串"><a href="#「力扣」第-3-题：无重复字符的最长子串" class="headerlink" title="「力扣」第 3 题：无重复字符的最长子串"></a>「力扣」第 3 题：无重复字符的最长子串</h2><p>传送门：英文网址：<a href="https://leetcode.com/problems/longest-substring-without-repeating-characters/description/" target="_blank" rel="noopener">3. Longest Substring Without Repeating Characters</a> ，中文网址：<a href="https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/description/" target="_blank" rel="noopener">3. 无重复字符的最长子串</a> 。</p>
@@ -694,184 +707,192 @@
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: &quot;abcabcbb&quot;
 输出: 3 
-解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</code></pre><p><strong>示例 2:</strong></p>
+解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。
+</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: &quot;bbbbb&quot;
 输出: 1
-解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。</code></pre><p><strong>示例 3:</strong></p>
+解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。
+</code></pre><p><strong>示例 3:</strong></p>
 <pre><code>输入: &quot;pwwkew&quot;
 输出: 3
 解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。
-     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</code></pre></blockquote>
+     请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。
+</code></pre></blockquote>
 <p>思路1：使用滑动窗口、“双指针”。</p>
 <p>步骤1：首先试一试“右指针”能不能向右边“扩散”，即尝试“扩散”的元素在已经扫过的元素中还没有出现（字母频率为 $0$），可以向右“扩散”，则频率加 $1$。</p>
 <p>步骤2：如果不能扩散，把“左指针”向右移动一格，相应的字母频率减 $1$。然后继续步骤1。</p>
 <p>在以上两个步骤中，记录下最长不重复的子串的长度。</p>
 <p>Python 代码：滑动窗口、“双指针”典型的写法，在理解的基础上记住它</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
         :type s: str
         :rtype: int
-        """</span>
+        """
 
-        <span class="token comment" spellcheck="true"># 特判</span>
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> size <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> size
+        # 特判
+        size = len(s)
+        if size < 2:
+            return size
 
-        l <span class="token operator">=</span> <span class="token number">0</span>
-        r <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+        l = 0
+        r = -1
 
-        counter <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        counter = [0 for _ in range(256)]
 
-        res <span class="token operator">=</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> size<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> size <span class="token operator">and</span> counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 表示没有重复元素，r 可以加 1</span>
-                counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
-                r <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 有重复元素，左边就要减 1</span>
-                counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-            res <span class="token operator">=</span> max<span class="token punctuation">(</span>res<span class="token punctuation">,</span> r <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        res = 1
+        while l < size:
+            if r + 1 < size and counter[ord(s[r + 1])] == 0:
+                # 表示没有重复元素，r 可以加 1
+                counter[ord(s[r + 1])] += 1
+                r += 1
+            else:
+                # 有重复元素，左边就要减 1
+                counter[ord(s[l])] -= 1
+                l += 1
+            res = max(res, r - l + 1)
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution4</span> <span class="token punctuation">{</span>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution4 {
 
-    <span class="token comment" spellcheck="true">// 定义成频率数组，刘宇波老师给出的思路，使用滑动窗口的思路</span>
-    <span class="token comment" spellcheck="true">// 不是很好理解，可以供参考</span>
+    // 定义成频率数组，刘宇波老师给出的思路，使用滑动窗口的思路
+    // 不是很好理解，可以供参考
 
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> len <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> len<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> freq <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    public int lengthOfLongestSubstring(String s) {
+        int len = s.length();
+        if (len == 0 || len == 1) {
+            return len;
+        }
+        int[] freq = new int[128];
+        int res = 1;
 
-        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> r <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        int l = 0;
+        int r = -1;
 
-        <span class="token comment" spellcheck="true">// 只要左边不越界</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span>l <span class="token operator">&lt;</span> len<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// r + 1 最多到 len-1 表示没有越界</span>
-            <span class="token comment" spellcheck="true">// freq[s.charAt(r + 1)] == 0 表示下一个字母还没有出现过</span>
-            <span class="token comment" spellcheck="true">// 【这个分类标准是很关键的，r+1 表示接下来要考察的索引位置，=0 表示在 [l,r] 这个区间里没有出现】</span>
-            <span class="token comment" spellcheck="true">// 【这个分类标准是很关键的，r+1 表示接下来要考察的索引位置，=0 表示在 [l,r] 这个区间里没有出现】</span>
-            <span class="token comment" spellcheck="true">// 【这个分类标准是很关键的，r+1 表示接下来要考察的索引位置，=0 表示在 [l,r] 这个区间里没有出现】</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> len <span class="token operator">&amp;&amp;</span> freq<span class="token punctuation">[</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 右边第 1 个字母加入频率数组，频数 + 1</span>
-                freq<span class="token punctuation">[</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token operator">++</span>r<span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token comment" spellcheck="true">// 如果下一个字符已经越界了，或者右边第 1 个字母是频率数组是曾经出现过的</span>
-                <span class="token comment" spellcheck="true">// 把左边从频数数组中挪掉，即频数减1</span>
-                freq<span class="token punctuation">[</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>l<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            res <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> r <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+        // 只要左边不越界
+        while (l < len) {
+            // r + 1 最多到 len-1 表示没有越界
+            // freq[s.charAt(r + 1)] == 0 表示下一个字母还没有出现过
+            // 【这个分类标准是很关键的，r+1 表示接下来要考察的索引位置，=0 表示在 [l,r] 这个区间里没有出现】
+            // 【这个分类标准是很关键的，r+1 表示接下来要考察的索引位置，=0 表示在 [l,r] 这个区间里没有出现】
+            // 【这个分类标准是很关键的，r+1 表示接下来要考察的索引位置，=0 表示在 [l,r] 这个区间里没有出现】
+            if (r + 1 < len && freq[s.charAt(r + 1)] == 0) {
+                // 右边第 1 个字母加入频率数组，频数 + 1
+                freq[s.charAt(++r)]++;
+            } else {
+                // 如果下一个字符已经越界了，或者右边第 1 个字母是频率数组是曾经出现过的
+                // 把左边从频数数组中挪掉，即频数减1
+                freq[s.charAt(l++)]--;
+            }
+            res = Math.max(res, r - l + 1);
+        }
+        return res;
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Solution4 solution4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution4</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        String s <span class="token operator">=</span> <span class="token string">"abcabcbb"</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> lengthOfLongestSubstring <span class="token operator">=</span> solution4<span class="token punctuation">.</span><span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>lengthOfLongestSubstring<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    public static void main(String[] args) {
+        Solution4 solution4 = new Solution4();
+        String s = "abcabcbb";
+        int lengthOfLongestSubstring = solution4.lengthOfLongestSubstring(s);
+        System.out.println(lengthOfLongestSubstring);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：另一种写法，我觉得更直接一些，不过 while 里面还有 while ，看过去不太简洁</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
         :type s: str
         :rtype: int
-        """</span>
+        """
 
-        <span class="token comment" spellcheck="true"># 特判</span>
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> size <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> size
-        l <span class="token operator">=</span> <span class="token number">0</span>
-        r <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
-        counter <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">256</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        # 特判
+        size = len(s)
+        if size < 2:
+            return size
+        l = 0
+        r = -1
+        counter = [0 for _ in range(256)]
 
-        res <span class="token operator">=</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> size<span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># 首先"右指针"不断向右边尝试，走到出现重复的最右边</span>
-            <span class="token keyword">while</span> r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> size <span class="token operator">and</span> counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 表示没有重复元素，r 可以加 1</span>
-                counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+=</span> <span class="token number">1</span>
-                r <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token comment" spellcheck="true"># 此时，记录不重复子串是"左指针"固定时候最长</span>
-            res <span class="token operator">=</span> max<span class="token punctuation">(</span>res<span class="token punctuation">,</span> r <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token comment" spellcheck="true"># 考虑移动"左指针"</span>
-            <span class="token comment" spellcheck="true"># 此时 s[r+1] 就是已经扫过的区间里重复的元素，要把它剔除出去</span>
-            <span class="token keyword">while</span> r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> size <span class="token operator">and</span> s<span class="token punctuation">[</span>l<span class="token punctuation">]</span> <span class="token operator">!=</span> s<span class="token punctuation">[</span>r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 有重复元素，左边就要减 1</span>
-                counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token comment" spellcheck="true"># 出了上一个循环以后，还要再把左指针向右移动一格，否则右指针不能向右移动</span>
-            counter<span class="token punctuation">[</span>ord<span class="token punctuation">(</span>s<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">-=</span> <span class="token number">1</span>
-            l <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        res = 1
+        while l < size:
+            # 首先"右指针"不断向右边尝试，走到出现重复的最右边
+            while r + 1 < size and counter[ord(s[r + 1])] == 0:
+                # 表示没有重复元素，r 可以加 1
+                counter[ord(s[r + 1])] += 1
+                r += 1
+            # 此时，记录不重复子串是"左指针"固定时候最长
+            res = max(res, r - l + 1)
+            # 考虑移动"左指针"
+            # 此时 s[r+1] 就是已经扫过的区间里重复的元素，要把它剔除出去
+            while r + 1 < size and s[l] != s[r + 1]:
+                # 有重复元素，左边就要减 1
+                counter[ord(s[l])] -= 1
+                l += 1
+            # 出了上一个循环以后，还要再把左指针向右移动一格，否则右指针不能向右移动
+            counter[ord(s[l])] -= 1
+            l += 1
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>思路2：隔板法</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
         :type s: str
         :rtype: int
-        """</span>
+        """
 
-        <span class="token comment" spellcheck="true"># 特判</span>
-        l <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> l
-        <span class="token comment" spellcheck="true"># 隔板法</span>
-        <span class="token comment" spellcheck="true"># key:字符，val 出现的索引</span>
-        map <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        point <span class="token operator">=</span> <span class="token number">0</span>
-        res <span class="token operator">=</span> <span class="token number">1</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token comment" spellcheck="true"># 关键1：map[s[i]] >= point，等于是可以的</span>
-            <span class="token keyword">if</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">in</span> map <span class="token operator">and</span> map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">>=</span> point<span class="token punctuation">:</span>
-                <span class="token comment" spellcheck="true"># 先把隔板向后移动一位</span>
-                point <span class="token operator">=</span> map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span>
-            <span class="token comment" spellcheck="true"># 然后记录最长不重复子串的长度</span>
-            res <span class="token operator">=</span> max<span class="token punctuation">(</span>res<span class="token punctuation">,</span> i <span class="token operator">-</span> point <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-            <span class="token comment" spellcheck="true"># 关键2：无论如何都更新位置</span>
-            map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> i
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        # 特判
+        l = len(s)
+        if l < 2:
+            return l
+        # 隔板法
+        # key:字符，val 出现的索引
+        map = dict()
+        point = 0
+        res = 1
+        for i in range(l):
+            # 关键1：map[s[i]] >= point，等于是可以的
+            if s[i] in map and map[s[i]] >= point:
+                # 先把隔板向后移动一位
+                point = map[s[i]] + 1
+            # 然后记录最长不重复子串的长度
+            res = max(res, i - point + 1)
+            # 关键2：无论如何都更新位置
+            map[s[i]] = i
+        return res
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>思路3：还可以使用“动态规划”完成。</p>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">lengthOfLongestSubstring</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution:
+    def lengthOfLongestSubstring(self, s):
+        """
         :type s: str
         :rtype: int
-        """</span>
-        <span class="token comment" spellcheck="true"># 特判</span>
-        l <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> l <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> l
-        <span class="token comment" spellcheck="true"># dp[i] 表示以 s[i] 结尾的最长不重复子串的长度</span>
-        <span class="token comment" spellcheck="true"># 因为自己肯定是不重复子串，所以初始值设置为 1</span>
-        dp <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span> <span class="token keyword">for</span> _ <span class="token keyword">in</span> range<span class="token punctuation">(</span>l<span class="token punctuation">)</span><span class="token punctuation">]</span>
-        map <span class="token operator">=</span> dict<span class="token punctuation">(</span><span class="token punctuation">)</span>
-        map<span class="token punctuation">[</span>s<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">in</span> map<span class="token punctuation">:</span>
-                <span class="token keyword">if</span> i <span class="token operator">-</span> map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">></span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span>
-                <span class="token keyword">else</span><span class="token punctuation">:</span>
-                    dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i <span class="token operator">-</span> map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span>
-            <span class="token comment" spellcheck="true"># 设置字符与索引键值对</span>
-            map<span class="token punctuation">[</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> i
-        <span class="token comment" spellcheck="true"># 最后拉通看一遍最大值</span>
-        <span class="token keyword">return</span> max<span class="token punctuation">(</span>dp<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        """
+        # 特判
+        l = len(s)
+        if l < 2:
+            return l
+        # dp[i] 表示以 s[i] 结尾的最长不重复子串的长度
+        # 因为自己肯定是不重复子串，所以初始值设置为 1
+        dp = [1 for _ in range(l)]
+        map = dict()
+        map[s[0]] = 0
+        for i in range(1, l):
+            if s[i] in map:
+                if i - map[s[i]] > dp[i - 1]:
+                    dp[i] = dp[i - 1] + 1
+                else:
+                    dp[i] = i - map[s[i]]
+            else:
+                dp[i] = dp[i - 1] + 1
+            # 设置字符与索引键值对
+            map[s[i]] = i
+        # 最后拉通看一遍最大值
+        return max(dp)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>参考资料：<a href="https://www.zybuluo.com/liweiwei1419/note/1394415" target="_blank" rel="noopener">LeetCode 第 3 题：最长不重复字符串</a>。</p>
 <p>（本节完）</p>
 

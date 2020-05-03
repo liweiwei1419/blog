@@ -495,9 +495,11 @@
 <p>编写一个函数，以字符串作为输入，反转该字符串中的元音字母。</p>
 <p>示例 1：</p>
 <pre><code>输入: &quot;hello&quot;
-输出: &quot;holle&quot;</code></pre><p>示例 2：</p>
+输出: &quot;holle&quot;
+</code></pre><p>示例 2：</p>
 <pre><code>输入: &quot;leetcode&quot;
-输出: &quot;leotcede&quot;</code></pre><p>说明：<br>元音字母不包含字母”y”。</p>
+输出: &quot;leotcede&quot;
+</code></pre><p>说明：<br>元音字母不包含字母”y”。</p>
 </blockquote>
 <p>分析：</p>
 <ul>
@@ -505,96 +507,99 @@
 <li>这样的代码其实是套路，多写几遍就不会忘记了，我们在基础算法的学习中，曾经也有遇到过。</li>
 </ul>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">/**
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">public class Solution {
+    /**
      * 写多了就知道，这是套路了
      *
      * @param s
      * @return
-     */</span>
-    <span class="token keyword">public</span> String <span class="token function">reverseVowels</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
-        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> j <span class="token operator">=</span> chars<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token comment" spellcheck="true">// 如果走到最后一位都不符号要求的话，就不能再前进了。代码实现如下</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> chars<span class="token punctuation">.</span>length <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">checkVowels</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                i<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">checkVowels</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                j<span class="token operator">--</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token function">swap</span><span class="token punctuation">(</span>chars<span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                i<span class="token operator">++</span><span class="token punctuation">;</span>
-                j<span class="token operator">--</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                <span class="token keyword">break</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>chars<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+     */
+    public String reverseVowels(String s) {
+        if (s.length() == 0) return "";
+        char[] chars = s.toCharArray();
+        int i = 0;
+        int j = chars.length - 1;
+        while (true) {
+            // 如果走到最后一位都不符号要求的话，就不能再前进了。代码实现如下
+            while (i < chars.length && !checkVowels(chars[i])) {
+                i++;
+            }
+            while (j >= 0 && !checkVowels(chars[j])) {
+                j--;
+            }
+            if (i < j) {
+                swap(chars, i, j);
+                i++;
+                j--;
+            } else {
+                break;
+            }
+        }
+        return new String(chars);
+    }
 
-    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars<span class="token punctuation">,</span> <span class="token keyword">int</span> index1<span class="token punctuation">,</span> <span class="token keyword">int</span> index2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>index1 <span class="token operator">==</span> index2<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token keyword">char</span> temp <span class="token operator">=</span> chars<span class="token punctuation">[</span>index1<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        chars<span class="token punctuation">[</span>index1<span class="token punctuation">]</span> <span class="token operator">=</span> chars<span class="token punctuation">[</span>index2<span class="token punctuation">]</span><span class="token punctuation">;</span>
-        chars<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
+    private void swap(char[] chars, int index1, int index2) {
+        if (index1 == index2) return;
+        char temp = chars[index1];
+        chars[index1] = chars[index2];
+        chars[index2] = temp;
+    }
 
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">checkVowels</span><span class="token punctuation">(</span><span class="token keyword">char</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>c <span class="token operator">==</span> <span class="token string">'a'</span> <span class="token operator">||</span> c <span class="token operator">==</span> <span class="token string">'e'</span> <span class="token operator">||</span> c <span class="token operator">==</span> <span class="token string">'i'</span> <span class="token operator">||</span> c <span class="token operator">==</span> <span class="token string">'o'</span> <span class="token operator">||</span> c <span class="token operator">==</span> <span class="token string">'u'</span> <span class="token operator">||</span>
-                c <span class="token operator">==</span> <span class="token string">'A'</span> <span class="token operator">||</span> c <span class="token operator">==</span> <span class="token string">'E'</span> <span class="token operator">||</span> c <span class="token operator">==</span> <span class="token string">'I'</span> <span class="token operator">||</span> c <span class="token operator">==</span> <span class="token string">'O'</span> <span class="token operator">||</span> c <span class="token operator">==</span> <span class="token string">'U'</span>   <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
+    private boolean checkVowels(char c) {
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+                c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U'   ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">//String result1 = solution.reverseVowels("hello");</span>
-        <span class="token comment" spellcheck="true">//System.out.println(result1);</span>
-        <span class="token comment" spellcheck="true">//String result2 = solution.reverseVowels("leetcode");</span>
-        <span class="token comment" spellcheck="true">//System.out.println(result2);</span>
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        //String result1 = solution.reverseVowels("hello");
+        //System.out.println(result1);
+        //String result2 = solution.reverseVowels("leetcode");
+        //System.out.println(result2);
 
-        String result3 <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">reverseVowels</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>result3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String result3 = solution.reverseVowels(" ");
+        System.out.println(result3);
 
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">reverseVowels</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
+    def reverseVowels(self, s):
+        """
         :type s: str
         :rtype: str
-        """</span>
-        vowels <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'e'</span><span class="token punctuation">,</span> <span class="token string">'i'</span><span class="token punctuation">,</span> <span class="token string">'o'</span><span class="token punctuation">,</span> <span class="token string">'u'</span><span class="token punctuation">,</span> <span class="token string">'A'</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">,</span> <span class="token string">'I'</span><span class="token punctuation">,</span> <span class="token string">'O'</span><span class="token punctuation">,</span> <span class="token string">'U'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        s <span class="token operator">=</span> list<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        left <span class="token operator">=</span> <span class="token number">0</span>
-        right <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> left <span class="token operator">&lt;</span> right<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">not</span> <span class="token keyword">in</span> vowels<span class="token punctuation">:</span>
-                left <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">elif</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">not</span> <span class="token keyword">in</span> vowels<span class="token punctuation">:</span>
-                right <span class="token operator">-=</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                s<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">,</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">=</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">,</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span>
-                left <span class="token operator">+=</span> <span class="token number">1</span>
-                right <span class="token operator">-=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        """
+        vowels = set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'])
+        s = list(s)
+        left = 0
+        right = len(s) - 1
+        while left < right:
+            if s[left] not in vowels:
+                left += 1
+            elif s[right] not in vowels:
+                right -= 1
+            else:
+                s[left], s[right] = s[right], s[left]
+                left += 1
+                right -= 1
+        return ''.join(s)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="要注意的地方"><a href="#要注意的地方" class="headerlink" title="要注意的地方"></a>要注意的地方</h3><ul>
 <li>极端的情况要考虑到：<code>if (s.length() == 0) return &quot;&quot;;</code>；</li>
 <li>还有一种极端的情况要考虑到，就是 i 和 j 可以一直走到底的情况，翻译成大白话就是：如果走到最后一位都不符号要求的话，就不能再前进了。代码实现如下：</li>
 </ul>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> chars<span class="token punctuation">.</span>length <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">checkVowels</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    i<span class="token operator">++</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">checkVowels</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    j<span class="token operator">--</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-lang-java"><code class="language-lang-java">while (i < chars.length && !checkVowels(chars[i])) {
+    i++;
+}
+while (j >= 0 && !checkVowels(chars[j])) {
+    j--;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>上述代码特别容易忽略掉：<code>i &lt; chars.length</code> 和 <code>j &gt;= 0</code> 这两个前提条件。</p>
 <p>（本节完）</p>
 <h3 id="Leetcode-第-345-题：反转字符串中的元音字母"><a href="#Leetcode-第-345-题：反转字符串中的元音字母" class="headerlink" title="Leetcode 第 345 题：反转字符串中的元音字母"></a>Leetcode 第 345 题：<a href="https://leetcode-cn.com/problems/reverse-vowels-of-a-string" target="_blank" rel="noopener">反转字符串中的元音字母</a></h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/reverse-vowels-of-a-string/description/" target="_blank" rel="noopener">345. Reverse Vowels of a String</a> ，中文网址：<a href="https://leetcode-cn.com/problems/reverse-vowels-of-a-string/description/" target="_blank" rel="noopener">345. 反转字符串中的元音字母</a> 。</p>
@@ -602,32 +607,35 @@
 <p>编写一个函数，以字符串作为输入，反转该字符串中的元音字母。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: &quot;hello&quot;
-输出: &quot;holle&quot;</code></pre><p><strong>示例 2:</strong></p>
+输出: &quot;holle&quot;
+</code></pre><p><strong>示例 2:</strong></p>
 <pre><code>输入: &quot;leetcode&quot;
-输出: &quot;leotcede&quot;</code></pre><p><strong>说明:</strong><br>元音字母不包含字母”y”。</p>
+输出: &quot;leotcede&quot;
+</code></pre><p><strong>说明:</strong><br>元音字母不包含字母”y”。</p>
 </blockquote>
 <p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">reverseVowels</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
+<pre class="line-numbers language-lang-python"><code class="language-lang-python">class Solution(object):
+    def reverseVowels(self, s):
+        """
         :type s: str
         :rtype: str
-        """</span>
-        vowels <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'e'</span><span class="token punctuation">,</span> <span class="token string">'i'</span><span class="token punctuation">,</span> <span class="token string">'o'</span><span class="token punctuation">,</span> <span class="token string">'u'</span><span class="token punctuation">,</span> <span class="token string">'A'</span><span class="token punctuation">,</span> <span class="token string">'E'</span><span class="token punctuation">,</span> <span class="token string">'I'</span><span class="token punctuation">,</span> <span class="token string">'O'</span><span class="token punctuation">,</span> <span class="token string">'U'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-        s <span class="token operator">=</span> list<span class="token punctuation">(</span>s<span class="token punctuation">)</span>
-        left <span class="token operator">=</span> <span class="token number">0</span>
-        right <span class="token operator">=</span> len<span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> left <span class="token operator">&lt;</span> right<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span> <span class="token operator">not</span> <span class="token keyword">in</span> vowels<span class="token punctuation">:</span>
-                left <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">elif</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">not</span> <span class="token keyword">in</span> vowels<span class="token punctuation">:</span>
-                right <span class="token operator">-=</span> <span class="token number">1</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                s<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">,</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">=</span> s<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">,</span> s<span class="token punctuation">[</span>left<span class="token punctuation">]</span>
-                left <span class="token operator">+=</span> <span class="token number">1</span>
-                right <span class="token operator">-=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>s<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+        """
+        vowels = set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'])
+        s = list(s)
+        left = 0
+        right = len(s) - 1
+        while left < right:
+            if s[left] not in vowels:
+                left += 1
+            elif s[right] not in vowels:
+                right -= 1
+            else:
+                s[left], s[right] = s[right], s[left]
+                left += 1
+                right -= 1
+        return ''.join(s)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3>
             </div>
             <hr/>
 
