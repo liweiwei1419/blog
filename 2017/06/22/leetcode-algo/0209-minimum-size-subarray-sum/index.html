@@ -481,43 +481,53 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="「力扣」第-220-题：存在重复元素-III"><a href="#「力扣」第-220-题：存在重复元素-III" class="headerlink" title="「力扣」第 220 题：存在重复元素 III"></a>「力扣」第 220 题：存在重复元素 III</h2><p>题解地址：<a href="">滑动窗口 + 二叉搜索树找上下边界（Python 代码、Java 代码）</a>。</p>
-<p>说明：文本首发在力扣的题解版块，更新也会在第 1 时间在上面的网站中更新，这篇文章只是上面的文章的一个快照，您可以点击上面的链接看到其他网友对本文的评论。</p>
-<p>传送门：<a href="https://leetcode-cn.com/problems/contains-duplicate-iii/" target="_blank" rel="noopener">220. 存在重复元素 III</a>。</p>
+                <h2 id="「力扣」第-220-题：存在重复元素-III"><a href="#「力扣」第-220-题：存在重复元素-III" class="headerlink" title="「力扣」第 220 题：存在重复元素 III"></a>「力扣」第 220 题：存在重复元素 III</h2><p>传送门：<a href="https://leetcode-cn.com/problems/contains-duplicate-iii/" target="_blank" rel="noopener">220. 存在重复元素 III</a>；</p>
+<p>题解地址：<a href="">滑动窗口 + 二叉搜索树找上下边界（Python 代码、Java 代码）</a>。</p>
 <blockquote>
-<p>给定一个整数数组，判断数组中是否有两个不同的索引 i 和 j，使得 nums [i] 和 nums [j] 的差的绝对值最大为 t，并且 i 和 j 之间的差的绝对值最大为 ķ。</p>
+<p>给定一个整数数组，判断数组中是否有两个不同的索引 <code>i</code> 和 <code>j</code>，使得 <code>nums [i]</code> 和 <code>nums [j]</code> 的差的绝对值最大为 <code>t</code>，并且 <code>i</code> 和 <code>j</code> 之间的差的绝对值最大为 <code>ķ</code>。</p>
 <p>示例 1:</p>
-<p>输入: nums = [1,2,3,1], k = 3, t = 0<br>输出: true<br>示例 2:</p>
-<p>输入: nums = [1,0,1,1], k = 1, t = 2<br>输出: true<br>示例 3:</p>
-<p>输入: nums = [1,5,9,1,5,9], k = 2, t = 3<br>输出: false</p>
-<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/contains-duplicate-iii" target="_blank" rel="noopener">https://leetcode-cn.com/problems/contains-duplicate-iii</a><br>著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-</blockquote>
-<h2 id="滑动窗口-二叉搜索树找上下边界（Python-代码、Java-代码）"><a href="#滑动窗口-二叉搜索树找上下边界（Python-代码、Java-代码）" class="headerlink" title="滑动窗口 + 二叉搜索树找上下边界（Python 代码、Java 代码）"></a>滑动窗口 + 二叉搜索树找上下边界（Python 代码、Java 代码）</h2><p><strong>思路分析</strong>：</p>
-<p>1、存在性问题，找到符合题意的数据对即可，所有可能的情况看完以后才返回 <code>false</code>；</p>
-<p>2、题目给出了两个限制条件，分别是针对数（<code>nums [i]</code> 和 <code>nums [j]</code> 的差的绝对值最大为 <code>t</code>）和对应的索引（<code>i</code> 和 <code>j</code> 之间的差的绝对值最大为 <code>ķ</code>）的。</p>
-<blockquote>
-<p><strong>由于索引方便定位，因此我们将索引的差值固定，于是问题转化为固定长度（长度为 $k+1$）的窗口内，是否存在两个值的差距不超过 <code>t</code>，即问题转化为一个“滑动窗口”问题</strong>。</p>
-</blockquote>
-<p>由于转化成了“滑动窗口”问题，因此，两个限制条件只剩下一个，即：<code>nums [i]</code> 和 <code>nums [j]</code> 的差的绝对值最大为 <code>t</code>。下面这一点是针对这个限制条件的分析。</p>
-<p>3、“数组”和“滑动窗口”问题，我们通常都得遍历，在遍历的过程中，我们试图在“已经出现、但还未滑出滑动窗口”的所有数中查找是否有一个数与当前出现的这个数的差的绝对值最大为 <code>t</code>，这件事情我们换一个说法：</p>
-<blockquote>
-<p>我们在数轴上标出 <code>nums[i]</code> 的位置，然后以 <code>t</code> 为半径画圆，这个圆与 <code>nums[i]</code> 的左边相交于 <code>nums[i] - t</code>，与 <code>nums[i]</code> 的y右边相交于 <code>nums[i] + t</code>，如果我们在遍历中发现，“滑动窗口”内有元素落在 <code>[nums[i] - t, nums[i] + t]</code> 这个区间内，那么根据第 1 点，直接返回 <code>true</code> 即可。</p>
-</blockquote>
-<p><img src="https://pic.leetcode-cn.com/e7b5ec71ff3a7addc6ad099eb6037dbe28b758fbeba0f7aeebd568ebb24ef774-image.png" alt="image.png"></p>
-<p>再想想，在“滑动窗口”滑动的过程中，我们需要做什么？</p>
-<blockquote>
-<p>在“滑动窗口”中查找落在 <code>[nums[i] - t, nums[i] + t]</code> 这个区间内的元素，存在一个即可。</p>
-</blockquote>
-<p>对于查找问题，我们有什么？顺序查找、二分查找，二叉搜索树，哈希表。</p>
+<pre><code>输入: nums = [1,2,3,1], k = 3, t = 0
+输出: true</code></pre><p>示例 2：</p>
+<pre><code>输入: nums = [1,0,1,1], k = 1, t = 2
+输出: true</code></pre><p>示例 3：</p>
+<pre><code>输入: nums = [1,5,9,1,5,9], k = 2, t = 3
+输出: false</code></pre></blockquote>
+<p><img src="https://pic.leetcode-cn.com/0f6dc2f4136ae4642464d4613d391fbe7d237943e7d47707ff3324ebdb0f769c-image.png" alt="image.png"></p>
+<p>这道题得先读懂题目的意思：存在性问题，找到符合题意的“数据对”即可返回 <code>true</code>，所有可能的情况都看完以后没有找到才返回 <code>false</code>。</p>
+<p>题目意思翻译一下：<strong>在数组 <code>nums[i]</code> 中，在任意有效区间 <code>[i, i + k]</code> 里是否存在两个数的绝对值小于等于 <code>t</code></strong>，存在则返回 <code>true</code>，不存在返回 <code>false</code>。</p>
+<h3 id="方法一：暴力解法"><a href="#方法一：暴力解法" class="headerlink" title="方法一：暴力解法"></a>方法一：暴力解法</h3><p>枚举所有长度小于等于 <code>k + 1</code> 的“下标对<code>（）</code>”，只要发现 <code>nums[i] - nums[j]</code> 的绝对值小于 <code>t</code> ，就返回 <code>true</code>。</p>
+<p><strong>参考代码 1</strong>：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
+
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        int len = nums.length;
+        long a;
+        long b;
+
+        for (int i = 0; i < len; i++) {
+            for (int j = i + 1; j < len && j <= i + k; j++) {
+                a = nums[i];
+                b = nums[j];
+                if (Math.abs(a - b) <= t) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：</p>
 <ul>
-<li>“顺序查找”可行，“滑动窗口”每滑动一次，就得遍历一遍这个窗口内的元素，效率太低；</li>
-<li>“二分查找”不满足前提条件“数组有序”，故不适用；</li>
-<li>“哈希表”时间复杂度最低，“滑动窗口”每滑动一次，能高效处理添加和删除元素，但我们要找范围，要比较大小，而“哈希表”中的元素丢失了顺序性。</li>
+<li>时间复杂度：$O(N^2)$，这里数组的长度为 $N$，枚举可能的数对 $(i, j)$ 。</li>
+<li>空间复杂度：$O(1)$。</li>
 </ul>
-<p>只能下“二叉搜索树”了，看看它能不能胜任：</p>
-<p>1、“二叉搜索树”能够“动态地”存储和删除数据，符合“滑动窗口”元素是动态变化，虽然它没有哈希表那么高效；</p>
-<p>2、“二叉搜索树”的顺序性就正好符合我们要查找落在 <code>[nums[i] - t, nums[i] + t]</code> 这个区间内的元素这个任务。</p>
-<p>这时要用到的两个与我们的任务相关的 API 有：</p>
+<p>很容易想到的优化的思路是：以空间换时间，这里的空间还需要有比较大小的功能，比较容易想到的数据结构是二叉搜索树。</p>
+<h3 id="方法二：滑动窗口（以空间换时间）"><a href="#方法二：滑动窗口（以空间换时间）" class="headerlink" title="方法二：滑动窗口（以空间换时间）"></a>方法二：滑动窗口（以空间换时间）</h3><p>题目意思翻译一下：在数组 <code>nums[i]</code> 中，在任意有效区间 <code>[i, i + k]</code> 里是否存在两个数的绝对值小于等于 <code>t</code>，即 </p>
+<p>$$<br>|nums[i] - nums[j] | &lt;= t<br>$$</p>
+<p>等价于 $nums[i] - nums[j] &lt;= t$ 并且 $nums[i] - nums[j] &gt;= -t$，</p>
+<p>整理得：$nums[i] &lt;= t + nums[j]$ 并且 $nums[i] &gt;= nums[j] - t$。</p>
+<p>于是算法可以在遍历的时候，把遍历到的数存到 <code>BST</code> 中，边遍历边查找。</p>
+<p>根据刚才得到式子 $nums[i] &gt;= nums[j] - t$，假设当前遍历到的数是 $nums[j]$，$nums[i]$ 就是 $nums[j] - t$ 的天花板数（<code>ceiling</code>），这个数同时还要小于等于 $t + nums[j]$。根据这一点写滑动窗口的代码。</p>
 <ul>
 <li><code>ceiling(key)</code> 函数：返回大于等于 <code>key</code> 的最小元素，如果不存在，返回空。下面的是这个函数的文档（通过 Intellij IDEA 查看）。</li>
 </ul>
@@ -534,32 +544,40 @@
   *         and this map does not permit null keys
   */
 K ceilingKey(K key);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li><code>floor(key)</code> 函数：返回小于等于 <code>key</code> 的最大元素，如果不存在，返回空。下面的是这个函数的文档（通过 Intellij IDEA 查看）。</li>
-</ul>
-<pre class="line-numbers language-Java"><code class="language-Java">/**
-  * Returns the greatest key less than or equal to the given key,
-  * or {@code null} if there is no such key.
-  *
-  * @param key the key
-  * @return the greatest key less than or equal to {@code key},
-  *         or {@code null} if there is no such key
-  * @throws ClassCastException if the specified key cannot be compared
-  *         with the keys currently in the map
-  * @throws NullPointerException if the specified key is null
-  *         and this map does not permit null keys
-  */
-K floorKey(K key);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>于是，我们可以</p>
-<p>1、在 <code>nums[i]</code> 的左边找一下 <code>ceiling(nums[i] - t)</code>，即大于等于 <code>nums[i] - t</code> 的元素是否存在；</p>
-<p>2、在 <code>nums[i]</code> 的右边找一下 <code>floor(nums[i] + t)</code>，即小于等于 <code>nums[i] + t</code> 的元素是否存在。</p>
-<p><strong>参考代码</strong>：</p>
-<p>说明：<br>1、在 Java 中，“二叉搜索树”是用红黑树实现的，并且也提供了 <code>ceiling</code> 和 <code>floor</code> 实现，这道题用 Java 语言实现比较方便；</p>
-<p>2、由于 Python 中没有“二叉搜索树”实现，以下 Python 示例代码使用了我自己编写的 <code>BST</code> 实现，由于水平有限，没有实现自平衡，故性能较差，供各位参考。</p>
-<p>Java 代码：</p>
+<p><strong>参考代码 2</strong>：</p>
 <pre class="line-numbers language-Java"><code class="language-Java">import java.util.TreeSet;
 
 public class Solution {
+
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        // 滑动窗口结合查找表，此时滑动窗口即为查找表本身（控制查找表的大小即可控制窗口大小）
+        TreeSet<Long> set = new TreeSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            // 边添加边查找
+            // 查找表中是否有大于等于 nums[i] - t 且小于等于 nums[i] + t 的值
+            Long ceiling = set.ceiling((long) nums[i] - (long) t);
+            if (ceiling != null && ceiling <= ((long) nums[i] + (long) t)) {
+                return true;
+            }
+            // 添加后，控制查找表（窗口）大小，移除窗口最左边元素
+            set.add((long) nums[i]);
+            if (set.size() == k + 1) {
+                set.remove((long) nums[i - k]);
+            }
+        }
+        return false;
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：</p>
+<ul>
+<li>时间复杂度：$O(N\log K)$，遍历数组使用 $O(N)$，在遍历的同时向二叉搜索树中插入元素和移除元素的时间复杂度是 $O(\log K)$。</li>
+<li>空间复杂度：$O(1)$。</li>
+</ul>
+<p>另一种写法：在一开始就把滑动窗口左边的元素删除。</p>
+<p><strong>参考代码 3</strong>：</p>
+<pre class="line-numbers language-Java"><code class="language-Java">import java.util.TreeSet;
+
+public class Solution11 {
 
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
         int len = nums.length;
@@ -568,208 +586,25 @@ public class Solution {
             return false;
         }
 
-        // 泛型类型为 Long 是提交失败以后看到测试用例以后改的
         TreeSet<Long> set = new TreeSet<>();
 
-        // 一个一个加进去
         for (int i = 0; i < len; i++) {
-            // 检测逻辑 1：以当前数为中心，向左边扩展，看看 set 里有没有大于等于 nums[i] - t 的元素
-            // 大于等于 nums[i] - t ，在这个数上面，故使用天花板函数 ceiling
-            Long ceiling = set.ceiling((long) nums[i] - t);
-            // 在 nums[i] 为中心，半径为 t 的左边有元素，因此直接返回 true 即可
-            if (ceiling != null && ceiling <= nums[i]) {
-                return true;
+            if (i > k) {
+                set.remove((long) nums[i - k - 1]);
             }
 
-            // 检测逻辑 2：以当前数为中心，向左边扩展，看看 set 里有没有小于等于 nums[i] + t 的元素
-            // 小于等于 nums[i] + t ，在这个数下面，故使用地板函数 floor
-            Long floor = set.floor((long) nums[i] + t);
-            // 在 nums[i] 为中心，半径为 t 的右边有元素，因此直接返回 true 即可
-            if (floor != null && floor >= nums[i]) {
+            Long ceiling = set.ceiling((long) nums[i] - (long) t);
+            if (ceiling != null && ceiling <= (long) nums[i] + (long) t) {
                 return true;
             }
 
             set.add((long) nums[i]);
-            // 当 k = 3 时，[0,1,2,3,4]，i = 3 的时候就要把 i = 0 删掉了
-            if (i >= k) {
-                set.remove((long) nums[i - k]);
-            }
         }
-        // 遍历以后都找不到符合题意的数据对，就只能返回 False
         return false;
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Python 代码：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">from typing import List
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：（同上）</p>
 
-
-class Solution:
-    def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:
-
-        size = len(nums)
-        # 特判
-        if size == 0 or k <= 0 or t < 0:
-            return False
-
-        # 初始化自定义的 bst
-        bst = Solution.BST()
-
-        # 一个一个加进去
-        for i in range(size):
-            # 检测逻辑 1：以当前数为中心，向左边扩展，看看 set 里有没有大于等于 nums[i] - t 的元素
-            # 大于等于 nums[i] - t ，在这个数上面，故使用天花板函数 ceiling
-            ceiling = bst.ceiling(nums[i] - t)
-            # 在 nums[i] 为中心，半径为 t 的左边有元素，因此直接返回 true 即可
-            if ceiling is not None and ceiling <= nums[i]:
-                return True
-
-            # 检测逻辑 2：以当前数为中心，向左边扩展，看看 set 里有没有小于等于 nums[i] + t 的元素
-            # 小于等于 nums[i] + t ，在这个数下面，故使用地板函数 floor
-            floor = bst.floor(nums[i] + t)
-            if floor is not None and nums[i] <= floor:
-                return True
-
-            bst.insert(nums[i])
-            # 当 k = 3 时，[0,1,2,3,4]，i = 3 的时候就要把 i = 0 删掉了
-            if i >= k:
-                bst.remove(nums[i - k])
-        return False
-
-    # 以下是自定义的 BST 实现，未实现自平衡，性能较差
-    class TreeNode:
-        def __init__(self, x):
-            self.val = x
-            self.left = None
-            self.right = None
-
-    class BST:
-        def __init__(self):
-            self.root = None
-
-        def __str__(self):
-            # 中序遍历 bst
-            s = ''
-            if self.root is None:
-                return ''
-            stack = [(1, self.root)]
-
-            while stack:
-                type, node = stack.pop()
-                if type == 0:
-                    s += str(node.val) + ','
-                else:
-                    if node.right:
-                        stack.append((1, node.right))
-                    stack.append((0, node))
-                    if node.left:
-                        stack.append((1, node.left))
-            return s[:-1]
-
-        def insert(self, val):
-            """
-            将 val 插入 bst
-            :param val:
-            :return:
-            """
-            self.root = self.__insert(self.root, val)
-
-        def __insert(self, node, val):
-            # 在以 node 为根结点的 bst 中，插入 val
-            if node is None:
-                return Solution.TreeNode(val)
-            if val < node.val:
-                # 注意：不要写成 return self.__insert(node.left, val)
-                node.left = self.__insert(node.left, val)
-                return node
-            elif val > node.val:
-                # 注意：不要写成 return self.__insert(node.right, val)
-                node.right = self.__insert(node.right, val)
-                return node
-            node.val = val
-            # 注意：要把 node 返回回去
-            return node
-
-        def remove(self, val):
-            """
-            删除 bst 中等于 val 的结点
-            :param val:
-            :return:
-            """
-            if self.root:
-                self.root = self.__remove(self.root, val)
-
-        def __remove(self, node, val):
-            if node is None:
-                return None
-            if val < node.val:
-                node.left = self.__remove(node.left, val)
-                return node
-            if val > node.val:
-                node.right = self.__remove(node.right, val)
-                return node
-
-            if node.left is None:
-                new_root = node.right
-                node.right = None
-                return new_root
-
-            if node.right is None:
-                new_root = node.left
-                node.left = None
-                return new_root
-
-            # 用前驱结点 precursor 代替被删除结点
-            precursor = self.__maximum(node.left)
-            precursor_copy = Solution.TreeNode(precursor.val)
-            precursor_copy.left = self.__remove_max(node.left)
-            precursor_copy.right = node.right
-            node.left = None
-            node.right = None
-            return precursor_copy
-
-        def __maximum(self, node):
-            while node.right:
-                node = node.right
-            return node
-
-        def __remove_max(self, node):
-            if node.right is None:
-                new_root = node.left
-                node.left = None
-                return new_root
-            node.right = self.__remove_max(node.right)
-            return node
-
-        def floor(self, val):
-            return self.__floor(self.root, val)
-
-        def __floor(self, node, val):
-            if node is None:
-                return None
-            if node.val == val:
-                return node.val
-            if val < node.val:
-                return self.__floor(node.left, val)
-            temp_val = self.__floor(node.right, val)
-            if temp_val:
-                return temp_val
-            return node.val
-
-        def ceiling(self, val):
-            return self.__ceiling(self.root, val)
-
-        def __ceiling(self, node, val):
-            if node is None:
-                return None
-            if node.val == val:
-                return node.val
-            if val > node.val:
-                return self.__ceiling(node.right, val)
-            temp_val = self.__ceiling(node.left, val)
-            if temp_val:
-                return temp_val
-            return node.val<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<Vssue title="contains-duplicate-iii"/>
             </div>
             <hr/>
 

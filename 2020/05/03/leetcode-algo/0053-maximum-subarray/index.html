@@ -651,7 +651,7 @@
 <p>$$<br>dp[i] =<br>\begin{cases}<br>dp[i - 1] + nums[i], &amp; if \quad dp[i - 1] \ge 0 \<br>nums[i], &amp; if \quad dp[i - 1] &lt; 0<br>\end{cases}<br>$$</p>
 <p>记为「状态转移方程 1」（如果公式显示有误，请参考：<a href="https://leetcode-cn.com/problems/maximum-subarray/solution/dong-tai-gui-hua-fen-zhi-fa-python-dai-ma-java-dai/" target="_blank" rel="noopener">题解链接</a>）。</p>
 <p>状态转移方程还可以这样写，反正求的是最大值，也不用分类讨论了，就这两种情况，取最大即可，因此还可以写出状态转移方程如下：</p>
-<p>$$<br>dp[i] = \max \{nums[i],\; dp[i - 1] + nums[i]\}<br>$$</p>
+<p>$$<br>dp[i] = \max {nums[i],; dp[i - 1] + nums[i]}<br>$$</p>
 <p>记为「状态转移方程 2」。</p>
 <blockquote>
 <p>动态规划的问题经常要分类讨论，这是因为动态规划的问题本来就有最优子结构的特征，即大问题的最优解通常由小问题的最优解得到，那么我们就需要通过分类讨论，得到大问题的小问题究竟是哪些。</p>
