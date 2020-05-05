@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="「力扣」第 98 题：验证二叉搜索树（中等）, 算法与数据结构入门教程">
+    <meta name="keywords" content="「力扣」第 983 题：最低票价, 算法与数据结构入门教程">
     <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>「力扣」第 98 题：验证二叉搜索树（中等） | 算法与数据结构入门教程</title>
+    <title>「力扣」第 983 题：最低票价 | 算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">「力扣」第 98 题：验证二叉搜索树（中等）</h1>
+                    <h1 class="description center-align post-title">「力扣」第 983 题：最低票价</h1>
                 </div>
             </div>
         </div>
@@ -440,12 +440,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%80%92%E5%BD%92/">
-                                <span class="chip bg-color">递归</span>
+                            <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                <span class="chip bg-color">字符串</span>
                             </a>
                         
-                            <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                                <span class="chip bg-color">二叉树</span>
+                            <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                                <span class="chip bg-color">动态规划</span>
                             </a>
                         
                     </div>
@@ -456,8 +456,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E4%B8%93%E9%A2%98-12%EF%BC%9A%E6%A0%91/" class="post-category">
-                                专题 12：树
+                            <a href="/categories/%E4%B8%93%E9%A2%98-15%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-category">
+                                专题 15：动态规划
                             </a>
                         
                     </div>
@@ -469,7 +469,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2017-11-23
+                    2020-05-06
                 </div>
                 
 
@@ -485,152 +485,91 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="「力扣」第-98-题：验证二叉搜索树（中等）"><a href="#「力扣」第-98-题：验证二叉搜索树（中等）" class="headerlink" title="「力扣」第 98 题：验证二叉搜索树（中等）"></a>「力扣」第 98 题：验证二叉搜索树（中等）</h2><ul>
-<li>中文网址：<a href="https://leetcode-cn.com/problems/validate-binary-search-tree/description/" target="_blank" rel="noopener">98. 验证二叉搜索树</a> ；</li>
-<li>英文网址：<a href="https://leetcode.com/problems/validate-binary-search-tree/description/" target="_blank" rel="noopener">98. Validate Binary Search Tree</a> 。</li>
+                <h2 id="「力扣」第-983-题：最低票价"><a href="#「力扣」第-983-题：最低票价" class="headerlink" title="「力扣」第 983 题：最低票价"></a>「力扣」第 983 题：最低票价</h2><ul>
+<li>链接：<a href="https://leetcode-cn.com/problems/minimum-cost-for-tickets" target="_blank" rel="noopener">https://leetcode-cn.com/problems/minimum-cost-for-tickets</a></li>
 </ul>
 <blockquote>
-<p>给定一个二叉树，判断其是否是一个有效的二叉搜索树。</p>
-<p>假设一个二叉搜索树具有如下特征：</p>
+<p>在一个火车旅行很受欢迎的国度，你提前一年计划了一些火车旅行。在接下来的一年里，你要旅行的日子将以一个名为 days 的数组给出。每一项是一个从 1 到 365 的整数。</p>
+<p>火车票有三种不同的销售方式：</p>
 <ul>
-<li>节点的左子树只包含小于当前节点的数。</li>
-<li>节点的右子树只包含大于当前节点的数。</li>
-<li>所有左子树和右子树自身必须也是二叉搜索树。</li>
+<li>一张为期一天的通行证售价为 <code>costs[0]</code> 美元；</li>
+<li>一张为期七天的通行证售价为 <code>costs[1]</code> 美元；</li>
+<li>一张为期三十天的通行证售价为 <code>costs[2]</code> 美元。<br>通行证允许数天无限制的旅行。 例如，如果我们在第 2 天获得一张为期 7 天的通行证，那么我们可以连着旅行 7 天：第 2 天、第 3 天、第 4 天、第 5 天、第 6 天、第 7 天和第 8 天。</li>
 </ul>
-<p>示例 1:</p>
-<pre><code>输入:
-    2
-   / \
-  1   3
-输出: true</code></pre><p>示例 2:</p>
-<pre><code>输入:
-    5
-   / \
-  1   4
-     / \
-    3   6
-输出: false
-解释: 输入为: [5,1,4,null,null,3,6]。
-     根节点的值为 5 ，但是其右子节点值为 4 。</code></pre></blockquote>
-<p>分析：二分搜索树定义 3 条，根据定义判断其实是最简单的，在技巧上就是要分一下，是左子树还是右子树。</p>
-<h3 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h3><p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">dfs</span><span class="token punctuation">(</span>TreeNode node<span class="token punctuation">,</span> <span class="token keyword">int</span> val<span class="token punctuation">,</span> <span class="token keyword">boolean</span> ifLeft<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>ifLeft<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> node<span class="token punctuation">.</span>val <span class="token operator">&lt;</span> val <span class="token operator">&amp;&amp;</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">,</span> val<span class="token punctuation">,</span> ifLeft<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">,</span> val<span class="token punctuation">,</span> ifLeft<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> node<span class="token punctuation">.</span>val <span class="token operator">></span> val <span class="token operator">&amp;&amp;</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">,</span> val<span class="token punctuation">,</span> ifLeft<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">,</span> val<span class="token punctuation">,</span> ifLeft<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token comment" spellcheck="true">/**
-     * 按照 BST 的定义
-     * @param root
-     * @return
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isValidBST</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token function">dfs</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">,</span> root<span class="token punctuation">.</span>val<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
-                <span class="token function">dfs</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">,</span> root<span class="token punctuation">.</span>val<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
-                <span class="token function">isValidBST</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isValidBST</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>返回你想要完成在给定的列表 <code>days</code> 中列出的每一天的旅行所需要的最低消费。</p>
+<p>示例 1：</p>
+<pre><code>输入：days = [1,4,6,7,8,20], costs = [2,7,15]
+输出：11
+解释： 
+例如，这里有一种购买通行证的方法，可以让你完成你的旅行计划：
+在第 1 天，你花了 costs[0] = $2 买了一张为期 1 天的通行证，它将在第 1 天生效。
+在第 3 天，你花了 costs[1] = $7 买了一张为期 7 天的通行证，它将在第 3, 4, ..., 9 天生效。
+在第 20 天，你花了 costs[0] = $2 买了一张为期 1 天的通行证，它将在第 20 天生效。
+你总共花了 $11，并完成了你计划的每一天旅行。
+</code></pre><p>示例 2：</p>
+<pre><code>输入：days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
+输出：17
+解释：
+例如，这里有一种购买通行证的方法，可以让你完成你的旅行计划： 
+在第 1 天，你花了 costs[2] = $15 买了一张为期 30 天的通行证，它将在第 1, 2, ..., 30 天生效。
+在第 31 天，你花了 costs[0] = $2 买了一张为期 1 天的通行证，它将在第 31 天生效。 
+你总共花了 $17，并完成了你计划的每一天旅行。</code></pre><p>提示：</p>
+<ul>
+<li><code>1 &lt;= days.length &lt;= 365</code></li>
+<li><code>1 &lt;= days[i] &lt;= 365</code></li>
+<li><code>days 按顺序严格递增</code></li>
+<li><code>costs.length == 3</code></li>
+<li><code>1 &lt;= costs[i] &lt;= 1000</code></li>
+</ul>
+</blockquote>
+<h3 id="方法：动态规划"><a href="#方法：动态规划" class="headerlink" title="方法：动态规划"></a>方法：动态规划</h3><blockquote>
+<p>提示：</p>
+<p>1、动态规划问题常常用于多阶段问题求解，跟这道问题很类似的有「股票问题」，即「一天一天地求出到今天为止的最少利润」；</p>
+<p>2、要注意一些细节的问题，这里细节的问题体现在代码中了。</p>
+</blockquote>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">helper</span><span class="token punctuation">(</span>TreeNode node<span class="token punctuation">,</span> Integer min<span class="token punctuation">,</span> Integer max<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>min <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> node<span class="token punctuation">.</span>val <span class="token operator">&lt;=</span> min<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>max <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> node<span class="token punctuation">.</span>val <span class="token operator">>=</span> max<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token function">helper</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">,</span> min<span class="token punctuation">,</span> node<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">helper</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">,</span> node<span class="token punctuation">.</span>val<span class="token punctuation">,</span> max<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isValidBST</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token function">helper</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> null<span class="token punctuation">,</span> null<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">TreeNode</span> <span class="token punctuation">{</span>
-    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
-    TreeNode left<span class="token punctuation">;</span>
-    TreeNode right<span class="token punctuation">;</span>
-
-    <span class="token function">TreeNode</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        val <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
 
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">dfs</span><span class="token punctuation">(</span>TreeNode node<span class="token punctuation">,</span> <span class="token keyword">int</span> val<span class="token punctuation">,</span> <span class="token keyword">boolean</span> ifLeft<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">mincostTickets</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> days<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> costs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> days<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> lastDay <span class="token operator">=</span> days<span class="token punctuation">[</span>len <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 数组的作用是代替哈希表，以便后续快速检测是否当天有旅行</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> hashMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">366</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> day <span class="token operator">:</span> days<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            hashMap<span class="token punctuation">[</span>day<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>ifLeft<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>val <span class="token operator">>=</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// dp[i]：到下标为 i 的这一天，旅行所需要的最低消费</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> dp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>lastDay <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> lastDay<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>hashMap<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+</span> costs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dp<span class="token punctuation">[</span>Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+</span> costs<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dp<span class="token punctuation">[</span>Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> i <span class="token operator">-</span> <span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">+</span> costs<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span>i <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
             <span class="token punctuation">}</span>
-            <span class="token keyword">return</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">,</span> val<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">,</span> val<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>node<span class="token punctuation">.</span>val <span class="token operator">&lt;=</span> val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">return</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>left<span class="token punctuation">,</span> val<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">dfs</span><span class="token punctuation">(</span>node<span class="token punctuation">.</span>right<span class="token punctuation">,</span> val<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> dp<span class="token punctuation">[</span>lastDay<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token comment" spellcheck="true">/**
-     * 程序入口，思路：递归
-     * @param root
-     * @return
-     */</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isValidBST</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token comment" spellcheck="true">// 左结点小于当前结点的值，ifLeft 表示传入的结点是否是左结点</span>
-        <span class="token comment" spellcheck="true">// 并且右边结点大于当前结点的值</span>
-        <span class="token comment" spellcheck="true">// 并且左边、右边都得是 BST</span>
-        <span class="token keyword">return</span> <span class="token function">dfs</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">,</span> root<span class="token punctuation">.</span>val<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
-                <span class="token function">dfs</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">,</span> root<span class="token punctuation">.</span>val<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
-                <span class="token function">isValidBST</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isValidBST</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">min</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>提示：思路1：中序遍历一遍就可以了；思路2：模拟系统栈。</p>
-<p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-    <span class="token keyword">double</span> last <span class="token operator">=</span> <span class="token operator">-</span>Double<span class="token punctuation">.</span>MAX_VALUE<span class="token punctuation">;</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isValidBST</span><span class="token punctuation">(</span>TreeNode root<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isValidBST</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>left<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>last <span class="token operator">&lt;</span> root<span class="token punctuation">.</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                last <span class="token operator">=</span> root<span class="token punctuation">.</span>val<span class="token punctuation">;</span>
-                <span class="token keyword">return</span> <span class="token function">isValidBST</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> days <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> costs <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//        int[] days = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 30, 31};</span>
+<span class="token comment" spellcheck="true">//        int[] costs = {2, 7, 15};</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> res <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">mincostTickets</span><span class="token punctuation">(</span>days<span class="token punctuation">,</span> costs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>（本节完）</p>
+
             </div>
             <hr/>
 
@@ -645,7 +584,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.liwei.party" rel="external nofollow noreferrer">liweiwei1419</a>
+                    <a href="https://www.liwei.party" rel="external nofollow noreferrer">liweiwei419</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -655,9 +594,9 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.liwei.party/2017/11/23/leetcode-algo/0098-validate-binary-search-tree/">https://www.liwei.party/2017/11/23/leetcode-algo/0098-validate-binary-search-tree/</a>
+                    <a href="https://www.liwei.party/2020/05/06/leetcode-algo/1143-longest-common-subsequence/">https://www.liwei.party/2020/05/06/leetcode-algo/1143-longest-common-subsequence/</a>
                     <!-- GitHub 用配置
-                    <a href="https://www.liwei.party/2017/11/23/leetcode-algo/0098-validate-binary-search-tree/">https://www.liwei.party/2017/11/23/leetcode-algo/0098-validate-binary-search-tree/</a>
+                    <a href="https://www.liwei.party/2020/05/06/leetcode-algo/1143-longest-common-subsequence/">https://www.liwei.party/2020/05/06/leetcode-algo/1143-longest-common-subsequence/</a>
                     -->
                 </span>
             </div>
@@ -671,7 +610,7 @@
                     本博客所有文章除特別声明外，均采用
                     <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="https://www.liwei.party" target="_blank">liweiwei1419</a>
+                    <a href="https://www.liwei.party" target="_blank">liweiwei419</a>
                     !
                 </span>
             </div>
@@ -696,12 +635,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%80%92%E5%BD%92/">
-                                    <span class="chip bg-color">递归</span>
+                                <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                                    <span class="chip bg-color">字符串</span>
                                 </a>
                             
-                                <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                                    <span class="chip bg-color">二叉树</span>
+                                <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                                    <span class="chip bg-color">动态规划</span>
                                 </a>
                             
                         </div>
@@ -872,7 +811,7 @@
         repo: 'blog-article-sources',
         owner: 'liweiwei1419',
         admin: "liweiwei1419",
-        id: '2017-11-23T08-00-00',
+        id: '2020-05-06T08-00-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -896,58 +835,56 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2017/11/24/leetcode-algo/0100-same-tree/">
+                <a href="/2020/05/06/leetcode-algo/1143-longest-common-subsequence/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="「力扣」第 100 题：相同的树（简单）">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="「力扣」第 983 题：最低票价">
                         
-                        <span class="card-title">「力扣」第 100 题：相同的树（简单）</span>
+                        <span class="card-title">「力扣」第 983 题：最低票价</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 100 题：相同的树（简单）
-中文网址：100. 相同的树 ；
-
-英文网址：100. Same Tree ，
+                            「力扣」第 983 题：最低票价
+链接：https://leetcode-cn.com/problems/minimum-cost-for-tickets
 
 
-
-给定两个二叉树，编写一个函数来检验它们是否相同。
-如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同
+在一个火车旅行很受欢迎的国度，你提前一年计划了一些火车旅行。在接下来的一年里，你
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2017-11-24
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E4%B8%93%E9%A2%98-12%EF%BC%9A%E6%A0%91/" class="post-category">
-                                    专题 12：树
+                            <a href="/categories/%E4%B8%93%E9%A2%98-15%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-category">
+                                    专题 15：动态规划
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%80%92%E5%BD%92/">
-                        <span class="chip bg-color">递归</span>
+                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
-                    <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                        <span class="chip bg-color">二叉树</span>
+                    <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+                        <span class="chip bg-color">动态规划</span>
                     </a>
                     
                 </div>
@@ -961,37 +898,35 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2017/11/22/leetcode-algo/0094-binary-tree-inorder-traversal/">
+                <a href="/2020/05/05/leetcode-algo/0387-first-unique-character-in-a-string/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="「力扣」第 94 题：二叉树的中序遍历（中等）">
+                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="「力扣」第 387 题：字符串中的第一个唯一字符">
                         
-                        <span class="card-title">「力扣」第 94 题：二叉树的中序遍历（中等）</span>
+                        <span class="card-title">「力扣」第 387 题：字符串中的第一个唯一字符</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 94 题：二叉树的中序遍历（中等）
-链接：https://leetcode-cn.com/problems/binary-tree-inorder-traversal/。
+                            「力扣」第 387 题：字符串中的第一个唯一字符
+链接：https://leetcode-cn.com/problems/first-unique-character-in-a-string
 
 
-给定一个二叉树，返回它的中序 遍历。
-示例：
-输入:
+给定一个字符串，找到它的第一个不重复的字符，
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2017-11-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-05
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E4%B8%93%E9%A2%98-12%EF%BC%9A%E6%A0%91/" class="post-category">
-                                    专题 12：树
+                            <a href="/categories/%E4%B8%93%E9%A2%98-3%EF%BC%9A%E6%95%B0%E7%BB%84/" class="post-category">
+                                    专题 3：数组
                                 </a>
                             
                             
@@ -1001,12 +936,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E9%80%92%E5%BD%92/">
-                        <span class="chip bg-color">递归</span>
+                    <a href="/tags/%E6%95%B0%E7%BB%84/">
+                        <span class="chip bg-color">数组</span>
                     </a>
                     
-                    <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/">
-                        <span class="chip bg-color">二叉树</span>
+                    <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+                        <span class="chip bg-color">字符串</span>
                     </a>
                     
                 </div>
