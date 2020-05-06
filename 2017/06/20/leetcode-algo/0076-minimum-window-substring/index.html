@@ -488,7 +488,7 @@
 </li>
 </ul>
 <blockquote>
-<p>给定一个字符串 S 和一个字符串 T，请在 S 中找出包含 T 所有字母的最小子串。</p>
+<p>给定一个字符串 <code>S</code> 和一个字符串 <code>T</code>，请在 <code>S</code> 中找出包含 <code>T</code> 所有字母的最小子串。</p>
 <p><strong>示例：</strong></p>
 <pre><code>输入: S = &quot;ADOBECODEBANC&quot;, T = &quot;ABC&quot;
 输出: &quot;BANC&quot;</code></pre><p><strong>说明：</strong></p>
@@ -497,7 +497,147 @@
 <li>如果 S 中存在这样的子串，我们保证它是唯一的答案。</li>
 </ul>
 </blockquote>
-<p>说明：这道题被 LeetCode 标记为「困难」。</p>
+<p>说明：这道题被「力扣」标记为「困难」。</p>
+<blockquote>
+<p>1、只关心频数，不关心顺序，因此我们需要记录频次；</p>
+<p>2、定义「距离」，编辑距离，汉明距离；</p>
+<p>3、子串左边和右边都不能是不相关的字符；</p>
+<p>4、字符数可以多，但不能少。</p>
+</blockquote>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> String <span class="token function">minWindow</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> sLen <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> tLen <span class="token operator">=</span> t<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>sLen <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> tLen <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> countS <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> countT <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArrayS <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArrayT <span class="token operator">=</span> t<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> distance <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">char</span> charT <span class="token operator">:</span> charArrayT<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>countT<span class="token punctuation">[</span>charT<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                distance<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            countT<span class="token punctuation">[</span>charT<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">int</span> minLen <span class="token operator">=</span> sLen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> begin <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>right <span class="token operator">&lt;</span> sLen<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>countT<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                right<span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            countS<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>countS<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">==</span> countT<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                count<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            right<span class="token operator">++</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>count <span class="token operator">==</span> distance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left <span class="token operator">&lt;</span> minLen<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    minLen <span class="token operator">=</span> right <span class="token operator">-</span> left<span class="token punctuation">;</span>
+                    begin <span class="token operator">=</span> left<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>countT<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    countS<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>countS<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> countT<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        count<span class="token operator">--</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+                left<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>minLen <span class="token operator">==</span> sLen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>begin<span class="token punctuation">,</span> begin <span class="token operator">+</span> minLen<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String S <span class="token operator">=</span> <span class="token string">"ADOBECODEBANC"</span><span class="token punctuation">;</span>
+        String T <span class="token operator">=</span> <span class="token string">"ABC"</span><span class="token punctuation">;</span>
+        String minWindow <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">minWindow</span><span class="token punctuation">(</span>S<span class="token punctuation">,</span> T<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>minWindow<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><code>for</code> 循环写法：</li>
+</ul>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> String <span class="token function">minWindow</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> sLen <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> tLen <span class="token operator">=</span> t<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>sLen <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> tLen <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> countS <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> countT <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">256</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArrayS <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArrayT <span class="token operator">=</span> t<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> distance <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">char</span> charT <span class="token operator">:</span> charArrayT<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>countT<span class="token punctuation">[</span>charT<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                distance<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            countT<span class="token punctuation">[</span>charT<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">int</span> minLen <span class="token operator">=</span> sLen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> begin <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> right <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> right <span class="token operator">&lt;</span> sLen<span class="token punctuation">;</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>countT<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                right<span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            countS<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>countS<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">==</span> countT<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                count<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            right<span class="token operator">++</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>count <span class="token operator">==</span> distance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left <span class="token operator">&lt;</span> minLen<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    minLen <span class="token operator">=</span> right <span class="token operator">-</span> left<span class="token punctuation">;</span>
+                    begin <span class="token operator">=</span> left<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>countT<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    countS<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>countS<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span> countT<span class="token punctuation">[</span>charArrayS<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        count<span class="token operator">--</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+                left<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>minLen <span class="token operator">==</span> sLen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>begin<span class="token punctuation">,</span> begin <span class="token operator">+</span> minLen<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
 <p>Java 代码：</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashSet<span class="token punctuation">;</span>
 <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
@@ -581,6 +721,111 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>（本节完）</p>
+<h3 id="方法一：暴力求解"><a href="#方法一：暴力求解" class="headerlink" title="方法一：暴力求解"></a>方法一：暴力求解</h3><p>以 <code>输入: S = &quot;ADOBECODEBANC&quot;, T = &quot;ABC&quot;</code> 为例，由于 <code>T</code> 中所有的字符都互不相同。我们可以：</p>
+<p>1、枚举 <code>S</code> 中长度大于等于 <code>3</code> 的所有子串；</p>
+<p>2、对这些子串逐个判断是否包含 <code>T</code> 的所有字母。</p>
+<p>3、对满足上述两条的所有子串，取最小值。</p>
+<p>枚举所有子串，$O(N^2)$ ，判断是否包含 <code>T</code> 的所有字符，$O(N)$。总体的时间复杂度是 $O(N^3)$。</p>
+<h3 id="方法二：滑动窗口"><a href="#方法二：滑动窗口" class="headerlink" title="方法二：滑动窗口"></a>方法二：滑动窗口</h3><p>下面我们思考如何优化：</p>
+<p>1、一开始的时候，<code>left</code> 和 <code>right</code> 都位于 0 的位置，<code>right</code> 向右移动，直至包含 <code>T</code> 的所有字母。因为我们要求的是最小子串，因此，以 <code>left</code> 开头的子串 <code>[left, right + 1]</code>、 <code>[left, right + 2]</code>、……、 <code>[left, len - 1]</code> 一定不符合要求。因此可以不用判断。</p>
+<p>2、然后考虑 <code>left</code> 如何移动，<code>left</code> 不能向左移动，向左移动只能让子串更长，我们要求最小子串，因此  <code>left</code> 只能右移，移到 <code>left</code> 滑出以后，恰恰好 <code>[left, right]</code> 这个区间里面的字符不包含 <code>T</code> 所有字母的最小子串。</p>
+<p>3、然后 <code>right</code> 继续向右移动，直到包含 <code>T</code> 所有字母的最小子串。</p>
+<p>重复这样的过程，直到 <code>right</code> 到达 <code>S</code> 的末尾。怎么样，这个思想是不是和第 3 题是一样的，尺取法。</p>
+<p>尺取法有下面的特点：</p>
+<blockquote>
+<p><code>right</code> 先向右移动，移到不能再移动的时候，<code>left</code> 再向右移动。</p>
+<p><code>right</code> 变长刚好满足条件，<code>left</code> 变短到刚好不满足条件，然后 <code>right</code> 变长刚好满足条件，如此循环下去，直到 <code>right</code> 到达末尾。</p>
+</blockquote>
+<p>这里的条件是指：<code>[left, right)</code> 包含 <code>T</code> 所有字母。</p>
+<p>这里如何判断区间 <code>[left, right]</code> 内包含 <code>T</code> 所有字母呢？</p>
+<p>由于我们并不关心字母的顺序，因此我们采用的是对比频数数组的方式。</p>
+<p>1、先对 <code>T</code> 做频数统计，然后设置一个变量 <code>distance</code> 表示 <code>T</code> 中一共有多少个不同的字母</p>
+<p>2、<code>left</code> 和 <code>right</code> 在动的时候，只对 <code>T</code> 中出现的字母做统计。</p>
+<p><code>right</code> 移动的时候，频数增加，加到刚刚好和 <code>T</code> 对应字母相等的时候，<code>distance - 1</code>，表示滑动窗口内的字母种类与 <code>T</code> 的差距减少了 1，当这个差距为 0 的时候，滑动窗口内包含 <code>T</code> 所有字母的最小子串。此时考虑移动 <code>left</code>；</p>
+<p>3、<code>left</code> 移动的时候，做减法，减少到刚刚好比 <code>T</code> 中对应字符个数少 1 的时候，就说明“平衡”被打破，此时应该 <code>right</code> 继续向右移动。</p>
+<blockquote>
+<p>1、<code>right</code> 一直往前走，走到 <code>[left, right]</code> 包含 <code>T</code> 里所有的字母。</p>
+<p>2、<code>right</code> 和 <code>left</code> 同方向。</p>
+<p>3、小技巧：用哈希表或者数组统计不同字母的个数，这样可以保证复杂度最低。</p>
+<p>（1）使用数组，会有空隙；</p>
+<p>（2）使用哈希表，空隙是动态计算出来的。</p>
+</blockquote>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> String <span class="token function">minWindow</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> window <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> pattern <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">final</span> <span class="token keyword">int</span> A <span class="token operator">=</span> <span class="token string">'A'</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>Character c <span class="token operator">:</span> t<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            pattern<span class="token punctuation">[</span>c <span class="token operator">-</span> A<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> distance <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">128</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>pattern<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                distance<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">int</span> sLen <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> match <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> minLen <span class="token operator">=</span> sLen <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>right <span class="token operator">&lt;</span> sLen<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Character curChar <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>pattern<span class="token punctuation">[</span>curChar <span class="token operator">-</span> A<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                window<span class="token punctuation">[</span>curChar <span class="token operator">-</span> A<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>window<span class="token punctuation">[</span>curChar <span class="token operator">-</span> A<span class="token punctuation">]</span> <span class="token operator">==</span> pattern<span class="token punctuation">[</span>curChar <span class="token operator">-</span> A<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    match<span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+
+            right<span class="token operator">++</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>match <span class="token operator">==</span> distance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left <span class="token operator">&lt;</span> minLen<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    start <span class="token operator">=</span> left<span class="token punctuation">;</span>
+                    minLen <span class="token operator">=</span> right <span class="token operator">-</span> left<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token comment" spellcheck="true">// 考虑左边界向右边走</span>
+                Character leftChar <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>pattern<span class="token punctuation">[</span>leftChar <span class="token operator">-</span> A<span class="token punctuation">]</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    window<span class="token punctuation">[</span>leftChar <span class="token operator">-</span> A<span class="token punctuation">]</span><span class="token operator">--</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>window<span class="token punctuation">[</span>leftChar <span class="token operator">-</span> A<span class="token punctuation">]</span> <span class="token operator">&lt;</span> pattern<span class="token punctuation">[</span>leftChar <span class="token operator">-</span> A<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        match<span class="token operator">--</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+                left<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> minLen <span class="token operator">==</span> sLen <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">?</span> <span class="token string">""</span> <span class="token operator">:</span> s<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>start<span class="token punctuation">,</span> start <span class="token operator">+</span> minLen<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里还要注意细节：</p>
+<p>1、<code>minLen</code>，一开始要设置一个不可能的值；</p>
+<p>2、同时记录左边界 <code>left</code> 和 <code>minLen</code>。</p>
+<h3 id="与第-3-题对比"><a href="#与第-3-题对比" class="headerlink" title="与第 3 题对比"></a>与第 3 题对比</h3><p>1、对于这一题，我们需要时刻关注的是：<code>[left, right)</code> 内包含 <code>T</code> 的所有字母。它就是条件，因此在模板的 ① 处取最小值。</p>
+<p>2、用频数数组、哈希表的区别。</p>
+<hr>
+<p>这一节介绍的例题中使用两个数组统计频数进行比对的技巧是比较常见的。</p>
+<h3 id="总结滑动窗口问题："><a href="#总结滑动窗口问题：" class="headerlink" title="总结滑动窗口问题："></a>总结滑动窗口问题：</h3><p>1、尺取法：<code>left</code> 和 <code>right</code> 同方向移动；</p>
+<p>2、定义条件，即我们需要时刻监测的一件事情；</p>
+<p>3、原理：充分利用本题本身的特点，以减少不必要的计算；</p>
+<p>4、利用循环不变量保证代码正确性；</p>
+<p>5、代码模板，知道什么时候滑动窗口最长，什么时候滑动窗口最短；</p>
+<p>6、字符串处理技巧。</p>
+<h3 id="练习："><a href="#练习：" class="headerlink" title="练习："></a>练习：</h3><p>1、「力扣」第 209 题：长度最小的子数组</p>
+<p>2、「力扣」第 438 题：找到字符串中所有字母异位词</p>
+<p>3、「力扣」第 567 题：字符串的排列</p>
 
             </div>
             <hr/>
@@ -800,39 +1045,275 @@
     </div>
 
     
-        <link rel="stylesheet" href="/leetcode-algo/libs/gitalk/gitalk.css">
-<link rel="stylesheet" href="/leetcode-algo/css/my-gitalk.css">
 
-<div class="card gitalk-card" data-aos="fade-up">
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/leetcode-algo/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
     <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
         <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
         <span>评论</span>
     </div>
-    <div id="gitalk-container" class="card-content"></div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
 </div>
 
-<script src="/leetcode-algo/libs/gitalk/gitalk.min.js"></script>
+<script src="/leetcode-algo/libs/valine/av-min.js"></script>
+<script src="/leetcode-algo/libs/valine/Valine.min.js"></script>
 <script>
-    let gitalk = new Gitalk({
-        clientID: '5a0689b99572e0b70f06',
-        clientSecret: 'cf79536d8100da4bed61de8baf26ae798e151d80',
-        repo: 'blog-article-sources',
-        owner: 'liweiwei1419',
-        admin: "liweiwei1419",
-        id: '2017-06-20T08-00-00',
-        distractionFreeMode: false  // Facebook-like distraction free mode
+    new Valine({
+        el: '#vcomments',
+        appId: 't85BdPqKV8IDpevPmRGUSquP-gzGzoHsz',
+        appKey: 'AIarytPiYajpQ31kGdAMfVQ8',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
     });
-
-    gitalk.render('gitalk-container');
 </script>
-
-    
-
-    
-
-    
-
-    
 
     
 
@@ -915,8 +1396,9 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「滑动窗口」专题 ：滑动窗口的基本思想（本节完）
+                            「滑动窗口」专题 ：滑动窗口的基本思想「滑动窗口」的问题其实思想并不难，但是在有一定的编码量，如果一不小心还有可能出错。在这里解决边界问题的一个小技巧，就是所谓的「循环不变量」。在这里再和大家总结一下：
 
+这里「循环不变量」的定义是一个空区
                         
                     </div>
                     <div class="publish-info">

@@ -6,7 +6,7 @@
   <link href="/leetcode-algo/atom.xml" rel="self"/>
   
   <link href="https://liweiwei1419.gitee.io/leetcode-algo/"/>
-  <updated>2020-05-05T17:00:54.356Z</updated>
+  <updated>2020-05-06T18:38:25.365Z</updated>
   <id>https://liweiwei1419.gitee.io/leetcode-algo/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>「力扣」第 572 题：另一个树的子树</title>
+    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/07/leetcode-algo/0572-subtree-of-another-tree/"/>
+    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/05/07/leetcode-algo/0572-subtree-of-another-tree/</id>
+    <published>2020-05-07T00:00:00.000Z</published>
+    <updated>2020-05-06T18:38:25.365Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;「力扣」第-572-题：另一个树的子树&quot;&gt;&lt;a href=&quot;#「力扣」第-572-题：另一个树的子树&quot; class=&quot;headerlink&quot; title=&quot;「力扣」第 572 题：另一个树的子树&quot;&gt;&lt;/a&gt;「力扣」第 572
+        
+      
+    
+    </summary>
+    
+    
+      <category term="专题 12：树" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-12%EF%BC%9A%E6%A0%91/"/>
+    
+    
+      <category term="递归" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E9%80%92%E5%BD%92/"/>
+    
+      <category term="二叉树" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
   
   <entry>
     <title>「力扣」第 983 题：最低票价</title>
@@ -138,7 +167,7 @@
     <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/04/29/leetcode-algo/1095-find-in-mountain-array/"/>
     <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/04/29/leetcode-algo/1095-find-in-mountain-array/</id>
     <published>2020-04-29T00:00:00.000Z</published>
-    <updated>2020-05-02T21:44:00.744Z</updated>
+    <updated>2020-05-05T17:16:49.743Z</updated>
     
     <summary type="html">
     
@@ -536,33 +565,6 @@
         
         
           &lt;h2 id=&quot;「力扣」第-452-题：用最少数量的箭引爆气球&quot;&gt;&lt;a href=&quot;#「力扣」第-452-题：用最少数量的箭引爆气球&quot; class=&quot;headerlink&quot; title=&quot;「力扣」第 452 题：用最少数量的箭引爆气球&quot;&gt;&lt;/a&gt;「力扣」第 452
-        
-      
-    
-    </summary>
-    
-    
-      <category term="专题 16：贪心算法" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-16%EF%BC%9A%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="贪心算法" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>「力扣」第 354 题：俄罗斯套娃信封问题</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2018/07/05/leetcode-algo/0354-russian-doll-envelopes/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2018/07/05/leetcode-algo/0354-russian-doll-envelopes/</id>
-    <published>2018-07-05T00:00:00.000Z</published>
-    <updated>2020-05-03T14:13:30.216Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;「力扣」第-354-题：俄罗斯套娃信封问题&quot;&gt;&lt;a href=&quot;#「力扣」第-354-题：俄罗斯套娃信封问题&quot; class=&quot;headerlink&quot; title=&quot;「力扣」第 354 题：俄罗斯套娃信封问题&quot;&gt;&lt;/a&gt;「力扣」第 354
         
       
     
