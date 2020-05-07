@@ -492,7 +492,7 @@
 输出: true</code></pre><p>示例 3：</p>
 <pre><code>输入: nums = [1,5,9,1,5,9], k = 2, t = 3
 输出: false</code></pre></blockquote>
-<p><img src="https://pic.leetcode-cn.com/0f6dc2f4136ae4642464d4613d391fbe7d237943e7d47707ff3324ebdb0f769c-image.png" alt="image.png"></p>
+<p><img src="/Users/liwei/Desktop/leetcode-visualgo/04-sliding-window/0220/01.png" alt="01.png"></p>
 <p>这道题得先读懂题目的意思：存在性问题，找到符合题意的“数据对”即可返回 <code>true</code>，所有可能的情况都看完以后没有找到才返回 <code>false</code>。</p>
 <p>题目意思翻译一下：<strong>在数组 <code>nums[i]</code> 中，在任意有效区间 <code>[i, i + k]</code> 里是否存在两个数的绝对值小于等于 <code>t</code></strong>，存在则返回 <code>true</code>，不存在返回 <code>false</code>。</p>
 <h3 id="方法一：暴力解法"><a href="#方法一：暴力解法" class="headerlink" title="方法一：暴力解法"></a>方法一：暴力解法</h3><p>枚举所有长度小于等于 <code>k + 1</code> 的“下标对<code>（）</code>”，只要发现 <code>nums[i] - nums[j]</code> 的绝对值小于 <code>t</code> ，就返回 <code>true</code>。</p>
@@ -522,7 +522,10 @@
 <li>空间复杂度：$O(1)$。</li>
 </ul>
 <p>很容易想到的优化的思路是：以空间换时间，这里的空间还需要有比较大小的功能，比较容易想到的数据结构是二叉搜索树。</p>
-<h3 id="方法二：滑动窗口（以空间换时间）"><a href="#方法二：滑动窗口（以空间换时间）" class="headerlink" title="方法二：滑动窗口（以空间换时间）"></a>方法二：滑动窗口（以空间换时间）</h3><p>题目意思翻译一下：在数组 <code>nums[i]</code> 中，在任意有效区间 <code>[i, i + k]</code> 里是否存在两个数的绝对值小于等于 <code>t</code>，即 </p>
+<h3 id="方法二：滑动窗口（以空间换时间）"><a href="#方法二：滑动窗口（以空间换时间）" class="headerlink" title="方法二：滑动窗口（以空间换时间）"></a>方法二：滑动窗口（以空间换时间）</h3><blockquote>
+<p>固定长度的滑动窗口问题。和 3、76、209 还不太一样。</p>
+</blockquote>
+<p>题目意思翻译一下：在数组 <code>nums[i]</code> 中，在任意有效区间 <code>[i, i + k]</code> 里是否存在两个数的绝对值小于等于 <code>t</code>，即 </p>
 <p>$$<br>|nums[i] - nums[j] | &lt;= t<br>$$</p>
 <p>等价于 $nums[i] - nums[j] &lt;= t$ 并且 $nums[i] - nums[j] &gt;= -t$，</p>
 <p>整理得：$nums[i] &lt;= t + nums[j]$ 并且 $nums[i] &gt;= nums[j] - t$。</p>
@@ -1164,22 +1167,22 @@ public class Solution11 {
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/6.jpg" class="responsive-img" alt="「力扣」第 209 题：长度最小的子数组">
+                        <img src="/leetcode-algo/medias/featureimages/15.jpg" class="responsive-img" alt="「力扣」第 209 题：长度最小的子数组（中等）">
                         
-                        <span class="card-title">「力扣」第 209 题：长度最小的子数组</span>
+                        <span class="card-title">「力扣」第 209 题：长度最小的子数组（中等）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 209 题：长度最小的子数组
+                            「力扣」第 209 题：长度最小的子数组（中等）
 中文网址：209. 长度最小的子数组 ；
 
 英文网址：209. Minimum Size Subarray Sum 。
 
 
 
-给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和
+给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中
                         
                     </div>
                     <div class="publish-info">

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="「力扣」第 209 题：长度最小的子数组, 算法与数据结构入门教程">
+    <meta name="keywords" content="「力扣」第 209 题：长度最小的子数组（中等）, 算法与数据结构入门教程">
     <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>「力扣」第 209 题：长度最小的子数组 | 算法与数据结构入门教程</title>
+    <title>「力扣」第 209 题：长度最小的子数组（中等） | 算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/15.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">「力扣」第 209 题：长度最小的子数组</h1>
+                    <h1 class="description center-align post-title">「力扣」第 209 题：长度最小的子数组（中等）</h1>
                 </div>
             </div>
         </div>
@@ -481,7 +481,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="「力扣」第-209-题：长度最小的子数组"><a href="#「力扣」第-209-题：长度最小的子数组" class="headerlink" title="「力扣」第 209 题：长度最小的子数组"></a>「力扣」第 209 题：长度最小的子数组</h2><ul>
+                <h2 id="「力扣」第-209-题：长度最小的子数组（中等）"><a href="#「力扣」第-209-题：长度最小的子数组（中等）" class="headerlink" title="「力扣」第 209 题：长度最小的子数组（中等）"></a>「力扣」第 209 题：长度最小的子数组（中等）</h2><ul>
 <li><p>中文网址：<a href="https://leetcode-cn.com/problems/minimum-size-subarray-sum/description/" target="_blank" rel="noopener">209. 长度最小的子数组</a> ；</p>
 </li>
 <li><p>英文网址：<a href="https://leetcode.com/problems/minimum-size-subarray-sum/description/" target="_blank" rel="noopener">209. Minimum Size Subarray Sum</a> 。</p>
@@ -495,9 +495,48 @@
 解释: 子数组 [4,3] 是该条件下的长度最小的连续子数组。</code></pre><p><strong>进阶:</strong></p>
 <p>如果你已经完成了<em>O</em>(<em>n</em>) 时间复杂度的解法, 请尝试 <em>O</em>(<em>n</em> log <em>n</em>) 时间复杂度的解法。</p>
 </blockquote>
-<p>思路1：使用滑动窗口的技巧来完成，要看过一遍整个数组的元素，时间复杂度是 $O(n)$。要求满足区间和 &gt;= s 的最小子区间的长度，因此，我们从左向右进行扫描。</p>
-<p>情况1：当区间和小于 s 的时候，右区间的端点向右扩展，这一点依赖外层循环的遍历就可以完成；</p>
-<p>情况2：一旦区间和大于等于 s，尝试一步一步缩小左区间端点，看看是否能得到一个更短的区间，满足区间和 &gt;=s，这一步通过一个内层循环实现。</p>
+<h3 id="方法一：暴力解法"><a href="#方法一：暴力解法" class="headerlink" title="方法一：暴力解法"></a>方法一：暴力解法</h3><p>（略）</p>
+<h3 id="方法二：滑动窗口"><a href="#方法二：滑动窗口" class="headerlink" title="方法二：滑动窗口"></a>方法二：滑动窗口</h3><p>在做完了第 3 题、第 76 题以后，这道题就变得非常简单了，因为维护滑动窗口内的性质变得简单了。</p>
+<ul>
+<li><p>情况1：当区间和小于 <code>s</code> 的时候，右区间的端点向右扩展，这一点依赖外层循环的遍历就可以完成；</p>
+</li>
+<li><p>情况2：一旦区间和大于等于 <code>s</code>，尝试一步一步缩小左区间端点，看看是否能得到一个更短的区间，满足区间和 <code>&gt;=s</code>，这一步通过一个内层循环实现。</p>
+</li>
+</ul>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">// 向右边扩散得到和越来越大</span>
+    <span class="token comment" spellcheck="true">// 向左边界扩散得到和越来越小</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span><span class="token keyword">int</span> s<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 保持性质：[left, right) >= s</span>
+        <span class="token keyword">int</span> minLen <span class="token operator">=</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>right <span class="token operator">&lt;</span> len<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            sum <span class="token operator">+=</span> nums<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            right<span class="token operator">++</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>sum <span class="token operator">>=</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                minLen <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>minLen<span class="token punctuation">,</span> right <span class="token operator">-</span> left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                sum <span class="token operator">-=</span> nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                left<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>minLen <span class="token operator">==</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> minLen<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码1：在理解的基础上，记住下面这个写法，右指针也是用于遍历的指针</p>
 <pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
     <span class="token keyword">def</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
@@ -528,66 +567,10 @@
         <span class="token keyword">if</span> res <span class="token operator">==</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span>
             <span class="token keyword">return</span> <span class="token number">0</span>
         <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Python 代码2：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> s<span class="token punctuation">,</span> nums<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        :type s: int
-        :type nums: List[int]
-        :rtype: int
-        """</span>
-        <span class="token comment" spellcheck="true"># 滑动窗口</span>
-        size <span class="token operator">=</span> len<span class="token punctuation">(</span>nums<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 特判</span>
-        <span class="token keyword">if</span> size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-
-        l <span class="token operator">=</span> <span class="token number">0</span>
-        r <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
-        sum <span class="token operator">=</span> <span class="token number">0</span>
-        res <span class="token operator">=</span> size <span class="token operator">+</span> <span class="token number">1</span>
-        <span class="token keyword">while</span> l <span class="token operator">&lt;</span> size<span class="token punctuation">:</span>
-            <span class="token keyword">if</span> r <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">&lt;</span> size <span class="token operator">and</span> sum <span class="token operator">&lt;</span> s<span class="token punctuation">:</span>
-                r <span class="token operator">+=</span> <span class="token number">1</span>
-                sum <span class="token operator">+=</span> nums<span class="token punctuation">[</span>r<span class="token punctuation">]</span>
-            <span class="token keyword">else</span><span class="token punctuation">:</span>
-                sum <span class="token operator">-=</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span>
-                l <span class="token operator">+=</span> <span class="token number">1</span>
-            <span class="token keyword">if</span> sum <span class="token operator">>=</span> s<span class="token punctuation">:</span>
-                res <span class="token operator">=</span> min<span class="token punctuation">(</span>res<span class="token punctuation">,</span> r <span class="token operator">-</span> l <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">if</span> res <span class="token operator">==</span> size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-        <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：使用滑动窗口</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minSubArrayLen</span><span class="token punctuation">(</span><span class="token keyword">int</span> s<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>len <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> r <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> minSubArrayLen <span class="token operator">=</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> segmentSum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num <span class="token operator">:</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            segmentSum <span class="token operator">+=</span> num<span class="token punctuation">;</span>
-            r<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token comment" spellcheck="true">// 注意：根据题意"找出该数组中满足其和 ≥ s 的长度最小的子数组"</span>
-            <span class="token comment" spellcheck="true">// 注意这个边界条件</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>segmentSum <span class="token operator">>=</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                minSubArrayLen <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>minSubArrayLen<span class="token punctuation">,</span> r <span class="token operator">-</span> l<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                segmentSum <span class="token operator">-=</span> nums<span class="token punctuation">[</span>l<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                l<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>minSubArrayLen <span class="token operator">==</span> len <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> minSubArrayLen<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>思路2：二分法，利用“数组是正整数”这个条件，构造前缀和数组，这个前缀和数组一定是严格增加的。 任意区间和可以通过前缀和数组得到，这是我们常见的一种做法。 起点固定的时候，区间越长，区间和越大。</p>
+<h3 id="方法三：二分法（了解，不用掌握）"><a href="#方法三：二分法（了解，不用掌握）" class="headerlink" title="方法三：二分法（了解，不用掌握）"></a>方法三：二分法（了解，不用掌握）</h3><ul>
+<li>利用「数组是正整数」这个条件，构造前缀和数组，<strong>前缀和数组一定是严格增加的；</strong></li>
+<li>任意区间和可以通过前缀和数组得到，这是我们常见的一种做法。 起点固定的时候，区间越长，区间和越大。</li>
+</ul>
 <p>Java 代码：构造前缀和数组，使用二分查找法，要考虑一些边界条件，编码易出错，了解即可</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
