@@ -508,15 +508,39 @@
 <li>输入的字符串只含有小写英文字符。</li>
 </ul>
 </blockquote>
-<p>这里要为了考虑清楚边界问题，需要设置一个特殊的状态 <code>0</code>，这是基于特殊用例一个非空字符串与空字符串而来的。</p>
+<h3 id="方法：动态规划"><a href="#方法：动态规划" class="headerlink" title="方法：动态规划"></a>方法：动态规划</h3><h4 id="最初的想法"><a href="#最初的想法" class="headerlink" title="最初的想法"></a>最初的想法</h4><blockquote>
+<p>「状态转移方程」是容易看明白的，但是总感觉说不太清楚。</p>
+</blockquote>
 <ul>
-<li>状态定义：<code>dp[i][j]</code> 表示长度为 <code>i</code> 的 <code>text1</code> 的<strong>前缀</strong>子串与长度为 <code>j</code> 的 <code>text2</code> 的前缀子串的“最长公共子串”的长度。</li>
+<li><p>「动态规划」就是填表格；</p>
+</li>
+<li><p>「状态」定义：<code>dp[i][j]</code> 表示前缀 <code>text1[:i]</code> 和 前缀 <code>text2[:j]</code>的「最长公共子串」的长度，这里 <code>i</code> 和 <code>j</code> 都是包含的；</p>
+</li>
+<li><p>「状态转移方程」的分类讨论：</p>
+<ul>
+<li><p>如果 <code>text1[i] == text2[j]</code> ，那么 <code>dp[i][j] == dp[i - 1][j - 1]</code>；</p>
+</li>
+<li><p>如果 <code>text1[i] != text2[j]</code> ，那么 <code>dp[i][j]</code> 的值由两部分取较大者：</p>
+<ul>
+<li><p>考虑：<code>text1[:i - 1]</code> 和 <code>text2[:j]</code>；</p>
+</li>
+<li><p>考虑：<code>text1[:i]</code> 和 <code>text2[:j - 1]</code>。</p>
+<p>这两者之中的最大者，是 <code>dp[i][j]</code> 的值。</p>
+</li>
 </ul>
-<p>（类似的定义方式还有「力扣」第 10 题：正则表达式。）</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意</strong>：这里要为了考虑清楚边界问题，需要设置一个特殊的状态 <code>0</code>，这是基于特殊用例一个非空字符串与空字符串而来的。为此，修改状态定义。</p>
+<h4 id="最终的想法"><a href="#最终的想法" class="headerlink" title="最终的想法"></a>最终的想法</h4><ul>
+<li>状态定义：<code>dp[i][j]</code> 表示长度为 <code>i</code> 的 <code>text1</code> 的<strong>前缀</strong>子串与长度为 <code>j</code> 的 <code>text2</code> 的前缀子串的「最长公共子串」的长度。注意：这里要考虑长度为 <code>0</code> 的前缀子串；</li>
+</ul>
+<p>（类似考虑了长度为 <code>0</code> 的字符串的「状态」定义方式还有「力扣」第 10 题：正则表达式。）</p>
 <ul>
 <li>状态转移方程：</li>
 </ul>
-<p>$$<br>\text{dp}[i][j] =<br>\begin{cases}<br>\text{dp}[i - 1][j - 1]  &amp;\text{if} \ \text{text1}[i] = \text{text2}[j] \<br>\text{dp}[i][j - 1] \<br>\text{dp}[i - 1][j]<br>\end{cases}<br>$$</p>
+<p>$$<br>\text{dp}[i + 1][j + 1] =<br>\begin{cases}<br>\text{dp}[i][j]  &amp;\text{if} \ \text{text1}[i] = \text{text2}[j] \<br>\text{dp}[i + 1][j] \<br>\text{dp}[i][j + 1]<br>\end{cases}<br>$$</p>
 <ul>
 <li>初始化：表格 <code>dp</code> 的第 1 行和第 1 列均为 0。</li>
 <li>输出：<code>dp[len1][len2]</code>。</li>
@@ -527,17 +551,22 @@
     <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">longestCommonSubsequence</span><span class="token punctuation">(</span>String text1<span class="token punctuation">,</span> String text2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">int</span> len1 <span class="token operator">=</span> text1<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">int</span> len2 <span class="token operator">=</span> text2<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArray1 <span class="token operator">=</span> text1<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArray2 <span class="token operator">=</span> text2<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
+        <span class="token comment" spellcheck="true">// 字符串的问题多开一行，多开一列</span>
         <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> dp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len1 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>len2 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> len1<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> len2<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
+
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len1<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> len2<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>text1<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> text2<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>charArray1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> charArray2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                     dp<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
                 <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
                     dp<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -546,8 +575,14 @@
         <span class="token punctuation">}</span>
         <span class="token keyword">return</span> dp<span class="token punctuation">[</span>len1<span class="token punctuation">]</span><span class="token punctuation">[</span>len2<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>说明：如果不考虑边界，写出来的代码是这样的。可以对比一下，代码量会多一些，而且比较容易出错。</p>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：</p>
+<ul>
+<li>时间复杂度：$O(MN)$，这里 $M$ 是字符串 <code>text1</code> 的长度， $N$ 是字符串 <code>text2</code> 的长度；</li>
+<li>空间复杂度：$O(MN)$。</li>
+</ul>
+<hr>
+<p><strong>补充 1</strong>：如果不考虑边界，写出来的代码是这样的。可以对比一下，代码量会多一些，而且比较容易出错。</p>
 <p>Java 代码：</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
@@ -589,6 +624,65 @@
         <span class="token keyword">return</span> dp<span class="token punctuation">[</span>len1 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>len2 <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>补充 2</strong>：一个行之有效的办法，依然是手写一下，体会一下填表的过程，理解「状态转移方程」和「动态规划」。</p>
+<blockquote>
+<p>发现了自己填表时候的错误，更能理解「状态转移方程」和细节，这就是所谓的「在错误中学习，印象更加深刻」。</p>
+</blockquote>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Arrays<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">longestCommonSubsequence</span><span class="token punctuation">(</span>String text1<span class="token punctuation">,</span> String text2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len1 <span class="token operator">=</span> text1<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> len2 <span class="token operator">=</span> text2<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArray1 <span class="token operator">=</span> text1<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArray2 <span class="token operator">=</span> text2<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 字符串的问题多开一行，多开一列</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> dp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len1 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>len2 <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> len1<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> len2<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            dp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len1<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> len2<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>charArray1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> charArray2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    dp<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    dp<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 以下是打印输出语句，不能提交到「力扣」测评器里</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> len1<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> dp<span class="token punctuation">[</span>len1<span class="token punctuation">]</span><span class="token punctuation">[</span>len2<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String text1 <span class="token operator">=</span> <span class="token string">"abcde"</span><span class="token punctuation">;</span>
+        String text2 <span class="token operator">=</span> <span class="token string">"ace"</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> res <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">longestCommonSubsequence</span><span class="token punctuation">(</span>text1<span class="token punctuation">,</span> text2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出：</p>
+<pre><code>[0, 0, 0, 0]
+[0, 1, 1, 1]
+[0, 1, 1, 1]
+[0, 1, 2, 2]
+[0, 1, 2, 2]
+[0, 1, 2, 3]
+3</code></pre><p>（本节完）</p>
 
             </div>
             <hr/>
