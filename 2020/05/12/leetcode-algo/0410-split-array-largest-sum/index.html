@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="15-dynamic-programming/0000-, 算法与数据结构入门教程">
+    <meta name="keywords" content="「力扣」第 410 题：分割数组的最大值（困难）, 算法与数据结构入门教程">
     <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>15-dynamic-programming/0000- | 算法与数据结构入门教程</title>
+    <title>「力扣」第 410 题：分割数组的最大值（困难） | 算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
@@ -315,7 +315,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">15-dynamic-programming/0000-</h1>
+                    <h1 class="description center-align post-title">「力扣」第 410 题：分割数组的最大值（困难）</h1>
                 </div>
             </div>
         </div>
@@ -438,12 +438,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                                <span class="chip bg-color">二分查找</span>
+                            </a>
+                        
+                            <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E7%AE%97%E6%B3%95/">
+                                <span class="chip bg-color">减治算法</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-category">
+                                专题 2：二分查找
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -452,7 +469,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-08
+                    2020-05-12
                 </div>
                 
 
@@ -468,164 +485,196 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ul>
-<li>[链接](<a href="https://www.geeksforgeeks.org/top-20-dynamic-programming-interview-questions/" target="_blank" rel="noopener">Top 20 Dynamic Programming Interview Questions - GeeksforGeeks</a>)</li>
+                <h2 id="「力扣」第-410-题：分割数组的最大值（困难）"><a href="#「力扣」第-410-题：分割数组的最大值（困难）" class="headerlink" title="「力扣」第 410 题：分割数组的最大值（困难）"></a>「力扣」第 410 题：分割数组的最大值（困难）</h2><ul>
+<li>链接：<a href="https://leetcode-cn.com/problems/split-array-largest-sum" target="_blank" rel="noopener">https://leetcode-cn.com/problems/split-array-largest-sum</a></li>
+<li>题解：<a href="https://leetcode-cn.com/problems/split-array-largest-sum/solution/er-fen-cha-zhao-by-liweiwei1419-4/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/split-array-largest-sum/solution/er-fen-cha-zhao-by-liweiwei1419-4/</a></li>
 </ul>
-<h1 id="将集合划分为两个子集，以使子集和的差最小"><a href="#将集合划分为两个子集，以使子集和的差最小" class="headerlink" title="将集合划分为两个子集，以使子集和的差最小"></a>将集合划分为两个子集，以使子集和的差最小</h1><blockquote>
-<p>给定一组整数，任务是将其分为两组 <code>S1</code> 和 <code>S2</code>，以使它们的和之间的绝对差最小。</p>
-<p>如果存在一个包含 <code>n</code> 个元素的集合 <code>S</code>，则假定 Subset1 具有 <code>m</code> 个元素，Subset2 必须具有 <code>n - m</code> 个元素，并且abs（sum（Subset1）– sum（Subset2））的值应该最小。</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>题目</th>
-<th>「力扣」对应的题目</th>
-<th>参考资料</th>
-<th>知识点</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-4-longest-common-subsequence/" target="_blank" rel="noopener">Longest Common Subsequence</a></td>
-<td><a href="https://leetcode-cn.com/problems/longest-common-subsequence/" target="_blank" rel="noopener">1143. 最长公共子序列</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>2</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-3-longest-increasing-subsequence/" target="_blank" rel="noopener">Longest Increasing Subsequence</a></td>
-<td><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">300. 最长上升子序列</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>3</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-5-edit-distance/" target="_blank" rel="noopener">Edit Distance</a></td>
-<td><a href="https://leetcode-cn.com/problems/edit-distance/" target="_blank" rel="noopener">72. 编辑距离</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>4</td>
-<td><a href="https://www.geeksforgeeks.org/partition-a-set-into-two-subsets-such-that-the-difference-of-subset-sums-is-minimum/" target="_blank" rel="noopener">Minimum Partition</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>5</td>
-<td><a href="https://www.geeksforgeeks.org/count-number-of-ways-to-cover-a-distance/" target="_blank" rel="noopener">Ways to Cover a Distance</a></td>
-<td><a href="https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix/" target="_blank" rel="noopener">329. 矩阵中的最长递增路径</a></td>
-<td><a href="https://www.cnblogs.com/grandyang/p/5148030.html" target="_blank" rel="noopener">https://www.cnblogs.com/grandyang/p/5148030.html</a></td>
-<td></td>
-</tr>
-<tr>
-<td>6</td>
-<td><a href="https://www.geeksforgeeks.org/find-the-longest-path-in-a-matrix-with-given-constraints/" target="_blank" rel="noopener">Longest Path In Matrix</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>7</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-subset-sum-problem/" target="_blank" rel="noopener">Subset Sum Problem</a></td>
-<td><a href="https://leetcode-cn.com/problems/partition-equal-subset-sum/" target="_blank" rel="noopener">416. 分割等和子集</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>8</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-31-optimal-strategy-for-a-game/" target="_blank" rel="noopener">Optimal Strategy for a Game</a></td>
-<td><a href="https://leetcode-cn.com/problems/stone-game/" target="_blank" rel="noopener">877. 石子游戏</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>9</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-10-0-1-knapsack-problem/" target="_blank" rel="noopener">0-1 Knapsack Problem</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>10</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-37-boolean-parenthesization-problem/" target="_blank" rel="noopener">Boolean Parenthesization Problem</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>11</td>
-<td><a href="https://www.geeksforgeeks.org/shortest-common-supersequence/" target="_blank" rel="noopener">Shortest Common Supersequence</a></td>
-<td><a href="https://leetcode-cn.com/problems/shortest-common-supersequence/" target="_blank" rel="noopener">1092. 最短公共超序列</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>12</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-8-matrix-chain-multiplication/" target="_blank" rel="noopener">Matrix Chain Multiplication</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>13</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-18-partition-problem/" target="_blank" rel="noopener">Partition problem</a></td>
-<td><a href="https://leetcode-cn.com/problems/partition-equal-subset-sum/" target="_blank" rel="noopener">416. 分割等和子集</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>14</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-13-cutting-a-rod/" target="_blank" rel="noopener">Rod Cutting</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>15</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-7-coin-change/" target="_blank" rel="noopener">Coin change problem</a></td>
-<td><a href="https://leetcode-cn.com/problems/coin-change/" target="_blank" rel="noopener">322. 零钱兑换</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>16</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-32-word-break-problem/" target="_blank" rel="noopener">Word Break Problem</a></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>17</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-36-cut-a-rope-to-maximize-product/" target="_blank" rel="noopener">Maximal Product when Cutting Rope</a></td>
-<td><a href="https://leetcode-cn.com/problems/maximum-product-subarray/" target="_blank" rel="noopener">152. 乘积最大子数组</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>18</td>
-<td><a href="https://www.geeksforgeeks.org/dice-throw-problem/" target="_blank" rel="noopener">Dice Throw Problem</a></td>
-<td><a href="https://leetcode-cn.com/problems/number-of-dice-rolls-with-target-sum/" target="_blank" rel="noopener">1155. 掷骰子的N种方法</a></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>19</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-21-box-stacking-problem/" target="_blank" rel="noopener">Box Stacking</a></td>
-<td></td>
-<td><a href="https://blog.csdn.net/mr2zhang/article/details/104364412" target="_blank" rel="noopener">https://blog.csdn.net/mr2zhang/article/details/104364412</a></td>
-<td></td>
-</tr>
-<tr>
-<td>20</td>
-<td><a href="https://www.geeksforgeeks.org/dynamic-programming-set-11-egg-dropping-puzzle/" target="_blank" rel="noopener">Egg Dropping Puzzle</a></td>
-<td><a href="https://leetcode-cn.com/problems/super-egg-drop/" target="_blank" rel="noopener">887. 鸡蛋掉落</a></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
+<blockquote>
+<p>给定一个非负整数数组和一个整数 <code>m</code>，你需要将这个数组分成 <code>m</code> 个非空的连续子数组。设计一个算法使得这 <code>m</code> 个子数组各自和的最大值最小。</p>
+<p>注意：<br>数组长度 <code>n</code> 满足以下条件:</p>
+<ul>
+<li><code>1 ≤ n ≤ 1000</code></li>
+<li><code>1 ≤ m ≤ min(50, n)</code></li>
+</ul>
+<p>示例：</p>
+<pre><code>输入:
+nums = [7, 2, 5, 10, 8]
+m = 2
+
+输出:
+18
+
+解释:
+一共有四种方法将 nums 分割为 2 个子数组。
+其中最好的方式是将其分为 [7,2,5] 和 [10,8]，
+因为此时这两个子数组各自的和的最大值为18，在所有情况中最小。</code></pre></blockquote>
+<p>注意题目中给出的这 3 个条件：</p>
+<ul>
+<li><p>数组中的元素均是「非负整数」；</p>
+</li>
+<li><p>子数组的特点是：「非空」且「连续」；</p>
+</li>
+<li><p>恰好分成 <code>m</code> 个非空「非空连续子数组」。</p>
+</li>
+</ul>
+<p>题目中还给出了一个概念：「连续子数组各自和的最大值」，我们用一个变量 <code>maxIntervalSum</code> 表示。不难知道：</p>
+<ul>
+<li>每一个「非空连续子数组」如果包含的元素个数越多，那么 <code>maxIntervalSum</code>  就可能越大；</li>
+<li><strong>一个 <code>maxIntervalSum</code>的数值就唯一对应了一个分出的「非空连续子数组」的组数 <code>M</code> ，它们是一一对应的函数关系， <code>maxIntervalSum</code> 是自变量，<code>M</code> 是因变量，可以写成：</strong></li>
+</ul>
+<p>$$<br>M = function(maxIntervalSum)<br>$$</p>
+<p>这里最难掌握的是：<strong>如何找到一个  <code>maxIntervalSum</code>，使得它对应的 <code>M</code> 恰好等于题目给出的 <code>m</code></strong>。但是我们容易分析出，<strong>这个函数是一个单调递减的函数</strong>：</p>
+<ul>
+<li>如果  <code>maxIntervalSum</code>  越小，分出的「非空连续子数组」的组数 <code>M</code> 就越大；</li>
+<li>如果  <code>maxIntervalSum</code>  越大，分出的「非空连续子数组」的组数 <code>M</code> 就越小；</li>
+</ul>
+<p>原因就在于上面强调的题目中给出的 2 个条件：非负整数和非空连续子数组，<strong>由于这种单调性，可以使用二分查找，找到与 <code>M</code> 对应的  <code>maxIntervalSum</code></strong>  。</p>
+<p><strong>参考代码</strong>：</p>
+<p>下面是一些细节：</p>
+<ul>
+<li><strong>只要连续加起来的数值超过了  <code>maxIntervalSum</code>，就新产生一个新的连续子数组</strong>；</li>
+<li><code>maxIntervalSum</code>  的最小值是这个数组中的最大值，这是因为 <code>max(nums)</code> 一定会被分到其中一组；</li>
+<li><code>maxIntervalSum</code>  的最大值是这个数组中所有元素的和，极端情况就是题目中给出 $m = 1$ 的时候。</li>
+</ul>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">splitArray</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> max <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 计算「子数组各自的和的最大值」的上下界</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num <span class="token operator">:</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            max <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>max<span class="token punctuation">,</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            sum <span class="token operator">+=</span> num<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 使用「二分查找」确定一个恰当的「子数组各自的和的最大值」，</span>
+        <span class="token comment" spellcheck="true">// 使得它对应的「子数组的分割数」恰好等于 m</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> max<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> sum<span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">int</span> splits <span class="token operator">=</span> <span class="token function">split</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> mid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>splits <span class="token operator">></span> m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 如果分割数太多，说明「子数组各自的和的最大值」太小，此时需要将「子数组各自的和的最大值」调大</span>
+                <span class="token comment" spellcheck="true">// 下一轮搜索的区间是 [mid + 1, right]</span>
+                left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 下一轮搜索的区间是上一轮的反面区间 [left, mid]</span>
+                right <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> left<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/***
+     *
+     * @param nums 原始数组
+     * @param maxIntervalSum 子数组各自的和的最大值
+     * @return 满足不超过「子数组各自的和的最大值」的分割数
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">split</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> maxIntervalSum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 至少是一个分割</span>
+        <span class="token keyword">int</span> splits <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 当前区间的和</span>
+        <span class="token keyword">int</span> curIntervalSum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num <span class="token operator">:</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 尝试加上当前遍历的这个数，如果加上去超过了「子数组各自的和的最大值」，就不加这个数，另起炉灶</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>curIntervalSum <span class="token operator">+</span> num <span class="token operator">></span> maxIntervalSum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                curIntervalSum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+                splits<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            curIntervalSum <span class="token operator">+=</span> num<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> splits<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token number">7</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> m <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> res <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">splitArray</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> m<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="理解单调性"><a href="#理解单调性" class="headerlink" title="理解单调性"></a>理解单调性</h3><ul>
+<li><p>一个重要的性质：分割数越大，「子数组各自的和的最大值」就越小（非递增，满足单调性），因此可以使用二分查找，定位分割数；</p>
+</li>
+<li><p>一种「分割方案（分成几个子数组）」对应了一个「子数组各自的和的最大值」；</p>
+</li>
+<li><p>反过来，一个「子数组各自的和的最大值」对应了一种「分割方案（分成几个子数组）」；</p>
+</li>
+<li><p>它们是一一对应的关系（关键）。</p>
+</li>
+</ul>
+<h3 id="思路整理（绕了个弯子去逼近）"><a href="#思路整理（绕了个弯子去逼近）" class="headerlink" title="思路整理（绕了个弯子去逼近）"></a>思路整理（绕了个弯子去逼近）</h3><ul>
+<li>先找「子数组各自的和的最大值」的中间数（尝试得到的一个值），看看它对应的「分割方案（分成几个子数组）」是多少；</li>
+<li>如果「分割方案（分成几个子数组）」比题目要求的 <code>m</code> 还多，说明「子数组各自的和的最大值」还太小，所以下一次搜索应该至少是中位数 <code>+ 1</code>（<code>left = mid + 1</code>），它的反面即至多是中位数（<code>right = mid</code>）。</li>
+</ul>
+<hr>
+<p>我在网上查了一下资料，这道题属于「最大化最小值」，这一类问题通常是竞赛类的问题。事实上在今年（2020 年）的「力扣」春季团队赛中就出现过这样的问题，这道题是 <a href="https://leetcode-cn.com/problems/xiao-zhang-shua-ti-ji-hua/" target="_blank" rel="noopener">LCP 12. 小张刷题计划</a>，这道题与「力扣」第 410 题的区别就只在于这个问题的场景，要求我们用贪心算法，贪心的点是「每一天把耗时最多的问题交给小杨去做」。</p>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minTime</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> time<span class="token punctuation">,</span> <span class="token keyword">int</span> m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> num <span class="token operator">:</span> time<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            sum <span class="token operator">+=</span> num<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">int</span> left <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> right <span class="token operator">=</span> sum<span class="token punctuation">;</span>
+
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token punctuation">(</span>right <span class="token operator">-</span> left<span class="token punctuation">)</span> <span class="token operator">>>></span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// mid 是 T 值的意思</span>
+            <span class="token keyword">int</span> splits <span class="token operator">=</span> <span class="token function">split</span><span class="token punctuation">(</span>time<span class="token punctuation">,</span> mid<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>splits <span class="token operator">></span> m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                left <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                right <span class="token operator">=</span> mid<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> left<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">split</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">long</span> maxSum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> splits <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> curMax <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> tempSum <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            curMax <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>curMax<span class="token punctuation">,</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 每一天把耗时最多的问题交给小杨去做，这是贪心的思想</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>tempSum <span class="token operator">+</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> curMax <span class="token operator">></span> maxSum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                tempSum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+                curMax <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                splits<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            tempSum <span class="token operator">+=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> splits<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//        int[] time = {1, 2, 3, 3};</span>
+<span class="token comment" spellcheck="true">//        int m = 2;</span>
+
+<span class="token comment" spellcheck="true">//        int[] time = {999,999,999};</span>
+<span class="token comment" spellcheck="true">//        int m = 4;</span>
+
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> time <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">999</span><span class="token punctuation">,</span> <span class="token number">999</span><span class="token punctuation">,</span> <span class="token number">999</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> m <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> res <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">minTime</span><span class="token punctuation">(</span>time<span class="token punctuation">,</span> m<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -651,9 +700,9 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/08/15-dynamic-programming/0000-/">https://liweiwei1419.gitee.io/leetcode-algo/2020/05/08/15-dynamic-programming/0000-/</a>
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/12/leetcode-algo/0410-split-array-largest-sum/">https://liweiwei1419.gitee.io/leetcode-algo/2020/05/12/leetcode-algo/0410-split-array-largest-sum/</a>
                     <!-- GitHub 用配置
-                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2020/05/08/15-dynamic-programming/0000-/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2020/05/08/15-dynamic-programming/0000-/</a>
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2020/05/12/leetcode-algo/0410-split-array-largest-sum/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2020/05/12/leetcode-algo/0410-split-array-largest-sum/</a>
                     -->
                 </span>
             </div>
@@ -691,7 +740,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                                    <span class="chip bg-color">二分查找</span>
+                                </a>
+                            
+                                <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E7%AE%97%E6%B3%95/">
+                                    <span class="chip bg-color">减治算法</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1125,38 +1182,52 @@
                 <i class="far fa-dot-circle"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/leetcode-algo/2020/05/08/15-dynamic-programming/0000-/">
+                <a href="/leetcode-algo/2020/05/12/leetcode-algo/0410-split-array-largest-sum/">
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/8.jpg" class="responsive-img" alt="15-dynamic-programming/0000-">
+                        <img src="/leetcode-algo/medias/featureimages/8.jpg" class="responsive-img" alt="「力扣」第 410 题：分割数组的最大值（困难）">
                         
-                        <span class="card-title">15-dynamic-programming/0000-</span>
+                        <span class="card-title">「力扣」第 410 题：分割数组的最大值（困难）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-[链接](Top 20 Dynamic Programming Interview Questions - GeeksforGeeks)
-
-将集合划分为两个子集，以使子集和的差最小
-给定一组整数，任务是将其分为两组 S1 和 S2，以使它
+                            「力扣」第 410 题：分割数组的最大值（困难）
+链接：https://leetcode-cn.com/problems/split-array-largest-sum
+题解：https://leetcode-cn.com/problems
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-08
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-12
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            liweiwei1419
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-category">
+                                    专题 2：二分查找
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                        <span class="chip bg-color">二分查找</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E7%AE%97%E6%B3%95/">
+                        <span class="chip bg-color">减治算法</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -1352,6 +1423,13 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
 
 
 
