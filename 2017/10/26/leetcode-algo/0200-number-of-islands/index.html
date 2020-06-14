@@ -452,8 +452,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                专题 11：并查集
                             </a>
                         
                     </div>
@@ -504,139 +504,35 @@
 00011
 
 输出: 3</code></pre></blockquote>
-<h3 id="方法一：深度优先遍历"><a href="#方法一：深度优先遍历" class="headerlink" title="方法一：深度优先遍历"></a>方法一：深度优先遍历</h3><p>在二维平面上的深度优先遍历，也叫 floorfill。</p>
-<p>注意事项：可以直接在二维平面上做修改，无须状态重置。</p>
-<p>C++ 代码：</p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
-
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
-
-
-<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-
-<span class="token keyword">private</span><span class="token operator">:</span>
-    <span class="token keyword">int</span> dx<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> dy<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-    <span class="token keyword">int</span> rows<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> cols<span class="token punctuation">;</span>
-
-    <span class="token keyword">bool</span> <span class="token function">inArea</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> x <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> x <span class="token operator">&lt;</span> rows <span class="token operator">&amp;&amp;</span> y <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> y <span class="token operator">&lt;</span> cols<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">,</span> vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token operator">>></span> <span class="token operator">&amp;</span>grid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>grid<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        grid<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'0'</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">4</span><span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> newX <span class="token operator">=</span> x <span class="token operator">+</span> dx<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> newY <span class="token operator">=</span> y <span class="token operator">+</span> dy<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">inArea</span><span class="token punctuation">(</span>newX<span class="token punctuation">,</span> newY<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> grid<span class="token punctuation">[</span>newX<span class="token punctuation">]</span><span class="token punctuation">[</span>newY<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token function">dfs</span><span class="token punctuation">(</span>newX<span class="token punctuation">,</span> newY<span class="token punctuation">,</span> grid<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-<span class="token keyword">public</span><span class="token operator">:</span>
-    <span class="token keyword">int</span> <span class="token function">numIslands</span><span class="token punctuation">(</span>vector<span class="token operator">&lt;</span>vector<span class="token operator">&lt;</span><span class="token keyword">char</span><span class="token operator">>></span> <span class="token operator">&amp;</span>grid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        rows <span class="token operator">=</span> grid<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>rows <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        cols <span class="token operator">=</span> grid<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>cols <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> rows<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> cols<span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    <span class="token function">dfs</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> grid<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                    res<span class="token operator">++</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="方法一：深度优先遍历"><a href="#方法一：深度优先遍历" class="headerlink" title="方法一：深度优先遍历"></a>方法一：深度优先遍历</h3><p>在二维平面上的深度优先遍历，也叫 floorfill，可以在<a href="https://github.com/liweiwei1419/LeetCode-Solution-Python/blob/master/08-%E9%80%92%E5%BD%92%E5%92%8C%E5%9B%9E%E6%BA%AF%E6%B3%95/0200-%E5%B2%9B%E5%B1%BF%E7%9A%84%E4%B8%AA%E6%95%B0.py" target="_blank" rel="noopener">这里</a>看到这个思路的代码。</p>
 <h3 id="方法二：并查集"><a href="#方法二：并查集" class="headerlink" title="方法二：并查集"></a>方法二：并查集</h3><blockquote>
-<p>使用并查集，把所有的 <code>&quot;0&quot;</code>都合并到一个虚拟的结点上，然后扫描整个二维矩阵。</p>
+<p>思路：使用并查集，把所有的 <code>0</code> 都合并到一个虚拟的结点上，然后扫描整个二维矩阵。</p>
 </blockquote>
 <p>这道题给我们一个矩阵，表示一个二维平面，问我们，被海水包围的陆地一共有多少个。</p>
 <p>注意到所有的用字符 <code>1</code> 表示的陆地在这个问题中是连成一片的，而字符 <code>0</code> 表示的海水也是连成一片的，因此很自然想到使用“并查集”解决这个问题。</p>
 <p>为此设计算法如下：</p>
-<p>1、如果当前是“陆地”，尝试与周围合并一下；</p>
-<p>2、如果当前是“水域”，就把所有的“水域”合并在一起。请注意，这里应该是“所有的”水域为一个整体。因此，需要设置了一个虚拟的结点，表示“所有的水域都和这个虚拟结点是连接的”。</p>
+<p>1、如果当前是「陆地」，尝试与周围合并一下；</p>
+<p>2、如果当前是「水域」，就把所有的「水域」合并在一起。请注意，这里应该是「所有的」水域为一个整体。因此，需要设置了一个虚拟的结点，表示「所有的水域都和这个虚拟结点是连接的」。</p>
 <p><strong>注意</strong>：</p>
-<p>1、针对上面的第 1 点：如果当前是 “陆地”，尝试与周围合并一下”，此时 “周围” 并不需要像 “深度优先遍历” 和 “广度优先遍历” 一样，方向是四周。事实上，只要 “向右”、“向下” 两个方向就可以了，原因很简单，你可以在脑子里想象一个 “4 个方向” 和 “2 个方向” 的算法执行流程（或者看我下面展示的动画），就知道 “4 个方向” 没有必要；</p>
+<p>1、针对上面的第 1 点：如果当前是 「陆地」，尝试与周围合并一下，此时「周围」 并不需要像 「深度优先遍历」和 「广度优先遍历」 一样，方向是四周。事实上，只要 “向右”、“向下” 两个方向就可以了，原因很简单，你可以在脑子里想象一个 “4 个方向” 和 “2 个方向” 的算法执行流程（或者看我下面展示的动画），就知道 “4 个方向” 没有必要；</p>
 <p>2、针对上面的第 2 点：由于我设置了“虚拟结点”，最后返回“岛屿个数”的时候，应该是连通分量个数 - 1，不要忘记将 “虚拟结点” 代表的 “水域” 分量去掉，剩下的连通分量个数就是 “岛屿个数”。</p>
 <p>Java 代码：</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind</span> <span class="token punctuation">{</span>
-        <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">/**
-         * 连通分量个数
-         */</span>
-        <span class="token keyword">private</span> <span class="token keyword">int</span> count<span class="token punctuation">;</span>
-
-        <span class="token keyword">public</span> <span class="token function">UnionFind</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            count <span class="token operator">=</span> n<span class="token punctuation">;</span>
-            parent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">=</span> parent<span class="token punctuation">[</span>parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-                x <span class="token operator">=</span> parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">return</span> x<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> rootX <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> rootY <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>rootX <span class="token operator">==</span> rootY<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            parent<span class="token punctuation">[</span>rootX<span class="token punctuation">]</span> <span class="token operator">=</span> rootY<span class="token punctuation">;</span>
-            count<span class="token operator">--</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">inArea</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">,</span> <span class="token keyword">int</span> rows<span class="token punctuation">,</span> <span class="token keyword">int</span> cols<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> x <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> x <span class="token operator">&lt;</span> rows <span class="token operator">&amp;&amp;</span> y <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> y <span class="token operator">&lt;</span> cols<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">getIndex</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">,</span> <span class="token keyword">int</span> cols<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> x <span class="token operator">*</span> cols <span class="token operator">+</span> y<span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
 
     <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">numIslands</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> grid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">int</span> rows <span class="token operator">=</span> grid<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>rows <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
-
         <span class="token keyword">int</span> cols <span class="token operator">=</span> grid<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>
         <span class="token keyword">if</span> <span class="token punctuation">(</span>cols <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 
         <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> directions <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-
         <span class="token keyword">int</span> size <span class="token operator">=</span> rows <span class="token operator">*</span> cols<span class="token punctuation">;</span>
         <span class="token comment" spellcheck="true">// 多开一个结点，把 '0' 都与最后这个结点连在一起</span>
         UnionFind unionFind <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UnionFind</span><span class="token punctuation">(</span>size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> cols<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">if</span> <span class="token punctuation">(</span>grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -651,13 +547,10 @@
                     unionFind<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span><span class="token function">getIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> cols<span class="token punctuation">)</span><span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token punctuation">}</span>
             <span class="token punctuation">}</span>
-
         <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> unionFind<span class="token punctuation">.</span>count <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> unionFind<span class="token punctuation">.</span><span class="token function">getCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
 
     <span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind</span> <span class="token punctuation">{</span>
 
@@ -706,128 +599,10 @@
     <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">getIndex</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">,</span> <span class="token keyword">int</span> cols<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> x <span class="token operator">*</span> cols <span class="token operator">+</span> y<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-
-    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">numIslands</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> grid<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">int</span> rows <span class="token operator">=</span> grid<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>rows <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">int</span> cols <span class="token operator">=</span> grid<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>cols <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> directions <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">int</span> size <span class="token operator">=</span> rows <span class="token operator">*</span> cols<span class="token punctuation">;</span>
-        <span class="token comment" spellcheck="true">// 多开一个结点，把 '0' 都与最后这个结点连在一起</span>
-        UnionFind unionFind <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UnionFind</span><span class="token punctuation">(</span>size <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> rows<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> cols<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> direction <span class="token operator">:</span> directions<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                        <span class="token keyword">int</span> newX <span class="token operator">=</span> i <span class="token operator">+</span> direction<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-                        <span class="token keyword">int</span> newY <span class="token operator">=</span> j <span class="token operator">+</span> direction<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-                        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">inArea</span><span class="token punctuation">(</span>newX<span class="token punctuation">,</span> newY<span class="token punctuation">,</span> rows<span class="token punctuation">,</span> cols<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> grid<span class="token punctuation">[</span>newX<span class="token punctuation">]</span><span class="token punctuation">[</span>newY<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                            unionFind<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span><span class="token function">getIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> cols<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getIndex</span><span class="token punctuation">(</span>newX<span class="token punctuation">,</span> newY<span class="token punctuation">,</span> cols<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                        <span class="token punctuation">}</span>
-                    <span class="token punctuation">}</span>
-                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                    unionFind<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span><span class="token function">getIndex</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> cols<span class="token punctuation">)</span><span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-            <span class="token punctuation">}</span>
-
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> unionFind<span class="token punctuation">.</span><span class="token function">getCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>需要掌握的技巧：</p>
 <p>1、把所有的方向，设置在一个二维数组里，是一个二维平面问题常用的技巧；</p>
 <p>2、二维坐标与一维索引的转换需要特别熟练，如果实在想不清楚，举几个具体的例子，在纸上计算一下便不难分析出来。</p>
-<hr>
-<h3 id="练习3：LeetCode-第-200-题：岛屿的个数"><a href="#练习3：LeetCode-第-200-题：岛屿的个数" class="headerlink" title="练习3：LeetCode 第 200 题：岛屿的个数"></a>练习3：LeetCode 第 200 题：<a href="https://leetcode-cn.com/problems/number-of-islands" target="_blank" rel="noopener">岛屿的个数</a></h3><p>给定一个由 <code>&#39;1&#39;</code>（陆地）和 <code>&#39;0&#39;</code>（水）组成的的二维网格，计算岛屿的数量。一个岛被水包围，并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。你可以假设网格的四个边均被水包围。</p>
-<p><strong>示例 1:</strong></p>
-<pre><code>输入:
-11110
-11010
-11000
-00000
-
-输出: 1</code></pre><p><strong>示例 2:</strong></p>
-<pre><code>输入:
-11000
-11000
-00100
-00011
-
-输出: 3</code></pre><p>思路1：floorfill，可以在<a href="https://github.com/liweiwei1419/LeetCode-Solution-Python/blob/master/08-%E9%80%92%E5%BD%92%E5%92%8C%E5%9B%9E%E6%BA%AF%E6%B3%95/0200-%E5%B2%9B%E5%B1%BF%E7%9A%84%E4%B8%AA%E6%95%B0.py" target="_blank" rel="noopener">这里</a>看到这个思路的代码。</p>
-<p>思路2：使用并查集，把所有的“0”都合并到一个虚拟的结点上，然后扫描整个二维矩阵。</p>
-<p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
-    <span class="token keyword">def</span> <span class="token function">numIslands</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> grid<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        :type grid: List[List[str]]
-        :rtype: int
-        """</span>
-
-        <span class="token keyword">class</span> <span class="token class-name">UnionFind</span><span class="token punctuation">:</span>
-            <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                self<span class="token punctuation">.</span>parent <span class="token operator">=</span> <span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">]</span>
-
-            <span class="token keyword">def</span> <span class="token function">find</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                root <span class="token operator">=</span> p
-                <span class="token keyword">while</span> root <span class="token operator">!=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>root<span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    root <span class="token operator">=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>root<span class="token punctuation">]</span>
-                <span class="token keyword">while</span> p <span class="token operator">!=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    temp <span class="token operator">=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span>
-                    self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">=</span> root
-                    p <span class="token operator">=</span> temp
-                <span class="token keyword">return</span> root
-
-            <span class="token keyword">def</span> <span class="token function">is_connected</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">return</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">==</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>q<span class="token punctuation">)</span>
-
-            <span class="token keyword">def</span> <span class="token function">union</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                p_id <span class="token operator">=</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
-                q_id <span class="token operator">=</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>q<span class="token punctuation">)</span>
-                <span class="token keyword">if</span> p_id <span class="token operator">==</span> q_id<span class="token punctuation">:</span>
-                    <span class="token keyword">return</span>
-                self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p_id<span class="token punctuation">]</span> <span class="token operator">=</span> q_id
-
-        row <span class="token operator">=</span> len<span class="token punctuation">(</span>grid<span class="token punctuation">)</span>
-        <span class="token keyword">if</span> row <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> <span class="token number">0</span>
-        col <span class="token operator">=</span> len<span class="token punctuation">(</span>grid<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-
-        <span class="token keyword">def</span> <span class="token function">get_index</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">return</span> x <span class="token operator">*</span> col <span class="token operator">+</span> y
-
-        directions <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
-        <span class="token comment" spellcheck="true"># 多开一个空间，把 "0" 都归到这个虚拟的老大上</span>
-        dummy_node <span class="token operator">=</span> row <span class="token operator">*</span> col
-
-        uf <span class="token operator">=</span> UnionFind<span class="token punctuation">(</span>dummy_node <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>col<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">if</span> grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'0'</span><span class="token punctuation">:</span>
-                    uf<span class="token punctuation">.</span>union<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> dummy_node<span class="token punctuation">)</span>
-                <span class="token keyword">if</span> grid<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">:</span>
-                    <span class="token comment" spellcheck="true"># 向下向右如果都是 "1" 就要合并一下</span>
-                    <span class="token keyword">for</span> direction <span class="token keyword">in</span> directions<span class="token punctuation">:</span>
-                        new_x <span class="token operator">=</span> i <span class="token operator">+</span> direction<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
-                        new_y <span class="token operator">=</span> j <span class="token operator">+</span> direction<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
-                        <span class="token keyword">if</span> new_x <span class="token operator">&lt;</span> row <span class="token operator">and</span> new_y <span class="token operator">&lt;</span> col <span class="token operator">and</span> grid<span class="token punctuation">[</span>new_x<span class="token punctuation">]</span><span class="token punctuation">[</span>new_y<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">:</span>
-                            uf<span class="token punctuation">.</span>union<span class="token punctuation">(</span>get_index<span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">,</span> get_index<span class="token punctuation">(</span>new_x<span class="token punctuation">,</span> new_y<span class="token punctuation">)</span><span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 因为一定要减掉 "0" 的区域，因此起始值是 -1</span>
-        res <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
-        <span class="token keyword">for</span> index<span class="token punctuation">,</span> parent <span class="token keyword">in</span> enumerate<span class="token punctuation">(</span>uf<span class="token punctuation">.</span>parent<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> parent <span class="token operator">==</span> index<span class="token punctuation">:</span>
-                res <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> res
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>最后附上我以前学习并查集的时候写的笔记，传送门：<a href="https://www.jianshu.com/p/aa92245f7682" target="_blank" rel="noopener">高级数据结构：并查集（Java 实现）</a>。</p>
 
             </div>
             <hr/>
@@ -1330,38 +1105,39 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/leetcode-algo/2017/10/27/leetcode-algo/0399-longest-consecutive-sequence/">
+                <a href="/leetcode-algo/2017/10/28/leetcode-algo/0547-friend-circles/">
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/6.jpg" class="responsive-img" alt="「力扣」第 399 题：除法求值（困难）">
+                        <img src="/leetcode-algo/medias/featureimages/2.jpg" class="responsive-img" alt="「力扣」第 547 题：朋友圈（中等）">
                         
-                        <span class="card-title">「力扣」第 399 题：除法求值（困难）</span>
+                        <span class="card-title">「力扣」第 547 题：朋友圈（中等）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 399 题：除法求值（困难）
-带权值的「并查集」，搞清楚方向。
+                            「力扣」第 547 题：朋友圈（中等）
+并查集的典型问题。题目也非常接地气。
 
 
 链接
+题解链接
 
 
-给出方程式 A / B = k, 其中 A 和 B 均为代表字符串的变量， k 是一个浮点型数字。根据已知方程式求解问题，并返回计算结果。如果结果不存
+班上有 N 名学生。其中有些人是朋友，有些则不是。他们的友谊具有是传递性。如果已知 A 是 B 的朋友，B 是 C 的朋友，那么我们可以认
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2017-10-27
+                            <i class="far fa-clock fa-fw icon-date"></i>2017-10-28
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             
@@ -1390,19 +1166,20 @@
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/2.jpg" class="responsive-img" alt="「力扣」第 130 题：被围绕的区域">
+                        <img src="/leetcode-algo/medias/featureimages/5.jpg" class="responsive-img" alt="「力扣」第 130 题：被围绕的区域（中等）">
                         
-                        <span class="card-title">「力扣」第 130 题：被围绕的区域</span>
+                        <span class="card-title">「力扣」第 130 题：被围绕的区域（中等）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 130 题：被围绕的区域
-链接：https://leetcode-cn.com/problems/surrounded-regions/
+                            「力扣」第 130 题：被围绕的区域（中等）
+题目链接
 
 
-给定一个二维的矩阵，包含 &#39;X&#39; 和 &#39;O&#39;（字母 O
+给定一个二维的矩阵，包含 &#39;X&#39; 和 &#39;O&#39;（字母 O）。
+找到所有被 &#39;X&#39; 围绕的区域，并将这些区域里所有的 &#39;O&#3
                         
                     </div>
                     <div class="publish-info">
@@ -1413,8 +1190,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             

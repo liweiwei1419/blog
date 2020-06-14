@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="「力扣」第 990 题：等式方程的可满足性, 算法与数据结构入门教程">
+    <meta name="keywords" content="「力扣」第 990 题：等式方程的可满足性（中等）, 算法与数据结构入门教程">
     <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>「力扣」第 990 题：等式方程的可满足性 | 算法与数据结构入门教程</title>
+    <title>「力扣」第 990 题：等式方程的可满足性（中等） | 算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">「力扣」第 990 题：等式方程的可满足性</h1>
+                    <h1 class="description center-align post-title">「力扣」第 990 题：等式方程的可满足性（中等）</h1>
                 </div>
             </div>
         </div>
@@ -452,8 +452,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                专题 11：并查集
                             </a>
                         
                     </div>
@@ -481,7 +481,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="「力扣」第-990-题：等式方程的可满足性"><a href="#「力扣」第-990-题：等式方程的可满足性" class="headerlink" title="「力扣」第 990 题：等式方程的可满足性"></a>「力扣」第 990 题：等式方程的可满足性</h2><blockquote>
+                <h2 id="「力扣」第-990-题：等式方程的可满足性（中等）"><a href="#「力扣」第-990-题：等式方程的可满足性（中等）" class="headerlink" title="「力扣」第 990 题：等式方程的可满足性（中等）"></a>「力扣」第 990 题：等式方程的可满足性（中等）</h2><blockquote>
 <p>有些问题不以并查集为背景，但的确可以使用并查集的知识帮助我们解决问题。由于等式相等具有传递性，比较容易想到使用并查集。</p>
 </blockquote>
 <ul>
@@ -512,16 +512,69 @@
 <li><code>equations[i][2]</code> 是 <code>&#39;=&#39;</code></li>
 </ol>
 </blockquote>
-<p>题目给我们一系列等式和不等式，然后问我们这些等式和不等式组成的变量之间的关系是否有冲突，如果没有冲突，说明等式和不等式的关系是正确的，返回 <code>true</code> ，否则返回 <code>false</code>。</p>
-<p>由于等式相等具有传递性，所有相等的变量属于一个集合，比较容易想到使用并查集，因为并查集其实主要是就是在解决在不在一个集合中的问题。</p>
+<p>由于等式相等具有传递性，比较容易想到使用并查集。</p>
 <p>为此设计算法如下：</p>
 <p>1、扫描所有等式，将等式两边的顶点进行合并；</p>
 <p>2、再扫描所有不等式，<strong>检查</strong>每一个不等式的两个顶点是不是在一个连通分量里，如果在，则返回 <code>false</code> 表示等式方程有矛盾。如果所有检查都没有矛盾，返回 <code>true</code>。</p>
+<p>并查集知识小结：</p>
+<p>1、解决的是两个顶点是否连通的问题，可以用于检测图中是否存在环；</p>
+<p>2、代表元法：采用 <code>parent</code> 数组实现，以每个结点的根结点作为代表元；</p>
+<p>3、并查集的优化有两种策略：</p>
+<p>（1）路径压缩；</p>
+<p>有「隔代压缩」与「完全压缩」。</p>
+<ul>
+<li>「隔代压缩」性能比较高，虽然压缩不完全，不过多次执行「隔代压缩」也能达到「完全压缩」的效果，我本人比较偏向使用「隔代压缩」的写法。</li>
+<li>「完全压缩」需要借助系统栈，使用递归的写法。或者先找到当前结点的根结点，然后把沿途上所有的结点都指向根结点，得遍历两次。</li>
+</ul>
+<p>（2）按秩合并。</p>
+<p>秩也有两种含义：</p>
+<ul>
+<li>秩表示以当前结点为根结点的子树结点总数，即这里的「秩」表示 <code>size</code> 含义；</li>
+<li>秩表示以当前结点为根结点的子树的高度，即这里的「秩」表示 <code>rank</code> 含义（更合理，因为查询时候的时间性能主要决定于树的高度）。</li>
+</ul>
+<p>4、如果同时使用「路径压缩」与「按秩合并」，这里的「秩」就失去了它的定义，但即使秩表示的含义不准确，也能够作为合并时候很好的「参考」。在这种情况下，并查集的查询与合并的时间复杂度可以达到接近 $O(1)$。</p>
+<p>感兴趣的朋友可以在互联网上搜索关键字「并查集」、「反阿克曼函数」深入了解同时使用「路径压缩」与「按秩合并」时候的并查集的时间复杂度。</p>
+<p>我使用的策略是这样的（仅供参考）：用「隔代压缩」，代码比较好写。不写「按秩合并」，除非题目有一些关于「秩」的信息需要讨论。一般来说，这样写也能得到不错的性能，如果性能不太好的话，再考虑「按秩合并」。</p>
+<h4 id="并查集的时间复杂度分析"><a href="#并查集的时间复杂度分析" class="headerlink" title="并查集的时间复杂度分析"></a>并查集的时间复杂度分析</h4><p>可以参考如下资料：</p>
+<ul>
+<li>《算法导论》第 21 章：用于不相交集合的数据结构；</li>
+<li>《算法》（第 4 版）第 1 章第 5 节：案例研究：union-find 算法；</li>
+<li>知乎问答：<a href="https://www.zhihu.com/question/35090745" target="_blank" rel="noopener">为什么并查集在路径压缩之后的时间复杂度是阿克曼函数?</a></li>
+</ul>
+<p>说明：内容超纲，知道结论就好。</p>
 <p><strong>参考代码</strong>：</p>
 <p>Java 代码：</p>
 <pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
 
+    public boolean equationsPossible(String[] equations) {
+        UnionFind unionFind = new UnionFind(26);
+
+        for (String equation : equations) {
+            char[] charArray = equation.toCharArray();
+            if (charArray[1] == '=') {
+                int index1 = charArray[0] - 'a';
+                int index2 = charArray[3] - 'a';
+                unionFind.union(index1, index2);
+            }
+        }
+
+        for (String equation : equations) {
+            char[] charArray = equation.toCharArray();
+            if (charArray[1] == '!') {
+                int index1 = charArray[0] - 'a';
+                int index2 = charArray[3] - 'a';
+                if (unionFind.isConnected(index1, index2)) {
+                    // 如果合并失败，表示等式有矛盾，根据题意，返回 false
+                    return false;
+                }
+            }
+        }
+        // 如果检查了所有不等式，都没有发现矛盾，返回 true
+        return true;
+    }
+
     private class UnionFind {
+
         private int[] parent;
 
         public UnionFind(int n) {
@@ -555,47 +608,19 @@
         }
     }
 
-    public boolean equationsPossible(String[] equations) {
-        UnionFind unionFind = new UnionFind(26);
 
-        for (String equation : equations) {
-            if (equation.charAt(1) == '=') {
-                int index1 = equation.charAt(0) - 'a';
-                int index2 = equation.charAt(3) - 'a';
-                unionFind.union(index1, index2);
-            }
-        }
+    public static void main(String[] args) {
+        // String[] equations = new String[]{"b==a", "a==b"};
+        // String[] equations = new String[]{"a==b","b==c","a==c"};
+        // String[] equations = new String[]{"a==b","b!=c","c==a"};
+        String[] equations = new String[]{"c==c", "b==d", "x!=z"};
 
-        for (String equation : equations) {
-            if (equation.charAt(1) == '!') {
-                int index1 = equation.charAt(0) - 'a';
-                int index2 = equation.charAt(3) - 'a';
-
-                if (unionFind.isConnected(index1, index2)) {
-                    // 如果合并失败，表示等式有矛盾，根据题意，返回 false
-                    return false;
-                }
-            }
-        }
-        // 如果检查了所有不等式，都没有发现矛盾，返回 true
-        return true;
+        Solution solution = new Solution();
+        boolean res = solution.equationsPossible(equations);
+        System.out.println(res);
     }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>这道题我们为并查集设计了 <code>isConnected()</code> 方法，判断两个结点是否在一个连通分量中。</p>
-<h3 id="并查集知识小结："><a href="#并查集知识小结：" class="headerlink" title="并查集知识小结："></a>并查集知识小结：</h3><p>1、解决的是两个顶点是否连通的问题，可以用于检测图中是否存在环；</p>
-<p>2、代表元法：采用 <code>parent</code> 数组实现，以每个结点的根结点作为代表元；</p>
-<p>3、并查集的优化有两种策略：</p>
-<p>（1）路径压缩；</p>
-<p>有“隔代压缩”与“完全压缩”。</p>
-<ul>
-<li>“隔代压缩”性能比较高，虽然压缩不完全，不过多次执行“隔代压缩”也能达到“完全压缩”的效果，我本人比较偏向使用“隔代压缩”的写法。</li>
-<li>“完全压缩”需要借助系统栈，使用递归的写法。或者先找到当前结点的根结点，然后把沿途上所有的结点都指向根结点，得遍历两次。</li>
-</ul>
-<p>（2）按秩合并。</p>
-<p>秩也有两种含义：① 秩表示以当前结点为根结点的子树结点总数，即这里的“秩”表示 <code>size</code> 含义；② 秩表示以当前结点为根结点的子树的高度，即这里的“秩”表示 <code>rank</code> 含义。</p>
-<p>4、如果同时使用“路径压缩”与“按秩合并”，这里的“秩”就失去了它的定义，但即使秩表示的含义不准确，也能够作为合并时候很好的“参考”。在这种情况下，并查集的查询与合并的时间复杂度可以达到接近 $O(1)$。</p>
-<p>感兴趣的朋友可以在互联网上搜索关键字“并查集”、“阿克曼函数”深入了解同时使用“路径压缩”与“按秩合并”时候的并查集的时间复杂度。</p>
-<p>我使用的策略是这样的（仅供参考）：用“隔代压缩”，代码比较好写。不写“按秩合并”，除非题目有一些关于“秩”的信息需要讨论。一般来说，这样写也能得到不错的性能，如果性能不太好的话，再考虑“按秩合并”。</p>
 
             </div>
             <hr/>
@@ -1102,15 +1127,15 @@
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/23.jpg" class="responsive-img" alt="「力扣」第 1319 题：等式方程的可满足性">
+                        <img src="/leetcode-algo/medias/featureimages/12.jpg" class="responsive-img" alt="「力扣」第 1319 题：等式方程的可满足性（中等）">
                         
-                        <span class="card-title">「力扣」第 1319 题：等式方程的可满足性</span>
+                        <span class="card-title">「力扣」第 1319 题：等式方程的可满足性（中等）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 1319 题：连通网络的操作次数
+                            「力扣」第 1319 题：连通网络的操作次数（中等）
 连通性问题，比较容易想到使用并查集，并查集在写的时候，可以尽量封装起来，以凸显主干逻辑。并且路径压缩与按 rank 合并这两个优化技巧，选择其中一个即可。
 
 
@@ -1118,7 +1143,7 @@
 题解链接
 
 
-用以太网线缆将
+用以太
                         
                     </div>
                     <div class="publish-info">
@@ -1129,8 +1154,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             
@@ -1186,8 +1211,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             

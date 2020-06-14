@@ -452,8 +452,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                专题 11：并查集
                             </a>
                         
                     </div>
@@ -512,204 +512,95 @@
 </ol>
 </blockquote>
 <h3 id="方法一：并查集"><a href="#方法一：并查集" class="headerlink" title="方法一：并查集"></a>方法一：并查集</h3><p>好友关系是双向关系，因此题目中给出的矩阵其实是一个邻接矩阵，所以问题就转化为求图中有几个连通分量的问题了。</p>
-<p>我们还可以用并查集来解决它。由于是对阵矩阵，我们其实只要看这个矩阵的下三角形部分就可以了。又因为自己肯定是自己的好友，所以还可以不看对角。</p>
+<p>我们还可以用并查集来解决它。由于是对称矩阵，我们其实只要看这个矩阵的下三角形部分就可以了。又因为自己肯定是自己的好友，所以还可以不看对角线元素。</p>
 <p>并查集的特点是<strong>孩子结点指向父亲结点，两个结点连接在一起即它们有相同的根结点</strong>。下面是对编码的两点说明：</p>
 <p>1、这里使用了基于 <code>rank</code> 的结点指向策略，<code>rank</code> 的含义是以自己为根结点的树的高度。</p>
 <p>2、在 <code>find</code> 的过程中，实现了路径压缩算法，简而言之就在查询的过程中，修改结点的指向，将原本指向父亲结点修改成指向爷爷结点，以压缩这个多叉树的高度。</p>
 <p>Java 代码：</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    <span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind</span> <span class="token punctuation">{</span>
-        <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span>
-        <span class="token keyword">private</span> <span class="token keyword">int</span> count<span class="token punctuation">;</span>
-
-        <span class="token keyword">public</span> <span class="token function">UnionFind</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            count <span class="token operator">=</span> n<span class="token punctuation">;</span>
-            parent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">while</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">=</span> parent<span class="token punctuation">[</span>parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-                x <span class="token operator">=</span> parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">return</span> x<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> rootX <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> rootY <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>rootX <span class="token operator">==</span> rootY<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            count<span class="token operator">--</span><span class="token punctuation">;</span>
-            parent<span class="token punctuation">[</span>rootX<span class="token punctuation">]</span> <span class="token operator">=</span> rootY<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-
     <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">findCircleNum</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> M<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">int</span> len <span class="token operator">=</span> M<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
-        UnionFind unionFind <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UnionFind</span><span class="token punctuation">(</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
+        UnionFind uf <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UnionFind</span><span class="token punctuation">(</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> len<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> i<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
                 <span class="token keyword">if</span> <span class="token punctuation">(</span>M<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    unionFind<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    uf<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> j<span class="token punctuation">)</span><span class="token punctuation">;</span>
                 <span class="token punctuation">}</span>
             <span class="token punctuation">}</span>
         <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> unionFind<span class="token punctuation">.</span>count<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> uf<span class="token punctuation">.</span><span class="token function">getCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">/**
+         * 连通分量的个数
+         */</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span> count<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">/**
+         * 以索引为 i 的元素为根结点的树的深度（最深的那个深度）
+         */</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> rank<span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token function">UnionFind</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>count <span class="token operator">=</span> n<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>parent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>rank <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">// 初始化时，所有的元素只包含它自己，只有一个元素，所以 rank[i] = 1</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>rank<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>count<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 在 find 的时候执行路径压缩</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>p <span class="token operator">!=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 两步一跳完成路径压缩</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>parent<span class="token punctuation">[</span><span class="token keyword">this</span><span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                p <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> p<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> pRoot <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> qRoot <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>pRoot <span class="token operator">==</span> qRoot<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">// 这一步是与第 3 版不同的地方</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>rank<span class="token punctuation">[</span>pRoot<span class="token punctuation">]</span> <span class="token operator">></span> rank<span class="token punctuation">[</span>qRoot<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                parent<span class="token punctuation">[</span>qRoot<span class="token punctuation">]</span> <span class="token operator">=</span> pRoot<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>rank<span class="token punctuation">[</span>pRoot<span class="token punctuation">]</span> <span class="token operator">&lt;</span> rank<span class="token punctuation">[</span>qRoot<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                parent<span class="token punctuation">[</span>pRoot<span class="token punctuation">]</span> <span class="token operator">=</span> qRoot<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                parent<span class="token punctuation">[</span>qRoot<span class="token punctuation">]</span> <span class="token operator">=</span> pRoot<span class="token punctuation">;</span>
+                rank<span class="token punctuation">[</span>pRoot<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment" spellcheck="true">// 每次 union 以后，连通分量减 1</span>
+            count<span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 
     <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> M <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
                 <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-
         Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">int</span> res <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">findCircleNum</span><span class="token punctuation">(</span>M<span class="token punctuation">)</span><span class="token punctuation">;</span>
         System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Java 代码：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">class UnionFind {
-    /**
-     * 连通分量的个数
-     */
-    private int count;
-    private int[] parent;
-    /**
-     * 以索引为 i 的元素为根结点的树的深度（最深的那个深度）
-     */
-    private int[] rank;
-
-    public UnionFind(int n) {
-        this.count = n;
-        this.parent = new int[n];
-        this.rank = new int[n];
-        for (int i = 0; i < n; i++) {
-            this.parent[i] = i;
-            // 初始化时，所有的元素只包含它自己，只有一个元素，所以 rank[i] = 1
-            this.rank[i] = 1;
-        }
-    }
-
-    public int getCount() {
-        return this.count;
-    }
-
-    public int find(int p) {
-        // 在 find 的时候执行路径压缩
-        while (p != this.parent[p]) {
-            // 两步一跳完成路径压缩
-            this.parent[p] = this.parent[this.parent[p]];
-            p = this.parent[p];
-        }
-        return p;
-    }
-
-    public boolean isConnected(int p, int q) {
-        return find(p) == find(q);
-    }
-
-    public void union(int p, int q) {
-        int pRoot = find(p);
-        int qRoot = find(q);
-        if (pRoot == qRoot) {
-            return;
-        }
-        // 这一步是与第 3 版不同的地方
-        if (rank[pRoot] > rank[qRoot]) {
-            parent[qRoot] = pRoot;
-        } else if (rank[pRoot] < rank[qRoot]) {
-            parent[pRoot] = qRoot;
-        } else {
-            parent[qRoot] = pRoot;
-            rank[pRoot]++;
-        }
-        // 每次 union 以后，连通分量减 1
-        count--;
-    }
-}
-
-public class Solution {
-
-    public int findCircleNum(int[][] M) {
-        int len = M.length;
-        UnionFind uf = new UnionFind(len);
-        for (int i = 0; i < len; i++) {
-            for (int j = 0; j < i; j++) {
-                if (M[i][j] == 1) {
-                    uf.union(i, j);
-                }
-            }
-        }
-        return uf.getCount();
-    }
-
-    public static void main(String[] args) {
-        int[][] M = {{1, 1, 0},
-                {1, 1, 0},
-                {0, 0, 1}};
-        Solution solution = new Solution();
-        int res = solution.findCircleNum(M);
-        System.out.println(res);
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>Python 代码：</p>
-<pre class="line-numbers language-Python"><code class="language-Python">class Solution:
-    def findCircleNum(self, M: List[List[int]]) -> int:
-        """
-        :type M: List[List[int]]
-        :rtype: int
-        """
-
-        class UnionFind:
-
-            def __init__(self, n):
-                self.count = n
-                self.parent = [i for i in range(n)]
-                self.rank = [1 for i in range(n)]
-
-            def get_count(self):
-                return self.count
-
-            def find(self, p):
-                while p != self.parent[p]:
-                    self.parent[p] = self.parent[self.parent[p]]
-                    p = self.parent[p]
-                return p
-
-            def is_connected(self, p, q):
-                return self.find(p) == self.find(q)
-
-            def union(self, p, q):
-                p_root = self.find(p)
-                q_root = self.find(q)
-                if p_root == q_root:
-                    return
-
-                if self.rank[p_root] > self.rank[q_root]:
-                    self.parent[q_root] = p_root
-                elif self.rank[p_root] < self.rank[q_root]:
-                    self.parent[p_root] = q_root
-                else:
-                    self.parent[q_root] = p_root
-                    self.rank[p_root] += 1
-
-                self.count -= 1
-
-        m = len(M)
-        union_find_set = UnionFind(m)
-        for i in range(m):
-            for j in range(i):
-                if M[i][j] == 1:
-                    union_find_set.union(j, i)
-
-        return union_find_set.get_count()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Python 代码：</p>
 <pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
 
@@ -793,9 +684,7 @@ public class Solution {
         <span class="token keyword">if</span> <span class="token punctuation">(</span>visited<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token keyword">return</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
-
         visited<span class="token punctuation">[</span>u<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-
         <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> N<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
             <span class="token comment" spellcheck="true">// 如果是朋友关系，就继续遍历下去，这是深度优先遍历</span>
             <span class="token keyword">if</span> <span class="token punctuation">(</span>M<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -825,95 +714,8 @@ public class Solution {
         <span class="token punctuation">}</span>
         <span class="token keyword">return</span> res<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="例题1：LeetCode-第-547-题：朋友圈"><a href="#例题1：LeetCode-第-547-题：朋友圈" class="headerlink" title="例题1：LeetCode 第 547 题：朋友圈"></a>例题1：LeetCode 第 547 题：<a href="https://leetcode-cn.com/problems/friend-circles" target="_blank" rel="noopener">朋友圈</a></h3><p>传送门：英文网址：<a href="https://leetcode.com/problems/friend-circles/description/" target="_blank" rel="noopener">547. Friend Circles</a>，中文网址：<a href="https://leetcode-cn.com/problems/friend-circles/" target="_blank" rel="noopener">547. 朋友圈</a>。</p>
-<blockquote>
-<p>班上有 <strong>N</strong> 名学生。其中有些人是朋友，有些则不是。他们的友谊具有是传递性。如果已知 A 是 B 的朋友，B 是 C 的朋友，那么我们可以认为 A 也是 C 的朋友。所谓的朋友圈，是指所有朋友的集合。</p>
-<p>给定一个 <strong>N * N</strong> 的矩阵 <strong>M</strong>，表示班级中学生之间的朋友关系。如果M[i][j] = 1，表示已知第 i 个和 j 个学生<strong>互为</strong>朋友关系，否则为不知道。你必须输出所有学生中的已知的朋友圈总数。</p>
-<p><strong>示例 1:</strong></p>
-<pre><code>输入: 
-[[1,1,0],
-[1,1,0],
-[0,0,1]]
-输出: 2 
-说明：已知学生0和学生1互为朋友，他们在一个朋友圈。
-第2个学生自己在一个朋友圈。所以返回2。</code></pre><p><strong>示例 2:</strong></p>
-<pre><code>输入: 
-[[1,1,0],
-[1,1,1],
-[0,1,1]]
-输出: 1
-说明：已知学生0和学生1互为朋友，学生1和学生2互为朋友，所以学生0和学生2也是朋友，所以他们三个在一个朋友圈，返回1。</code></pre><p><strong>注意：</strong></p>
-<ol>
-<li>N 在[1,200]的范围内。</li>
-<li>对于所有学生，有M[i][i] = 1。</li>
-<li>如果有M[i][j] = 1，则有M[j][i] = 1。</li>
-</ol>
-</blockquote>
-<p>思路1：好友关系是双向关系，因此题目中给出的矩阵其实是一个邻接矩阵，所以问题就转化为求图中有几个连通分量的问题了。</p>
-<p>思路2：我们还可以用并查集来解决它。由于是对阵矩阵，我们其实只要看这个矩阵的下三角形部分就可以了。又因为自己肯定是自己的好友，所以还可以不看对角线，。</p>
-<p>Python 代码：</p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">:</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-    <span class="token keyword">def</span> <span class="token function">findCircleNum</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> M<span class="token punctuation">)</span><span class="token punctuation">:</span>
-        <span class="token triple-quoted-string string">"""
-        :type M: List[List[int]]
-        :rtype: int
-        """</span>
-        <span class="token keyword">class</span> <span class="token class-name">UnionFind</span><span class="token punctuation">:</span>
-            <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                self<span class="token punctuation">.</span>parent <span class="token operator">=</span> <span class="token punctuation">[</span>i <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">]</span>
-
-            <span class="token keyword">def</span> <span class="token function">find</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                root <span class="token operator">=</span> p
-                <span class="token comment" spellcheck="true"># 只要不是最上层的那个结点，就不停向上找</span>
-                <span class="token keyword">while</span> root <span class="token operator">!=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>root<span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    root <span class="token operator">=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>root<span class="token punctuation">]</span>
-                <span class="token comment" spellcheck="true"># 此时 root 就是大 boss</span>
-                <span class="token comment" spellcheck="true"># 接下来把 p 到 root 沿途所有的结点都指向 root</span>
-                <span class="token keyword">while</span> p <span class="token operator">!=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">:</span>
-                    temp <span class="token operator">=</span> self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span>
-                    self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">=</span> root
-                    p <span class="token operator">=</span> temp
-                <span class="token keyword">return</span> root
-
-            <span class="token keyword">def</span> <span class="token function">is_connected</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">return</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">==</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>q<span class="token punctuation">)</span>
-
-            <span class="token keyword">def</span> <span class="token function">union</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> p<span class="token punctuation">,</span> q<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                p_id <span class="token operator">=</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>p<span class="token punctuation">)</span>
-                q_id <span class="token operator">=</span> self<span class="token punctuation">.</span>find<span class="token punctuation">(</span>q<span class="token punctuation">)</span>
-                <span class="token keyword">if</span> p_id <span class="token operator">==</span> q_id<span class="token punctuation">:</span>
-                    <span class="token keyword">return</span>
-                self<span class="token punctuation">.</span>parent<span class="token punctuation">[</span>p_id<span class="token punctuation">]</span> <span class="token operator">=</span> q_id
-
-        m <span class="token operator">=</span> len<span class="token punctuation">(</span>M<span class="token punctuation">)</span>
-        union_find_set <span class="token operator">=</span> UnionFind<span class="token punctuation">(</span>m<span class="token punctuation">)</span>
-        <span class="token comment" spellcheck="true"># 只看下三角矩阵(不包括对角线)</span>
-        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>m<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">:</span>
-                <span class="token keyword">if</span> M<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">:</span>
-                    union_find_set<span class="token punctuation">.</span>union<span class="token punctuation">(</span>j<span class="token punctuation">,</span> i<span class="token punctuation">)</span>
-        counter <span class="token operator">=</span> <span class="token number">0</span>
-        <span class="token comment" spellcheck="true"># print(union_find_set.parent)</span>
-        <span class="token comment" spellcheck="true"># 自己的父亲是自己的话，这个结点就是根结点，是老大，是 boss</span>
-        <span class="token comment" spellcheck="true"># boss 的特点就是，他上面没有人，例如：李彦宏、马云</span>
-        <span class="token comment" spellcheck="true"># 数一数有几个老大，就有几个朋友圈</span>
-        <span class="token keyword">for</span> index<span class="token punctuation">,</span> parent <span class="token keyword">in</span> enumerate<span class="token punctuation">(</span>union_find_set<span class="token punctuation">.</span>parent<span class="token punctuation">)</span><span class="token punctuation">:</span>
-            <span class="token keyword">if</span> index <span class="token operator">==</span> parent<span class="token punctuation">:</span>
-                counter <span class="token operator">+=</span> <span class="token number">1</span>
-        <span class="token keyword">return</span> counter
-
-
-<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
-    M <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-         <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-         <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
-
-    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
-    result <span class="token operator">=</span> solution<span class="token punctuation">.</span>findCircleNum<span class="token punctuation">(</span>M<span class="token punctuation">)</span>
-    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
             </div>
             <hr/>
 
@@ -1446,8 +1248,8 @@ public class Solution {
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             
@@ -1472,38 +1274,38 @@ public class Solution {
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/leetcode-algo/2017/10/27/leetcode-algo/0399-longest-consecutive-sequence/">
+                <a href="/leetcode-algo/2017/10/26/leetcode-algo/0200-number-of-islands/">
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/6.jpg" class="responsive-img" alt="「力扣」第 399 题：除法求值（困难）">
+                        <img src="/leetcode-algo/medias/featureimages/10.jpg" class="responsive-img" alt="「力扣」第 200 题：岛屿的个数（中等）">
                         
-                        <span class="card-title">「力扣」第 399 题：除法求值（困难）</span>
+                        <span class="card-title">「力扣」第 200 题：岛屿的个数（中等）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 399 题：除法求值（困难）
-带权值的「并查集」，搞清楚方向。
+                            「力扣」第 200 题：岛屿的个数（中等）
+典型的使用「并查集」解决的问题。掌握二维坐标向一位坐标的转换，非常常见。
 
 
 链接
 
 
-给出方程式 A / B = k, 其中 A 和 B 均为代表字符串的变量， k 是一个浮点型数字。根据已知方程式求解问题，并返回计算结果。如果结果不存
+给定一个由 &#39;1&#39;（陆地）和 &#39;0&#39;（水）组成的的二维网格，计算岛屿的数量。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2017-10-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2017-10-26
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             

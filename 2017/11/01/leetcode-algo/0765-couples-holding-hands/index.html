@@ -452,8 +452,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                专题 11：并查集
                             </a>
                         
                     </div>
@@ -488,8 +488,8 @@
 <li><a href="https://leetcode-cn.com/problems/couples-holding-hands/" target="_blank" rel="noopener">链接</a></li>
 </ul>
 <blockquote>
-<p>N 对情侣坐在连续排列的 2N 个座位上，想要牵到对方的手。 计算最少交换座位的次数，以便每对情侣可以并肩坐在一起。 <em>一</em>次交换可选择任意两人，让他们站起来交换座位。</p>
-<p>人和座位用 <code>0</code> 到 <code>2N-1</code> 的整数表示，情侣们按顺序编号，第一对是 <code>(0, 1)</code>，第二对是 <code>(2, 3)</code>，以此类推，最后一对是 <code>(2N-2, 2N-1)</code>。</p>
+<p>N 对情侣坐在连续排列的 $2N$ 个座位上，想要牵到对方的手。 计算最少交换座位的次数，以便每对情侣可以并肩坐在一起。 <em>一</em>次交换可选择任意两人，让他们站起来交换座位。</p>
+<p>人和座位用 <code>0</code> 到 <code>2N - 1</code> 的整数表示，情侣们按顺序编号，第一对是 <code>(0, 1)</code>，第二对是 <code>(2, 3)</code>，以此类推，最后一对是 <code>(2N - 2, 2N - 1)</code>。</p>
 <p>这些情侣的初始座位 <code>row[i]</code> 是由最初始坐在第 i 个座位上的人决定的。</p>
 <p><strong>示例 1:</strong></p>
 <pre><code>输入: row = [0, 2, 1, 3]
@@ -543,8 +543,8 @@
 <td>1</td>
 </tr>
 </tbody></table>
-<p>因此做这个问题，感觉好像在玩“消消乐”一样，我可以两个两个拿出来的编号，除以 $2$（<strong>注意：下取整</strong>）的值如果一样，在结果集中就可以不考虑了。剩下的就是那些除了 $2$ 以后不相等的数，我们把它们放在一起，考虑如何交换次数最少，使得情侣坐在一起。</p>
-<p>即接下来的操作就是将“不配对的情侣拆散”，这里得用一点逆向思维，即做拆解的工作，思路如下：</p>
+<p>因此做这个问题，感觉好像在玩「消消乐」一样，我可以两个两个拿出来的编号，除以 $2$（<strong>注意：下取整</strong>）的值如果一样，在结果集中就可以不考虑了。剩下的就是那些除了 $2$ 以后不相等的数，我们把它们放在一起，考虑如何交换次数最少，使得情侣坐在一起。</p>
+<p>即接下来的操作就是将「不配对的情侣拆散」，这里得用一点逆向思维，即做拆解的工作，思路如下：</p>
 <ul>
 <li>最理想的情况，$N$ 对情侣都配对成功，彼此没有连接，如果画在一张图中，就表示有 $N$ 个连通分量；</li>
 <li>一开始可以假设 $N$ 对情侣都配对成功，即连通分量有 $N$ 个，如果两个本来属于不同连通分量的放在了一起，连通分量就少 $1$，在问题中，就得做一次交换的操作，让这个连通分量加回去。（强行解释，我也是醉了，欢迎朋友们拍砖。）</li>
@@ -1135,8 +1135,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             
@@ -1191,8 +1191,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             

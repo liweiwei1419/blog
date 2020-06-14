@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="「力扣」第 1319 题：等式方程的可满足性, 算法与数据结构入门教程">
+    <meta name="keywords" content="「力扣」第 1319 题：等式方程的可满足性（中等）, 算法与数据结构入门教程">
     <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>「力扣」第 1319 题：等式方程的可满足性 | 算法与数据结构入门教程</title>
+    <title>「力扣」第 1319 题：等式方程的可满足性（中等） | 算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/23.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">「力扣」第 1319 题：等式方程的可满足性</h1>
+                    <h1 class="description center-align post-title">「力扣」第 1319 题：等式方程的可满足性（中等）</h1>
                 </div>
             </div>
         </div>
@@ -452,8 +452,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                专题 11：并查集
                             </a>
                         
                     </div>
@@ -481,7 +481,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="「力扣」第-1319-题：连通网络的操作次数"><a href="#「力扣」第-1319-题：连通网络的操作次数" class="headerlink" title="「力扣」第 1319 题：连通网络的操作次数"></a>「力扣」第 1319 题：连通网络的操作次数</h2><blockquote>
+                <h2 id="「力扣」第-1319-题：连通网络的操作次数（中等）"><a href="#「力扣」第-1319-题：连通网络的操作次数（中等）" class="headerlink" title="「力扣」第 1319 题：连通网络的操作次数（中等）"></a>「力扣」第 1319 题：连通网络的操作次数（中等）</h2><blockquote>
 <p>连通性问题，比较容易想到使用并查集，并查集在写的时候，可以尽量封装起来，以凸显主干逻辑。并且路径压缩与按 <code>rank</code> 合并这两个优化技巧，选择其中一个即可。</p>
 </blockquote>
 <ul>
@@ -524,84 +524,84 @@
 </ul>
 <p><strong>参考代码</strong>：</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-Java"><code class="language-Java">public class Solution {
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
-    private class UnionFind {
-        /**
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">makeConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> connections<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 特判</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>connections<span class="token punctuation">.</span>length <span class="token operator">&lt;</span> n <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        UnionFind unionFind <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UnionFind</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 多余的边的条数</span>
+        <span class="token keyword">int</span> cnt <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> connection <span class="token operator">:</span> connections<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">boolean</span> success <span class="token operator">=</span> unionFind<span class="token punctuation">.</span><span class="token function">union</span><span class="token punctuation">(</span>connection<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> connection<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>success<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                cnt<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 特判</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>unionFind<span class="token punctuation">.</span>count <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 扣掉的 1 是当前结点数最大的连通分量</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cnt <span class="token operator">&lt;</span> unionFind<span class="token punctuation">.</span>count <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> unionFind<span class="token punctuation">.</span>count <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">class</span> <span class="token class-name">UnionFind</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">/**
          * 父亲结点标识数组
-         */
-        private int[] parent;
-        /**
+         */</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> parent<span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">/**
          * 连通分量个数
-         */
-        private int count;
+         */</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span> count<span class="token punctuation">;</span>
 
-        public UnionFind(int n) {
-            count = n;
-            parent = new int[n];
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
+        <span class="token keyword">public</span> <span class="token function">UnionFind</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            count <span class="token operator">=</span> n<span class="token punctuation">;</span>
+            parent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                parent<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        public int find(int x) {
-            while (x != parent[x]) {
-                // 路径压缩（隔代压缩）
-                parent[x] = parent[parent[x]];
-                x = parent[x];
-            }
-            return x;
-        }
+        <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>x <span class="token operator">!=</span> parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// 路径压缩（隔代压缩）</span>
+                parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">=</span> parent<span class="token punctuation">[</span>parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+                x <span class="token operator">=</span> parent<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        /**
+        <span class="token comment" spellcheck="true">/**
          * @param x
          * @param y
          * @return 是否合并成功，如果 x 和 y 本来就在一个连通分量里，返回 false
-         */
-        public boolean union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
+         */</span>
+        <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> rootX <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> rootY <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            if (rootX == rootY) {
-                return false;
-            }
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>rootX <span class="token operator">==</span> rootY<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-            parent[rootX] = rootY;
-            count--;
-            return true;
-        }
-    }
-
-    public int makeConnected(int n, int[][] connections) {
-        // 特判
-        if (connections.length < n - 1) {
-            return -1;
-        }
-
-        UnionFind unionFind = new UnionFind(n);
-
-        // 多余的边的条数
-        int cnt = 0;
-
-        for (int[] connection : connections) {
-            boolean success = unionFind.union(connection[0], connection[1]);
-            if (!success) {
-                cnt++;
-            }
-        }
-
-        // 特判
-        if (unionFind.count == 1) {
-            return 0;
-        }
-
-        // 扣掉的 1 是当前结点数最大的连通分量
-        if (cnt < unionFind.count - 1) {
-            return -1;
-        }
-        return unionFind.count - 1;
-    }
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+            parent<span class="token punctuation">[</span>rootX<span class="token punctuation">]</span> <span class="token operator">=</span> rootY<span class="token punctuation">;</span>
+            count<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -1165,15 +1165,15 @@
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/3.jpg" class="responsive-img" alt="「力扣」第 990 题：等式方程的可满足性">
+                        <img src="/leetcode-algo/medias/featureimages/8.jpg" class="responsive-img" alt="「力扣」第 990 题：等式方程的可满足性（中等）">
                         
-                        <span class="card-title">「力扣」第 990 题：等式方程的可满足性</span>
+                        <span class="card-title">「力扣」第 990 题：等式方程的可满足性（中等）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 990 题：等式方程的可满足性
+                            「力扣」第 990 题：等式方程的可满足性（中等）
 有些问题不以并查集为背景，但的确可以使用并查集的知识帮助我们解决问题。由于等式相等具有传递性，比较容易想到使用并查集。
 
 
@@ -1181,7 +1181,7 @@
 题解链接
 
 
-给定一个由表示变量之间关系的字符串方程组成的数组，每
+给定一个由表示变量之间关系的字符串方程组成的
                         
                     </div>
                     <div class="publish-info">
@@ -1192,8 +1192,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             

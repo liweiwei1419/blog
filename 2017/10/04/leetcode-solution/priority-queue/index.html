@@ -526,7 +526,7 @@
             _<span class="token punctuation">,</span> key <span class="token operator">=</span> heapq<span class="token punctuation">.</span>heappop<span class="token punctuation">(</span>l<span class="token punctuation">)</span>
             res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>key<span class="token punctuation">)</span>
         <span class="token keyword">return</span> res<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="练习：LeetCode-第-23-题：合并K个排序链表"><a href="#练习：LeetCode-第-23-题：合并K个排序链表" class="headerlink" title="练习：LeetCode 第 23 题：合并K个排序链表"></a>练习：LeetCode 第 23 题：合并K个排序链表</h3><p>传送门：<a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">23. 合并K个排序链表</a>。</p>
+<h3 id="「力扣」第-23-题：合并-K-个排序链表"><a href="#「力扣」第-23-题：合并-K-个排序链表" class="headerlink" title="「力扣」第 23 题：合并 K 个排序链表"></a>「力扣」第 23 题：合并 K 个排序链表</h3><p>传送门：<a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">23. 合并K个排序链表</a>。</p>
 <blockquote>
 <p>合并 <em>k</em> 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p>
 <p><strong>示例:</strong></p>
@@ -537,13 +537,14 @@
  2-&gt;6
 ]
 输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</code></pre></blockquote>
-<p>思路1：使用优先队列。这是一道类似于教科书上例题的问题。这里我们举生活中的例子来理解求解思路，其实一点都不难。</p>
+<h3 id="方法一：贪心算法（使用优先队列）"><a href="#方法一：贪心算法（使用优先队列）" class="headerlink" title="方法一：贪心算法（使用优先队列）"></a>方法一：贪心算法（使用优先队列）</h3><p>这是一道类似于教科书上例题的问题。这里我们举生活中的例子来理解求解思路，其实一点都不难。</p>
 <p>假设有如下生活情境：假设你是一名体育老师，<strong>有</strong> <strong>3</strong> <strong>个班的学生，他们已经按照身高从矮到高排好成了</strong> <strong>3</strong> <strong>列纵队</strong>，现在要把这 3 个班的学生也按照身高从矮到高排列一列纵队。</p>
 <p>我们可以这么做：</p>
 <p>1、让 3 个班的学生按列站在你的面前，这时你能看到站在队首的学生的全身，其余同学只能看到比前面同学脑袋高出的那部分；</p>
 <p>2、每一次队首的 3 名同学，请出最矮的同学出列到“队伍4”（即我们最终认为排好序的队列），出列的这一列的后一名同学向前走一步；</p>
 <p>3、重复第 2 步，直到 3 个班的同学全部出列完毕。</p>
-<p>Python2 代码：注意：以下代码在 Python2 中可以通过，Python3 中的 heapq 不支持传入自定义对象，不过可以绕一个弯子，把索引号传进去就可以了</p>
+<p>Python2 代码：</p>
+<p>注意：以下代码在 Python2 中可以通过，Python3 中的 heapq 不支持传入自定义对象，不过可以绕一个弯子，把索引号传进去就可以了</p>
 <pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
     <span class="token keyword">def</span> <span class="token function">mergeKLists</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> lists<span class="token punctuation">)</span><span class="token punctuation">:</span>
         <span class="token triple-quoted-string string">"""
@@ -597,7 +598,7 @@
                 head<span class="token punctuation">.</span>next <span class="token operator">=</span> None
 
         <span class="token keyword">return</span> dummy_node<span class="token punctuation">.</span>next<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>思路2：分治。<strong>还可以采用归并排序的分治思想来解决，代码结构和归并排序可以说是同出一辙。</strong></p>
+<h3 id="方法二：分治算法"><a href="#方法二：分治算法" class="headerlink" title="方法二：分治算法"></a>方法二：分治算法</h3><p><strong>还可以采用归并排序的分治思想来解决，代码结构和归并排序可以说是同出一辙。</strong></p>
 <p>1、先一分为二地解决了这个问题；</p>
 <p>2、再考虑如何合并，这个合并的过程也是一个递归方法。 </p>
 <p>Python 代码：</p>

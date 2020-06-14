@@ -6,7 +6,7 @@
   <link href="/leetcode-algo/atom.xml" rel="self"/>
   
   <link href="https://liweiwei1419.gitee.io/leetcode-algo/"/>
-  <updated>2020-05-12T06:17:00.904Z</updated>
+  <updated>2020-06-14T10:56:19.973Z</updated>
   <id>https://liweiwei1419.gitee.io/leetcode-algo/</id>
   
   <author>
@@ -15,6 +15,87 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>「力扣」第 399 题：除法求值（困难）</title>
+    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/0399-longest-consecutive-sequence/"/>
+    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/0399-longest-consecutive-sequence/</id>
+    <published>2020-06-14T02:00:00.000Z</published>
+    <updated>2020-06-14T10:56:19.973Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;「力扣」第-399-题：除法求值（困难）&quot;&gt;&lt;a href=&quot;#「力扣」第-399-题：除法求值（困难）&quot; class=&quot;headerlink&quot; title=&quot;「力扣」第 399 题：除法求值（困难）&quot;&gt;&lt;/a&gt;「力扣」第 399
+        
+      
+    
+    </summary>
+    
+    
+      <category term="专题 11：并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+    
+    
+      <category term="并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「力扣」第 1267 题：统计参与通信的服务器（中等）</title>
+    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/1267-count-servers-that-communicate/"/>
+    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/1267-count-servers-that-communicate/</id>
+    <published>2020-06-14T01:00:00.000Z</published>
+    <updated>2020-06-14T10:56:49.918Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;「力扣」第-1267-题：统计参与通信的服务器&quot;&gt;&lt;a href=&quot;#「力扣」第-1267-题：统计参与通信的服务器&quot; class=&quot;headerlink&quot; title=&quot;「力扣」第 1267 题：统计参与通信的服务器&quot;&gt;&lt;/a&gt;「力扣」第 1267 题：&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="专题 11：并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+    
+    
+      <category term="并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>「力扣」第 945 题：使数组唯一的最小增量（中等）</title>
+    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/0945-minimum-increment-to-make-array-unique/"/>
+    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/0945-minimum-increment-to-make-array-unique/</id>
+    <published>2020-06-14T00:00:00.000Z</published>
+    <updated>2020-06-14T10:50:36.569Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;「力扣」第-945-题：使数组唯一的最小增量（中等）&quot;&gt;&lt;a href=&quot;#「力扣」第-945-题：使数组唯一的最小增量（中等）&quot; class=&quot;headerlink&quot; title=&quot;「力扣」第 945 题：使数组唯一的最小增量（中等）&quot;&gt;&lt;/a&gt;「力扣」第
+        
+      
+    
+    </summary>
+    
+    
+      <category term="专题 11：并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+    
+    
+      <category term="并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+    
+  </entry>
   
   <entry>
     <title>「力扣」第 410 题：分割数组的最大值（困难）</title>
@@ -330,9 +411,9 @@
       <category term="专题 3：数组" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-3%EF%BC%9A%E6%95%B0%E7%BB%84/"/>
     
     
-      <category term="partition" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/partition/"/>
-    
       <category term="数组" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="partition" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/partition/"/>
     
       <category term="循环不变量" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%BE%AA%E7%8E%AF%E4%B8%8D%E5%8F%98%E9%87%8F/"/>
     
@@ -498,87 +579,6 @@
     
     
       <category term="广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>「力扣」第 210 题：课程表 II</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2018/08/02/leetcode-algo/0210-course-schedule-ii/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2018/08/02/leetcode-algo/0210-course-schedule-ii/</id>
-    <published>2018-08-02T00:00:00.000Z</published>
-    <updated>2020-05-03T14:05:06.150Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;「力扣」第-210-题：课程表-II&quot;&gt;&lt;a href=&quot;#「力扣」第-210-题：课程表-II&quot; class=&quot;headerlink&quot; title=&quot;「力扣」第 210 题：课程表 II&quot;&gt;&lt;/a&gt;「力扣」第 210 题：课程表
-        
-      
-    
-    </summary>
-    
-    
-      <category term="专题 17：广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
-    
-    
-      <category term="广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>「力扣」第 126 题：单词接龙 II</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2018/08/01/leetcode-algo/0126-word-ladder-ii/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2018/08/01/leetcode-algo/0126-word-ladder-ii/</id>
-    <published>2018-08-01T00:00:00.000Z</published>
-    <updated>2020-05-03T17:03:03.391Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;「力扣」第-126-题：单词接龙-II&quot;&gt;&lt;a href=&quot;#「力扣」第-126-题：单词接龙-II&quot; class=&quot;headerlink&quot; title=&quot;「力扣」第 126 题：单词接龙 II&quot;&gt;&lt;/a&gt;「力扣」第 126 题：单词接龙
-        
-      
-    
-    </summary>
-    
-    
-      <category term="专题 17：广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
-    
-    
-      <category term="广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>「力扣」第 1081 题：不同字符的最小子序列</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2018/07/08/leetcode-algo/1081-smallest-subsequence-of-distinct-characters/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2018/07/08/leetcode-algo/1081-smallest-subsequence-of-distinct-characters/</id>
-    <published>2018-07-08T00:00:00.000Z</published>
-    <updated>2020-05-03T14:13:46.911Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;「力扣」第-1081-题：不同字符的最小子序列&quot;&gt;&lt;a href=&quot;#「力扣」第-1081-题：不同字符的最小子序列&quot; class=&quot;headerlink&quot; title=&quot;「力扣」第 1081 题：不同字符的最小子序列&quot;&gt;&lt;/a&gt;「力扣」第 1081
-        
-      
-    
-    </summary>
-    
-    
-      <category term="专题 16：贪心算法" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-16%EF%BC%9A%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"/>
-    
-    
-      <category term="贪心算法" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
