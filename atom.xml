@@ -3,11 +3,11 @@
   <title>算法与数据结构入门教程</title>
   
   <subtitle>力扣算法图解</subtitle>
-  <link href="/leetcode-algo/atom.xml" rel="self"/>
+  <link href="/atom.xml" rel="self"/>
   
-  <link href="https://liweiwei1419.gitee.io/leetcode-algo/"/>
+  <link href="https://www.liwei.party/"/>
   <updated>2020-06-14T10:56:19.973Z</updated>
-  <id>https://liweiwei1419.gitee.io/leetcode-algo/</id>
+  <id>https://www.liwei.party/</id>
   
   <author>
     <name>liweiwei1419</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>「力扣」第 399 题：除法求值（困难）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/0399-longest-consecutive-sequence/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/0399-longest-consecutive-sequence/</id>
+    <link href="https://www.liwei.party/2020/06/14/leetcode-algo/0399-longest-consecutive-sequence/"/>
+    <id>https://www.liwei.party/2020/06/14/leetcode-algo/0399-longest-consecutive-sequence/</id>
     <published>2020-06-14T02:00:00.000Z</published>
     <updated>2020-06-14T10:56:19.973Z</updated>
     
@@ -36,17 +36,17 @@
     </summary>
     
     
-      <category term="专题 11：并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+      <category term="专题 11：并查集" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
     
     
-      <category term="并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+      <category term="并查集" scheme="https://www.liwei.party/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 1267 题：统计参与通信的服务器（中等）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/1267-count-servers-that-communicate/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/1267-count-servers-that-communicate/</id>
+    <link href="https://www.liwei.party/2020/06/14/leetcode-algo/1267-count-servers-that-communicate/"/>
+    <id>https://www.liwei.party/2020/06/14/leetcode-algo/1267-count-servers-that-communicate/</id>
     <published>2020-06-14T01:00:00.000Z</published>
     <updated>2020-06-14T10:56:49.918Z</updated>
     
@@ -63,17 +63,17 @@
     </summary>
     
     
-      <category term="专题 11：并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+      <category term="专题 11：并查集" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
     
     
-      <category term="并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+      <category term="并查集" scheme="https://www.liwei.party/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 945 题：使数组唯一的最小增量（中等）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/0945-minimum-increment-to-make-array-unique/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/06/14/leetcode-algo/0945-minimum-increment-to-make-array-unique/</id>
+    <link href="https://www.liwei.party/2020/06/14/leetcode-algo/0945-minimum-increment-to-make-array-unique/"/>
+    <id>https://www.liwei.party/2020/06/14/leetcode-algo/0945-minimum-increment-to-make-array-unique/</id>
     <published>2020-06-14T00:00:00.000Z</published>
     <updated>2020-06-14T10:50:36.569Z</updated>
     
@@ -90,17 +90,17 @@
     </summary>
     
     
-      <category term="专题 11：并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+      <category term="专题 11：并查集" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
     
     
-      <category term="并查集" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
+      <category term="并查集" scheme="https://www.liwei.party/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 410 题：分割数组的最大值（困难）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/12/leetcode-algo/0410-split-array-largest-sum/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/05/12/leetcode-algo/0410-split-array-largest-sum/</id>
+    <link href="https://www.liwei.party/2020/05/12/leetcode-algo/0410-split-array-largest-sum/"/>
+    <id>https://www.liwei.party/2020/05/12/leetcode-algo/0410-split-array-largest-sum/</id>
     <published>2020-05-12T00:00:00.000Z</published>
     <updated>2020-05-12T06:17:00.904Z</updated>
     
@@ -117,19 +117,19 @@
     </summary>
     
     
-      <category term="专题 2：二分查找" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
+      <category term="专题 2：二分查找" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     
     
-      <category term="二分查找" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
+      <category term="二分查找" scheme="https://www.liwei.party/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     
-      <category term="减治算法" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E7%AE%97%E6%B3%95/"/>
+      <category term="减治算法" scheme="https://www.liwei.party/tags/%E5%87%8F%E6%B2%BB%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 221 题：最大正方形（中等）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/08/leetcode-algo/0221-maximal-square/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/05/08/leetcode-algo/0221-maximal-square/</id>
+    <link href="https://www.liwei.party/2020/05/08/leetcode-algo/0221-maximal-square/"/>
+    <id>https://www.liwei.party/2020/05/08/leetcode-algo/0221-maximal-square/</id>
     <published>2020-05-08T00:00:00.000Z</published>
     <updated>2020-05-08T10:36:28.840Z</updated>
     
@@ -146,17 +146,17 @@
     </summary>
     
     
-      <category term="专题 15：动态规划" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-15%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+      <category term="专题 15：动态规划" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-15%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     
-      <category term="动态规划" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+      <category term="动态规划" scheme="https://www.liwei.party/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 993 题：二叉树的堂兄弟节点</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/07/leetcode-algo/0127-word-ladder/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/05/07/leetcode-algo/0127-word-ladder/</id>
+    <link href="https://www.liwei.party/2020/05/07/leetcode-algo/0127-word-ladder/"/>
+    <id>https://www.liwei.party/2020/05/07/leetcode-algo/0127-word-ladder/</id>
     <published>2020-05-07T08:00:00.000Z</published>
     <updated>2020-05-07T08:49:42.756Z</updated>
     
@@ -173,19 +173,19 @@
     </summary>
     
     
-      <category term="专题 17：广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="专题 17：广度优先遍历" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
     
-      <category term="深度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="深度优先遍历" scheme="https://www.liwei.party/tags/%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
-      <category term="广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="广度优先遍历" scheme="https://www.liwei.party/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 572 题：另一个树的子树</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/07/leetcode-algo/0572-subtree-of-another-tree/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/05/07/leetcode-algo/0572-subtree-of-another-tree/</id>
+    <link href="https://www.liwei.party/2020/05/07/leetcode-algo/0572-subtree-of-another-tree/"/>
+    <id>https://www.liwei.party/2020/05/07/leetcode-algo/0572-subtree-of-another-tree/</id>
     <published>2020-05-07T00:00:00.000Z</published>
     <updated>2020-05-06T18:38:25.365Z</updated>
     
@@ -202,19 +202,19 @@
     </summary>
     
     
-      <category term="专题 12：树" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-12%EF%BC%9A%E6%A0%91/"/>
+      <category term="专题 12：树" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-12%EF%BC%9A%E6%A0%91/"/>
     
     
-      <category term="递归" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E9%80%92%E5%BD%92/"/>
+      <category term="递归" scheme="https://www.liwei.party/tags/%E9%80%92%E5%BD%92/"/>
     
-      <category term="二叉树" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+      <category term="二叉树" scheme="https://www.liwei.party/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 983 题：最低票价</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/06/leetcode-algo/1143-longest-common-subsequence/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/05/06/leetcode-algo/1143-longest-common-subsequence/</id>
+    <link href="https://www.liwei.party/2020/05/06/leetcode-algo/1143-longest-common-subsequence/"/>
+    <id>https://www.liwei.party/2020/05/06/leetcode-algo/1143-longest-common-subsequence/</id>
     <published>2020-05-06T00:00:00.000Z</published>
     <updated>2020-05-05T17:00:54.356Z</updated>
     
@@ -232,19 +232,19 @@
     </summary>
     
     
-      <category term="专题 15：动态规划" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-15%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+      <category term="专题 15：动态规划" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-15%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     
-      <category term="字符串" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+      <category term="字符串" scheme="https://www.liwei.party/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
-      <category term="动态规划" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+      <category term="动态规划" scheme="https://www.liwei.party/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 387 题：字符串中的第一个唯一字符</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/05/leetcode-algo/0387-first-unique-character-in-a-string/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/05/05/leetcode-algo/0387-first-unique-character-in-a-string/</id>
+    <link href="https://www.liwei.party/2020/05/05/leetcode-algo/0387-first-unique-character-in-a-string/"/>
+    <id>https://www.liwei.party/2020/05/05/leetcode-algo/0387-first-unique-character-in-a-string/</id>
     <published>2020-05-05T15:40:00.000Z</published>
     <updated>2020-05-05T15:44:12.637Z</updated>
     
@@ -261,19 +261,19 @@
     </summary>
     
     
-      <category term="专题 3：数组" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-3%EF%BC%9A%E6%95%B0%E7%BB%84/"/>
+      <category term="专题 3：数组" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-3%EF%BC%9A%E6%95%B0%E7%BB%84/"/>
     
     
-      <category term="数组" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E6%95%B0%E7%BB%84/"/>
+      <category term="数组" scheme="https://www.liwei.party/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="字符串" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+      <category term="字符串" scheme="https://www.liwei.party/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 98 题：验证二叉搜索树（中等）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/05/leetcode-algo/0098-validate-binary-search-tree/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/05/05/leetcode-algo/0098-validate-binary-search-tree/</id>
+    <link href="https://www.liwei.party/2020/05/05/leetcode-algo/0098-validate-binary-search-tree/"/>
+    <id>https://www.liwei.party/2020/05/05/leetcode-algo/0098-validate-binary-search-tree/</id>
     <published>2020-05-05T00:00:00.000Z</published>
     <updated>2020-05-05T15:52:13.387Z</updated>
     
@@ -290,19 +290,19 @@
     </summary>
     
     
-      <category term="专题 12：树" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-12%EF%BC%9A%E6%A0%91/"/>
+      <category term="专题 12：树" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-12%EF%BC%9A%E6%A0%91/"/>
     
     
-      <category term="递归" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E9%80%92%E5%BD%92/"/>
+      <category term="递归" scheme="https://www.liwei.party/tags/%E9%80%92%E5%BD%92/"/>
     
-      <category term="二叉树" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+      <category term="二叉树" scheme="https://www.liwei.party/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 53 题：最大子序和（中等）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/05/03/leetcode-algo/0053-maximum-subarray/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/05/03/leetcode-algo/0053-maximum-subarray/</id>
+    <link href="https://www.liwei.party/2020/05/03/leetcode-algo/0053-maximum-subarray/"/>
+    <id>https://www.liwei.party/2020/05/03/leetcode-algo/0053-maximum-subarray/</id>
     <published>2020-05-03T00:00:00.000Z</published>
     <updated>2020-05-05T08:02:44.232Z</updated>
     
@@ -319,19 +319,19 @@
     </summary>
     
     
-      <category term="专题 15：动态规划" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-15%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+      <category term="专题 15：动态规划" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-15%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
     
-      <category term="分治算法" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/"/>
+      <category term="分治算法" scheme="https://www.liwei.party/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/"/>
     
-      <category term="动态规划" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
+      <category term="动态规划" scheme="https://www.liwei.party/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 1095 题：山脉数组中查找目标值（困难）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/04/29/leetcode-algo/1095-find-in-mountain-array/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/04/29/leetcode-algo/1095-find-in-mountain-array/</id>
+    <link href="https://www.liwei.party/2020/04/29/leetcode-algo/1095-find-in-mountain-array/"/>
+    <id>https://www.liwei.party/2020/04/29/leetcode-algo/1095-find-in-mountain-array/</id>
     <published>2020-04-29T00:00:00.000Z</published>
     <updated>2020-05-05T17:16:49.743Z</updated>
     
@@ -348,19 +348,19 @@
     </summary>
     
     
-      <category term="专题 2：二分查找" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
+      <category term="专题 2：二分查找" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     
     
-      <category term="二分查找" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
+      <category term="二分查找" scheme="https://www.liwei.party/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     
-      <category term="减治算法" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E7%AE%97%E6%B3%95/"/>
+      <category term="减治算法" scheme="https://www.liwei.party/tags/%E5%87%8F%E6%B2%BB%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 355 题：设计推特（中等）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/04/13/leetcode-algo/0355-design-twitter/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/04/13/leetcode-algo/0355-design-twitter/</id>
+    <link href="https://www.liwei.party/2020/04/13/leetcode-algo/0355-design-twitter/"/>
+    <id>https://www.liwei.party/2020/04/13/leetcode-algo/0355-design-twitter/</id>
     <published>2020-04-13T00:00:00.000Z</published>
     <updated>2020-05-05T16:55:40.454Z</updated>
     
@@ -378,19 +378,19 @@
     </summary>
     
     
-      <category term="专题 6：链表" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-6%EF%BC%9A%E9%93%BE%E8%A1%A8/"/>
+      <category term="专题 6：链表" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-6%EF%BC%9A%E9%93%BE%E8%A1%A8/"/>
     
     
-      <category term="单链表" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%8D%95%E9%93%BE%E8%A1%A8/"/>
+      <category term="单链表" scheme="https://www.liwei.party/tags/%E5%8D%95%E9%93%BE%E8%A1%A8/"/>
     
-      <category term="快慢指针" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/"/>
+      <category term="快慢指针" scheme="https://www.liwei.party/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 283 题：移动零（循环不变量）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/03/30/leetcode-solution/0075-sort-colors/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/03/30/leetcode-solution/0075-sort-colors/</id>
+    <link href="https://www.liwei.party/2020/03/30/leetcode-solution/0075-sort-colors/"/>
+    <id>https://www.liwei.party/2020/03/30/leetcode-solution/0075-sort-colors/</id>
     <published>2020-03-30T00:00:00.000Z</published>
     <updated>2020-05-02T11:51:40.024Z</updated>
     
@@ -408,21 +408,21 @@
     </summary>
     
     
-      <category term="专题 3：数组" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-3%EF%BC%9A%E6%95%B0%E7%BB%84/"/>
+      <category term="专题 3：数组" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-3%EF%BC%9A%E6%95%B0%E7%BB%84/"/>
     
     
-      <category term="数组" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E6%95%B0%E7%BB%84/"/>
+      <category term="partition" scheme="https://www.liwei.party/tags/partition/"/>
     
-      <category term="partition" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/partition/"/>
+      <category term="数组" scheme="https://www.liwei.party/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="循环不变量" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%BE%AA%E7%8E%AF%E4%B8%8D%E5%8F%98%E9%87%8F/"/>
+      <category term="循环不变量" scheme="https://www.liwei.party/tags/%E5%BE%AA%E7%8E%AF%E4%B8%8D%E5%8F%98%E9%87%8F/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」的「圈子」回答：刷题刷到绝望该怎么办？</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2020/03/01/algorithms-and-data-structures/introduction/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2020/03/01/algorithms-and-data-structures/introduction/</id>
+    <link href="https://www.liwei.party/2020/03/01/algorithms-and-data-structures/introduction/"/>
+    <id>https://www.liwei.party/2020/03/01/algorithms-and-data-structures/introduction/</id>
     <published>2020-03-01T00:00:00.000Z</published>
     <updated>2020-05-02T09:08:21.232Z</updated>
     
@@ -439,15 +439,15 @@
     </summary>
     
     
-      <category term="算法学习心得" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"/>
+      <category term="算法学习心得" scheme="https://www.liwei.party/categories/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/"/>
     
     
   </entry>
   
   <entry>
     <title>特别好用的二分查找法模板（第 2 版）</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2019/06/17/leetcode-solution-new/search-insert-position/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2019/06/17/leetcode-solution-new/search-insert-position/</id>
+    <link href="https://www.liwei.party/2019/06/17/leetcode-solution-new/search-insert-position/"/>
+    <id>https://www.liwei.party/2019/06/17/leetcode-solution-new/search-insert-position/</id>
     <published>2019-06-17T00:00:00.000Z</published>
     <updated>2020-05-09T04:34:44.243Z</updated>
     
@@ -464,19 +464,19 @@
     </summary>
     
     
-      <category term="专题 2：二分查找" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
+      <category term="专题 2：二分查找" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-2%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     
     
-      <category term="二分查找" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
+      <category term="二分查找" scheme="https://www.liwei.party/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     
-      <category term="减治思想" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%87%8F%E6%B2%BB%E6%80%9D%E6%83%B3/"/>
+      <category term="减治思想" scheme="https://www.liwei.party/tags/%E5%87%8F%E6%B2%BB%E6%80%9D%E6%83%B3/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 279 题：完全平方式</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2018/08/06/leetcode-algo/0127-word-ladder/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2018/08/06/leetcode-algo/0127-word-ladder/</id>
+    <link href="https://www.liwei.party/2018/08/06/leetcode-algo/0127-word-ladder/"/>
+    <id>https://www.liwei.party/2018/08/06/leetcode-algo/0127-word-ladder/</id>
     <published>2018-08-06T00:00:00.000Z</published>
     <updated>2020-05-03T14:06:02.418Z</updated>
     
@@ -493,17 +493,17 @@
     </summary>
     
     
-      <category term="专题 17：广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="专题 17：广度优先遍历" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
     
-      <category term="广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="广度优先遍历" scheme="https://www.liwei.party/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 207 题：课程表</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2018/08/04/leetcode-algo/0207-course-schedule/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2018/08/04/leetcode-algo/0207-course-schedule/</id>
+    <link href="https://www.liwei.party/2018/08/04/leetcode-algo/0207-course-schedule/"/>
+    <id>https://www.liwei.party/2018/08/04/leetcode-algo/0207-course-schedule/</id>
     <published>2018-08-04T00:00:00.000Z</published>
     <updated>2020-05-10T08:56:41.628Z</updated>
     
@@ -521,17 +521,17 @@
     </summary>
     
     
-      <category term="专题 17：广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="专题 17：广度优先遍历" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
     
-      <category term="广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="广度优先遍历" scheme="https://www.liwei.party/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 200 题：岛屿数量</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2018/08/03/leetcode-algo/bfs/0200-number-of-islands/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2018/08/03/leetcode-algo/bfs/0200-number-of-islands/</id>
+    <link href="https://www.liwei.party/2018/08/03/leetcode-algo/bfs/0200-number-of-islands/"/>
+    <id>https://www.liwei.party/2018/08/03/leetcode-algo/bfs/0200-number-of-islands/</id>
     <published>2018-08-03T00:00:00.000Z</published>
     <updated>2020-05-03T14:08:11.493Z</updated>
     
@@ -548,17 +548,17 @@
     </summary>
     
     
-      <category term="专题 17：广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="专题 17：广度优先遍历" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
     
-      <category term="广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="广度优先遍历" scheme="https://www.liwei.party/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
   </entry>
   
   <entry>
     <title>「力扣」第 127 题：单词接龙</title>
-    <link href="https://liweiwei1419.gitee.io/leetcode-algo/2018/08/02/leetcode-algo/0127-word-ladder/"/>
-    <id>https://liweiwei1419.gitee.io/leetcode-algo/2018/08/02/leetcode-algo/0127-word-ladder/</id>
+    <link href="https://www.liwei.party/2018/08/02/leetcode-algo/0127-word-ladder/"/>
+    <id>https://www.liwei.party/2018/08/02/leetcode-algo/0127-word-ladder/</id>
     <published>2018-08-02T00:00:00.000Z</published>
     <updated>2020-05-03T18:24:07.180Z</updated>
     
@@ -575,10 +575,10 @@
     </summary>
     
     
-      <category term="专题 17：广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="专题 17：广度优先遍历" scheme="https://www.liwei.party/categories/%E4%B8%93%E9%A2%98-17%EF%BC%9A%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
     
-      <category term="广度优先遍历" scheme="https://liweiwei1419.gitee.io/leetcode-algo/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
+      <category term="广度优先遍历" scheme="https://www.liwei.party/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E9%81%8D%E5%8E%86/"/>
     
   </entry>
   
