@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="「并查集」专题 2：并查集第 1 版（quick-find）, 算法与数据结构入门教程">
+    <meta name="keywords" content="「并查集」专题 2：并查集第 1 版（quick-find 实现）, 算法与数据结构入门教程">
     <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>「并查集」专题 2：并查集第 1 版（quick-find） | 算法与数据结构入门教程</title>
+    <title>「并查集」专题 2：并查集第 1 版（quick-find 实现） | 算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">「并查集」专题 2：并查集第 1 版（quick-find）</h1>
+                    <h1 class="description center-align post-title">「并查集」专题 2：并查集第 1 版（quick-find 实现）</h1>
                 </div>
             </div>
         </div>
@@ -452,8 +452,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                专题 11： 并查集
+                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                专题 11：并查集
                             </a>
                         
                     </div>
@@ -481,7 +481,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="「并查集」专题-2：并查集第-1-版（quick-find）"><a href="#「并查集」专题-2：并查集第-1-版（quick-find）" class="headerlink" title="「并查集」专题 2：并查集第 1 版（quick-find）"></a>「并查集」专题 2：并查集第 1 版（quick-find）</h2><h3 id="重点提示"><a href="#重点提示" class="headerlink" title="重点提示"></a>重点提示</h3><p>基于 <code>id</code> 的思想类似于：给每个元素改名字，名字一样，就表示在同一个集合中。</p>
+                <h2 id="「并查集」专题-2：并查集第-1-版（quick-find-实现）"><a href="#「并查集」专题-2：并查集第-1-版（quick-find-实现）" class="headerlink" title="「并查集」专题 2：并查集第 1 版（quick-find 实现）"></a>「并查集」专题 2：并查集第 1 版（quick-find 实现）</h2><h3 id="重点提示"><a href="#重点提示" class="headerlink" title="重点提示"></a>重点提示</h3><p>基于 <code>id</code> 的思想类似于：给每个元素改名字，名字一样，就表示在同一个集合中。</p>
 <ul>
 <li><p>优点：查询两个元素是否在一个集合中很快。</p>
 </li>
@@ -489,7 +489,7 @@
 </li>
 </ul>
 <p>这一版「并查集」并不常用，仅作为了解。</p>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>并查集可以使用数组表示。这个数组我们命名为 <code>id</code> 。初始化的时候每一个元素的值都是不一样的。如果值一样的，表示是属于同一个集合内的元素。</p>
+<p>并查集可以使用数组表示。这个数组我们命名为 <code>id</code> 。初始化的时候每一个元素的值都是不一样的。如果值一样的，表示是属于同一个集合内的元素。</p>
 <p>基于 <code>id</code> 的 quick-find 的思路：设置 <code>id</code> 数组，数组的每个元素是分量标识。</p>
 <p>从 quick-find 这个名字上看，我们这一版的实现，对于 <code>find(int p)</code> 这个操作来说是高效的，但对于 <code>union(int p, int q)</code> 这个操作是低效的，因为需要遍历整个并查集。<code>find(int p)</code> 这个操作的时间复杂度是 $O(1)$，而 <code>union(int p, int q)</code> 这个操作的时间复杂度是 $O(n)$，要全部遍历并查集中的元素，把其中一个分量标识的所有结点的编号更改为另一个一个分量标识。</p>
 <p>![高级数据结构：并查集-4](<a href="https://liweiwei1419.gitee.io/images/algorithms/union-find-set/基于" target="_blank" rel="noopener">https://liweiwei1419.gitee.io/images/algorithms/union-find-set/基于</a> id 并查集算法的例子.jpg)</p>
@@ -526,7 +526,7 @@
     <span class="token punctuation">}</span>
 
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">connected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">return</span> <span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
@@ -1058,18 +1058,17 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="「并查集」专题 3：基于 parent 的并查集（了解思想，非最终版本）">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="「并查集」专题 3：并查集第 2 版基于 parent 的并查集（非最终版本）（非最终版本）">
                         
-                        <span class="card-title">「并查集」专题 3：基于 parent 的并查集（了解思想，非最终版本）</span>
+                        <span class="card-title">「并查集」专题 3：并查集第 2 版基于 parent 的并查集（非最终版本）（非最终版本）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「并查集」专题 3：基于 parent 的并查集（了解思想，非最终版本）
+                            「并查集」专题 3：并查集第 2 版基于 parent 的并查集（非最终版本）（非最终版本）
 重点提示：这一版「并查集」代码是最基本的「并查集」，我们需要学习思想，核心思想是「代表元法」，以「树」的「根结点」作为代表元。
-后续我们介绍这一版代码的两个优化：
-1
+后续我们介绍这一版
                         
                     </div>
                     <div class="publish-info">
@@ -1080,8 +1079,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             
@@ -1133,8 +1132,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             

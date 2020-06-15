@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="「并查集」专题 4：并查集第 3 版（quick-union 基于 size 的优化）, 算法与数据结构入门教程">
+    <meta name="keywords" content="「并查集」专题 4：并查集第 3 版 quick-union 基于 size 的优化, 算法与数据结构入门教程">
     <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>「并查集」专题 4：并查集第 3 版（quick-union 基于 size 的优化） | 算法与数据结构入门教程</title>
+    <title>「并查集」专题 4：并查集第 3 版 quick-union 基于 size 的优化 | 算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">「并查集」专题 4：并查集第 3 版（quick-union 基于 size 的优化）</h1>
+                    <h1 class="description center-align post-title">「并查集」专题 4：并查集第 3 版 quick-union 基于 size 的优化</h1>
                 </div>
             </div>
         </div>
@@ -452,8 +452,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                专题 11： 并查集
+                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                专题 11：并查集
                             </a>
                         
                     </div>
@@ -481,14 +481,14 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="「并查集」专题-4：并查集第-3-版（quick-union-基于-size-的优化）"><a href="#「并查集」专题-4：并查集第-3-版（quick-union-基于-size-的优化）" class="headerlink" title="「并查集」专题 4：并查集第 3 版（quick-union 基于 size 的优化）"></a>「并查集」专题 4：并查集第 3 版（quick-union 基于 size 的优化）</h2><blockquote>
+                <h2 id="「并查集」专题-4：并查集第-3-版-quick-union-基于-size-的优化"><a href="#「并查集」专题-4：并查集第-3-版-quick-union-基于-size-的优化" class="headerlink" title="「并查集」专题 4：并查集第 3 版 quick-union 基于 size 的优化"></a>「并查集」专题 4：并查集第 3 版 quick-union 基于 size 的优化</h2><blockquote>
 <p>重点提示：这一版「并查集」代码是最基本的「并查集」，我们需要学习思想，核心思想是「代表元法」，以「树」的「根结点」作为代表元。</p>
 <p>后续我们介绍这一版代码的两个优化：</p>
 <p>1、按秩合并（有 2 个版本）</p>
 <p>2、路径压缩（有 2 个版本）</p>
 <p>介绍得多，只是为了方便大家建立知识结构，真正我们只会使用一个版本的「并查集」。我们放在介绍完了以后再说。</p>
 </blockquote>
-<p>我们发现 <code>union 4,9</code> 与 <code>union 9,4</code> 其实是一样的，也就是把谁的根指向谁的根，这一点从正确性上来说是无关紧要的，但是对于 <code>find</code> 的时间复杂度就会有影响。为此，我们做如下优化。</p>
+<p>我们发现 <code>union(4, 9)</code> 与 <code>union(9, 4)</code> 其实是一样的，也就是把谁的根指向谁的根，这一点从正确性上来说是无关紧要的，但是对于 <code>find</code> 的时间复杂度就会有影响。为此，我们做如下优化。</p>
 <p>在合并之前做判断，具体做法是，计算每一个结点有多少个元素直接或者间接地以它为根，我们应该将集合元素少的那结点的根指向集合元素多的那个结点的根。这样，形成的树就会更高概率地形成一棵层数较低的树。</p>
 <p>为此，我们再引入一个 <code>size</code> 数组，<code>size[i]</code> 的定义是：以第 <code>i</code> 个结点为根的集合的元素的个数。</p>
 <p>在初始化的时候 <code>size[i] = 1</code>，<code>find</code> 和 <code>isConnected</code> 操作中我们都不须要去维护 <code>size</code> 这个数组，唯独在 <code>unionElements</code> 的时候，我们才要维护 <code>size</code> 数组的定义。</p>
@@ -529,7 +529,7 @@
     <span class="token punctuation">}</span>
 
     <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">connected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">int</span> pRoot <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">int</span> qRoot <span class="token operator">=</span> <span class="token function">find</span><span class="token punctuation">(</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token keyword">return</span> pRoot <span class="token operator">==</span> qRoot<span class="token punctuation">;</span>
@@ -1061,17 +1061,17 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="「并查集」专题 5：并查集第 4 版（quick-union 基于 rank 的优化）">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="「并查集」专题 5：并查集第 4 版 quick-union 基于 rank 的优化">
                         
-                        <span class="card-title">「并查集」专题 5：并查集第 4 版（quick-union 基于 rank 的优化）</span>
+                        <span class="card-title">「并查集」专题 5：并查集第 4 版 quick-union 基于 rank 的优化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「并查集」专题 5：并查集第 4 版（quick-union 基于 rank 的优化）
+                            「并查集」专题 5：并查集第 4 版 quick-union 基于 rank 的优化
 重点提示：基于 rank 的优化是使用得更多的，因为这样做更合理一些。
-但是维护数组 rank 的定义是相对麻烦的，通常的做法就是不维护，只是把数组 r
+但是维护数组 rank 的定义是相对麻烦的，通常的做法就是不维护，只是把数组 ra
                         
                     </div>
                     <div class="publish-info">
@@ -1082,8 +1082,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             
@@ -1112,18 +1112,17 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="「并查集」专题 3：基于 parent 的并查集（了解思想，非最终版本）">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="「并查集」专题 3：并查集第 2 版基于 parent 的并查集（非最终版本）（非最终版本）">
                         
-                        <span class="card-title">「并查集」专题 3：基于 parent 的并查集（了解思想，非最终版本）</span>
+                        <span class="card-title">「并查集」专题 3：并查集第 2 版基于 parent 的并查集（非最终版本）（非最终版本）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「并查集」专题 3：基于 parent 的并查集（了解思想，非最终版本）
+                            「并查集」专题 3：并查集第 2 版基于 parent 的并查集（非最终版本）（非最终版本）
 重点提示：这一版「并查集」代码是最基本的「并查集」，我们需要学习思想，核心思想是「代表元法」，以「树」的「根结点」作为代表元。
-后续我们介绍这一版代码的两个优化：
-1
+后续我们介绍这一版
                         
                     </div>
                     <div class="publish-info">
@@ -1134,8 +1133,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             

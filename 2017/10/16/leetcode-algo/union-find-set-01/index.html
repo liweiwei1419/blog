@@ -452,8 +452,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                专题 11： 并查集
+                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                专题 11：并查集
                             </a>
                         
                     </div>
@@ -503,7 +503,7 @@
 <h3 id="什么是「并」和「查」"><a href="#什么是「并」和「查」" class="headerlink" title="什么是「并」和「查」"></a>什么是「并」和「查」</h3><p>并查集主要提供了以下两个操作，并别就是「并查集」这个名字中的前两个字：</p>
 <p>1、我们先说「并」：并是把两个集合合并成一个集合，表示这两个集合之间产生连接；</p>
 <p>2、再说「查」：查询元素属于哪个集合，但我们更经常用于查询两个元素是不是连接在一起</p>
-<p>这两个操作其实在我们的生活中都能看到影子。我们和人见面，最先问的几句话可能就是“你是哪里人”、“你在哪上班”、“你是做什么工作的”。根据询问到的结果，判断我们是不是适合做同事、做朋友。</p>
+<p>这两个操作其实在我们的生活中都能看到影子。我们和人见面，最先问的几句话可能就是「你是哪里人」、「你在哪上班」、「你是做什么工作的」。根据询问到的结果，判断我们是不是适合做同事、做朋友。</p>
 <p>因此，如果我们在一些场景下，只需要查询两个事物之间是否有联系，「并查集」就是一个不错的选择。例如：查询两个人是不是好友关系（「力扣」第 547 题：「朋友圈」），查询从一个地方到另一个地方是否能走通（「力扣」第 130 题：被包围的区域）。</p>
 <h3 id="「并查集」与「路径问题」"><a href="#「并查集」与「路径问题」" class="headerlink" title="「并查集」与「路径问题」"></a>「并查集」与「路径问题」</h3><p>并查集主要用于解决连通问题，即抽象概念中结点和结点是否连接。</p>
 <p>路径问题，不仅仅要考虑连通问题，我们还要往往还需要求出最短路径，这不是并查集做的事情。因此<strong>并查集问题能做的事情比路径问题少，它更专注于</strong></p>
@@ -515,7 +515,7 @@
 <p>1、 <code>find(p)</code>：查找元素 <code>p</code> 所对应的集合，</p>
 <p>说明：这个函数有些时候仅作为私有函数被下面两个函数调用。</p>
 <p>2、 <code>union(p, q)</code>：合并元素 <code>p</code> 和元素 <code>q</code> 所在的集合。</p>
-<p>3、 <code>connected(p, q)</code>：查询元素 <code>p</code> 和元素 <code>q</code> 是不是在同一个集合中。</p>
+<p>3、 <code>isConnected(p, q)</code>：查询元素 <code>p</code> 和元素 <code>q</code> 是不是在同一个集合中。</p>
 <p>因此，我们要实现的并查集其实就是要实现下面的这个接口：</p>
 <p>Java 代码：</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">IUnionFind</span> <span class="token punctuation">{</span>
@@ -527,7 +527,7 @@
     <span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment" spellcheck="true">// 如果 p 和 q 存在于同一分量中则返回 true</span>
-    <span class="token keyword">boolean</span> <span class="token function">connected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">boolean</span> <span class="token function">isConnected</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment" spellcheck="true">// 在 p 与 q 之间添加一条连接</span>
     <span class="token keyword">void</span> <span class="token function">union</span><span class="token punctuation">(</span><span class="token keyword">int</span> p<span class="token punctuation">,</span> <span class="token keyword">int</span> q<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1041,22 +1041,22 @@
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="「并查集」专题 2：并查集第 1 版（quick-find）">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="「并查集」专题 2：并查集第 1 版（quick-find 实现）">
                         
-                        <span class="card-title">「并查集」专题 2：并查集第 1 版（quick-find）</span>
+                        <span class="card-title">「并查集」专题 2：并查集第 1 版（quick-find 实现）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「并查集」专题 2：并查集第 1 版（quick-find）重点提示基于 id 的思想类似于：给每个元素改名字，名字一样，就表示在同一个集合中。
+                            「并查集」专题 2：并查集第 1 版（quick-find 实现）重点提示基于 id 的思想类似于：给每个元素改名字，名字一样，就表示在同一个集合中。
 
 优点：查询两个元素是否在一个集合中很快。
 
 缺点：把两个集合合并成一个集合较慢。
 
 
-这一版
+
                         
                     </div>
                     <div class="publish-info">
@@ -1067,8 +1067,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A-%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
-                                    专题 11： 并查集
+                            <a href="/categories/%E4%B8%93%E9%A2%98-11%EF%BC%9A%E5%B9%B6%E6%9F%A5%E9%9B%86/" class="post-category">
+                                    专题 11：并查集
                                 </a>
                             
                             
