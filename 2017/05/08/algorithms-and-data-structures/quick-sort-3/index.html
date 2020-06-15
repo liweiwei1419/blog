@@ -444,12 +444,12 @@
                                 <span class="chip bg-color">排序算法</span>
                             </a>
                         
-                            <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
-                                <span class="chip bg-color">递归</span>
-                            </a>
-                        
                             <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
                                 <span class="chip bg-color">分治算法</span>
+                            </a>
+                        
+                            <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                                <span class="chip bg-color">递归</span>
                             </a>
                         
                             <a href="/leetcode-algo/tags/partition/">
@@ -575,6 +575,54 @@
         nums<span class="token punctuation">[</span>index2<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 快速排序</span>
+<span class="token comment" spellcheck="true"># 三路快速排序，在有很多相等元素的情况下，最优</span>
+<span class="token comment" spellcheck="true"># 特别注意，与标定点相等的元素的处理</span>
+
+
+
+<span class="token keyword">class</span> <span class="token class-name">QuickSortThreeWays</span><span class="token punctuation">:</span>
+
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">"三路快排"</span>
+
+    <span class="token keyword">def</span> <span class="token function">__partition</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> arr<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        p <span class="token operator">=</span> arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span>
+        <span class="token comment" spellcheck="true"># 循环不变式</span>
+        <span class="token comment" spellcheck="true"># (left, lt] &lt; pivot</span>
+        <span class="token comment" spellcheck="true"># [lt + 1, i) = pivot</span>
+        <span class="token comment" spellcheck="true"># [gt, right] > pivot</span>
+
+        lt <span class="token operator">=</span> left
+        gt <span class="token operator">=</span> right <span class="token operator">+</span> <span class="token number">1</span>
+        i <span class="token operator">=</span> left <span class="token operator">+</span> <span class="token number">1</span>
+        <span class="token keyword">while</span> i <span class="token operator">&lt;</span> gt<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;</span> p<span class="token punctuation">:</span>
+                lt <span class="token operator">+=</span> <span class="token number">1</span>
+                arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>lt<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>lt<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+                i <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">elif</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> p<span class="token punctuation">:</span>
+                i <span class="token operator">+=</span> <span class="token number">1</span>
+            <span class="token keyword">else</span><span class="token punctuation">:</span>
+                gt <span class="token operator">-=</span> <span class="token number">1</span>
+                arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>gt<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>gt<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+        arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>lt<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>lt<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>left<span class="token punctuation">]</span>
+        <span class="token keyword">return</span> lt<span class="token punctuation">,</span> gt
+
+    <span class="token keyword">def</span> <span class="token function">__quick_sort</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> arr<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> left <span class="token operator">>=</span> right<span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+        lt<span class="token punctuation">,</span> gt <span class="token operator">=</span> self<span class="token punctuation">.</span>__partition<span class="token punctuation">(</span>arr<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 在有很多重复元素的排序任务中，lt 和 gt 可能会相距很远</span>
+        <span class="token comment" spellcheck="true"># 因此后序递归调用的区间变小</span>
+        <span class="token comment" spellcheck="true"># 递归的深度也大大降低了</span>
+        self<span class="token punctuation">.</span>__quick_sort<span class="token punctuation">(</span>arr<span class="token punctuation">,</span> left<span class="token punctuation">,</span> lt <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>__quick_sort<span class="token punctuation">(</span>arr<span class="token punctuation">,</span> gt<span class="token punctuation">,</span> right<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">sort</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>arr<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>__quick_sort<span class="token punctuation">(</span>arr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N \log N)$，这里 $N$ 是数组的长度；</li>
@@ -651,12 +699,12 @@
                                     <span class="chip bg-color">排序算法</span>
                                 </a>
                             
-                                <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
-                                    <span class="chip bg-color">递归</span>
-                                </a>
-                            
                                 <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
                                     <span class="chip bg-color">分治算法</span>
+                                </a>
+                            
+                                <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                                    <span class="chip bg-color">递归</span>
                                 </a>
                             
                                 <a href="/leetcode-algo/tags/partition/">
@@ -1197,12 +1245,12 @@ public class Solution {
                         <span class="chip bg-color">排序算法</span>
                     </a>
                     
-                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
-                        <span class="chip bg-color">递归</span>
-                    </a>
-                    
                     <a href="/leetcode-algo/tags/%E5%88%86%E6%B2%BB%E7%AE%97%E6%B3%95/">
                         <span class="chip bg-color">分治算法</span>
+                    </a>
+                    
+                    <a href="/leetcode-algo/tags/%E9%80%92%E5%BD%92/">
+                        <span class="chip bg-color">递归</span>
                     </a>
                     
                     <a href="/leetcode-algo/tags/partition/">

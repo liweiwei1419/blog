@@ -536,6 +536,32 @@
         System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> sorting<span class="token punctuation">.</span>sorting_util <span class="token keyword">import</span> SortingUtil
+<span class="token keyword">from</span> sorting<span class="token punctuation">.</span>examples <span class="token keyword">import</span> GenerateRandomArrayStrategy
+
+
+<span class="token keyword">class</span> <span class="token class-name">SelectionSort</span><span class="token punctuation">:</span>
+
+    <span class="token comment" spellcheck="true"># 选择排序：每一轮选择最小的元素排在前面</span>
+
+    <span class="token keyword">def</span> <span class="token function">__str__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">"选择排序"</span>
+
+    @SortingUtil<span class="token punctuation">.</span>cal_time
+    <span class="token keyword">def</span> <span class="token function">sort</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        size <span class="token operator">=</span> len<span class="token punctuation">(</span>arr<span class="token punctuation">)</span>
+        <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>size <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            min_index <span class="token operator">=</span> i
+            <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token keyword">if</span> arr<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&lt;</span> arr<span class="token punctuation">[</span>min_index<span class="token punctuation">]</span><span class="token punctuation">:</span>
+                    min_index <span class="token operator">=</span> j
+            arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>min_index<span class="token punctuation">]</span> <span class="token operator">=</span> arr<span class="token punctuation">[</span>min_index<span class="token punctuation">]</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    SortingUtil<span class="token punctuation">.</span>test_sorting_algorithm<span class="token punctuation">(</span>SelectionSort<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> GenerateRandomArrayStrategy<span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    SortingUtil<span class="token punctuation">.</span>test_sorting_algorithm<span class="token punctuation">(</span>SelectionSort<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> GenerateRandomArrayStrategy<span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><strong>复杂度分析</strong>：</p>
 <ul>
 <li>时间复杂度：$O(N^2)$，这里 $N$ 是数组的长度；</li>

@@ -517,8 +517,535 @@ wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quo
 输出: []
 
 解释: endWord &quot;cog&quot; 不在字典中，所以不存在符合要求的转换序列。</code></pre></blockquote>
+<h4 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h4><p>这道题是一道常见的考题，没有特别难理解的技巧，完全可以由已有的知识迁移过来。<strong>主要考察的是编码和耐心调试的能力</strong>。以下代码量较多，仅供参考，建议读者理解清楚解题思想以后，自行编码、调试完成。</p>
+<p>思路分析：</p>
+<ul>
+<li>单词列表、起点、终点构成<strong>无向图</strong>，容易想到使用<strong>广度优先遍历</strong>找到最短路径：图中广度优先遍历要使用到；<ul>
+<li>队列；</li>
+<li>标记是否访问过的「布尔数组」或者「哈希表」<code>visited</code>，这里 key 是字符串，故使用哈希表；</li>
+</ul>
+</li>
+</ul>
+<p>说明：本题可以在 <code>wordList</code> （添加到哈希表以后）上做减法，不过标准的、更可靠的做法是，另外使用一个 <code>visited</code> 哈希表，将访问以后的单词添加到 <code>visited</code> 哈希表中，下面给出的参考代码都采用这种不节约空间的做法。</p>
+<ul>
+<li>重点：由于要记录<strong>所有的</strong>路径，广度优先遍历「当前层」到「下一层」的所有路径都得记录下来。因此找到下一层的结点 <code>wordA</code> 以后，<strong>不能马上添加到 <code>visited</code> 哈希表里，还需要检查当前队列中未出队的单词是否还能与 <code>wordA</code> 建立联系</strong>；</li>
+<li>广度优先遍历位于同一层的单词，即使有联系，也是不可以被记录下来的，这是因为<strong>同一层的连接肯定不是起点到终点的最短路径的边</strong>；</li>
+<li>使用 BFS 的同时记录遍历的路径，形式：哈希表。哈希表的 key 记录了「顶点字符串」，哈希表的值 value 记录了 key 对应的字符串在广度优先遍历的过程中得到的所有后继结点列表 <code>successors</code>；</li>
+<li>最后根据 <code>successors</code>，使用<strong>回溯算法</strong>（全程使用一份路径变量搜索所有可能结果的深度优先遍历算法）得到所有的最短路径。</li>
+</ul>
+<hr>
+<h4 id="方法一：广度优先遍历"><a href="#方法一：广度优先遍历" class="headerlink" title="方法一：广度优先遍历"></a>方法一：广度优先遍历</h4><ul>
+<li><p>如果开始就构建图，结果可能会超时，这里采用的方法是：先把 <code>wordList</code> 存入哈希表，然后是一边遍历，一边找邻居，进而构建图，这是解决这个问题的特点；</p>
+</li>
+<li><p>每一层使用一个新的 <code>nextLevelVisited</code> 哈希表，记录当前层的下一层可以访问到哪些结点。<strong>直到上一层队列里的值都出队以后， <code>nextLevelVisited</code> 哈希表才添加到总的 <code>visited</code> 哈希表，这样记录当前结点和广度优先遍历到的子结点列表才不会遗漏</strong>。</p>
+</li>
+</ul>
+<p><img src="https://pic.leetcode-cn.com/da957ec0ab9fe9eda166acab86ba9fca8b6b0f6b04bda3e35677a46fb53d7d17-image.png" alt="image.png"></p>
+<p>为此，设计算法流程如下：</p>
+<ul>
+<li>第 1 步：使用广度优先遍历找到终点单词，并且记录下沿途经过的所有结点，以邻接表形式存储；</li>
+<li>第 2 步：通过邻接表，使用回溯算法得到所有从起点单词到终点单词的路径。</li>
+</ul>
+<p><strong>参考代码 1</strong>：</p>
 <p>Java 代码：</p>
-<pre class="line-numbers language-java"><code class="language-java"><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayDeque<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Collections<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Deque<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashMap<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashSet<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>LinkedList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Queue<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
+
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> <span class="token function">findLadders</span><span class="token punctuation">(</span>String beginWord<span class="token punctuation">,</span> String endWord<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> wordList<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 先将 wordList 放到哈希表里，便于判断某个单词是否在 wordList 里</span>
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> wordSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>wordList<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>wordSet<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> <span class="token operator">!</span>wordSet<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>endWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 第 1 步：使用广度优先遍历得到后继结点列表 successors</span>
+        <span class="token comment" spellcheck="true">// key：字符串，value：广度优先遍历过程中 key 的后继结点列表</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Set<span class="token operator">&lt;</span>String<span class="token operator">>></span> successors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> found <span class="token operator">=</span> <span class="token function">bfs</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> wordSet<span class="token punctuation">,</span> successors<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>found<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 第 2 步：基于后继结点列表 successors ，使用回溯算法得到所有最短路径列表</span>
+        Deque<span class="token operator">&lt;</span>String<span class="token operator">></span> path <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayDeque</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        path<span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">dfs</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> path<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">bfs</span><span class="token punctuation">(</span>String beginWord<span class="token punctuation">,</span> String endWord<span class="token punctuation">,</span> Set<span class="token operator">&lt;</span>String<span class="token operator">></span> wordSet<span class="token punctuation">,</span>
+                        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Set<span class="token operator">&lt;</span>String<span class="token operator">>></span> successors<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Queue<span class="token operator">&lt;</span>String<span class="token operator">></span> queue <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LinkedList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        queue<span class="token punctuation">.</span><span class="token function">offer</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 记录访问过的单词</span>
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> visited <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        visited<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">boolean</span> found <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> wordLen <span class="token operator">=</span> beginWord<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 当前层访问过的结点，当前层全部遍历完成以后，再添加到总的 visited 集合里</span>
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> nextLevelVisited <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>queue<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">int</span> currentSize <span class="token operator">=</span> queue<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> currentSize<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                String currentWord <span class="token operator">=</span> queue<span class="token punctuation">.</span><span class="token function">poll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArray <span class="token operator">=</span> currentWord<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> wordLen<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">char</span> originChar <span class="token operator">=</span> charArray<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">char</span> k <span class="token operator">=</span> <span class="token string">'a'</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> <span class="token string">'z'</span><span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>charArray<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                        charArray<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> k<span class="token punctuation">;</span>
+                        String nextWord <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>charArray<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>wordSet<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>visited<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                                <span class="token keyword">if</span> <span class="token punctuation">(</span>nextWord<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>endWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                                    found <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                                <span class="token punctuation">}</span>
+                                nextLevelVisited<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                queue<span class="token punctuation">.</span><span class="token function">offer</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                                <span class="token comment" spellcheck="true">// 维护 successors 的定义</span>
+                                successors<span class="token punctuation">.</span><span class="token function">computeIfAbsent</span><span class="token punctuation">(</span>currentWord<span class="token punctuation">,</span> a <span class="token operator">-</span><span class="token operator">></span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                successors<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>currentWord<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span>
+                    charArray<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> originChar<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>found<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            visited<span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>nextLevelVisited<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            nextLevelVisited<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> found<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span>String beginWord<span class="token punctuation">,</span> String endWord<span class="token punctuation">,</span>
+                     Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Set<span class="token operator">&lt;</span>String<span class="token operator">>></span> successors<span class="token punctuation">,</span>
+                     Deque<span class="token operator">&lt;</span>String<span class="token operator">></span> path<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>beginWord<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>endWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>successors<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> successorWords <span class="token operator">=</span> successors<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String nextWord <span class="token operator">:</span> successorWords<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            path<span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">dfs</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> path<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            path<span class="token punctuation">.</span><span class="token function">removeLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> words <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"rex"</span><span class="token punctuation">,</span> <span class="token string">"ted"</span><span class="token punctuation">,</span> <span class="token string">"tex"</span><span class="token punctuation">,</span> <span class="token string">"tad"</span><span class="token punctuation">,</span> <span class="token string">"tax"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> wordList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Collections<span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>wordList<span class="token punctuation">,</span> words<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String beginWord <span class="token operator">=</span> <span class="token string">"red"</span><span class="token punctuation">;</span>
+        String endWord <span class="token operator">=</span> <span class="token string">"tax"</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> res <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">findLadders</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> wordList<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> List
+<span class="token keyword">from</span> collections <span class="token keyword">import</span> deque
+<span class="token keyword">import</span> string
+
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">findLadders</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> beginWord<span class="token punctuation">:</span> str<span class="token punctuation">,</span> endWord<span class="token punctuation">:</span> str<span class="token punctuation">,</span> wordList<span class="token punctuation">:</span> List<span class="token punctuation">[</span>str<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span>str<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 先将 wordList 放到哈希表里，便于判断某个单词是否在 wordList 里</span>
+        word_set <span class="token operator">=</span> set<span class="token punctuation">(</span>wordList<span class="token punctuation">)</span>
+        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> len<span class="token punctuation">(</span>word_set<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> endWord <span class="token operator">not</span> <span class="token keyword">in</span> word_set<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> res
+
+        successors <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 第 1 步：使用广度优先遍历得到后继结点列表 successors</span>
+        <span class="token comment" spellcheck="true"># key：字符串，value：广度优先遍历过程中 key 的后继结点列表</span>
+        found <span class="token operator">=</span> self<span class="token punctuation">.</span>__bfs<span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> word_set<span class="token punctuation">,</span> successors<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token operator">not</span> found<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> res
+        <span class="token comment" spellcheck="true"># 第 2 步：基于后继结点列表 successors ，使用回溯算法得到所有最短路径列表</span>
+        path <span class="token operator">=</span> <span class="token punctuation">[</span>beginWord<span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>__dfs<span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> path<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> res
+
+    <span class="token keyword">def</span> <span class="token function">__bfs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> word_set<span class="token punctuation">,</span> successors<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        queue <span class="token operator">=</span> deque<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        queue<span class="token punctuation">.</span>append<span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span>
+
+        visited <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span>
+
+        found <span class="token operator">=</span> <span class="token boolean">False</span>
+        word_len <span class="token operator">=</span> len<span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span>
+        next_level_visited <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">while</span> queue<span class="token punctuation">:</span>
+            current_size <span class="token operator">=</span> len<span class="token punctuation">(</span>queue<span class="token punctuation">)</span>
+            <span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span>current_size<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                current_word <span class="token operator">=</span> queue<span class="token punctuation">.</span>popleft<span class="token punctuation">(</span><span class="token punctuation">)</span>
+                word_list <span class="token operator">=</span> list<span class="token punctuation">(</span>current_word<span class="token punctuation">)</span>
+
+                <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>word_len<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    origin_char <span class="token operator">=</span> word_list<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+
+                    <span class="token keyword">for</span> k <span class="token keyword">in</span> string<span class="token punctuation">.</span>ascii_lowercase<span class="token punctuation">:</span>
+                        word_list<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> k
+                        next_word <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>word_list<span class="token punctuation">)</span>
+
+                        <span class="token keyword">if</span> next_word <span class="token keyword">in</span> word_set<span class="token punctuation">:</span>
+                            <span class="token keyword">if</span> next_word <span class="token operator">not</span> <span class="token keyword">in</span> visited<span class="token punctuation">:</span>
+                                <span class="token keyword">if</span> next_word <span class="token operator">==</span> endWord<span class="token punctuation">:</span>
+                                    found <span class="token operator">=</span> <span class="token boolean">True</span>
+                                next_level_visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>next_word<span class="token punctuation">)</span>
+                                queue<span class="token punctuation">.</span>append<span class="token punctuation">(</span>next_word<span class="token punctuation">)</span>
+
+                                successors<span class="token punctuation">[</span>current_word<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>next_word<span class="token punctuation">)</span>
+                    word_list<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> origin_char
+            <span class="token keyword">if</span> found<span class="token punctuation">:</span>
+                <span class="token keyword">break</span>
+            <span class="token comment" spellcheck="true"># 取两集合全部的元素（并集，等价于将 next_level_visited 里的所有元素添加到 visited 里）</span>
+            visited <span class="token operator">|</span><span class="token operator">=</span> next_level_visited
+            next_level_visited<span class="token punctuation">.</span>clear<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> found
+
+    <span class="token keyword">def</span> <span class="token function">__dfs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> path<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> beginWord <span class="token operator">==</span> endWord<span class="token punctuation">:</span>
+            res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>path<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span>
+
+        <span class="token keyword">if</span> beginWord <span class="token operator">not</span> <span class="token keyword">in</span> successors<span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+
+        successor_words <span class="token operator">=</span> successors<span class="token punctuation">[</span>beginWord<span class="token punctuation">]</span>
+        <span class="token keyword">for</span> next_word <span class="token keyword">in</span> successor_words<span class="token punctuation">:</span>
+            path<span class="token punctuation">.</span>append<span class="token punctuation">(</span>next_word<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>__dfs<span class="token punctuation">(</span>next_word<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> path<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+            path<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    beginWord <span class="token operator">=</span> <span class="token string">"hit"</span>
+    endWord <span class="token operator">=</span> <span class="token string">"cog"</span>
+    wordList <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"hot"</span><span class="token punctuation">,</span> <span class="token string">"dot"</span><span class="token punctuation">,</span> <span class="token string">"dog"</span><span class="token punctuation">,</span> <span class="token string">"lot"</span><span class="token punctuation">,</span> <span class="token string">"log"</span><span class="token punctuation">,</span> <span class="token string">"cog"</span><span class="token punctuation">]</span>
+
+    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    res <span class="token operator">=</span> solution<span class="token punctuation">.</span>findLadders<span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> wordList<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：（如有错误还请朋友们请指正）</p>
+<ul>
+<li>时间复杂度：$O(N \times 26 \times wordLen + N 2^N)$<ul>
+<li>广度优先遍历：最差情况下每个结点遍历一次，时间复杂度为 $O(N)$，这里 $N$ 是单词列表的单词总数；</li>
+<li>建图：一开始将所有单词放进哈希表 $O(N)$，每一个单词查找邻居 $O(26 \times wordLen)$，<code>wordLen</code> 表示单词的长度，一般而言不会很大，比起 $N$ 会小很多，甚至可以视为常数；</li>
+<li>回溯算法：指数级别 $O(2^N)$，记录每一个结果 $O(N)$，这里认为最坏情况下，最短路径为单词列表的单词总数。</li>
+</ul>
+</li>
+<li>空间复杂度：$O(ways \times N \times wordLen)$，这里 ways 表示最短路径的方案数。</li>
+</ul>
+<p>说明：</p>
+<pre class="line-numbers language-java"><code class="language-java">successors<span class="token punctuation">.</span><span class="token function">computeIfAbsent</span><span class="token punctuation">(</span>currentWord<span class="token punctuation">,</span> a <span class="token operator">-</span><span class="token operator">></span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+successors<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>currentWord<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>以上代码从 Java 1.8 以后支持，等价的代码片段是：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 维护 successors 的定义</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>successors<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>currentWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    successors<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>currentWord<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    Set<span class="token operator">&lt;</span>String<span class="token operator">></span> newSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    newSet<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    successors<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>currentWord<span class="token punctuation">,</span> newSet<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<hr>
+<h4 id="方法二：双向广度优先遍历"><a href="#方法二：双向广度优先遍历" class="headerlink" title="方法二：双向广度优先遍历"></a>方法二：双向广度优先遍历</h4><ul>
+<li>由于我们这个问题知道目标值，因此可以让起点和终点「同时」做 BFS，直到它们又交集，两边一起扩散形成的路径也是最短路径；</li>
+<li>双向 BFS 有点像山洞挖隧道，两边一起挖，直到打通为止。双向 BFS 搜索到的集合更小，相当于做了一些剪枝操作，因此会更快一些。</li>
+</ul>
+<p><img src="https://pic.leetcode-cn.com/cd190a4a61445ac9affc344f941da381d64a163b81c7594f342d45793c5bfd06-image.png" alt="image.png"></p>
+<p>编码说明：</p>
+<ul>
+<li>参考代码 2 与参考代码 1 仅仅把「广度优先遍历」方法的实现改成了「双向广度优先遍历」，回溯的代码是一样的；</li>
+<li><code>beginVisited</code> 和 <code>endVisited</code> 交替使用，实现类似队列（符合顺序性，先进先出）的效果；</li>
+<li>注意：不一定非要严格按照「一左一右」的顺序交替向中间扩散，<strong>每次都从较小的集合扩散，统计意义上搜索的范围更小</strong>；</li>
+<li>理解下面设计 <code>forward</code> 变量的作用，虽然是双向扩散，但是记录「后继结点列表」的时候方向固定。</li>
+</ul>
+<p><strong>参考代码 2</strong>：</p>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayDeque<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ArrayList<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Deque<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashMap<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashSet<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> <span class="token function">findLadders</span><span class="token punctuation">(</span>String beginWord<span class="token punctuation">,</span> String endWord<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> wordList<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 先将 wordList 放到哈希表里，便于判断某个单词是否在 wordList 里</span>
+        List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> res <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> wordSet <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>wordList<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>wordSet<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> <span class="token operator">!</span>wordSet<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>endWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 第 1 步：使用双向广度优先遍历得到后继结点列表 successors</span>
+        <span class="token comment" spellcheck="true">// key：字符串，value：广度优先遍历过程中 key 的后继结点列表</span>
+        Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Set<span class="token operator">&lt;</span>String<span class="token operator">>></span> successors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> found <span class="token operator">=</span> <span class="token function">bidirectionalBfs</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> wordSet<span class="token punctuation">,</span> successors<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>found<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 第 2 步：基于后继结点列表 successors ，使用回溯算法得到所有最短路径列表</span>
+        Deque<span class="token operator">&lt;</span>String<span class="token operator">></span> path <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayDeque</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        path<span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">dfs</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> path<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">bidirectionalBfs</span><span class="token punctuation">(</span>String beginWord<span class="token punctuation">,</span>
+                                     String endWord<span class="token punctuation">,</span>
+                                     Set<span class="token operator">&lt;</span>String<span class="token operator">></span> wordSet<span class="token punctuation">,</span>
+                                     Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Set<span class="token operator">&lt;</span>String<span class="token operator">>></span> successors<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 记录访问过的单词</span>
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> visited <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        visited<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        visited<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>endWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> beginVisited <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        beginVisited<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> endVisited <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        endVisited<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>endWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span> wordLen <span class="token operator">=</span> beginWord<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> forward <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> found <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 在保证了 beginVisited 总是较小（可以等于）大小的集合前提下，&amp;&amp; !endVisited.isEmpty() 可以省略</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>beginVisited<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>endVisited<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 一直保证 beginVisited 是相对较小的集合，方便后续编码</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>beginVisited<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> endVisited<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                Set<span class="token operator">&lt;</span>String<span class="token operator">></span> temp <span class="token operator">=</span> beginVisited<span class="token punctuation">;</span>
+                beginVisited <span class="token operator">=</span> endVisited<span class="token punctuation">;</span>
+                endVisited <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+
+                <span class="token comment" spellcheck="true">// 只要交换，就更改方向，以便维护 successors 的定义</span>
+                forward <span class="token operator">=</span> <span class="token operator">!</span>forward<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            Set<span class="token operator">&lt;</span>String<span class="token operator">></span> nextLevelVisited <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 默认 beginVisited 是小集合，因此从 beginVisited 出发</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span>String currentWord <span class="token operator">:</span> beginVisited<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArray <span class="token operator">=</span> currentWord<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> wordLen<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">char</span> originChar <span class="token operator">=</span> charArray<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">char</span> j <span class="token operator">=</span> <span class="token string">'a'</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> <span class="token string">'z'</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>charArray<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> j<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                        charArray<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> j<span class="token punctuation">;</span>
+                        String nextWord <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>charArray<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>wordSet<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span>endVisited<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                                found <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                                <span class="token comment" spellcheck="true">// 在另一侧找到单词以后，还需把这一层关系添加到「后继结点列表」</span>
+                                <span class="token function">addToSuccessors</span><span class="token punctuation">(</span>successors<span class="token punctuation">,</span> forward<span class="token punctuation">,</span> currentWord<span class="token punctuation">,</span> nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">}</span>
+
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>visited<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                                nextLevelVisited<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                                <span class="token function">addToSuccessors</span><span class="token punctuation">(</span>successors<span class="token punctuation">,</span> forward<span class="token punctuation">,</span> currentWord<span class="token punctuation">,</span> nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span>
+                    charArray<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> originChar<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            beginVisited <span class="token operator">=</span> nextLevelVisited<span class="token punctuation">;</span>
+            visited<span class="token punctuation">.</span><span class="token function">addAll</span><span class="token punctuation">(</span>nextLevelVisited<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>found<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> found<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span>String beginWord<span class="token punctuation">,</span>
+                     String endWord<span class="token punctuation">,</span>
+                     Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Set<span class="token operator">&lt;</span>String<span class="token operator">>></span> successors<span class="token punctuation">,</span>
+                     Deque<span class="token operator">&lt;</span>String<span class="token operator">></span> path<span class="token punctuation">,</span>
+                     List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>beginWord<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>endWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            res<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>successors<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> successorWords <span class="token operator">=</span> successors<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String successor <span class="token operator">:</span> successorWords<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            path<span class="token punctuation">.</span><span class="token function">addLast</span><span class="token punctuation">(</span>successor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">dfs</span><span class="token punctuation">(</span>successor<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> path<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            path<span class="token punctuation">.</span><span class="token function">removeLast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">addToSuccessors</span><span class="token punctuation">(</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Set<span class="token operator">&lt;</span>String<span class="token operator">>></span> successors<span class="token punctuation">,</span> <span class="token keyword">boolean</span> forward<span class="token punctuation">,</span>
+                                 String currentWord<span class="token punctuation">,</span> String nextWord<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>forward<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            String temp <span class="token operator">=</span> currentWord<span class="token punctuation">;</span>
+            currentWord <span class="token operator">=</span> nextWord<span class="token punctuation">;</span>
+            nextWord <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// Java 1.8 以后支持</span>
+        successors<span class="token punctuation">.</span><span class="token function">computeIfAbsent</span><span class="token punctuation">(</span>currentWord<span class="token punctuation">,</span> a <span class="token operator">-</span><span class="token operator">></span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        successors<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>currentWord<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>nextWord<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>String<span class="token operator">></span> wordList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        wordList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"hot"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        wordList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"dot"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        wordList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"dog"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        wordList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"lot"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        wordList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"log"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        wordList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"cog"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+        Solution solution <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String beginWord <span class="token operator">=</span> <span class="token string">"hit"</span><span class="token punctuation">;</span>
+        String endWord <span class="token operator">=</span> <span class="token string">"cog"</span><span class="token punctuation">;</span>
+        List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>String<span class="token operator">>></span> res <span class="token operator">=</span> solution<span class="token punctuation">.</span><span class="token function">findLadders</span><span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> wordList<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Python 代码：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> collections <span class="token keyword">import</span> defaultdict
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> List
+<span class="token keyword">from</span> collections <span class="token keyword">import</span> deque
+<span class="token keyword">import</span> string
+
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">findLadders</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> beginWord<span class="token punctuation">:</span> str<span class="token punctuation">,</span> endWord<span class="token punctuation">:</span> str<span class="token punctuation">,</span> wordList<span class="token punctuation">:</span> List<span class="token punctuation">[</span>str<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span>List<span class="token punctuation">[</span>str<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token comment" spellcheck="true"># 先将 wordList 放到哈希表里，便于判断某个单词是否在 wordList 里</span>
+        word_set <span class="token operator">=</span> set<span class="token punctuation">(</span>wordList<span class="token punctuation">)</span>
+        res <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token keyword">if</span> len<span class="token punctuation">(</span>word_set<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">or</span> endWord <span class="token operator">not</span> <span class="token keyword">in</span> word_set<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> res
+
+        successors <span class="token operator">=</span> defaultdict<span class="token punctuation">(</span>set<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true"># 第 1 步：使用广度优先遍历得到后继结点列表 successors</span>
+        <span class="token comment" spellcheck="true"># key：字符串，value：广度优先遍历过程中 key 的后继结点列表</span>
+        found <span class="token operator">=</span> self<span class="token punctuation">.</span>__bidirectional_bfs<span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> word_set<span class="token punctuation">,</span> successors<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token operator">not</span> found<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> res
+        <span class="token comment" spellcheck="true"># 第 2 步：基于后继结点列表 successors ，使用回溯算法得到所有最短路径列表</span>
+        path <span class="token operator">=</span> <span class="token punctuation">[</span>beginWord<span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>__dfs<span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> path<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> res
+
+    <span class="token keyword">def</span> <span class="token function">__bidirectional_bfs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> word_set<span class="token punctuation">,</span> successors<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        visited <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span>
+        visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>endWord<span class="token punctuation">)</span>
+
+        begin_visited <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        begin_visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span>
+
+        end_visited <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        end_visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>endWord<span class="token punctuation">)</span>
+
+        found <span class="token operator">=</span> <span class="token boolean">False</span>
+        forward <span class="token operator">=</span> <span class="token boolean">True</span>
+        word_len <span class="token operator">=</span> len<span class="token punctuation">(</span>beginWord<span class="token punctuation">)</span>
+        <span class="token keyword">while</span> begin_visited<span class="token punctuation">:</span>
+            <span class="token keyword">if</span> len<span class="token punctuation">(</span>begin_visited<span class="token punctuation">)</span> <span class="token operator">></span> len<span class="token punctuation">(</span>end_visited<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                begin_visited<span class="token punctuation">,</span> end_visited <span class="token operator">=</span> end_visited<span class="token punctuation">,</span> begin_visited
+                forward <span class="token operator">=</span> <span class="token operator">not</span> forward
+
+            next_level_visited <span class="token operator">=</span> set<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">for</span> current_word <span class="token keyword">in</span> begin_visited<span class="token punctuation">:</span>
+                word_list <span class="token operator">=</span> list<span class="token punctuation">(</span>current_word<span class="token punctuation">)</span>
+                <span class="token keyword">for</span> j <span class="token keyword">in</span> range<span class="token punctuation">(</span>word_len<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                    origin_char <span class="token operator">=</span> word_list<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                    <span class="token keyword">for</span> k <span class="token keyword">in</span> string<span class="token punctuation">.</span>ascii_lowercase<span class="token punctuation">:</span>
+                        word_list<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> k
+                        next_word <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>word_list<span class="token punctuation">)</span>
+                        <span class="token keyword">if</span> next_word <span class="token keyword">in</span> word_set<span class="token punctuation">:</span>
+                            <span class="token keyword">if</span> next_word <span class="token keyword">in</span> end_visited<span class="token punctuation">:</span>
+                                found <span class="token operator">=</span> <span class="token boolean">True</span>
+                                <span class="token comment" spellcheck="true"># 在另一侧找到单词以后，还需把这一层关系添加到「后继结点列表」</span>
+                                self<span class="token punctuation">.</span>__add_to_successors<span class="token punctuation">(</span>successors<span class="token punctuation">,</span> forward<span class="token punctuation">,</span> current_word<span class="token punctuation">,</span> next_word<span class="token punctuation">)</span>
+                            <span class="token keyword">if</span> next_word <span class="token operator">not</span> <span class="token keyword">in</span> visited<span class="token punctuation">:</span>
+                                next_level_visited<span class="token punctuation">.</span>add<span class="token punctuation">(</span>next_word<span class="token punctuation">)</span>
+                                self<span class="token punctuation">.</span>__add_to_successors<span class="token punctuation">(</span>successors<span class="token punctuation">,</span> forward<span class="token punctuation">,</span> current_word<span class="token punctuation">,</span> next_word<span class="token punctuation">)</span>
+                    word_list<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> origin_char
+            begin_visited <span class="token operator">=</span> next_level_visited
+            <span class="token comment" spellcheck="true"># 取两集合全部的元素（并集，等价于将 next_level_visited 里的所有元素添加到 visited 里）</span>
+            visited <span class="token operator">|</span><span class="token operator">=</span> next_level_visited
+            <span class="token keyword">if</span> found<span class="token punctuation">:</span>
+                <span class="token keyword">break</span>
+        <span class="token keyword">return</span> found
+
+    <span class="token keyword">def</span> <span class="token function">__add_to_successors</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> forward<span class="token punctuation">,</span> current_word<span class="token punctuation">,</span> next_word<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> forward<span class="token punctuation">:</span>
+            successors<span class="token punctuation">[</span>current_word<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>next_word<span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            successors<span class="token punctuation">[</span>next_word<span class="token punctuation">]</span><span class="token punctuation">.</span>add<span class="token punctuation">(</span>current_word<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__dfs</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> path<span class="token punctuation">,</span> res<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> beginWord <span class="token operator">==</span> endWord<span class="token punctuation">:</span>
+            res<span class="token punctuation">.</span>append<span class="token punctuation">(</span>path<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span>
+
+        <span class="token keyword">if</span> beginWord <span class="token operator">not</span> <span class="token keyword">in</span> successors<span class="token punctuation">:</span>
+            <span class="token keyword">return</span>
+
+        successor_words <span class="token operator">=</span> successors<span class="token punctuation">[</span>beginWord<span class="token punctuation">]</span>
+        <span class="token keyword">for</span> next_word <span class="token keyword">in</span> successor_words<span class="token punctuation">:</span>
+            path<span class="token punctuation">.</span>append<span class="token punctuation">(</span>next_word<span class="token punctuation">)</span>
+            self<span class="token punctuation">.</span>__dfs<span class="token punctuation">(</span>next_word<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> successors<span class="token punctuation">,</span> path<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+            path<span class="token punctuation">.</span>pop<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    beginWord <span class="token operator">=</span> <span class="token string">"hit"</span>
+    endWord <span class="token operator">=</span> <span class="token string">"cog"</span>
+    wordList <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"hot"</span><span class="token punctuation">,</span> <span class="token string">"dot"</span><span class="token punctuation">,</span> <span class="token string">"dog"</span><span class="token punctuation">,</span> <span class="token string">"lot"</span><span class="token punctuation">,</span> <span class="token string">"log"</span><span class="token punctuation">,</span> <span class="token string">"cog"</span><span class="token punctuation">]</span>
+
+    solution <span class="token operator">=</span> Solution<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    res <span class="token operator">=</span> solution<span class="token punctuation">.</span>findLadders<span class="token punctuation">(</span>beginWord<span class="token punctuation">,</span> endWord<span class="token punctuation">,</span> wordList<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
