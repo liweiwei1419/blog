@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="「力扣」第 71 题：简化路径, 算法与数据结构入门教程">
+    <meta name="keywords" content="「力扣」第 71 题：简化路径（中等）, 算法与数据结构入门教程">
     <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>「力扣」第 71 题：简化路径 | 算法与数据结构入门教程</title>
+    <title>「力扣」第 71 题：简化路径（中等） | 算法与数据结构入门教程</title>
     <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
@@ -29,9 +29,9 @@
 
     <script src="/leetcode-algo/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/leetcode-algo/atom.xml" title="算法与数据结构入门教程" type="application/atom+xml">
-<link rel="stylesheet" href="/leetcode-algo/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/leetcode-algo/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/leetcode-algo/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-line-numbers.css" type="text/css"><link rel="alternate" href="/leetcode-algo/atom.xml" title="算法与数据结构入门教程" type="application/atom+xml">
+</head>
 
 
 <body>
@@ -310,12 +310,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">「力扣」第 71 题：简化路径</h1>
+                    <h1 class="description center-align post-title">「力扣」第 71 题：简化路径（中等）</h1>
                 </div>
             </div>
         </div>
@@ -481,7 +481,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="「力扣」第-71-题：简化路径"><a href="#「力扣」第-71-题：简化路径" class="headerlink" title="「力扣」第 71 题：简化路径"></a>「力扣」第 71 题：简化路径</h2><p>传送门：<a href="https://leetcode-cn.com/problems/simplify-path/" target="_blank" rel="noopener">71. 简化路径</a>。</p>
+                <h2 id="「力扣」第-71-题：简化路径（中等）"><a href="#「力扣」第-71-题：简化路径（中等）" class="headerlink" title="「力扣」第 71 题：简化路径（中等）"></a>「力扣」第 71 题：简化路径（中等）</h2><p>传送门：<a href="https://leetcode-cn.com/problems/simplify-path/" target="_blank" rel="noopener">71. 简化路径</a>。</p>
 <blockquote>
 <p> 以 Unix 风格给出一个文件的<strong>绝对路径</strong>，你需要简化它。或者换句话说，将其转换为规范路径。</p>
 <p> 在 Unix 风格的文件系统中，一个点（<code>.</code>）表示当前目录本身；此外，两个点 （<code>..</code>） 表示将目录切换到上一级（指向父目录）；两者都可以是复杂相对路径的组成部分。更多信息请参阅：<a href="https://blog.csdn.net/u011327334/article/details/50355600" target="_blank" rel="noopener">Linux / Unix中的绝对路径 vs 相对路径</a></p>
@@ -503,6 +503,108 @@
 <pre><code> 输入：&quot;/a//b////c/d//././/..&quot;
  输出：&quot;/a/b/c&quot;</code></pre></blockquote>
 <p>参考了如下的文章：<a href="http://blog.csdn.net/u012249528/article/details/46705867" target="_blank" rel="noopener">http://blog.csdn.net/u012249528/article/details/46705867</a></p>
+<p>这道题给出一个“字符串”，这个字符串中是有一些斜杠的，这些斜杠的含义是目录或者操作的分隔符。</p>
+<ul>
+<li>如果是英文字母，就表示一个目录。</li>
+<li>如果是一个点 <code>.</code> 表示停留在当前目录，如果是两个点 <code>..</code> 表示返回上一级目录。</li>
+</ul>
+<p>那么为什么需要我们简化它呢？原因是有 <code>..</code> 表示返回上一级目录这种操作的存在。</p>
+<p>例如：<code>/a/b/../..</code> 这个表示路径的字符串，表示先进入目录 <code>a</code> 再进入目录 <code>b</code> ，然后遇到两个<code>..</code> 回到它的父目录，也就是回到了目录 <code>a</code> ，然后又遇到两个<code>..</code> 回到它的父目录，也就是回到了根目录 <code>/</code> ，那么这个路径就被简化为一个斜杠 <code>/</code>。题目就是要我们返回这个斜杠。</p>
+<p>另外我们注意到示例 3 ，有两个斜杠连在一起的情况，我们认为此时这两个斜杠中间是一个空字符，它等价于一个点 <code>.</code> ，即什么都不做。</p>
+<p>解决这道问题的思路是：</p>
+<p>1、需要先对字符串根据斜杠 <code>/</code>进行分割，得到一个字符串数组，这个字符串数组的字符串可能有以下几种：<code>.</code>、<code>..</code>、<code>&#39;&#39;</code>、和表示目录的字母； </p>
+<p>2、我们读取目录，一定是从根目录 <code>/</code> 一层一层往下读的，因此<strong>从左到右</strong>遍历分割以后得到的字符串数组；</p>
+<p>3、特别注意到两个点 <code>..</code> 这个字符串的含义，根据我们刚刚举出的例子，它其实是我们主要想要要简化的对象，要回到上一层目录，因此我们就需要知道上一层目录是什么，因此需要一个变量记住上一层目录是什么。从刚刚那个例子我们还可以看出，有时候我们还需要知道上上级目录是什么，因此，记录上级目录、上上级目录的变量就应该是一个列表或者说容器对象。</p>
+<p>这和我们之前说栈和队列都是储存数据的容器是一致的，我们需要把读到的数据暂时存起来，栈和队列就是两种常见的存储数据的容器。</p>
+<p>因为 <code>..</code> 这个字符回退到上一级目录，上一级目录相对于上上级目录是后读出的，后读的数据要先被返回，显然栈就是我们所需要的储存读取目录的容器对象。</p>
+<p>考虑清楚这个问题以后，实际上思路就已经有了。</p>
+<p>4、算法是：从左向右遍历字符串数组，如果遇到字母就直接入栈，如果遇到一个点 <code>.</code> 或者空格的时候，就什么都不做。如果遇到两个点 <code>..</code> ，就将栈顶元素从栈中弹出。</p>
+<p>在这里要特别注意一点，我们看一眼题目中给出的示例 5：<code>&quot;/a/../../b/../c//.//&quot;</code>，先读到目录 <code>a</code>，然后做了两次回退操作，第 1 次回退的时候，就退到了根目录，事实上已经不能再回退了，此时 <code>..</code> 这个操作无效。</p>
+<p>在编码的时候，一定要注意：只有在栈顶元素非空的时候，我们才能进行弹栈的操作。</p>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Stack<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> String <span class="token function">simplifyPath</span><span class="token punctuation">(</span>String path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> dirs <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>dirs<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"/"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        Stack<span class="token operator">&lt;</span>String<span class="token operator">></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String dir <span class="token operator">:</span> dirs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>dir<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">"."</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>dir<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">".."</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>dir<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>dir<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        StringBuilder stringBuilder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            stringBuilder<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            stringBuilder<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            stringBuilder<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> stringBuilder<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>复杂度分析</strong>：</p>
+<ul>
+<li>时间复杂度：$O(N)$，这里 $N$ 是数组的长度，最坏情况下，每个字符串进栈一次，出栈一次，表示操作的字符串还不用进栈出栈，因此时间复杂度是线性的。</li>
+<li>空间复杂度：$O(N)$ ，最坏情况下，这个路径字符串本身就是化简过的，栈中就要存字符串长度这么多的字符串（近似，不包括那些斜杠）。</li>
+</ul>
+<p>![image-20191213103833899](/Users/liwei/Library/Application Support/typora-user-images/image-20191213103833899.png)</p>
+<blockquote>
+<p>1、其实没有想象中那么难，完全可以独立完成，关键是很多情况要考虑到；</p>
+<p>2、但是代码写成这样，这么多 <code>if</code> 也是觉得看着很不舒服；</p>
+<p>3、出栈之前一定要判断一下当前的栈是不是空，否则会抛 <code>java.util.EmptyStackException</code>。</p>
+</blockquote>
+<p>Java 代码：</p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Stack<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> String <span class="token function">simplifyPath</span><span class="token punctuation">(</span>String path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> paths <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"/"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Stack<span class="token operator">&lt;</span>String<span class="token operator">></span> stack <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stack</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String p <span class="token operator">:</span> paths<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token string">".."</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token string">""</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token string">"."</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token string">".."</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                stack<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 输出路径字符串</span>
+        StringBuilder s <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>stack<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"/"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">!</span>stack<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            s<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"/"</span> <span class="token operator">+</span> stack<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// String s = "/a/.////b/../../c/";</span>
+        String s <span class="token operator">=</span> <span class="token string">"/../"</span><span class="token punctuation">;</span>
+        String simplifyPath <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Solution</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">simplifyPath</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>simplifyPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>Java 代码实现：</p>
 <pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
 
@@ -1135,16 +1237,16 @@
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/13.jpg" class="responsive-img" alt="「力扣」第 94 题：二叉树的中序遍历">
+                        <img src="/leetcode-algo/medias/featureimages/14.jpg" class="responsive-img" alt="「力扣」第 94 题：二叉树的中序遍历（中等）">
                         
-                        <span class="card-title">「力扣」第 94 题：二叉树的中序遍历</span>
+                        <span class="card-title">「力扣」第 94 题：二叉树的中序遍历（中等）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 94 题：二叉树的中序遍历题解地址：模拟系统栈完成非递归中序遍历，同理可以完成非递归的前序遍历和后序遍历（Python 代码、Java 代码）。
-说明：文本首发在力扣的题解版块，更新也会在第 1 时间在上面的网站中更新，这篇文章
+                            「力扣」第 94 题：二叉树的中序遍历（中等）题解地址：模拟系统栈完成非递归中序遍历，同理可以完成非递归的前序遍历和后序遍历（Python 代码、Java 代码）。
+说明：文本首发在力扣的题解版块，更新也会在第 1 时间在上面的网站中更新，
                         
                     </div>
                     <div class="publish-info">
@@ -1185,17 +1287,20 @@
                     <div class="card-image">
                         
                         
-                        <img src="/leetcode-algo/medias/featureimages/15.jpg" class="responsive-img" alt="「力扣」第 20 题：有效的括号">
+                        <img src="/leetcode-algo/medias/featureimages/13.jpg" class="responsive-img" alt="「力扣」第 20 题：有效的括号（简单）">
                         
-                        <span class="card-title">「力扣」第 20 题：有效的括号</span>
+                        <span class="card-title">「力扣」第 20 题：有效的括号（简单）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            「力扣」第 20 题：有效的括号 传送门：英文网址：20. Valid Parentheses ，中文网址：20. 有效的括号 。
+                            「力扣」第 20 题：有效的括号（简单）
+中文网址：20. 有效的括号 ；
+英文网址：20. Valid Parentheses ，
 
-给定一个只包括 &#39;(&#39;，&#39;)&#39;，&#39;{&#39;，&#39;}&#3
+
+给定一个只包括 &#39;(&#39;，&#39;)&#39;，&#39;{&#39;，&#39;}&
                         
                     </div>
                     <div class="publish-info">

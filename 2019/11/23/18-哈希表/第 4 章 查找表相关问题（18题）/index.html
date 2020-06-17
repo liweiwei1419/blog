@@ -1,0 +1,1436 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="18-哈希表/第 4 章 查找表相关问题（18题）, 算法与数据结构入门教程">
+    <meta name="description" content="Java、Python3 语言实现，「专题」教程持续更新中...">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>18-哈希表/第 4 章 查找表相关问题（18题） | 算法与数据结构入门教程</title>
+    <link rel="icon" type="image/png" href="/leetcode-algo/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/leetcode-algo/css/my.css">
+
+    <script src="/leetcode-algo/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/leetcode-algo/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/leetcode-algo/css/prism-line-numbers.css" type="text/css"><link rel="alternate" href="/leetcode-algo/atom.xml" title="算法与数据结构入门教程" type="application/atom+xml">
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/leetcode-algo/" class="waves-effect waves-light">
+                    
+                    <img src="/leetcode-algo/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">算法与数据结构入门教程</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/leetcode-algo/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/leetcode-algo/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">算法与数据结构入门教程</div>
+        <div class="logo-desc">
+            
+            Java、Python3 语言实现，「专题」教程持续更新中...
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/leetcode-algo/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/leetcode-algo/medias/featureimages/13.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">18-哈希表/第 4 章 查找表相关问题（18题）</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/leetcode-algo/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    .toc-fixed .toc-link::before{
+        position: fixed!important;/*当toc的位置改为fixed时，.toc-link::before也要改为fixed*/
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-11-23
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="第-4-章-查找表相关问题（18题）"><a href="#第-4-章-查找表相关问题（18题）" class="headerlink" title="第 4 章 查找表相关问题（18题）"></a>第 4 章 查找表相关问题（18题）</h1><p>[toc]  </p>
+<p>查找，是使用计算机处理问题时的一个最基本的任务，因此也是面试中非常常见的一类问题。很多算法问题的本质，就是要能够高效查找。学会使用系统库中的 Map 和 Set ，就已经成功了一半。</p>
+<h2 id="4-1-查找问题简介（1题）"><a href="#4-1-查找问题简介（1题）" class="headerlink" title="4-1 查找问题简介（1题）"></a>4-1 查找问题简介（1题）</h2><p>![image-20191123210759016](/Users/liwei/Library/Application Support/typora-user-images/image-20191123210759016.png)</p>
+<h3 id="例题1：LeetCode-第-349-题"><a href="#例题1：LeetCode-第-349-题" class="headerlink" title="例题1：LeetCode 第 349 题"></a>例题1：LeetCode 第 349 题</h3><p>题目要求：给定两个数组，写一个函数来计算它们的交集。例子：给定 num1= [1, 2, 2, 1], nums2 = [2, 2], 返回 [2]。提示：每个在结果中的元素必定是唯一的。我们可以不考虑输出结果的顺序。</p>
+<p>题目难度：<strong>简单</strong>。</p>
+<p>中文网址：<a href="https://leetcode-cn.com/problems/intersection-of-two-arrays/description/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/intersection-of-two-arrays/description/</a></p>
+<p>英文网址：</p>
+<p>求解思路：</p>
+<p>思路1（未实现）：</p>
+<p>思路关键：根据题意，我们很自然想到，逐个将数组 2 中的元素放到数组 1 中看看有没有，我们可以遍历查找，而二分查找是一个更好的选择。</p>
+<p>思路的具体描述：因为使用二分查找算法要求数据是排好序的，因此首先对数组 1 排序，然后将数组 2 中的每个的元素依次到数组 1 中进行二分查找，如果查找到，就添加了结果集中。根据题目要求：“每个在结果中的元素必定是唯一的”，因此应该使用 Set 保存结果。</p>
+<p>思路2（未实现）：</p>
+<p>思路关键：不妨两个数组都排序：</p>
+<p>数组1：1,2,3,4,5</p>
+<p>数组2：1,1,1,2,3</p>
+<p>规则如下：依次把数组 2 中的元素拿出来，跟数组 1 最开头的那个元素进行比较，如果不相同，直接丢弃，如果相同，把这个数加入到结果集中，用 Set 保存，并且数组 1 中开头的这个元素也要拿掉。我这里说的拿掉的意思是，遍历的时候，两个数组的索引都 +1。</p>
+<p>思路3（推荐）：</p>
+<p>思路关键：其实是我们更容易想到的算法，Set 不仅可以将结果去重，还可以帮我们进行查找。</p>
+<p>思路的具体描述：首先将数组 1 全部放入 Set 中（因为题目要求每个在结果中的元素必定是唯一的，才可以这么做，例如 LeetCode 第 350 题就不能这么做了）。然后逐个将数组 2 中的元素检查在数组 1 中是否存在，使用 Set 的 contains 方法，如果存在就添加到最后的结果集中。</p>
+<p>我的解答：<a href="https://gist.github.com/liweiwei1419/54f91cf8cce3d63c6c2e9bd0a18aee58" target="_blank" rel="noopener">https://gist.github.com/liweiwei1419/54f91cf8cce3d63c6c2e9bd0a18aee58</a></p>
+<p>参考资料：</p>
+<p>思考总结：</p>
+<p>1、Set 是我们常用的数据结构，我们应该熟悉关于 Set 的常见的操作，以及关于 Set 的实现类的底层实现原理，例如 Java 语言中的 TreeSet 是红黑树实现（高级的平衡二分搜索树），HashSet 是散列表实现，熟悉理解了这些数据结构可以帮助我们高效解决问题。</p>
+<h2 id="4-2-map-的使用-Intersection-of-Two-Arrays-II（1题）"><a href="#4-2-map-的使用-Intersection-of-Two-Arrays-II（1题）" class="headerlink" title="4-2 map 的使用 Intersection of Two Arrays II（1题）"></a>4-2 map 的使用 Intersection of Two Arrays II（1题）</h2><h3 id="（完成）例题1：LeetCode-第-LeetCode-第-350-题。"><a href="#（完成）例题1：LeetCode-第-LeetCode-第-350-题。" class="headerlink" title="（完成）例题1：LeetCode 第 LeetCode 第 350 题。"></a>（完成）例题1：LeetCode 第 LeetCode 第 350 题。</h3><p>题目要求：给定两个数组，写一个方法来计算它们的交集。例如：给定 nums1 = [1, 2, 2, 1], nums2 = [2, 2], 返回 [2, 2]。注意：<strong>输出结果中每个元素出现的次数，应与元素在两个数组中出现的次数一致</strong>。我们可以不考虑输出结果的顺序。</p>
+<p>![image-20191123210912376](/Users/liwei/Library/Application Support/typora-user-images/image-20191123210912376.png)</p>
+<p>跟进：<br>（1）如果给定的数组已经排好序呢？你将如何优化你的算法？<br>（2）如果 nums1 的大小比 nums2 小很多，哪种方法更优？<br>（3）如果nums2的元素存储在磁盘上，内存是有限的，你不能一次加载所有的元素到内存中，你该怎么办？<br>题目难度：简单。<br>中文网址：<a href="https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/description/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/description/</a><br>英文网址：<br>求解思路：<br>思路1：对两个数组进行排序，遇到一样的元素，就添加到最后的结果集，应该使用 List 来保存。</p>
+<p>可以使用题目给出的例子作为测试用例。</p>
+<p>![image-20191123210946593](/Users/liwei/Library/Application Support/typora-user-images/image-20191123210946593.png)</p>
+<p>思路2：使用 HashMap 就可以实现计算重复次数。<br>我的解答：<a href="https://gist.github.com/liweiwei1419/74ee4bc1d1443425ff6cc17df271a700" target="_blank" rel="noopener">https://gist.github.com/liweiwei1419/74ee4bc1d1443425ff6cc17df271a700</a><br>元素的出现的次数，就是我们须要关注的问题。这里提供一种 STL 为我们提供的容器的特性。</p>
+<p>![image-20191123211038613](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211038613.png)</p>
+<p>首先说明，上面的解法是正确的，但是我们要特别声明一下。在 C++ 中 map 是有默认值的：</p>
+<p>![image-20191123211111563](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211111563.png)</p>
+<p>如果我们想真正删除 C++ 中的 map，我们应该调用 map 的 erase 方法。</p>
+<p>C++ 中的映射是有默认值的，并且在我们第 1 次访问 map 中的数据的时候，如果这个数据不存在，C++ 会帮我们插入到 map 中。这是 C++ 语言的特殊性。</p>
+<p> 下面我们摒弃 C++ 这种语言中关于 map 的特殊性，来做一种解法：</p>
+<p>![image-20191123211131379](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211131379.png)</p>
+<p>（1）第4-1节的问题</p>
+<p>![image-20191123211213961](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211213961.png)</p>
+<p>（2）第4-2节的问题</p>
+<p>![image-20191123211231535](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211231535.png)</p>
+<p>![image-20191123211242121](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211242121.png)</p>
+<p>扩展：</p>
+<p>![image-20191123211308235](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211308235.png)</p>
+<p>数组的有序和查找问题通常是非常密切的，想到二分查找的思想。下一小节的时间性能如何？</p>
+<h2 id="4-3-Set-和-Map-不同底层实现的区别（5题）"><a href="#4-3-Set-和-Map-不同底层实现的区别（5题）" class="headerlink" title="4-3 Set 和 Map 不同底层实现的区别（5题）"></a>4-3 Set 和 Map 不同底层实现的区别（5题）</h2><p>![image-20191123211405812](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211405812.png)</p>
+<p>![image-20191123211419782](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211419782.png)</p>
+<p>![image-20191123211431398](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211431398.png)</p>
+<p>![image-20191123211446726](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211446726.png)</p>
+<p>二分搜索树可以做什么？</p>
+<p>![image-20191123211509046](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211509046.png)</p>
+<p>下面的改动虽然我们的改动非常小，但是在底层，我们使用了完全不同的数据结构，这样对时间复杂度有了很好的改进。</p>
+<p>![image-20191123211607452](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211607452.png)</p>
+<p>![image-20191123211626935](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211626935.png)</p>
+<h3 id="（完成）练习1：LeetCode-第-242-题-Valid-Anagram"><a href="#（完成）练习1：LeetCode-第-242-题-Valid-Anagram" class="headerlink" title="（完成）练习1：LeetCode 第 242 题 Valid Anagram"></a>（完成）练习1：LeetCode 第 242 题 Valid Anagram</h3><p>要求：给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的一个字母异位词。</p>
+<p>示例 1：输入: s = “anagram”, t = “nagaram”，输出: true。</p>
+<p>示例 2：输入: s = “rat”, t = “car”，输出: false。</p>
+<p>![image-20191123211827724](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211827724.png)</p>
+<p>说明：你可以假设字符串只包含小写字母。</p>
+<p>进阶：如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？</p>
+<p>题目难度：<strong>简单</strong>。</p>
+<p>中文网址：<a href="https://leetcode-cn.com/problems/valid-anagram/description/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/valid-anagram/description/</a></p>
+<p>英文网址：</p>
+<p>求解关键：字母异位词的意思就是，字母还是这些字母，它们出现的次数也不变，唯一变化的是出现的次序。</p>
+<p>思路1：</p>
+<p>![image-20191123211852165](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211852165.png)</p>
+<p>思路2：使用两个字符数组，代表 26 个字母，每个数位存储每个字母出现的次数。</p>
+<p>![image-20191123211905734](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211905734.png)</p>
+<p>看看用一个字符数组是不是也可以完成。</p>
+<p>![image-20191123211923730](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211923730.png)</p>
+<p>思路3：和思路 2 是一样的，只不过是使用 HashMap 完成包含各个字母数量的统计。</p>
+<p>我的解答：<a href="https://gist.github.com/liweiwei1419/38506cfb10a64dadce4a50290ccfe915" target="_blank" rel="noopener">https://gist.github.com/liweiwei1419/38506cfb10a64dadce4a50290ccfe915</a></p>
+<p>思路4：Python 的写法，看一看就可以了。</p>
+<p>![image-20191123211944645](/Users/liwei/Library/Application Support/typora-user-images/image-20191123211944645.png)</p>
+<p>思路5：<strong>用</strong> <strong>hash</strong> <strong>的方法，不是很理解</strong>。</p>
+<p>![image-20191123212005742](/Users/liwei/Library/Application Support/typora-user-images/image-20191123212005742.png)</p>
+<h3 id="（未完成）练习2：LeetCode-第-202-题：Happy-Number"><a href="#（未完成）练习2：LeetCode-第-202-题：Happy-Number" class="headerlink" title="（未完成）练习2：LeetCode 第 202 题：Happy Number"></a>（未完成）练习2：LeetCode 第 202 题：Happy Number</h3><p>题目要求：Happy Number。编写一个算法来判断一个数是不是“快乐数”。一个“快乐数”定义为：对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和，然后重复这个过程直到这个数变为 1，也可能是无限循环但始终变不到 1。如果可以变为 1，那么这个数就是快乐数。</p>
+<p>题目难度：<strong>简单</strong>。</p>
+<p>中文网址：<a href="https://leetcode-cn.com/problems/valid-anagram/description/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/valid-anagram/description/</a></p>
+<p>英文网址：</p>
+<p>求解思路：将一个数到“它每个数位上的数的平方和”视为一个变换，则这个变换可以一直进行下去，直到变化的结果是 1 ，那么这个数就是“快乐数”。此时要注意了，如果在这个连续变换的过程中，中途变换的数字出现重复，则这个重复会循环出现，因此这个数就不是“快乐数”。那么检测这个变换中途的数字是否重复就可以使用 Set。</p>
+<p>思考总结：很常规的一个问题，要多练习，特别要知道怎么样一步一步得到一个整数的每个数位上的数值。</p>
+<h3 id="（再做一遍）练习3：LeetCode-第-290-题-Word-Pattern"><a href="#（再做一遍）练习3：LeetCode-第-290-题-Word-Pattern" class="headerlink" title="（再做一遍）练习3：LeetCode 第 290 题 Word Pattern"></a>（再做一遍）练习3：LeetCode 第 290 题 Word Pattern</h3><p>题目要求：单词模式。给定一种 pattern(模式) 和一个字符串 str ，判断 str 是否遵循这种模式。这里的“遵循”指完全匹配，例如在pattern里的每个字母和字符串 str 中的每个非空单词存在<strong>双向单映射</strong>关系。例如：</p>
+<p>pattern = “abba”, str = “dog cat cat dog”, 返回true.</p>
+<p>pattern = “abba”, str = “dog cat cat fish”, 返回false.</p>
+<p>pattern = “aaaa”, str = “dog cat cat dog” , 返回false.</p>
+<p>pattern = “abba”, str = “dog dog dog dog” , 返回false.</p>
+<p>说明：你可以假设 pattern  str </p>
+<p>![image-20191123212052935](/Users/liwei/Library/Application Support/typora-user-images/image-20191123212052935.png)</p>
+<p>![image-20191123212115166](/Users/liwei/Library/Application Support/typora-user-images/image-20191123212115166.png)</p>
+<p>题目难度：<strong>简单</strong>。</p>
+<p>中文网址：<a href="https://leetcode-cn.com/problems/word-pattern/description/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/word-pattern/description/</a></p>
+<p>英文网址：</p>
+<p>求解关键：题目要求的“双向单映射”即<strong>要求不同的字母不能映射到相同的单词</strong>，例如最后一个例子，就不符合要求。即已经出现过的单词，就不能再添加到字典中了，因此我们还需要一个集合来判断添加到字典中的单词是否重复。</p>
+<h3 id="练习4：LeetCode-第-205-题-Isomorphic-Strings"><a href="#练习4：LeetCode-第-205-题-Isomorphic-Strings" class="headerlink" title="练习4：LeetCode 第 205 题 Isomorphic Strings"></a>练习4：LeetCode 第 205 题 Isomorphic Strings</h3><p>题目要求：同构字符串。给定两个字符串 s 和 t，判断它们是否是同构的。如果 s 中的字符可以被替换得到 t ，那么这两个字符串是同构的。所有出现的字符都必须用另一个字符替换，同时保留字符的顺序。两个字符不能映射到同一个字符上，但字符可以映射自己本身。</p>
+<p>题目难度：<strong>简单</strong>。</p>
+<p>中文网址：<a href="https://leetcode-cn.com/problems/isomorphic-strings/description/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/isomorphic-strings/description/</a></p>
+<p>英文网址：</p>
+<p>求解关键：</p>
+<p>我的解答：<a href="https://gist.github.com/liweiwei1419/83bdc86fbc76f77c8db32b05711e57a8" target="_blank" rel="noopener">https://gist.github.com/liweiwei1419/83bdc86fbc76f77c8db32b05711e57a8</a></p>
+<p>![image-20191123212244632](/Users/liwei/Library/Application Support/typora-user-images/image-20191123212244632.png)</p>
+<h3 id="（没有做完）练习5：LeetCode-第-451-题-Sort-Characters-By-Frequency"><a href="#（没有做完）练习5：LeetCode-第-451-题-Sort-Characters-By-Frequency" class="headerlink" title="（没有做完）练习5：LeetCode 第 451 题 Sort Characters By Frequency"></a>（没有做完）练习5：LeetCode 第 451 题 Sort Characters By Frequency</h3><p>题目要求：根据字符出现频率排序。给定一个字符串，请将字符串里的字符按照出现的频率降序排列。</p>
+<p>题目难度：中等。</p>
+<p>中文网址：<a href="https://leetcode-cn.com/problems/sort-characters-by-frequency/description/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/sort-characters-by-frequency/description/</a></p>
+<p>英文网址：</p>
+<p>求解思路：这道题其实我们很容易能够想到做一次计数，即 counter 操作。但是在最后输出的时候，要按照出现的频率降序排列，这也难不倒我们，Java 中的 TreeSet 就是这样的数据结构，抽象地说，利用二分搜索树的顺序性，可以帮助我们完成对放入“集合”（这里是抽象的集合，不是针对这道问题的集合）中的元素的排序工作。</p>
+<p>3 种排序思路：</p>
+<p>（1）使用字符串排序，指定排序规则；</p>
+<p>（2）使用 TreeSet（也要指定排序规则）；</p>
+<p>（3）使用优先队列（最大堆，同样要指定排序规则）。</p>
+<p>使用排序，给出排序规则。或者优先队列。</p>
+<p>![image-20191123212336678](/Users/liwei/Library/Application Support/typora-user-images/image-20191123212336678.png)</p>
+<p>![image-20191123212347190](/Users/liwei/Library/Application Support/typora-user-images/image-20191123212347190.png)</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" rel="external nofollow noreferrer">liweiwei1419</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/2019/11/23/18-哈希表/第 4 章 查找表相关问题（18题）/">https://liweiwei1419.gitee.io/leetcode-algo/2019/11/23/18-哈希表/第 4 章 查找表相关问题（18题）/</a>
+                    <!-- GitHub 用配置
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2019/11/23/18-%E5%93%88%E5%B8%8C%E8%A1%A8/%E7%AC%AC%204%20%E7%AB%A0%20%E6%9F%A5%E6%89%BE%E8%A1%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%EF%BC%8818%E9%A2%98%EF%BC%89/">https://liweiwei1419.gitee.io/leetcode-algo/leetcode-algo/2019/11/23/18-%E5%93%88%E5%B8%8C%E8%A1%A8/%E7%AC%AC%204%20%E7%AB%A0%20%E6%9F%A5%E6%89%BE%E8%A1%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%EF%BC%8818%E9%A2%98%EF%BC%89/</a>
+                    -->
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明：
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/leetcode-algo/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/leetcode-algo/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/leetcode-algo/medias/reward/alipayimg.png" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/leetcode-algo/medias/reward/wechatpayimg.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("/leetcode-algo/medias/comment_bg.png") 100% 100% no-repeat;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #4cbf30;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="vcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="/leetcode-algo/libs/valine/av-min.js"></script>
+<script src="/leetcode-algo/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 't85BdPqKV8IDpevPmRGUSquP-gzGzoHsz',
+        appKey: 'AIarytPiYajpQ31kGdAMfVQ8',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go'
+    });
+</script>
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/leetcode-algo/2019/11/23/18-%E5%93%88%E5%B8%8C%E8%A1%A8/%E7%AC%AC%204%20%E7%AB%A0%E7%AC%AC%204%20%E8%8A%82%E3%80%8A%E4%BD%BF%E7%94%A8%E6%9F%A5%E6%89%BE%E8%A1%A8%E7%9A%84%E7%BB%8F%E5%85%B8%E9%97%AE%E9%A2%98%20Two%20Sum%E3%80%8B%EF%BC%884%E9%A2%98%EF%BC%89/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/7.jpg" class="responsive-img" alt="18-哈希表/第 4 章第 4 节《使用查找表的经典问题 Two Sum》（4题）">
+                        
+                        <span class="card-title">18-哈希表/第 4 章第 4 节《使用查找表的经典问题 Two Sum》（4题）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            4-4 使用查找表的经典问题 Two Sum（4题）[TOC]
+例题1：LeetCode 第 1 题题目要求：两数之和。给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2019-11-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            liweiwei1419
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/leetcode-algo/2019/11/23/09-queue/0630-course-schedule-iii/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/leetcode-algo/medias/featureimages/3.jpg" class="responsive-img" alt="09-queue/0630-course-schedule-iii">
+                        
+                        <span class="card-title">09-queue/0630-course-schedule-iii</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            「力扣」第 630 题：课程表 III
+链接：https://leetcode-cn.com/problems/course-schedule-iii
+
+
+这里有 n 门不同的在线课程，他们按从 1 到 n 编号。每一门课程有一定的持续上课
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            liweiwei1419
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/leetcode-algo/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/leetcode-algo/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2019</span>
+            <a href="https://liweiwei1419.gitee.io/leetcode-algo" target="_blank">liweiwei1419</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/liweiwei1419" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:liweiwei1419@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=121088825" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 121088825" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+    <a href="https://weibo.com/u/2194939432" class="tooltipped" target="_blank" data-tooltip="关注我的微博: https://weibo.com/u/2194939432" data-position="top" data-delay="50">
+        <i class="fab fa-weibo"></i>
+    </a>
+
+
+
+
+
+    <a href="/leetcode-algo/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/leetcode-algo/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/leetcode-algo/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/leetcode-algo/libs/materialize/materialize.min.js"></script>
+    <script src="/leetcode-algo/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/leetcode-algo/libs/aos/aos.js"></script>
+    <script src="/leetcode-algo/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/leetcode-algo/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/leetcode-algo/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/leetcode-algo/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/leetcode-algo/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/leetcode-algo/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
